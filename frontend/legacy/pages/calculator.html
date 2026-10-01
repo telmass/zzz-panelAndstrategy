@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绝区零代理人面板计算器</title>
+  <link rel="stylesheet" href="../styles/calculator.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>绝区零代理人面板计算器</h1>
+
+    <div class="layout">
+      <div class="left">
+
+        <!-- 基础面板 -->
+        <div class="module base">
+          <div class="module-title">一、基础面板 <span class="tag">角色本体</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">填写角色纯基础面板（不含核心）。若游戏内显示已含核心基础值，请先减去再填。</p>
+          <div class="agent-selector-grid" style="margin-bottom:8px;">
+            <div class="field">
+              <label for="agent_role">代理人标签</label>
+              <select id="agent_role" onchange="updateAgentRole()">
+                <option value="">请选择</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="agent_preset">代理人名称</label>
+              <select id="agent_preset" onchange="applyAgentPreset(this.value)" disabled>
+                <option value="">请先选择标签</option>
+              </select>
+            </div>
+          </div>
+          <p id="agent_preset_note" class="note" style="margin-top:0;margin-bottom:10px;">
+            选择预设会填入基础面板和核心加成；音擎与驱动盘配装默认留空，固定的1/2/3号盘主词条除外。
+          </p>
+          <div class="base-grid">
+            <div class="field"><label>生命值</label><input type="number" id="base_hp" value="8000" step="any"></div>
+            <div class="field"><label>攻击力</label><input type="number" id="base_atk" value="1000" step="any"></div>
+            <div class="field"><label>防御力</label><input type="number" id="base_def" value="600" step="any"></div>
+            <div class="field"><label>冲击力 <span class="unit"></span></label><input type="number" id="base_impact"
+                value="90" step="any"></div>
+            <div class="field"><label>暴击率 <span class="unit">%</span></label><input type="number" id="base_cr" value="5"
+                step="any"></div>
+            <div class="field"><label>暴击伤害 <span class="unit">%</span></label><input type="number" id="base_cd"
+                value="50" step="any"></div>
+            <div class="field"><label>异常掌控 <span class="unit"></span></label><input type="number" id="base_ac" value="100"
+                step="any"></div>
+            <div class="field"><label>异常精通</label><input type="number" id="base_am" value="100" step="any"></div>
+            <div class="field" id="base_pr_field"><label>穿透率 <span class="unit">%</span></label><input type="number" id="base_pr" value="0"
+                step="any"></div>
+            <div class="field" id="base_er_field"><label>能量自动回复</label><input type="number" id="base_er" value="1.2" step="any"></div>
+          </div>
+          <div id="agent_extra_stats" class="base-grid" hidden style="margin-top:10px;">
+            <div class="field"><label>角色基础贯穿力</label><input type="number" id="base_penforce" value="0" step="any"></div>
+            <div class="field"><label>闪能自动累积</label><input type="number" id="base_energy_accumulation" value="0" step="any"></div>
+          </div>
+        </div>
+
+        <!-- 音擎 -->
+        <div class="module weapon">
+          <div class="module-title">二、音擎 <span class="tag">选择音擎以自动载入固定属性</span></div>
+          <div class="weapon-grid">
+            <div class="field"><label for="weapon_grade">等级</label>
+              <select id="weapon_grade" onchange="updateWeaponGrade()">
+                <option value="">请选择</option>
+              </select>
+            </div>
+            <div class="field"><label for="weapon_role">类别</label>
+              <select id="weapon_role" onchange="updateWeaponRole()" disabled>
+                <option value="">请选择</option>
+              </select>
+            </div>
+            <div class="field"><label for="weapon_preset">音擎名称</label>
+              <select id="weapon_preset" onchange="updateWeaponSelection()" disabled>
+                <option value="">请选择</option>
+              </select>
+            </div>
+            <div class="field"><label id="weapon_base_label">基础攻击力</label><input type="number" id="weapon_base_value" value="0" readonly></div>
+            <div class="field"><label>固定副词条属性</label><input type="text" id="weapon_sub_type" value="—" readonly></div>
+            <div class="field"><label>固定副词条数值</label><input type="number" id="weapon_sub_val" value="0" readonly></div>
+          </div>
+        </div>
+
+        <!-- 核心 -->
+        <div class="module core">
+          <div class="module-title">三、核心加成 <span class="tag">9选2 · 可重复选</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">从8项中选2项，可重复（如两次暴击率=28.8%）。<br>核心互斥：同一属性不会同时给基础值与百分比。</p>
+          <div class="grid2">
+            <div class="field"><label>核心选择 ①</label><select id="core1" onchange="calc()"></select></div>
+            <div class="field"><label>核心选择 ②</label><select id="core2" onchange="calc()"></select></div>
+          </div>
+          <div id="core_summary" class="note"></div>
+        </div>
+
+        <!-- 驱动盘主词条 -->
+        <div class="module disc">
+          <div class="module-title">四、驱动盘主词条 <span class="tag">1~3固定 · 4/5/6可选</span></div>
+          <div class="disc-main-grid" style="margin-bottom:10px;">
+            <div class="fixed-stat">1号 固定生命 <span class="v">+2200</span></div>
+            <div class="fixed-stat">2号 固定攻击 <span class="v">+316</span></div>
+            <div class="fixed-stat">3号 固定防御 <span class="v">+184</span></div>
+          </div>
+          <div class="disc-main-grid">
+            <div class="field"><label>&nbsp;&nbsp;&nbsp;&nbsp;4号 <span class="unit">6选1</span></label><select id="disc4"
+                onchange="calc()"></select></div>
+            <div class="field"><label>&nbsp;&nbsp;&nbsp;&nbsp;5号 <span class="unit">5选1</span></label><select id="disc5"
+                onchange="calc()"></select></div>
+            <div class="field"><label>&nbsp;&nbsp;&nbsp;&nbsp;6号 <span class="unit">6选1</span></label><select id="disc6"
+                onchange="calc()"></select></div>
+          </div>
+        </div>
+
+        <!-- 驱动盘副词条 -->
+        <div class="module sub">
+          <div class="module-title">五、驱动盘副词条 <span class="tag">每盘9条 · 6盘共54条</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">填写6盘合计副词条条数（每盘4初始+5强化=9条）。单条数值见标签，自动按条数折算。</p>
+          <div class="grid4" id="sub_grid"></div>
+          <div class="note">副词条总数：<span id="sub_total">0</span> / 54 <span
+              class="helper">（单项最多36条；主副不重复：若该属性是某盘主词条，则该属性副词条不计）</span></div>
+        </div>
+
+        <!-- 二件套 -->
+        <div class="module set">
+          <div class="module-title">六、二件套效果 <span class="tag">0~3组</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">2+2+2=3组 · 4+2=2组 · 2+散件=1组 · 全散件=0组。每组选一种属性。</p>
+          <div id="sets_container" class="set-grid"></div>
+        </div>
+
+      </div>
+
+      <!-- 结果区 -->
+      <div class="result">
+        <div class="result-module">
+          <h2>最终面板</h2>
+          <div class="r-row main"><span class="r-label">生命值</span>
+            <div class="r-cell"><span class="r-value" id="r_hp">—</span><span class="breakdown" id="b_hp"></span></div>
+          </div>
+          <div class="r-row main"><span class="r-label">攻击力</span>
+            <div class="r-cell"><span class="r-value" id="r_atk">—</span><span class="breakdown" id="b_atk"></span>
+            </div>
+          </div>
+          <div class="r-row main" id="rupture_result" hidden><span class="r-label">贯穿力</span>
+            <div class="r-cell"><span class="r-value" id="r_penforce">—</span><span class="breakdown" id="b_penforce"></span></div>
+          </div>
+          <div class="r-row main" id="fengyu_result" hidden><span class="r-label">实际暴击率</span>
+            <div class="r-cell"><span class="r-value" id="r_actual_cr">—</span><span class="breakdown" id="b_actual_cr"></span></div>
+          </div>
+          <div class="r-row main"><span class="r-label">防御力</span>
+            <div class="r-cell"><span class="r-value" id="r_def">—</span><span class="breakdown" id="b_def"></span>
+            </div>
+          </div>
+          <div class="r-row"><span class="r-label">暴击率</span>
+            <div class="r-cell"><span class="r-value" id="r_cr">—</span><span class="breakdown" id="b_cr"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">暴击伤害</span>
+            <div class="r-cell"><span class="r-value" id="r_cd">—</span><span class="breakdown" id="b_cd"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">增伤</span>
+            <div class="r-cell"><span class="r-value" id="r_dmg">—</span><span class="breakdown" id="b_dmg"></span>
+            </div>
+          </div>
+          <div class="r-row"><span class="r-label">穿透率</span>
+            <div class="r-cell"><span class="r-value" id="r_pr">—</span><span class="breakdown" id="b_pr"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">穿透值</span>
+            <div class="r-cell"><span class="r-value" id="r_pv">—</span><span class="breakdown" id="b_pv"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">异常精通</span>
+            <div class="r-cell"><span class="r-value" id="r_am">—</span><span class="breakdown" id="b_am"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">异常掌控</span>
+            <div class="r-cell"><span class="r-value" id="r_ac">—</span><span class="breakdown" id="b_ac"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">冲击力</span>
+            <div class="r-cell"><span class="r-value" id="r_imp">—</span><span class="breakdown" id="b_imp"></span>
+            </div>
+          </div>
+          <div class="r-row"><span class="r-label">能量回复</span>
+            <div class="r-cell"><span class="r-value" id="r_er">—</span><span class="breakdown" id="b_er"></span></div>
+          </div>
+    </div>
+  </div>
+
+  <script src="../data/agent-presets.js"></script>
+  <script src="../data/weapon-presets.js"></script>
+  <script src="../scripts/calculator-config.js"></script>
+  <script src="../scripts/calculator.js"></script>
+</body>
+
+</html>

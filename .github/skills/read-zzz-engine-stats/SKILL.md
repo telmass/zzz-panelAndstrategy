@@ -131,11 +131,13 @@ is small and dense instead: existing pages stop around id 2200, so scanning `1..
 
 Run the packaged script from the repository root:
 
+Run from the repository root; the default `--out` path is repo-root relative.
+
 ```
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
 ```
 
-It scans, filters weapon pages, extracts the values, and rewrites `data/weapon-presets.js`.
+It scans, filters weapon pages, extracts the values, and rewrites `frontend/legacy/data/weapon-presets.js`.
 As of 2026-10-01 it produces 100 presets: 47 S, 37 A, 16 B, of which 4 are 锋御. Reruns are
 idempotent, so re-running must leave the file byte-identical; compare hashes to prove nothing
 drifted.
@@ -160,7 +162,7 @@ Parsing rules the script encodes, each of which broke an earlier hand-written re
   cross-check regex must accept both.
 - The 职业 tag comes from `[强攻]角色` style markers in the 音擎效果 text.
 
-Substat label to calculator key mapping used in `data/weapon-presets.js`:
+Substat label to calculator key mapping used in `frontend/legacy/data/weapon-presets.js`:
 
 | Wiki label | `substat.to` | `kind` |
 |---|---|---|

@@ -1,4 +1,4 @@
-"""Refresh data/agent-presets.js from the official HoYoLAB ZZZ Wiki.
+"""Refresh frontend/legacy/data/agent-presets.js from the official HoYoLAB ZZZ Wiki.
 
 Scans the whole entry_page_id space through the public content API, keeps every
 page carrying a `role_base_info` component (only agent pages have one), and
@@ -8,6 +8,8 @@ writes one preset per agent with:
     满级数据 rows of the 晋升需求 slider;
   * fully upgraded core skill, grouped per attribute from ranks A-F;
   * the official 特性 tag and the matching calculator panel mode.
+
+Default paths are relative to the repository root; run from there:
 
 Usage:
     python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
@@ -314,8 +316,8 @@ def render(presets):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-id", type=int, default=2600)
-    parser.add_argument("--config", default="js/calculator-config.js")
-    parser.add_argument("--out", default="data/agent-presets.js")
+    parser.add_argument("--config", default="frontend/legacy/scripts/calculator-config.js")
+    parser.add_argument("--out", default="frontend/legacy/data/agent-presets.js")
     args = parser.parse_args()
 
     core_options = load_core_options(args.config)

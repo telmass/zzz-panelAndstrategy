@@ -1,105 +1,35 @@
+"""面板计算核心。
+
+本模块来自原仓库根目录 ``main.py``。硬约束：不 import fastapi/pydantic、
+不读文件、不打印。输入 :class:`~zzz_panel.core.models.PanelInputs`，
+输出面板数值字典。
+"""
+
 from __future__ import annotations
 
-import sys
-from dataclasses import dataclass, field
 from typing import Dict, Iterable
 
-sys.stdout.reconfigure(encoding="utf-8")
+from .models import PanelInputs
+
+_PCT_WEAPON_SUB_TYPES = frozenset({
+    "hp_pct", "atk_pct", "def_pct", "impact_pct",
+    "cr", "cd", "anomaly_ctrl_pct", "anomaly_mastery", "energy_pct",
+    "dmg_bonus", "pen_rate", "pen_val",
+})
+
+_FLAT_WEAPON_SUB_TYPES = frozenset({
+    "hp_flat", "atk_flat", "def_flat", "anomaly_mastery", "pen_val",
+})
 
 
 def _sum_values(values: Iterable[float]) -> float:
     return sum(float(v) for v in values)
 
 
-@dataclass
-class PanelInputs:
-    """面板计算输入。
-
-    参考《面板计算方式学习指南》中的规则：
-    - 攻防血：基础值 × (1 + 百分比) + 固定值
-    - 冲击力 / 异常掌控 / 能量回复：基础值 × (1 + 百分比)
-    - 暴击率 / 暴击伤害 / 增伤 / 穿透率 / 异常精通 / 穿透值：纯加法
-    """
-
-    base_hp: float = 8000.0
-    base_atk: float = 1000.0
-    base_def: float = 600.0
-    base_cr: float = 20.0
-    base_cd: float = 50.0
-    base_pr: float = 0.0
-    base_impact: float = 0.0
-    base_anomaly_ctrl: float = 0.0
-    base_energy_regen: float = 1.2
-    base_anomaly_mastery: float = 0.0
-    base_pen_value: float = 0.0
-
-    weapon_base_atk: float = 0.0
-    weapon_base_def: float = 0.0
-    weapon_sub_type: str = "cd"
-    weapon_sub_value: float = 0.0
-
-    core_hp_pct: float = 0.0
-    core_atk_pct: float = 0.0
-    core_def_pct: float = 0.0
-    core_impact_pct: float = 0.0
-    core_anomaly_ctrl_pct: float = 0.0
-    core_energy_pct: float = 0.0
-    core_anomaly_mastery: float = 0.0
-    core_pen_val: float = 0.0
-
-    set_hp_pct: float = 0.0
-    set_atk_pct: float = 0.0
-    set_def_pct: float = 0.0
-    set_cr: float = 0.0
-    set_cd: float = 0.0
-    set_dmg: float = 0.0
-    set_pr: float = 0.0
-    set_impact_pct: float = 0.0
-    set_anomaly_ctrl_pct: float = 0.0
-    set_energy_pct: float = 0.0
-    set_anomaly_mastery: float = 0.0
-
-    disc_main: Dict[str, float] = field(default_factory=lambda: {
-        "hp_flat": 0.0,
-        "atk_flat": 0.0,
-        "def_flat": 0.0,
-        "hp_pct": 0.0,
-        "atk_pct": 0.0,
-        "def_pct": 0.0,
-        "cr": 0.0,
-        "cd": 0.0,
-        "impact_pct": 0.0,
-        "anomaly_ctrl_pct": 0.0,
-        "energy_pct": 0.0,
-        "dmg_bonus": 0.0,
-        "pen_rate": 0.0,
-        "anomaly_mastery": 0.0,
-        "pen_val": 0.0,
-    })
-
-    sub_hp_flat: float = 0.0
-    sub_hp_pct: float = 0.0
-    sub_atk_flat: float = 0.0
-    sub_atk_pct: float = 0.0
-    sub_def_flat: float = 0.0
-    sub_def_pct: float = 0.0
-    sub_cr: float = 0.0
-    sub_cd: float = 0.0
-    sub_dmg: float = 0.0
-    sub_pr: float = 0.0
-    sub_impact_pct: float = 0.0
-    sub_anomaly_ctrl_pct: float = 0.0
-    sub_energy_pct: float = 0.0
-    sub_anomaly_mastery: float = 0.0
-    sub_pen_val: float = 0.0
-
-
 def _resolve_weapon_bonus(inputs: PanelInputs) -> Dict[str, float]:
     weapon_type = inputs.weapon_sub_type
-    if weapon_type in {"hp_flat", "hp_pct", "atk_flat", "atk_pct", "def_flat", "def_pct", "impact_pct",
-                       "cr", "cd", "anomaly_ctrl_pct", "anomaly_mastery", "energy_pct",
-                       "dmg_bonus", "pen_rate", "pen_val"}:
-        if weapon_type in {"hp_flat", "atk_flat", "def_flat", "anomaly_mastery", "pen_val"}:
+    if weapon_type in _PCT_WEAPON_SUB_TYPES:
+        if weapon_type in _FLAT_WEAPON_SUB_TYPES:
             return {"flat": inputs.weapon_sub_value, "pct": 0.0}
         return {"flat": 0.0, "pct": inputs.weapon_sub_value}
     return {"flat": 0.0, "pct": 0.0}
@@ -234,66 +164,3 @@ def calculate_panel(inputs: PanelInputs) -> Dict[str, float]:
         "anomaly_mastery": total_anomaly_mastery,
         "pen_value": total_pen_value,
     }
-
-
-def _fmt(value: float, as_percent: bool = False) -> str:
-    if as_percent:
-        return f"{value:.2f}%"
-    if abs(value - round(value)) < 1e-9:
-        return str(int(round(value)))
-    return f"{value:.2f}"
-
-
-EXAMPLE = PanelInputs(
-    base_hp=7673.0,
-    base_atk=888.0,
-    base_def=612.0,
-    base_cr=19.4,
-    base_cd=50.0,
-    base_pr=0.0,
-    base_impact=93.0,
-    base_anomaly_ctrl=94.0,
-    base_energy_regen=1.2,
-    base_anomaly_mastery=93.0,
-    weapon_base_atk=713.0,
-    weapon_sub_type="cd",
-    weapon_sub_value=0.0,
-    set_dmg=10.0,
-    set_anomaly_ctrl_pct=8.0,
-    disc_main={
-        "hp_flat": 0.0,
-        "atk_flat": 0.0,
-        "def_flat": 0.0,
-        "hp_pct": 0.0,
-        "atk_pct": 0.0,
-        "def_pct": 0.0,
-        "cr": 0.0,
-        "cd": 48.0,
-        "impact_pct": 0.0,
-        "anomaly_ctrl_pct": 0.0,
-        "energy_pct": 0.0,
-        "dmg_bonus": 0.0,
-        "pen_rate": 0.0,
-        "anomaly_mastery": 0.0,
-        "pen_val": 0.0,
-    },
-    sub_cr=28.8,
-    sub_cd=57.6,
-)
-
-
-if __name__ == "__main__":
-    result = calculate_panel(EXAMPLE)
-    print("面板计算结果（参考学习指南示例）")
-    print(f"生命值：{_fmt(result['hp'])}")
-    print(f"攻击力：{_fmt(result['atk'])}")
-    print(f"防御力：{_fmt(result['def'])}")
-    print(f"暴击率：{_fmt(result['cr'], as_percent=True)}")
-    print(f"暴击伤害：{_fmt(result['cd'], as_percent=True)}")
-    print(f"增伤：{_fmt(result['dmg'], as_percent=True)}")
-    print(f"穿透率：{_fmt(result['pr'], as_percent=True)}")
-    print(f"冲击力：{_fmt(result['impact'])}")
-    print(f"异常掌控：{_fmt(result['anomaly_ctrl'])}")
-    print(f"能量回复：{_fmt(result['energy_regen'])}")
-    print(f"异常精通：{_fmt(result['anomaly_mastery'])}")
-    print(f"穿透值：{_fmt(result['pen_value'])}")

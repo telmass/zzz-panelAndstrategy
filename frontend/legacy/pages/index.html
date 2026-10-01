@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101521">
+  <title>绝区零面板计算器</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #101521;
+      color: #f4f6fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 48px 22px;
+      background:
+        radial-gradient(ellipse at 15% 10%, rgba(99, 102, 241, .2), transparent 36%),
+        radial-gradient(ellipse at 90% 85%, rgba(236, 72, 153, .14), transparent 34%),
+        #101521;
+    }
+
+    .shell { width: min(100%, 1060px); margin: 0 auto; }
+
+    header { margin-bottom: 34px; }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: #a5b4fc;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 6vw, 48px);
+      line-height: 1.15;
+      letter-spacing: -.04em;
+    }
+
+    .intro {
+      max-width: 620px;
+      margin: 14px 0 0;
+      color: #a8b0c2;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: minmax(0, 760px);
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .card {
+      --accent: #a5b4fc;
+      position: relative;
+      display: flex;
+      min-height: 260px;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 23px;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(34, 42, 59, .96), rgba(24, 30, 43, .96));
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .2);
+      text-decoration: none;
+      color: inherit;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .card::after {
+      position: absolute;
+      right: -42px;
+      bottom: -66px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+      opacity: .08;
+      filter: blur(2px);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .card:hover, .card:focus-visible {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--accent) 65%, white 10%);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, .3);
+      outline: none;
+    }
+
+    .card:hover::after, .card:focus-visible::after {
+      transform: scale(1.16);
+      opacity: .15;
+    }
+
+    .card.rupture { --accent: #fb7185; }
+    .card.fengyu { --accent: #38bdf8; }
+
+    .badge {
+      align-self: flex-start;
+      padding: 5px 9px;
+      border: 1px solid color-mix(in srgb, var(--accent) 44%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .04em;
+    }
+
+    .card h2 {
+      margin: 23px 0 9px;
+      font-size: 22px;
+      letter-spacing: -.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: #a8b0c2;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .formula {
+      display: inline-block;
+      margin-top: 14px;
+      color: #e2e8f0;
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.6;
+    }
+
+    .launch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 22px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .arrow { font-size: 19px; transition: transform .18s ease; }
+    .card:hover .arrow, .card:focus-visible .arrow { transform: translateX(4px); }
+
+    footer {
+      margin-top: 26px;
+      color: #737e94;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 34px 18px; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <p class="eyebrow">ZENLESS ZONE ZERO · PANEL TOOLS</p>
+      <h1>代理人面板计算器</h1>
+      <p class="intro">选择代理人预设即可自动应用对应计算规则：通用代理人使用标准面板，命破代理人计算贯穿力，锋御代理人计算实际暴击率。</p>
+    </header>
+
+    <section class="cards" aria-label="选择计算器">
+      <a class="card standard" href="calculator.html">
+        <span class="badge">统一计算器</span>
+        <h2>代理人面板</h2>
+        <p>在同一页面完成代理人预设、基础面板和配装计算，并根据所选代理人自动显示专属面板。</p>
+        <span class="formula">命破：贯穿力 = 0.3 × 最终攻击力 + 0.1 × 最终生命值<br>锋御：实际暴击率 = 最终暴击伤害 × 35% + 原最终暴击率</span>
+        <span class="launch">打开计算器 <span class="arrow" aria-hidden="true">→</span></span>
+      </a>
+    </section>
+
+    <footer>本地网页工具 · 通过代理人预设切换专属计算</footer>
+  </main>
+</body>
+</html>

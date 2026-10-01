@@ -1,9 +1,11 @@
-"""Refresh data/weapon-presets.js from the official HoYoLAB ZZZ Wiki.
+"""Refresh frontend/legacy/data/weapon-presets.js from the official HoYoLAB ZZZ Wiki.
 
 Scans the wiki entry_page_id space through the public content API, keeps every
 page whose 晋升需求 table uses the weapon-specific 突破前基础 / 突破后基础 keys,
 extracts the level-60 (0 突破) base ATK and the fixed high-level substat, and
 rewrites window.WEAPON_PRESETS.
+
+Default paths are relative to the repository root; run from there:
 
 Usage:
     python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
@@ -23,7 +25,7 @@ HEADERS = {
     "Referer": "https://baike.mihoyo.com/",
     "x-rpc-wiki_app": "zzz",
 }
-OUTPUT = "data/weapon-presets.js"
+OUTPUT = "frontend/legacy/data/weapon-presets.js"
 
 # 初始面板：基础攻击力+50 暴击伤害+19.2%   满级面板：基础攻击力+743 暴击伤害+48%
 # 锋御 engines use 基础防御力 instead of 基础攻击力 (初始面板：基础防御力+29  防御力+19.2%).

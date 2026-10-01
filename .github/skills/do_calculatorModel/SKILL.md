@@ -10,7 +10,7 @@ Use this skill when the user provides:
 1. An agent name.
 2. A desired calculator mode: standard (普通), special-break (命破), or sharp-guard (锋御). If the mode is omitted and cannot be determined from the request, ask which mode to use.
 
-The repository has one unified calculator, currently `代理人面板计算器.html`. Add the agent to that calculator regardless of mode: selecting its preset applies the corresponding final-panel calculation. Do not create or update a separate calculator page for each mode.
+The repository has one unified calculator, currently `frontend/legacy/pages/calculator.html`. Add the agent to that calculator regardless of mode: selecting its preset applies the corresponding final-panel calculation. Do not create or update a separate calculator page for each mode.
 
 ## Read verified agent data
 
@@ -22,7 +22,9 @@ If the official source is unavailable, the agent match is ambiguous, or any requ
 
 Use the unified calculator and its external preset data rather than guessing filenames:
 
-Inspect `代理人面板计算器.html`, `js/calculator.js`, `js/calculator-config.js`, `data/agent-presets.js`, and the current calculation-mode handling. Preset data belongs in the separate JavaScript data file, not embedded as a large object in calculator HTML.
+Inspect `frontend/legacy/pages/calculator.html`, `frontend/legacy/scripts/calculator.js`, `frontend/legacy/scripts/calculator-config.js`, `frontend/legacy/data/agent-presets.js`, and the current calculation-mode handling. Preset data belongs in the separate JavaScript data file, not embedded as a large object in calculator HTML.
+
+The pages above live under `frontend/legacy/` and are the pre-Vue3 native implementation kept for reference during migration. The Vue3 replacement is planned under `frontend/src/` with the calculation rules moving to `backend/src/zzz_panel/core/`; until that migration lands, edit the legacy files only.
 
 ## Add accurate, maintainable preset data
 

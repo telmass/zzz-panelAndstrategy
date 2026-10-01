@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url=calculator.html?mode=rupture">
+  <title>命破代理人面板计算器</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #f0f2f5;
+      color: #1f2937;
+      line-height: 1.6;
+      padding: 20px 16px 80px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .module {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid #9ca3af;
+    }
+
+    .module.base {
+      border-left-color: #6366f1;
+    }
+
+    .module.weapon {
+      border-left-color: #f59e0b;
+    }
+
+    .module.core {
+      border-left-color: #10b981;
+    }
+
+    .module.disc {
+      border-left-color: #ec4899;
+    }
+
+    .module.sub {
+      border-left-color: #8b5cf6;
+    }
+
+    .module.set {
+      border-left-color: #f97316;
+    }
+
+    .module-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #111827;
+    }
+
+    .module-title .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #eef2ff;
+      color: #4f46e5;
+    }
+
+    .module.core .tag {
+      background: #ecfdf5;
+      color: #059669;
+    }
+
+    .module.weapon .tag {
+      background: #fffbeb;
+      color: #d97706;
+    }
+
+    .module.disc .tag {
+      background: #fdf2f8;
+      color: #db2777;
+    }
+
+    .module.sub .tag {
+      background: #f5f3ff;
+      color: #7c3aed;
+    }
+
+    .module.set .tag {
+      background: #fff7ed;
+      color: #ea580c;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px 12px;
+    }
+
+    .grid4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 8px 10px;
+    }
+
+    .base-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 14px;
+    }
+
+    .disc-main-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 12px;
+    }
+
+    .weapon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 12px;
+    }
+
+    @media (max-width: 560px) {
+
+      .grid3,
+      .grid4 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field label {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 600;
+    }
+
+    .field label .unit {
+      color: #9ca3af;
+      font-weight: 400;
+    }
+
+    .field input,
+    .field select {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 14px;
+      background: #fff;
+      color: #111827;
+      width: 100%;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    }
+
+    .radio-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .radio-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    .fixed-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f3f4f6;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+    }
+
+    .fixed-stat b {
+      color: #111827;
+    }
+
+    .fixed-stat .v {
+      color: #059669;
+      font-weight: 700;
+    }
+
+    /* 结果区 */
+    .result {
+      position: sticky;
+      top: 20px;
+    }
+
+    .result-module {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: #f1f5f9;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .result-module h2 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .r-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .r-row:last-child {
+      border-bottom: none;
+    }
+
+    .r-label {
+      font-size: 13px;
+      color: #cbd5e1;
+      flex: 0 0 auto;
+      margin-right: 12px;
+    }
+
+    .r-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .r-row.main .r-value {
+      font-size: 22px;
+      color: #fbbf24;
+    }
+
+    .breakdown {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .breakdown-item {
+      display: inline-block;
+      white-space: normal;
+    }
+
+    .breakdown-line {
+      display: block;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .breakdown .kw {
+      color: #fbbf24;
+    }
+
+    .r-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .reset-btn {
+      margin-top: 14px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      background: #dc2626;
+    }
+
+    .sub-count {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sub-count input {
+      width: 56px;
+    }
+
+    .sub-count .total {
+      font-size: 12px;
+      color: #9ca3af;
+      min-width: 44px;
+    }
+
+    .set-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 12px;
+    }
+
+    .set-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .set-item label {
+      font-size: 12px;
+      color: #6b7280;
+      font-weight: 600;
+    }
+
+    .set-item select {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 14px;
+      background: #fff;
+      color: #111827;
+      width: 100%;
+    }
+
+    .set-item select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    }
+
+    .helper {
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>绝区零命破代理人面板计算器</h1>
+
+    <div class="layout">
+      <div class="left">
+
+        <!-- 基础面板 -->
+        <div class="module base">
+          <div class="module-title">一、基础面板 <span class="tag">角色本体</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">填写角色纯基础面板（不含核心）。若游戏内显示已含核心基础值，请先减去再填。</p>
+          <div class="base-grid">
+            <div class="field"><label>生命值</label><input type="number" id="base_hp" value="8000" step="any"></div>
+            <div class="field"><label>攻击力</label><input type="number" id="base_atk" value="1000" step="any"></div>
+            <div class="field"><label>防御力</label><input type="number" id="base_def" value="600" step="any"></div>
+            <div class="field"><label>冲击力 <span class="unit"></span></label><input type="number" id="base_impact"
+                value="90" step="any"></div>
+            <div class="field"><label>暴击率 <span class="unit">%</span></label><input type="number" id="base_cr" value="5"
+                step="any"></div>
+            <div class="field"><label>暴击伤害 <span class="unit">%</span></label><input type="number" id="base_cd"
+                value="50" step="any"></div>
+            <div class="field"><label>异常掌控 <span class="unit"></span></label><input type="number" id="base_ac" value="100"
+                step="any"></div>
+            <div class="field"><label>异常精通</label><input type="number" id="base_am" value="100" step="any"></div>
+            <div class="field"><label>穿透率 <span class="unit">%</span></label><input type="number" id="base_pr" value="0"
+                step="any"></div>
+            <div class="field"><label>能量自动回复</label><input type="number" id="base_er" value="1.2" step="any"></div>
+          </div>
+        </div>
+
+        <!-- 音擎 -->
+        <div class="module weapon">
+          <div class="module-title">二、音擎 <span class="tag">基础攻防互斥 · 副词条9选1</span></div>
+          <div class="radio-row" style="margin-bottom:10px;">
+            <label><input type="radio" name="weaponStat" value="atk" checked onchange="calc();">
+              攻击型音擎（+基础攻击）</label>
+            <label><input type="radio" name="weaponStat" value="def" onchange="calc();">
+              防御型音擎（+基础防御）</label>
+          </div>
+          <div class="weapon-grid">
+            <div class="field"><label>音擎基础值</label><input type="number"
+                id="weapon_base_value" value="713" step="any"></div>
+            <div class="field"><label>副词条类型 <span class="unit">9选1</span></label>
+              <select id="weapon_sub_type" onchange="calc()"></select>
+            </div>
+            <div class="field"><label>副词条数值</label><input type="number" id="weapon_sub_val" value="30" step="any"></div>
+          </div>
+        </div>
+
+        <!-- 核心 -->
+        <div class="module core">
+          <div class="module-title">三、核心加成 <span class="tag">8选2 · 可重复选</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">从8项中选2项，可重复（如两次暴击率=28.8%）。<br>核心互斥：同一属性不会同时给基础值与百分比。</p>
+          <div class="grid2">
+            <div class="field"><label>核心选择 ①</label><select id="core1" onchange="calc()"></select></div>
+            <div class="field"><label>核心选择 ②</label><select id="core2" onchange="calc()"></select></div>
+          </div>
+          <div id="core_summary" class="note"></div>
+        </div>
+
+        <!-- 驱动盘主词条 -->
+        <div class="module disc">
+          <div class="module-title">四、驱动盘主词条 <span class="tag">1~3固定 · 4/5/6可选</span></div>
+          <div class="disc-main-grid" style="margin-bottom:10px;">
+            <div class="fixed-stat">1号 固定生命 <span class="v">+2200</span></div>
+            <div class="fixed-stat">2号 固定攻击 <span class="v">+316</span></div>
+            <div class="fixed-stat">3号 固定防御 <span class="v">+184</span></div>
+          </div>
+          <div class="disc-main-grid">
+            <div class="field"><label>&nbsp;&nbsp;&nbsp;&nbsp;4号 <span class="unit">6选1</span></label><select id="disc4"
+                onchange="calc()"></select></div>
+            <div class="field"><label>&nbsp;&nbsp;&nbsp;&nbsp;5号 <span class="unit">5选1</span></label><select id="disc5"
+                onchange="calc()"></select></div>
+            <div class="field"><label>&nbsp;&nbsp;&nbsp;&nbsp;6号 <span class="unit">6选1</span></label><select id="disc6"
+                onchange="calc()"></select></div>
+          </div>
+        </div>
+
+        <!-- 驱动盘副词条 -->
+        <div class="module sub">
+          <div class="module-title">五、驱动盘副词条 <span class="tag">每盘9条 · 6盘共54条</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">填写6盘合计副词条条数（每盘4初始+5强化=9条）。单条数值见标签，自动按条数折算。</p>
+          <div class="grid4" id="sub_grid"></div>
+          <div class="note">副词条总数：<span id="sub_total">0</span> / 54 <span
+              class="helper">（单项最多36条；主副不重复：若该属性是某盘主词条，则该属性副词条不计）</span></div>
+        </div>
+
+        <!-- 二件套 -->
+        <div class="module set">
+          <div class="module-title">六、二件套效果 <span class="tag">0~3组</span></div>
+          <p class="note" style="margin-top:0;margin-bottom:10px;">2+2+2=3组 · 4+2=2组 · 2+散件=1组 · 全散件=0组。每组选一种属性。</p>
+          <div id="sets_container" class="set-grid"></div>
+        </div>
+
+      </div>
+
+      <!-- 结果区 -->
+      <div class="result">
+        <div class="result-module">
+          <h2>最终面板</h2>
+          <div class="r-row main"><span class="r-label">生命值</span>
+            <div class="r-cell"><span class="r-value" id="r_hp">—</span><span class="breakdown" id="b_hp"></span></div>
+          </div>
+          <div class="r-row main"><span class="r-label">攻击力</span>
+            <div class="r-cell"><span class="r-value" id="r_atk">—</span><span class="breakdown" id="b_atk"></span>
+            </div>
+          </div>
+          <div class="r-row main"><span class="r-label">贯穿力</span>
+            <div class="r-cell"><span class="r-value" id="r_penforce">—</span><span class="breakdown" id="b_penforce"></span>
+            </div>
+          </div>
+          <div class="r-row main"><span class="r-label">防御力</span>
+            <div class="r-cell"><span class="r-value" id="r_def">—</span><span class="breakdown" id="b_def"></span>
+            </div>
+          </div>
+          <div class="r-row"><span class="r-label">暴击率</span>
+            <div class="r-cell"><span class="r-value" id="r_cr">—</span><span class="breakdown" id="b_cr"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">暴击伤害</span>
+            <div class="r-cell"><span class="r-value" id="r_cd">—</span><span class="breakdown" id="b_cd"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">增伤</span>
+            <div class="r-cell"><span class="r-value" id="r_dmg">—</span><span class="breakdown" id="b_dmg"></span>
+            </div>
+          </div>
+          <div class="r-row"><span class="r-label">穿透率</span>
+            <div class="r-cell"><span class="r-value" id="r_pr">—</span><span class="breakdown" id="b_pr"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">穿透值</span>
+            <div class="r-cell"><span class="r-value" id="r_pv">—</span><span class="breakdown" id="b_pv"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">异常精通</span>
+            <div class="r-cell"><span class="r-value" id="r_am">—</span><span class="breakdown" id="b_am"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">异常掌控</span>
+            <div class="r-cell"><span class="r-value" id="r_ac">—</span><span class="breakdown" id="b_ac"></span></div>
+          </div>
+          <div class="r-row"><span class="r-label">冲击力</span>
+            <div class="r-cell"><span class="r-value" id="r_imp">—</span><span class="breakdown" id="b_imp"></span>
+            </div>
+          </div>
+          <div class="r-row"><span class="r-label">能量回复</span>
+            <div class="r-cell"><span class="r-value" id="r_er">—</span><span class="breakdown" id="b_er"></span></div>
+          </div>
+    </div>
+  </div>
+
+  <script>
+    /* ====== 配置数据（来自《面板计算指南》） ====== */
+
+    // 核心8选项（8选2，可重复）
+    const CORE_OPTIONS = [
+      { id: 'er_base', label: '基础能量自动回复 +0.36', value: 0.36, kind: 'flat', to: 'er_flat' },
+      { id: 'atk_base', label: '基础攻击力 +75', value: 75, kind: 'base', to: 'atk_base' },
+      { id: 'impact_base', label: '基础冲击力 +18', value: 18, kind: 'flat', to: 'impact_flat' },
+      { id: 'cd', label: '暴击伤害 +28.8%', value: 28.8, kind: 'pct', to: 'cd' },
+      { id: 'cr', label: '暴击率 +14.4%', value: 14.4, kind: 'pct', to: 'cr' },
+      { id: 'hp_pct', label: '生命值百分比 +18%', value: 18, kind: 'pct', to: 'hp_pct' },
+      { id: 'ac', label: '异常掌控 +36', value: 36, kind: 'flat', to: 'ac_flat' },
+      { id: 'am', label: '异常精通 +54', value: 54, kind: 'flat', to: 'am' },
+    ];
+
+    // 4号主词条（6选1）
+    const DISC4_OPTIONS = [
+      { label: '攻击力 30%', value: 30, kind: 'pct', to: 'atk_pct' },
+      { label: '生命值 30%', value: 30, kind: 'pct', to: 'hp_pct' },
+      { label: '防御力 48%', value: 48, kind: 'pct', to: 'def_pct' },
+      { label: '暴击率 24%', value: 24, kind: 'pct', to: 'cr' },
+      { label: '暴击伤害 48%', value: 48, kind: 'pct', to: 'cd' },
+      { label: '异常精通 92', value: 92, kind: 'flat', to: 'am' },
+    ];
+    // 5号主词条（5选1）
+    const DISC5_OPTIONS = [
+      { label: '攻击力 30%', value: 30, kind: 'pct', to: 'atk_pct' },
+      { label: '生命值 30%', value: 30, kind: 'pct', to: 'hp_pct' },
+      { label: '防御力 48%', value: 48, kind: 'pct', to: 'def_pct' },
+      { label: '穿透率 24%', value: 24, kind: 'pct', to: 'pr' },
+      { label: '增伤 30%', value: 30, kind: 'pct', to: 'dmg' },
+    ];
+    // 6号主词条（6选1）
+    const DISC6_OPTIONS = [
+      { label: '攻击力 30%', value: 30, kind: 'pct', to: 'atk_pct' },
+      { label: '生命值 30%', value: 30, kind: 'pct', to: 'hp_pct' },
+      { label: '防御力 48%', value: 48, kind: 'pct', to: 'def_pct' },
+      { label: '冲击力 24%', value: 24, kind: 'pct', to: 'impact_pct' },
+      { label: '异常掌控 30%', value: 30, kind: 'pct', to: 'ac_pct' },
+      { label: '能量回复 60%', value: 60, kind: 'pct', to: 'er_pct' },
+    ];
+
+    // 音擎副词条（9选1）
+    const WEAPON_SUB_OPTIONS = [
+      { label: '生命%', kind: 'pct', to: 'hp_pct' },
+      { label: '攻击%', kind: 'pct', to: 'atk_pct' },
+      { label: '防御%', kind: 'pct', to: 'def_pct' },
+      { label: '冲击力%', kind: 'pct', to: 'impact_pct' },
+      { label: '暴击率', kind: 'pct', to: 'cr' },
+      { label: '暴击伤害', kind: 'pct', to: 'cd' },
+      { label: '异常掌控%', kind: 'pct', to: 'ac_pct' },
+      { label: '异常精通', kind: 'flat', to: 'am' },
+      { label: '能量回复%', kind: 'pct', to: 'er_pct' },
+    ];
+
+    // 副词条单条数值（10种）
+    const SUB_STATS = [
+      { id: 'hp_flat', label: '小生命', value: 112, kind: 'flat', to: 'hp_flat' },
+      { id: 'hp_pct', label: '大生命%', value: 3, kind: 'pct', to: 'hp_pct' },
+      { id: 'atk_flat', label: '小攻击', value: 19, kind: 'flat', to: 'atk_flat' },
+      { id: 'atk_pct', label: '大攻击%', value: 3, kind: 'pct', to: 'atk_pct' },
+      { id: 'def_flat', label: '小防御', value: 15, kind: 'flat', to: 'def_flat' },
+      { id: 'def_pct', label: '大防御%', value: 4.8, kind: 'pct', to: 'def_pct' },
+      { id: 'cr', label: '暴击率', value: 2.4, kind: 'pct', to: 'cr' },
+      { id: 'cd', label: '暴击伤害', value: 4.8, kind: 'pct', to: 'cd' },
+      { id: 'pen_val', label: '穿透值', value: 9, kind: 'flat', to: 'pen_val' },
+      { id: 'am', label: '异常精通', value: 9, kind: 'flat', to: 'am' },
+    ];
+
+    // 二件套效果（10种）
+    const SET_OPTIONS = [
+      { label: '生命 +10%', value: 10, kind: 'pct', to: 'hp_pct' },
+      { label: '攻击力 +10%', value: 10, kind: 'pct', to: 'atk_pct' },
+      { label: '防御力 +10%', value: 10, kind: 'pct', to: 'def_pct' },
+      { label: '暴击率 +8%', value: 8, kind: 'pct', to: 'cr' },
+      { label: '暴击伤害 +16%', value: 16, kind: 'pct', to: 'cd' },
+      { label: '冲击力 +6%', value: 6, kind: 'pct', to: 'impact_pct' },
+      { label: '异常掌控 +8%', value: 8, kind: 'pct', to: 'ac_pct' },
+      { label: '能量回复 +20%', value: 20, kind: 'pct', to: 'er_pct' },
+      { label: '增伤 +10%', value: 10, kind: 'pct', to: 'dmg' },
+      { label: '异常精通 +30', value: 30, kind: 'flat', to: 'am' },
+    ];
+
+    /* ====== 初始化下拉框 ====== */
+    function fillSelect(id, opts, noneLabel) {
+      const sel = document.getElementById(id);
+      let html = '';
+      if (noneLabel) html += `<option value="-1">${noneLabel}</option>`;
+      opts.forEach((o, i) => {
+        html += `<option value="${i}">${o.label}</option>`;
+      });
+      sel.innerHTML = html;
+    }
+
+    fillSelect('weapon_sub_type', WEAPON_SUB_OPTIONS);
+    fillSelect('core1', CORE_OPTIONS);
+    // 核心默认选 暴击率 + 攻击力
+    document.getElementById('core1').value = '4';
+    fillSelect('core2', CORE_OPTIONS);
+    document.getElementById('core2').value = '1';
+    fillSelect('disc4', DISC4_OPTIONS);
+    document.getElementById('disc4').value = '3'; // 暴击率
+    fillSelect('disc5', DISC5_OPTIONS);
+    document.getElementById('disc5').value = '4'; // 增伤
+    fillSelect('disc6', DISC6_OPTIONS);
+    document.getElementById('disc6').value = '5'; // 能量回复
+
+    // 副词条网格
+    const subGrid = document.getElementById('sub_grid');
+    subGrid.innerHTML = SUB_STATS.map(s => `
+  <div class="field">
+    <label>${s.label} <span class="unit">+${s.value}${s.kind === 'pct' ? '%' : ''}/条</span></label>
+    <div class="sub-count">
+      <input type="number" id="sub_${s.id}" value="0" min="0" max="36" step="1" oninput="handleSubInput(this)">
+      <span class="total" id="sub_v_${s.id}">0</span>
+    </div>
+  </div>
+`).join('');
+    // 示例：暴击率×6, 暴伤×6
+    document.getElementById('sub_cr').value = 6;
+    document.getElementById('sub_cd').value = 6;
+
+    // 二件套
+    const setsContainer = document.getElementById('sets_container');
+    function buildSets() {
+      setsContainer.innerHTML = Array.from({ length: 3 }, (_, i) => `
+    <div class="set-item">
+      <label class="helper">第${i + 1}组</label>
+      <select id="set${i}" onchange="calc()">
+        <option value="-1">无</option>
+        ${SET_OPTIONS.map((o, j) => `<option value="${j}">${o.label}</option>`).join('')}
+      </select>
+    </div>
+  `).join('');
+    }
+    buildSets();
+    // 示例：第1组暴击率，第2组增伤
+    document.getElementById('set0').value = '3';
+    document.getElementById('set1').value = '7';
+
+    function handleSubInput(el) {
+      el.value = Math.min(36, Math.max(0, Math.floor(parseFloat(el.value) || 0)));
+      const total = Array.from(document.querySelectorAll('#sub_grid input')).reduce((sum, input) => sum + (parseInt(input.value, 10) || 0), 0);
+      if (total > 54) {
+        const current = parseInt(el.value, 10) || 0;
+        const reduced = Math.max(0, current - (total - 54));
+        el.value = reduced;
+      }
+      calc();
+    }
+
+    /* ====== 计算逻辑 ====== */
+    function num(id) {
+      const el = document.getElementById(id);
+      if (!el) return 0;
+      const v = parseFloat(el.value);
+      return isNaN(v) ? 0 : v;
+    }
+    function sel(id) {
+      return parseInt(document.getElementById(id).value);
+    }
+    function fmt(n) {
+      const fixed = Number(n.toFixed(10));
+      if (Math.abs(fixed - Math.round(fixed)) < 0.0000001) return Math.round(fixed).toLocaleString();
+      return Number(fixed.toFixed(2)).toString();
+    }
+
+    function calc() {
+      // 1. 基础面板
+      const baseHp = num('base_hp');
+      const baseAtk = num('base_atk');
+      const baseDef = num('base_def');
+      const baseCr = num('base_cr');
+      const baseCd = num('base_cd');
+      const basePr = num('base_pr');
+      const baseImpact = num('base_impact');
+      const baseAc = num('base_ac');
+      const baseAm = num('base_am');
+      const baseEr = num('base_er');
+
+      // 2. 武器
+      const isAtk = document.querySelector('input[name="weaponStat"]:checked').value === 'atk';
+      const weaponBaseValue = num('weapon_base_value');
+      const wAtk = isAtk ? weaponBaseValue : 0;
+      const wDef = isAtk ? 0 : weaponBaseValue;
+      const wSub = WEAPON_SUB_OPTIONS[sel('weapon_sub_type')];
+      const wSubVal = num('weapon_sub_val');
+
+      // 3. 核心（2选）
+      const core1 = CORE_OPTIONS[sel('core1')];
+      const core2 = CORE_OPTIONS[sel('core2')];
+      const corePicks = [core1, core2];
+
+      // 累加器
+      const S = {
+        // 攻防血
+        hp_pct: 0, atk_pct: 0, def_pct: 0,
+        hp_flat: 0, atk_flat: 0, def_flat: 0,
+        atk_base: 0, def_base: 0,  // 核心基础值（进入基础面板）
+        // 纯加法
+        cr: 0, cd: 0, dmg: 0, pr: 0,
+        pen_val: 0, am: 0,
+        ac_flat: 0, ac_pct: 0,
+        impact_flat: 0, impact_pct: 0,
+        er_flat: 0, er_pct: 0,
+      };
+
+      // 来源记录
+      const src = {
+        hp_pct: [], atk_pct: [], def_pct: [],
+        hp_flat: [], atk_flat: [], def_flat: [],
+        cr: [], cd: [], dmg: [], pr: [], pen_val: [], am: [],
+        ac_flat: [], ac_pct: [], impact_flat: [], impact_pct: [], er_flat: [], er_pct: [],
+      };
+      function add(key, val, label) {
+        if (val === undefined || val === 0) return;
+        S[key] = (S[key] || 0) + val;
+        if (label) src[key] = (src[key] || []).concat(label);
+      }
+
+      // 核心
+      const coreLabels = [];
+      corePicks.forEach((c, i) => {
+        if (!c) return;
+        const lb = `核心${i + 1}(${c.label})`;
+        coreLabels.push(lb);
+        if (c.kind === 'base') {
+          // 基础攻击力/防御力 → 进入基础面板
+          add(c.to, c.value, lb);
+        } else if (c.kind === 'pct') {
+          add(c.to, c.value, lb);
+        } else {
+          add(c.to, c.value, lb);
+        }
+      });
+
+      // 武器副词条
+      if (wSub && wSubVal) {
+        add(wSub.to, wSubVal, `音擎副词条(${wSub.label} ${wSubVal}${wSub.kind === 'pct' ? '%' : ''})`);
+      }
+
+      // 驱动盘主词条 1/2/3 固定
+      add('hp_flat', 2200, '1号固定生命+2200');
+      add('atk_flat', 316, '2号固定攻击+316');
+      add('def_flat', 184, '3号固定防御+184');
+      // 4/5/6
+      const d4 = DISC4_OPTIONS[sel('disc4')];
+      const d5 = DISC5_OPTIONS[sel('disc5')];
+      const d6 = DISC6_OPTIONS[sel('disc6')];
+      if (d4) add(d4.to, d4.value, `4号(${d4.label})`);
+      if (d5) add(d5.to, d5.value, `5号(${d5.label})`);
+      if (d6) add(d6.to, d6.value, `6号(${d6.label})`);
+
+      // 副词条（按条数 × 单条数值）
+      let subTotal = 0;
+      const subFixed = { hp_flat: 0, atk_flat: 0, def_flat: 0 };
+      SUB_STATS.forEach(s => {
+        const cnt = Math.max(0, Math.floor(num('sub_' + s.id)));
+        subTotal += cnt;
+        const val = cnt * s.value;
+        if (cnt > 0) {
+          add(s.to, val, `副词条·${s.label}×${cnt}=${fmt(val)}${s.kind === 'pct' ? '%' : ''}`);
+          if (Object.hasOwn(subFixed, s.to)) subFixed[s.to] += val;
+          document.getElementById('sub_v_' + s.id).textContent = (s.kind === 'pct' ? fmt(val) + '%' : fmt(val));
+        } else {
+          document.getElementById('sub_v_' + s.id).textContent = '0';
+        }
+      });
+      document.getElementById('sub_total').textContent = subTotal;
+      if (subTotal > 54) {
+        document.getElementById('sub_total').style.color = '#ef4444';
+      } else {
+        document.getElementById('sub_total').style.color = '#111827';
+      }
+
+      // 二件套（0~3组）
+      for (let i = 0; i < 3; i++) {
+        const idx = sel('set' + i);
+        if (idx >= 0 && idx < SET_OPTIONS.length) {
+          const st = SET_OPTIONS[idx];
+          add(st.to, st.value, `2件套·${st.label}`);
+        }
+      }
+
+      /* ====== 最终面板 ====== */
+      // 攻防血：(基础 + 核心基础值 + 武器基础值) × (1 + 百分比) + 固定值
+      const atkBase = baseAtk + S.atk_base + wAtk;
+      const defBase = baseDef + S.def_base + wDef;
+      const hpBase = baseHp; // 核心无生命基础值，HP只有%和固定
+
+      const totalHp = hpBase * (1 + S.hp_pct / 100) + S.hp_flat;
+      const totalAtk = atkBase * (1 + S.atk_pct / 100) + S.atk_flat;
+      const totalDef = defBase * (1 + S.def_pct / 100) + S.def_flat;
+      const totalPenForce = totalHp * 0.3 + totalAtk * 0.1;
+
+      // 纯加法
+      const totalCr = baseCr + S.cr;
+      const totalCd = baseCd + S.cd;
+      const totalDmg = S.dmg;
+      const totalPr = basePr + S.pr;
+      const totalPv = S.pen_val;
+      const totalAm = baseAm + S.am;
+      const totalAc = (baseAc + S.ac_flat) * (1 + S.ac_pct / 100);
+      const totalImp = (baseImpact + S.impact_flat) * (1 + S.impact_pct / 100);
+      const totalEr = (baseEr + S.er_flat) * (1 + S.er_pct / 100);
+
+      // 渲染
+      document.getElementById('r_hp').textContent = fmt(totalHp);
+      document.getElementById('r_atk').textContent = fmt(totalAtk);
+      document.getElementById('r_penforce').textContent = fmt(totalPenForce);
+      document.getElementById('r_def').textContent = fmt(totalDef);
+      document.getElementById('r_cr').textContent = fmt(totalCr) + '%';
+      document.getElementById('r_cd').textContent = fmt(totalCd) + '%';
+      document.getElementById('r_dmg').textContent = fmt(totalDmg) + '%';
+      document.getElementById('r_pr').textContent = fmt(totalPr) + '%';
+      document.getElementById('r_pv').textContent = fmt(totalPv);
+      document.getElementById('r_am').textContent = fmt(totalAm);
+      document.getElementById('r_ac').textContent = fmt(totalAc);
+      document.getElementById('r_imp').textContent = fmt(totalImp);
+      document.getElementById('r_er').textContent = fmt(totalEr);
+
+      // 明细
+      const escapeHtml = value => value.replace(/[&<>"']/g, char => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      })[char]);
+      const j = arr => arr.map(value =>
+        `<span class="breakdown-item">${escapeHtml(value.replace(/ ([0-9])/g, '\u00a0$1'))}</span>`
+      ).join(' + ') || '无';
+      const fixedBreakdown = (main, sub, mainLabel) =>
+        `${fmt(main)}（${mainLabel}）+${fmt(sub)}（副词条）`;
+      document.getElementById('b_hp').innerHTML = `${fmt(hpBase)}×(1+<span class="kw">${fmt(S.hp_pct)}%</span>)+${fixedBreakdown(2200, subFixed.hp_flat, '1号主词条')} = <b>${fmt(totalHp)}</b>`;
+      document.getElementById('b_atk').innerHTML = `<span class="breakdown-line">(${fmt(baseAtk)}${S.atk_base ? `+核心${fmt(S.atk_base)}` : ''}+音擎${fmt(wAtk)})</span><span class="breakdown-line">×(1+<span class="kw">${fmt(S.atk_pct)}%</span>)+${fixedBreakdown(316, subFixed.atk_flat, '2号主词条')} = <b>${fmt(totalAtk)}</b></span>`;
+      document.getElementById('b_penforce').innerHTML = `<span class="breakdown-line">${fmt(totalHp)}×30% + ${fmt(totalAtk)}×10%</span><span class="breakdown-line">= <b>${fmt(totalPenForce)}</b></span>`;
+      document.getElementById('b_def').innerHTML = `<span class="breakdown-line">(${fmt(baseDef)}${S.def_base ? `+核心${fmt(S.def_base)}` : ''}+音擎${fmt(wDef)})</span><span class="breakdown-line">×(1+<span class="kw">${fmt(S.def_pct)}%</span>)+${fixedBreakdown(184, subFixed.def_flat, '3号主词条')} = <b>${fmt(totalDef)}</b></span>`;
+      document.getElementById('b_cr').innerHTML = `${baseCr}% + ${j(src.cr)} = ${fmt(totalCr)}%`;
+      document.getElementById('b_cd').innerHTML = `${baseCd}% + ${j(src.cd)} = ${fmt(totalCd)}%`;
+      document.getElementById('b_dmg').innerHTML = `${j(src.dmg)} = ${fmt(totalDmg)}%`;
+      document.getElementById('b_pr').innerHTML = `${basePr}% + ${j(src.pr)} = ${fmt(totalPr)}%`;
+      document.getElementById('b_pv').innerHTML = `${j(src.pen_val)} = ${fmt(totalPv)}`;
+      document.getElementById('b_am').innerHTML = `${baseAm ? `基础${fmt(baseAm)} + ` : ''}${j(src.am)} = ${fmt(totalAm)}`;
+      const anomalyBaseParts = [`基础${fmt(baseAc)}`, ...src.ac_flat];
+      document.getElementById('b_ac').innerHTML = `<span class="breakdown-line">(${j(anomalyBaseParts)})×(1+<span class="kw">${fmt(S.ac_pct)}%</span>)</span><span class="breakdown-line">${j(src.ac_pct)} = <b>${fmt(totalAc)}</b></span>`;
+      const impactBaseParts = [`基础${fmt(baseImpact)}`, ...src.impact_flat];
+      document.getElementById('b_imp').innerHTML = `<span class="breakdown-line">(${j(impactBaseParts)})×(1+<span class="kw">${fmt(S.impact_pct)}%</span>)</span><span class="breakdown-line">${j(src.impact_pct)} = <b>${fmt(totalImp)}</b></span>`;
+      const energyBaseParts = [`基础${fmt(baseEr)}`, ...src.er_flat];
+      document.getElementById('b_er').innerHTML = `<span class="breakdown-line">(${j(energyBaseParts)})×(1+<span class="kw">${fmt(S.er_pct)}%</span>)</span><span class="breakdown-line">${j(src.er_pct)} = <b>${fmt(totalEr)}</b></span>`;
+
+      // 核心摘要
+      document.getElementById('core_summary').innerHTML = coreLabels.length
+        ? `已选：${coreLabels.join('，')}`
+        : '<span style="color:#dc2626">未选择核心</span>';
+    }
+
+    function resetAll() { location.reload(); }
+
+    // 实时计算
+    document.addEventListener('input', calc);
+    document.addEventListener('change', calc);
+    calc();
+  </script>
+</body>
+
+</html>

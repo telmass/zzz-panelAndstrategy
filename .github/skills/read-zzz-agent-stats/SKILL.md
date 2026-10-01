@@ -58,11 +58,13 @@ Show each rank's effect and a summed total grouped by attribute and bonus type.
 
 Include a source link to the official agent detail page. Be explicit about any field that was unavailable, ambiguous, or could not be verified. Do not modify calculator files unless the user separately requests an implementation.
 
-## Batch refresh of `data/agent-presets.js`
+## Batch refresh of `frontend/legacy/data/agent-presets.js`
 
 `scripts/refresh_agent_presets.py` performs the same reads without a browser. It scans
 `entry_page_id=1..2600` on `https://act-api-takumi.mihoyo.com/hoyowiki/zzz/wapi/entry_page_v2?entry_page_id=<id>`
 and keeps every page that exposes a `role_base_info` component, which currently yields 60 agents.
+
+Run from the repository root; the default `--config` and `--out` paths are repo-root relative.
 
 ```
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
