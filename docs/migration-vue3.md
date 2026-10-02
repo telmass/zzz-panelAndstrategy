@@ -9,22 +9,39 @@
 | 步骤 | 内容 | 状态 |
 | --- | --- | --- |
 | 目录重构 | 建立 frontend/ backend/ 骨架，legacy 下沉 | ✅ 已完成 |
-| 第 0 步 | 搭壳（Vite + Vue3 + TS，不迁业务） | ⬜ 未开始 |
+| 第 0 步 | 搭壳（Vite + Vue3 + TS，不迁业务） | ✅ 已完成（2026-10-02） |
 | 第 1 步 | 静态结构（无计算） | ⬜ 未开始 |
 | 第 2 步 | 交互逻辑（仍在前端算） | ⬜ 未开始 |
 | 第 3 步 | 计算下沉到 Python | ⬜ 未开始 |
 | 第 4 步 | 预设数据改造为 JSON | ⬜ 未开始 |
 | 第 5 步 | 收尾，删除 legacy 与重定向页 | ⬜ 未开始 |
 
-## 第 0 步 · 搭壳
+## 第 0 步 · 搭壳（已完成 2026-10-02）
 
-1. 在 `frontend/` 初始化 Vite + Vue3 + TS。注意 `legacy/` 与 `public/` 已存在，
-   需选择「忽略现有文件」或手工创建 `package.json` 后再 `npm install`。
-2. 配置 `vite.config.ts`：`server.proxy = { '/api': 'http://127.0.0.1:8000' }`、
-   别名 `@` → `src`。
-3. 建 `src/router/index.ts`（Launcher / Calculator / Guide 三条路由）、
-   `src/stores/panelStore.ts`（先空）、`App.vue` 只放 `<router-view/>`。
-4. **验收**：`npm run dev` 能打开；`/legacy/pages/calculator.html` 仍可访问；两者互不影响。
+产出文件：
+
+```
+frontend/
+├── index.html            Vite 入口
+├── package.json          name: zzz-panel-frontend
+├── tsconfig.json         strict，exclude legacy
+├── vite.config.ts        @ 别名 + /api 代理 + vitest 配置
+├── .env.example          VITE_API_BASE_URL
+└── src/
+    ├── main.ts           createApp(App).use(pinia).use(router).mount('#app')
+    ├── App.vue           仅 <router-view />
+    ├── router/index.ts   Launcher / Calculator / Guide 三条路由
+    ├── stores/panelStore.ts
+    └── views/            LauncherView / CalculatorView / GuideView（占位）
+```
+
+注意 `legacy/` 与 `public/` 已存在，**不要用脚手架覆盖**，`package.json` 等配置为手工创建。
+
+`vite.config.ts` 的 `defineConfig` 从 `vitest/config` 导入而非 `vite`——只有前者带
+`test` 字段的类型定义。
+
+已验证：`npm run typecheck` 通过；`npm run build` 产出 `dist/`（含 `public/` 的 160 张图片，
+不含 `legacy/`）；`/legacy/pages/calculator.html` 在 dev server 下正常访问。
 
 ## 第 1 步 · 静态结构
 
@@ -48,7 +65,8 @@
 
 ## 第 3 步 · 计算下沉到 Python
 
-12. 落地 `core/modes.py`（贯穿力、实际暴击率）、`core/constants.py`（驱动盘 1/2/3）、
+12. `core/modes.py` 已落地贯穿力、实际暴击率与锋御固定锐暴伤害；
+    继续实现 `core/constants.py`（驱动盘 1/2/3）、
     `core/modifiers.py`（4/5/6 号主词条、副词条换算、二件套）、`core/breakdown.py`（明细）。
 13. 落地 `schemas/`、`services/`、`api/`（FastAPI 路由与 CORS）。
 14. `src/api/panel.ts` + `usePanelCalc`（防抖 150~300ms）替换前端 `calc()`。

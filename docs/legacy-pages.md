@@ -8,8 +8,8 @@
 | --- | --- |
 | `pages/index.html` | `启动界面.html` |
 | `pages/calculator.html` | `代理人面板计算器.html` |
-| `pages/redirect-rupture.html` | `命破代理人面板计算器.html` |
-| `pages/redirect-fengyu.html` | `锋御代理人面板计算器.html` |
+| `pages/redirect-rupture.html` | 命破兼容入口，转至 `pages/calculator.html?mode=rupture` |
+| `pages/redirect-fengyu.html` | 锋御兼容入口，转至 `pages/calculator.html?mode=fengyu` |
 | `pages/example-template.html` | `测试范例计算器模板.html` |
 | `pages/guide.html` | `面板计算方式学习指南.html` |
 | `styles/calculator.css` | `css/calculator.css` |

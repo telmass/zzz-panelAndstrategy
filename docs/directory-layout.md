@@ -57,7 +57,7 @@ Vue3 迁移完成后**整个目录删除**。
 
 | 目录 | 职责与约束 |
 | --- | --- |
-| `src/zzz_panel/core/` | **唯一规则真源。** 零 IO、零 Web 框架依赖。`models.py`（输入模型）、`panel.py`（`calculate_panel`）；`constants.py` / `modifiers.py` / `modes.py` / `breakdown.py` 为预留待实现 |
+| `src/zzz_panel/core/` | **唯一规则真源。** 零 IO、零 Web 框架依赖。`models.py`（输入模型）、`panel.py`（`calculate_panel`）、`modes.py`（模式专属计算）；`constants.py` / `modifiers.py` / `breakdown.py` 为预留待实现 |
 | `src/zzz_panel/api/` | FastAPI 传输层（预留）。只做协议转换 |
 | `src/zzz_panel/schemas/` | Pydantic 请求/响应模型（预留） |
 | `src/zzz_panel/services/` | 用例编排（预留），被 API 与 CLI 共同调用 |

@@ -34,7 +34,7 @@
     "energyAccumulation": 0
   },
   "unavailableBaseStats": ["pr"], // 可选：官方基础面板未提供的字段
-  "unmodeledBaseStats": [         // 可选：官方列出但计算器未建模的属性
+  "unmodeledBaseStats": [         // 可选：官方列出但计算器未建模的属性（锐暴伤害除外，见下）
     { "label": "贯穿力", "value": 0, "unit": "" }
   ],
   "coreBonuses": [                // 满级核心技加成
@@ -84,6 +84,14 @@
 - `coreBonuses` 非空，且每项的 `totalValue` 能由 `optionId` × `optionCount` 精确表示
 - 每项 `perRankValue × len(ranks)` 等于 `totalValue`
 - `coreBonuses` 展开后恰好能填入 2 个核心槽位
+- `unmodeledBaseStats` 每项的 `label` / `value` / `unit` 类型正确
+
+### 已建模属性的例外：锐暴伤害
+
+`锐暴伤害` **已完成建模**，数值固定为 150%，仅在锋御代理人的最终面板中显示，
+不作为计算输入。抓取脚本为保持数据可追溯，仍会把该 WIKI 标签写入 `unmodeledBaseStats`；
+加载时 `calculator.js` 通过 `MODELED_BASE_STAT_LABELS` 将其过滤，因此它**不会**出现在
+「官方还列有当前计算器尚未建模的属性」提示中。结构校验仍覆盖全部条目，过滤只作用于提示文案。
 
 ## API 契约
 
@@ -125,7 +133,7 @@ POST /api/panel/calculate
   "totals": {
     "hp": 0, "atk": 0, "def": 0,
     "cr": 0, "cd": 0, "dmg": 0, "pr": 0,
-    "penforce": 0, "actualCr": 0,
+    "penforce": 0, "actualCr": 0, "fengyuBlastDmg": 0,
     "impact": 0, "ac": 0, "er": 0, "am": 0, "penVal": 0
   },
   "breakdown": {
@@ -134,6 +142,9 @@ POST /api/panel/calculate
   }
 }
 ```
+
+`penforce` 仅在 `rupture` 模式返回；`actualCr` 与固定 `fengyuBlastDmg: 150` 仅在
+`fengyu` 模式返回。锐暴伤害不接受输入，也不参与其他属性的计算。
 
 `breakdown` 采用**结构化数组**而非 HTML 字符串：Python 不必输出中文文案，
 格式化与换行规则留在前端 `src/utils/fmt`。字段需与 `frontend/src/types/panel.ts` 一一对应。
