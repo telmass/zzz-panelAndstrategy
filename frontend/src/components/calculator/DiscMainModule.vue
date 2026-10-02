@@ -1,21 +1,37 @@
 <script setup lang="ts">
-import { DISC4_OPTIONS, DISC5_OPTIONS, DISC6_OPTIONS, DISC_FIXED_STATS } from '@/constants/placeholderOptions';
-import { PanelModule, SelectField } from '@/components/ui';
+import { computed } from 'vue';
+
+import { DISC4_OPTIONS, DISC5_OPTIONS, DISC6_OPTIONS, DISC_FIXED_STATS } from '@/constants/calculatorOptions';
+import { usePanelMode } from '@/composables/usePanelMode';
+import { usePanelStore } from '@/stores/panelStore';
+import { PanelModule, SelectField } from '@/components/common';
 
 /**
  * 四、驱动盘主词条。对应 legacy 的 `.module.disc`。
  *
- * 1/2/3 号固定主词条当前为前端常量，第 3 步下沉到 `core/constants.py`
- * 后改为由后端下发，与 `panel.py` 的计算口径保持同源。
+ * 1/2/3 号固定主词条为常量，第 3 步下沉到 `core/constants.py` 后改为后端下发。
  */
+const panel = usePanelStore();
+const { localize } = usePanelMode();
 
 /** 4/5/6 号沿用 legacy 的四格不换行空格缩进，使其与上方徽标对齐。 */
 const INDENT = '\u00a0\u00a0\u00a0\u00a0';
-const SLOTS = [
-  { name: 'disc4', label: `${INDENT}4号`, unit: '6选1', options: DISC4_OPTIONS },
-  { name: 'disc5', label: `${INDENT}5号`, unit: '5选1', options: DISC5_OPTIONS },
-  { name: 'disc6', label: `${INDENT}6号`, unit: '6选1', options: DISC6_OPTIONS },
-];
+
+/** 6 号主词条含「能量回复 60%」，锋御模式需替换为锐能文案，故单独派生。 */
+const SLOTS = computed(() => [
+  { key: 'disc4' as const, label: `${INDENT}4号`, unit: '6选1', options: DISC4_OPTIONS },
+  { key: 'disc5' as const, label: `${INDENT}5号`, unit: '5选1', options: DISC5_OPTIONS },
+  { key: 'disc6' as const, label: `${INDENT}6号`, unit: '6选1', options: DISC6_OPTIONS },
+]);
+
+const slotOptions = computed(() =>
+  SLOTS.value.map((slot) => ({
+    key: slot.key,
+    label: slot.label,
+    unit: slot.unit,
+    options: slot.options.map((option) => ({ value: option.id, label: localize(option.label) })),
+  })),
+);
 </script>
 
 <template>
@@ -27,14 +43,15 @@ const SLOTS = [
     </div>
 
     <div class="disc-main-grid">
-      <!-- TODO(第 2 步)：改为 v-model="panel.discMain.disc4/5/6" -->
       <SelectField
-        v-for="slot in SLOTS"
-        :key="slot.name"
-        :name="slot.name"
+        v-for="slot in slotOptions"
+        :key="slot.key"
+        :name="slot.key"
         :label="slot.label"
         :label-unit="slot.unit"
+        :model-value="panel.discMain[slot.key]"
         :options="slot.options"
+        @update:model-value="panel.discMain[slot.key] = $event"
       />
     </div>
   </PanelModule>

@@ -131,9 +131,12 @@ describe('CalculatorView 静态骨架', () => {
       '异常精通 +9/条',
     ]);
 
-    for (const button of wrapper.findAll('.sub-count-btn')) {
-      expect((button.element as HTMLButtonElement).disabled).toBe(true);
-    }
+    // 条数为 0：减号不可用，加号可用（合计 0 < 54）
+    const buttons = wrapper.findAll('.sub-count-btn');
+    buttons.forEach((button, index) => {
+      const isDecrement = index % 2 === 0;
+      expect((button.element as HTMLButtonElement).disabled).toBe(isDecrement);
+    });
     expect(wrapper.text()).toContain('副词条总数：0 / 54');
   });
 
@@ -162,8 +165,11 @@ describe('CalculatorView 静态骨架', () => {
       '冲击力',
       '能量回复',
     ]);
-    // 数值仍为占位
-    expect(wrapper.findAll('.r-value').every((node) => node.text() === '—')).toBe(true);
+    // 第 2 步起结果为实算值，默认面板的生命值 = 8000×1 + 2200 = 10,200
+    expect(wrapper.find('.r-value').text()).toBe('10,200');
+    expect(wrapper.findAll('.r-value').every((node) => node.text() !== '—')).toBe(true);
+    // 明细不再是空片段
+    expect(wrapper.find('.breakdown').html()).toContain('1号主词条');
   });
 
   it('命破模式追加贯穿力行', () => {

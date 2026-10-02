@@ -1,13 +1,27 @@
 <script setup lang="ts">
-import { CORE_OPTIONS } from '@/constants/placeholderOptions';
-import { PanelModule, SelectField } from '@/components/ui';
+import { computed } from 'vue';
+
+import { CORE_OPTIONS } from '@/constants/calculatorOptions';
+import { usePanelCalc } from '@/composables/usePanelCalc';
+import { usePanelMode } from '@/composables/usePanelMode';
+import { usePanelStore } from '@/stores/panelStore';
+import { PanelModule, SelectField } from '@/components/common';
 
 /**
  * 三、核心加成。对应 legacy 的 `.module.core`。
  *
- * 9 选 2 且可重复的互斥校验在第 2 步实现；
- * 选项列表第 4 步改由 `GET /api/presets/core` 下发。
+ * 选项文案需按面板模式替换：锋御模式下「基础能量自动回复」显示为
+ * 「基础锐能自动累积」，与 legacy 的 `updateEnergyAttributeLabels` 一致。
+ * legacy 用 `option.dataset.standardLabel` 缓存原文案再覆盖，
+ * 这里因为文案由 computed 派生，无需缓存，直接从常量还原。
  */
+const panel = usePanelStore();
+const { localize } = usePanelMode();
+const { coreSummary } = usePanelCalc();
+
+const coreOptions = computed(() =>
+  CORE_OPTIONS.map((option) => ({ value: option.id, label: localize(option.label) })),
+);
 </script>
 
 <template>
@@ -17,12 +31,23 @@ import { PanelModule, SelectField } from '@/components/ui';
     </p>
 
     <div class="grid-2">
-      <!-- TODO(第 2 步)：改为 v-model="panel.core.core1" / "core2" -->
-      <SelectField name="core1" label="核心选择 ①" :options="CORE_OPTIONS" />
-      <SelectField name="core2" label="核心选择 ②" :options="CORE_OPTIONS" />
+      <SelectField
+        name="core1"
+        label="核心选择 ①"
+        :model-value="panel.core.core1"
+        :options="coreOptions"
+        @update:model-value="panel.core.core1 = $event"
+      />
+      <SelectField
+        name="core2"
+        label="核心选择 ②"
+        :model-value="panel.core.core2"
+        :options="coreOptions"
+        @update:model-value="panel.core.core2 = $event"
+      />
     </div>
 
-    <!-- TODO(第 2 步)：由 coreLabels 派生，输出「已选：…」或未选择警示 -->
-    <p class="note" />
+    <!-- 与 legacy 一致：摘要以 innerHTML 写入，未选择时为红色警示 -->
+    <p class="note" v-html="coreSummary" />
   </PanelModule>
 </template>

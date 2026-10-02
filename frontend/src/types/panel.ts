@@ -31,8 +31,9 @@ export interface BaseStats {
 /** 音擎选择与只读回填字段。对应 legacy 的 `#weapon_*`。 */
 export interface WeaponSelection {
   grade: string;
-  role: string;
+  roleTag: string;
   preset: string;
+  /** 「基础攻击力」或「基础防御力」，随音擎 baseKind 变化。 */
   baseLabel: string;
   baseValue: number;
   subType: string;
@@ -52,7 +53,7 @@ export interface DiscMainStats {
   disc6: string;
 }
 
-/** 副词条条数，键为副词条 id。对应 legacy 的 `#sub_${id}`。 */
+/** 副词条条数，键为副词条 id（取自 `SUB_STATS`）。对应 legacy 的 `#sub_${id}`。 */
 export type SubStatCounts = Record<string, number>;
 
 /** 三组二件套选中项。对应 legacy 的 `#sets_container` 内 `#set${i}`。 */
@@ -64,16 +65,24 @@ export interface SetEffects {
 
 /** 代理人预设选择。对应 legacy 的 `#agent_role` / `#agent_preset`。 */
 export interface AgentSelection {
-  role: string;
-  preset: string;
+  roleTag: string;
+  presetId: string;
 }
 
 /**
- * 结果面板的一行。
+ * 累加器：各配装对修正量的累加结果。
  *
- * `key` 对应 legacy 的 `#r_${key}`，`breakdownKey` 对应 `#b_${key}`，
- * 第 2 步填充 `value` 与 `breakdown` 两个 HTML 片段。
+ * `_flat` / `_base` 结尾的是纯加法或基础值修正，`_pct` 结尾的带 % 参与乘法。
  */
+export type ModifierSum = Record<string, number>;
+
+/**
+ * 来源记录：每个修正量由哪些配装贡献，用于生成明细文案。
+ * 键与累加器一致，值为贡献来源的说明数组。
+ */
+export type ModifierSources = Record<string, string[]>;
+
+/** 结果面板的一行。 */
 export interface ResultRow {
   key: string;
   label: string;
@@ -87,22 +96,22 @@ export interface ResultRow {
   unit?: string;
 }
 
+/**
+ * 单行结果。`value` 为格式化后的数值，`breakdown` 为已转义的明细 HTML 片段。
+ *
+ * 沿用 legacy 的 innerHTML 写法以保证与旧页面逐字符一致；
+ * 第 3 步改为结构化字段后由前端渲染，不再拼接 HTML。
+ */
+export interface ResultValue {
+  value: string;
+  breakdown: string;
+}
+
+/** 全部结果的映射，键为 `ResultRow.key`。 */
+export type PanelResult = Record<string, ResultValue>;
+
 /** 下拉框的一项。 */
 export interface SelectOption {
   value: string;
   label: string;
-}
-
-/**
- * 副词条定义，对应 legacy 的 `SUB_STATS`。
- *
- * `id` 为标识键（用于 store 与 DOM id），`value` 为单条数值，
- * 与 legacy 中 `{ id, label, value, kind, to }` 的字段划分一致。
- */
-export interface SubStatDef {
-  id: string;
-  label: string;
-  /** 单条数值，第 2 步按条数折算时使用。 */
-  value: number;
-  kind: 'flat' | 'pct';
 }
