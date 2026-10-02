@@ -1,0 +1,105 @@
+/*
+ * 设计令牌：从 legacy/styles/calculator.css 提取的颜色、间距与圆角变量。
+ * 第 1 步只做变量化，不改变任何取值，保证与 legacy 渲染一致。
+ */
+
+:root {
+  /* ====== 字体 ====== */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  /* ====== 页面与文本 ====== */
+  --color-page-bg: #f0f2f5;
+  --color-surface: #fff;
+  --color-text: #1f2937;
+  --color-text-strong: #111827;
+  --color-text-muted: #6b7280;
+  --color-text-faint: #9ca3af;
+  --color-border: #d1d5db;
+  --color-input-bg: #fff;
+  --color-input-readonly-bg: #f9fafb;
+  --color-input-readonly-text: #4b5563;
+
+  /* ====== 品牌与交互 ====== */
+  --color-accent: #6366f1;
+  --color-accent-soft: #eef2ff;
+  --color-accent-border: #c7d2fe;
+  --color-accent-border-strong: #818cf8;
+  --color-accent-hover-bg: #e0e7ff;
+  --color-accent-active-bg: #c7d2fe;
+  --color-accent-hover-text: #3730a3;
+  --color-accent-text: #4338ca;
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-success: #059669;
+
+  /* ====== 模块左侧色条（区分六大模块） ====== */
+  --module-base-accent: #6366f1;
+  --module-weapon-accent: #f59e0b;
+  --module-core-accent: #10b981;
+  --module-disc-accent: #ec4899;
+  --module-sub-accent: #8b5cf6;
+  --module-set-accent: #f97316;
+
+  /* ====== 模块标题标签配色 ====== */
+  --tag-base-bg: #eef2ff;
+  --tag-base-text: #4f46e5;
+  --tag-weapon-bg: #fffbeb;
+  --tag-weapon-text: #d97706;
+  --tag-core-bg: #ecfdf5;
+  --tag-core-text: #059669;
+  --tag-disc-bg: #fdf2f8;
+  --tag-disc-text: #db2777;
+  --tag-sub-bg: #f5f3ff;
+  --tag-sub-text: #7c3aed;
+  --tag-set-bg: #fff7ed;
+  --tag-set-text: #ea580c;
+
+  /* ====== 固定词条徽标 ====== */
+  --color-fixed-stat-bg: #f3f4f6;
+
+  /* ====== 结果区 ====== */
+  --result-gradient-from: #1e293b;
+  --result-gradient-to: #334155;
+  --result-text: #f1f5f9;
+  --result-label: #cbd5e1;
+  --result-value: #fff;
+  --result-value-main: #fbbf24;
+  --result-breakdown: #94a3b8;
+  --result-row-border: rgb(255 255 255 / 8%);
+
+  /* ====== 圆角 ====== */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-module: 12px;
+  --radius-result: 14px;
+
+  /* ====== 间距 ====== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --module-padding-block: 16px;
+  --module-padding-inline: 18px;
+  --module-margin-bottom: 14px;
+
+  /* ====== 布局 ====== */
+  --container-max-width: 1180px;
+  --layout-result-width: 400px;
+  --layout-gap: 20px;
+  --layout-result-offset: 20px;
+
+  /* ====== 触控与动效 ====== */
+  --touch-target: 44px;
+  --duration-fast: 80ms;
+  --duration-base: 120ms;
+  --ease-base: ease;
+
+  /* ====== 阴影 ====== */
+  --shadow-module: 0 1px 3px rgb(0 0 0 / 6%);
+  --shadow-result: 0 6px 20px rgb(0 0 0 / 15%);
+  --shadow-focus: 0 0 0 2px rgb(99 102 241 / 15%);
+  --shadow-focus-strong: 0 0 0 3px rgb(99 102 241 / 25%);
+}

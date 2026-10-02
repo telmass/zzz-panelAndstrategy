@@ -1,0 +1,8 @@
+/*
+ * 样式入口。按层叠顺序引入：令牌 → 基础 → 组件。
+ * 新增样式请归入对应层，不要在此处直接书写规则。
+ */
+
+@import './tokens.css';
+@import './base.css';
+@import './components.css';

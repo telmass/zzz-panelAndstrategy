@@ -1,0 +1,104 @@
+/*
+ * 基础层：重置、排版、页面骨架与栅格。
+ * 对应 legacy 的 * / body / .container / h1 / .layout / .grid2 / .grid4 /
+ * .base-grid / .agent-selector-grid / .disc-main-grid / .weapon-grid / .set-grid。
+ *
+ * legacy 中的 .grid3 未被任何页面引用，故未迁入。
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-page-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  padding: var(--space-5) var(--space-4) 80px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-text-strong);
+  margin-bottom: var(--space-1);
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin-bottom: var(--space-6);
+}
+
+/* ====== 页面骨架 ====== */
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr var(--layout-result-width);
+  gap: var(--layout-gap);
+  align-items: start;
+}
+
+/* ====== 栅格 ====== */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2) 10px;
+}
+
+.base-grid,
+.agent-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+.disc-main-grid,
+.weapon-grid,
+.set-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+/* ====== 响应式 ====== */
+
+@media (width <= 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width <= 560px) {
+  .grid-4,
+  .weapon-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

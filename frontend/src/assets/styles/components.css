@@ -1,0 +1,539 @@
+/*
+ * 组件层：模块卡片、表单字段、提示文字、结果区与副词条步进器。
+ * 对应 legacy 中 .module* / .field / .note / .fixed-stat / .result* /
+ * .r-* / .breakdown* / .sub-count* / .set-item / .helper 等规则。
+ */
+
+/* ====== 模块卡片 ====== */
+
+.module {
+  background: var(--color-surface);
+  border-radius: var(--radius-module);
+  padding: var(--module-padding-block) var(--module-padding-inline);
+  margin-bottom: var(--module-margin-bottom);
+  box-shadow: var(--shadow-module);
+  border-left: 4px solid var(--color-text-faint);
+}
+
+.module--base {
+  border-left-color: var(--module-base-accent);
+}
+
+.module--weapon {
+  border-left-color: var(--module-weapon-accent);
+}
+
+.module--core {
+  border-left-color: var(--module-core-accent);
+}
+
+.module--disc {
+  border-left-color: var(--module-disc-accent);
+}
+
+.module--sub {
+  border-left-color: var(--module-sub-accent);
+}
+
+.module--set {
+  border-left-color: var(--module-set-accent);
+}
+
+.module-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-strong);
+}
+
+.module-title .tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--tag-base-bg);
+  color: var(--tag-base-text);
+}
+
+.module--core .tag {
+  background: var(--tag-core-bg);
+  color: var(--tag-core-text);
+}
+
+.module--weapon .tag {
+  background: var(--tag-weapon-bg);
+  color: var(--tag-weapon-text);
+}
+
+.module--disc .tag {
+  background: var(--tag-disc-bg);
+  color: var(--tag-disc-text);
+}
+
+.module--sub .tag {
+  background: var(--tag-sub-bg);
+  color: var(--tag-sub-text);
+}
+
+.module--set .tag {
+  background: var(--tag-set-bg);
+  color: var(--tag-set-text);
+}
+
+/* ====== 表单字段 ====== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.field label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.field label .unit {
+  color: var(--color-text-faint);
+  font-weight: 400;
+}
+
+.field input,
+.field select,
+.set-item select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 6px 8px;
+  font-size: 14px;
+  background: var(--color-input-bg);
+  color: var(--color-text-strong);
+  width: 100%;
+}
+
+.field input:focus,
+.field select:focus,
+.set-item select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-focus);
+}
+
+.field input[readonly] {
+  background: var(--color-input-readonly-bg);
+  color: var(--color-input-readonly-text);
+}
+
+.set-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.set-item label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* ====== 提示文字 ====== */
+
+.note {
+  font-size: 12px;
+  color: var(--color-text-faint);
+  margin-top: var(--space-2);
+}
+
+.note--lead {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.helper {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ====== 固定词条徽标 ====== */
+
+.fixed-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-fixed-stat-bg);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.fixed-stat b {
+  color: var(--color-text-strong);
+}
+
+.fixed-stat .v {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+/* ====== 副词条步进器 ====== */
+
+.sub-count {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sub-count input {
+  width: 52px;
+  min-height: var(--touch-target);
+  padding: 6px 4px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.sub-count-btn {
+  display: inline-flex;
+  flex: 0 0 var(--touch-target);
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  min-width: var(--touch-target);
+  height: var(--touch-target);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+  font: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--duration-base) var(--ease-base),
+    border-color var(--duration-base) var(--ease-base),
+    color var(--duration-base) var(--ease-base),
+    transform var(--duration-fast) var(--ease-base),
+    box-shadow var(--duration-base) var(--ease-base);
+}
+
+.sub-count-btn:hover:not(:disabled) {
+  border-color: var(--color-accent-border-strong);
+  background: var(--color-accent-hover-bg);
+  color: var(--color-accent-hover-text);
+}
+
+.sub-count-btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.96);
+  background: var(--color-accent-active-bg);
+}
+
+.sub-count-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-strong);
+}
+
+.sub-count-btn:disabled {
+  border-color: var(--color-border);
+  background: var(--color-input-readonly-bg);
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.sub-count .total {
+  font-size: 12px;
+  color: var(--color-text-faint);
+  min-width: var(--touch-target);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ====== 结果区 ====== */
+
+.result {
+  position: sticky;
+  top: var(--layout-result-offset);
+}
+
+.result-module {
+  background: linear-gradient(135deg, var(--result-gradient-from) 0%, var(--result-gradient-to) 100%);
+  color: var(--result-text);
+  border-radius: var(--radius-result);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-result);
+}
+
+.result-module h2 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.r-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--result-row-border);
+}
+
+.r-row:last-child {
+  border-bottom: none;
+}
+
+.r-label {
+  font-size: 13px;
+  color: var(--result-label);
+  flex: 0 0 auto;
+  margin-right: var(--space-3);
+}
+
+.r-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--result-value);
+  font-variant-numeric: tabular-nums;
+}
+
+.r-row--main .r-value {
+  font-size: 22px;
+  color: var(--result-value-main);
+}
+
+.r-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.breakdown {
+  font-size: 11px;
+  color: var(--result-breakdown);
+  margin-top: 2px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: right;
+  line-height: 1.4;
+}
+
+.breakdown .kw {
+  color: var(--result-value-main);
+}
+
+/* 第 2 步填充计算明细时使用；此处先保留结构样式。 */
+.breakdown-item {
+  display: inline-block;
+  white-space: normal;
+}
+
+.breakdown-line {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ====== 重置按钮 ====== */
+
+.reset-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius-lg);
+  background: var(--color-danger);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background: var(--color-danger-hover);
+}
+
+/* ====== 启动界面（复刻 legacy/pages/index.html） ======
+ * 仅 / 路由使用。与计算器页共用同一份 body，故用 :has() 将深色主题
+ * 限定在挂载了 .launcher-shell 的文档上，避免污染计算器页。
+ */
+
+body:has(.launcher-shell) {
+  color-scheme: dark;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgb(99 102 241 / 20%), transparent 36%),
+    radial-gradient(ellipse at 90% 85%, rgb(236 72 153 / 14%), transparent 34%),
+    #101521;
+  color: #f4f6fb;
+}
+
+.launcher-shell {
+  width: min(100%, 1060px);
+  margin: 0 auto;
+}
+
+.launcher-header {
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #a5b4fc;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.launcher-shell h1 {
+  margin: 0;
+  font-size: clamp(30px, 6vw, 48px);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.intro {
+  max-width: 620px;
+  margin: 14px 0 0;
+  color: #a8b0c2;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.card {
+  --accent: #a5b4fc;
+  position: relative;
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 23px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgb(34 42 59 / 96%), rgb(24 30 43 / 96%));
+  box-shadow: 0 16px 40px rgb(0 0 0 / 20%);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform 0.18s var(--ease-base),
+    border-color 0.18s var(--ease-base),
+    box-shadow 0.18s var(--ease-base);
+}
+
+.card::after {
+  position: absolute;
+  right: -42px;
+  bottom: -66px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: '';
+  opacity: 0.08;
+  filter: blur(2px);
+  transition:
+    opacity 0.18s var(--ease-base),
+    transform 0.18s var(--ease-base);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 50px rgb(0 0 0 / 30%);
+  outline: none;
+}
+
+.card:hover::after,
+.card:focus-visible::after {
+  transform: scale(1.16);
+  opacity: 0.15;
+}
+
+.card--rupture {
+  --accent: #fb7185;
+}
+
+.card--fengyu {
+  --accent: #38bdf8;
+}
+
+.badge {
+  align-self: flex-start;
+  padding: 5px 9px;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+}
+
+.card h2 {
+  margin: 23px 0 9px;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.card p {
+  margin: 0;
+  color: #a8b0c2;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.formula {
+  display: inline-block;
+  margin-top: 14px;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.launch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--space-6);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.arrow {
+  font-size: 19px;
+  transition: transform 0.18s var(--ease-base);
+}
+
+.card:hover .arrow,
+.card:focus-visible .arrow {
+  transform: translateX(4px);
+}
+
+.launcher-footer {
+  margin-top: var(--space-6);
+  color: #737e94;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (width <= 760px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 220px;
+  }
+}

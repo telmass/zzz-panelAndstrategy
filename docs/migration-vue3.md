@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | 目录重构 | 建立 frontend/ backend/ 骨架，legacy 下沉 | ✅ 已完成 |
 | 第 0 步 | 搭壳（Vite + Vue3 + TS，不迁业务） | ✅ 已完成（2026-10-02） |
-| 第 1 步 | 静态结构（无计算） | ⬜ 未开始 |
+| 第 1 步 | 静态结构（无计算） | ✅ 已完成（2026-10-02） |
 | 第 2 步 | 交互逻辑（仍在前端算） | ⬜ 未开始 |
 | 第 3 步 | 计算下沉到 Python | ⬜ 未开始 |
 | 第 4 步 | 预设数据改造为 JSON | ⬜ 未开始 |
@@ -51,6 +51,32 @@ frontend/
    全部 `v-model` 双向绑定到 `panelStore`，**计算结果先写死**。
 7. `src/views/LauncherView.vue` 复刻启动界面卡片。
 8. **验收**：新页面渲染与 legacy 一致，切换所有下拉无报错。
+
+## 第 1 步 · 静态结构（已完成 2026-10-02）
+
+只搭骨架，不含业务逻辑、数据请求与事件绑定。legacy 保持可用且未改动。
+
+```
+src/
+├── assets/styles/       index.css 为入口，按 tokens → base → components 顺序引入
+├── components/
+│   ├── ui/              PanelModule / NumberField / TextField / SelectField / StepperInput
+│   └── calculator/      六大模块 + ResultPanel，经 index.ts 统一导出
+├── constants/
+│   └── placeholderOptions.ts   占位选项，第 4 步整体删除
+└── types/panel.ts       类型契约，键名对齐 legacy 的 DOM id
+```
+
+`calculator.css` 拆为三层时做了两处取舍：
+
+- legacy 的 `.grid3` 未被任何页面引用，未迁入。
+- `TextField` 与 `NumberField` 分开：音擎的「固定副词条属性」需承载 `—`，
+  数字输入框无法表示，沿用 legacy 的 `type="text"`。
+
+已验证：`vue-tsc --noEmit` 通过；`npm run build` 成功；`tests/calculator-view.spec.ts`
+13 项渲染断言全绿（模块顺序与色条变体、12 个基础字段与命破专属字段默认隐藏、
+音擎三级下拉的 disabled 链、副词条 10 项步进器与初始禁用态、
+结果区在 standard/rupture/fengyu 三种模式下的 12/13/14 行显隐）。
 
 ## 第 2 步 · 交互逻辑（仍在前端算）
 
