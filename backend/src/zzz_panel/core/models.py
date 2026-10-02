@@ -88,3 +88,5 @@ class PanelInputs:
     sub_energy_pct: float = 0.0
     sub_anomaly_mastery: float = 0.0
     sub_pen_val: float = 0.0
+
+    mode: str = "standard"

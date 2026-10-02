@@ -37,7 +37,7 @@ Store for each agent:
 - Level-60 base stats excluding core: HP, ATK, DEF, impact, CR, CD, anomaly control, anomaly proficiency, PEN ratio, and energy regen, where available.
 - Any agent-specific base attributes shown by the Wiki (for example, a 命破 agent's base 贯穿力 or special energy accumulation) must be stored as additional base stats when the calculator has corresponding fields. Mark standard stats absent from the Wiki explicitly as unavailable rather than silently substituting another attribute or guessing.
 - In 锋御 mode, the calculator's energy-regen field represents 锐能自动累积; use the official 锐能自动累积 base value there and show the 锋御-specific label throughout the calculator.
-- If a displayed base attribute has no corresponding calculator input, record it in `unmodeledBaseStats` and show the user that it is not included in calculations; do not map it to a different attribute.
+- If a displayed base attribute has no corresponding calculator input, record it in `unmodeledBaseStats` and show the user that it is not included in calculations; do not map it to a different attribute. Exception: `锐暴伤害` is already modeled as a fixed 150% intrinsic stat shown only in the 锋御 final panel. Do not give it a calculator input and never report it as unmodeled.
 - Core ranks A–F mapped to their verified effect, distinguishing flat base-stat additions from percentages.
 - Aggregate bonuses in the exact shape the target calculator can apply.
 

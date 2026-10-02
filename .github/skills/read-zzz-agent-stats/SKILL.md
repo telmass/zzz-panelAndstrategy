@@ -73,7 +73,7 @@ python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 - The level-60 panel comes from the 晋升需求 slider rows 初始/满级, merged field by field.
 - Legacy labels are normalized (`生命/攻击/防御`, `暴击/暴伤`, `异常掌控`, `基础能量自动回复提升0.12点/秒`).
 - 命破 agents put `贯穿力` into `additionalBaseStats.penforce` and `闪能自动累积` into `additionalBaseStats.energyAccumulation`; missing `pr`/`er` are listed in `unavailableBaseStats`.
-- 锋御 agents put `锐能自动累积` into `base.er`; values the calculator cannot model (for example `锐暴伤害`) go to `unmodeledBaseStats`.
+- 锋御 agents put `锐能自动累积` into `base.er`. `锐暴伤害` is already modeled by the calculator: it is a fixed 150% intrinsic stat displayed only in the 锋御 final panel, never as a calculation input. The scraper still writes the Wiki label into `unmodeledBaseStats` for traceability, and the calculator filters it out via `MODELED_BASE_STAT_LABELS`; never describe it to the user as unmodeled. Only genuinely unmodelled attributes belong there.
 - Core ranks are read per rank letter and only `A`–`F` are accepted; older pages also emit empty `2..6` entries.
 - Presets are written sorted by official grade (S before A) then by id. The output is deterministic, so a rerun must reproduce the same file.
 

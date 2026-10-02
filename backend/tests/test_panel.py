@@ -1,7 +1,7 @@
 """core 层纯函数回归测试。
 
 EXAMPLE 与其期望值来自重构前的仓库根 ``main.py``，用于锁定迁移前后的数值一致。
-补齐驱动盘 4/5/6、二件套、贯穿力、实际暴击率等能力时，请一并在此追加断言。
+模式专属数值与核心计算一并在此覆盖。
 """
 
 from __future__ import annotations
@@ -100,6 +100,43 @@ def test_default_inputs_are_all_zero_bonuses() -> None:
     assert result["atk"] == pytest.approx(1000.0)
     assert result["def"] == pytest.approx(600.0)
     assert result["dmg"] == pytest.approx(0.0)
+
+
+def test_rupture_mode_calculates_penetration_force_from_final_hp_and_atk() -> None:
+    inputs = PanelInputs(
+        mode="rupture",
+        base_hp=1000.0,
+        base_atk=500.0,
+        disc_main={"hp_pct": 20.0, "atk_pct": 10.0},
+    )
+
+    result = calculate_panel(inputs)
+
+    assert result["penforce"] == pytest.approx(0.3 * result["atk"] + 0.1 * result["hp"])
+
+
+def test_fengyu_mode_calculates_actual_crit_and_fixed_blast_damage() -> None:
+    inputs = PanelInputs(
+        mode="fengyu",
+        base_cr=20.0,
+        base_cd=50.0,
+        set_cr=8.0,
+        set_dmg=37.0,
+        weapon_sub_type="cd",
+        weapon_sub_value=48.0,
+    )
+
+    result = calculate_panel(inputs)
+
+    assert result["actual_cr"] == pytest.approx(result["cd"] * 0.35 + result["cr"])
+    assert result["fengyu_blast_dmg"] == pytest.approx(150.0)
+    assert result["dmg"] == pytest.approx(37.0)
+    assert "fengyu_blast_dmg" not in calculate_panel(PanelInputs())
+
+
+def test_unknown_panel_mode_fails_explicitly() -> None:
+    with pytest.raises(ValueError, match="Unsupported panel mode"):
+        calculate_panel(PanelInputs(mode="unknown"))
 
 
 @pytest.mark.parametrize(

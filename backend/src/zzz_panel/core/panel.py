@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from typing import Dict, Iterable
 
+from .modes import calculate_mode_stats
 from .models import PanelInputs
 
 _PCT_WEAPON_SUB_TYPES = frozenset({
@@ -150,7 +151,7 @@ def calculate_panel(inputs: PanelInputs) -> Dict[str, float]:
         weapon_bonus["flat"] if inputs.weapon_sub_type == "pen_val" else 0.0,
     ])
 
-    return {
+    result = {
         "hp": total_hp,
         "atk": total_atk,
         "def": total_def,
@@ -164,3 +165,11 @@ def calculate_panel(inputs: PanelInputs) -> Dict[str, float]:
         "anomaly_mastery": total_anomaly_mastery,
         "pen_value": total_pen_value,
     }
+    result.update(calculate_mode_stats(
+        inputs.mode,
+        total_hp=total_hp,
+        total_atk=total_atk,
+        total_cr=total_cr,
+        total_cd=total_cd,
+    ))
+    return result
