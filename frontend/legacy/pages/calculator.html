@@ -51,11 +51,9 @@
             <div class="field"><label>异常精通</label><input type="number" id="base_am" value="100" step="any"></div>
             <div class="field" id="base_pr_field"><label>穿透率 <span class="unit">%</span></label><input type="number" id="base_pr" value="0"
                 step="any"></div>
+            <div class="field" id="base_penforce_field" hidden><label>基础贯穿力</label><input type="number" id="base_penforce" value="0" step="any"></div>
             <div class="field" id="base_er_field"><label>能量自动回复</label><input type="number" id="base_er" value="1.2" step="any"></div>
-          </div>
-          <div id="agent_extra_stats" class="base-grid" hidden style="margin-top:10px;">
-            <div class="field"><label>角色基础贯穿力</label><input type="number" id="base_penforce" value="0" step="any"></div>
-            <div class="field"><label>闪能自动累积</label><input type="number" id="base_energy_accumulation" value="0" step="any"></div>
+            <div class="field" id="base_energy_accumulation_field" hidden><label>闪能自动累积</label><input type="number" id="base_energy_accumulation" value="0" step="any"></div>
           </div>
         </div>
 
@@ -147,6 +145,9 @@
           </div>
           <div class="r-row main" id="fengyu_result" hidden><span class="r-label">实际暴击率</span>
             <div class="r-cell"><span class="r-value" id="r_actual_cr">—</span><span class="breakdown" id="b_actual_cr"></span></div>
+          </div>
+          <div class="r-row main" id="fengyu_blast_result" hidden><span class="r-label">锐暴伤害</span>
+            <div class="r-cell"><span class="r-value" id="r_blast_dmg">—</span><span class="breakdown" id="b_blast_dmg"></span></div>
           </div>
           <div class="r-row main"><span class="r-label">防御力</span>
             <div class="r-cell"><span class="r-value" id="r_def">—</span><span class="breakdown" id="b_def"></span>

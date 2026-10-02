@@ -20,7 +20,9 @@ function fillSelect(id, opts, noneLabel) {
   <div class="field">
     <label>${s.label} <span class="unit">+${s.value}${s.kind === 'pct' ? '%' : ''}/条</span></label>
     <div class="sub-count">
-      <input type="number" id="sub_${s.id}" value="0" min="0" max="36" step="1" oninput="handleSubInput(this)">
+      <button type="button" class="sub-count-btn" data-delta="-1" aria-label="减少${s.label}副词条数量" onclick="adjustSubInput('sub_${s.id}', -1)">−</button>
+      <input type="number" id="sub_${s.id}" value="0" min="0" max="36" step="1" oninput="handleSubInput(this)" aria-label="${s.label}副词条数量">
+      <button type="button" class="sub-count-btn" data-delta="1" aria-label="增加${s.label}副词条数量" onclick="adjustSubInput('sub_${s.id}', 1)">+</button>
       <span class="total" id="sub_v_${s.id}">0</span>
     </div>
   </div>
@@ -92,6 +94,13 @@ function fillSelect(id, opts, noneLabel) {
       calc();
     }
 
+    function adjustSubInput(inputId, delta) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      input.value = String((parseInt(input.value, 10) || 0) + delta);
+      handleSubInput(input);
+    }
+
     function updateWeaponRole() {
       weaponPresetSelect.replaceChildren(new Option('请选择', ''));
       weaponPresetSelect.disabled = !weaponGradeSelect.value || !weaponRoleSelect.value;
@@ -142,9 +151,11 @@ function fillSelect(id, opts, noneLabel) {
       activePanelMode = mode;
       document.getElementById('rupture_result').hidden = mode !== 'rupture';
       document.getElementById('fengyu_result').hidden = mode !== 'fengyu';
+      document.getElementById('fengyu_blast_result').hidden = mode !== 'fengyu';
       document.getElementById('base_pr_field').hidden = mode === 'rupture';
       document.getElementById('base_er_field').hidden = mode === 'rupture';
-      document.getElementById('agent_extra_stats').hidden = mode !== 'rupture';
+      document.getElementById('base_penforce_field').hidden = mode !== 'rupture';
+      document.getElementById('base_energy_accumulation_field').hidden = mode !== 'rupture';
       updateEnergyAttributeLabels(mode);
     }
 
@@ -191,7 +202,6 @@ function fillSelect(id, opts, noneLabel) {
       });
       document.getElementById('base_penforce').value = '0';
       document.getElementById('base_energy_accumulation').value = '0';
-      document.getElementById('agent_extra_stats').hidden = true;
       document.getElementById('core1').value = '-1';
       document.getElementById('core2').value = '-1';
       for (let i = 0; i < 3; i++) {
@@ -280,6 +290,12 @@ function fillSelect(id, opts, noneLabel) {
             throw new Error(`${agent.name}包含无法识别的额外基础属性“${key}”。`);
           }
         });
+        if (agent.panelMode === 'rupture' &&
+            Object.keys(extraBaseFields).some(key =>
+              !Number.isFinite(agent.additionalBaseStats?.[key])
+            )) {
+          throw new Error(`${agent.name}的命破基础面板缺少官方基础贯穿力或闪能自动累积数值。`);
+        }
 
         if (!Array.isArray(agent.coreBonuses) || agent.coreBonuses.length === 0) {
           throw new Error(`${agent.name}缺少有效的核心加成数据。`);
@@ -308,12 +324,16 @@ function fillSelect(id, opts, noneLabel) {
           throw new Error(`${agent.name}的核心加成无法准确填入两个计算器核心选项。`);
         }
 
-        const unmodeledBaseStats = agent.unmodeledBaseStats || [];
-        if (!Array.isArray(unmodeledBaseStats) || unmodeledBaseStats.some(stat =>
+        const rawUnmodeledStats = agent.unmodeledBaseStats || [];
+        if (!Array.isArray(rawUnmodeledStats) || rawUnmodeledStats.some(stat =>
           typeof stat.label !== 'string' || !Number.isFinite(stat.value) || typeof stat.unit !== 'string'
         )) {
           throw new Error(`${agent.name}包含无法识别的未建模基础属性。`);
         }
+        // 结构校验覆盖全部条目；仅在生成提示文案时剔除已建模的同名属性。
+        const unmodeledBaseStats = rawUnmodeledStats.filter(
+          stat => !MODELED_BASE_STAT_LABELS.has(stat.label)
+        );
 
         Object.entries(baseFields).forEach(([key, inputId]) => {
           document.getElementById(inputId).value = Number.isFinite(agent.base?.[key]) ? agent.base[key] : '';
@@ -321,7 +341,6 @@ function fillSelect(id, opts, noneLabel) {
         Object.values(extraBaseFields).forEach(inputId => {
           document.getElementById(inputId).value = '0';
         });
-        document.getElementById('agent_extra_stats').hidden = !Object.keys(agent.additionalBaseStats || {}).length;
         Object.entries(agent.additionalBaseStats || {}).forEach(([key, value]) => {
           document.getElementById(extraBaseFields[key]).value = value;
         });
@@ -332,8 +351,11 @@ function fillSelect(id, opts, noneLabel) {
           document.getElementById(`set${i}`).value = '-1';
         }
 
-        const unavailableSummary = unavailableBaseStats.size
-          ? `官方基础面板未提供${[...unavailableBaseStats].map(key => ({
+        const unavailableVisibleStats = [...unavailableBaseStats].filter(
+          key => agent.panelMode !== 'rupture' || !['pr', 'er'].includes(key)
+        );
+        const unavailableSummary = unavailableVisibleStats.length
+          ? `官方基础面板未提供${unavailableVisibleStats.map(key => ({
             pr: '穿透率',
             er: displayEnergyAttributeLabel('能量自动回复', agent.panelMode),
           }[key] || key)).join('、')}。`
@@ -374,6 +396,14 @@ function fillSelect(id, opts, noneLabel) {
       }
       calc();
     }
+
+    /* ====== 固有属性（不随任何词条、音擎或套装变化） ====== */
+    // 锋御代理人「锐暴伤害」为固有属性，恒定 150%，不参与任何加成与修正计算。
+    const FENGYU_BLAST_DMG = 150;
+    // 官方 WIKI 基础面板中与上述固有属性同名的条目。已在最终面板中固定展示，
+    // 因此不再计入「尚未建模的属性」提示。预设数据重新生成并将其移入建模字段后，
+    // 可从本集合移除。
+    const MODELED_BASE_STAT_LABELS = new Set(['锐暴伤害']);
 
     /* ====== 计算逻辑 ====== */
     function num(id) {
@@ -496,6 +526,13 @@ function fillSelect(id, opts, noneLabel) {
           document.getElementById('sub_v_' + s.id).textContent = '0';
         }
       });
+      SUB_STATS.forEach(s => {
+        const input = document.getElementById('sub_' + s.id);
+        input.parentElement.querySelector('[data-delta="-1"]').disabled =
+          Math.max(0, Math.floor(num(input.id))) <= 0;
+        input.parentElement.querySelector('[data-delta="1"]').disabled =
+          Math.max(0, Math.floor(num(input.id))) >= 36 || subTotal >= 54;
+      });
       document.getElementById('sub_total').textContent = subTotal;
       if (subTotal > 54) {
         document.getElementById('sub_total').style.color = '#ef4444';
@@ -527,6 +564,7 @@ function fillSelect(id, opts, noneLabel) {
       const totalCr = baseCr + S.cr;
       const totalCd = baseCd + S.cd;
       const actualCr = totalCd * 0.35 + totalCr;
+      const blastDmg = activePanelMode === 'fengyu' ? FENGYU_BLAST_DMG : null;
       const totalDmg = S.dmg;
       const totalPr = basePr + S.pr;
       const totalPv = S.pen_val;
@@ -541,6 +579,7 @@ function fillSelect(id, opts, noneLabel) {
       document.getElementById('r_def').textContent = fmt(totalDef);
       document.getElementById('r_penforce').textContent = fmt(totalPenForce);
       document.getElementById('r_actual_cr').textContent = fmt(actualCr) + '%';
+      document.getElementById('r_blast_dmg').textContent = blastDmg === null ? '—' : fmt(blastDmg) + '%';
       document.getElementById('r_cr').textContent = fmt(totalCr) + '%';
       document.getElementById('r_cd').textContent = fmt(totalCd) + '%';
       document.getElementById('r_dmg').textContent = fmt(totalDmg) + '%';
@@ -570,6 +609,9 @@ function fillSelect(id, opts, noneLabel) {
       document.getElementById('b_penforce').innerHTML = `<span class="breakdown-line">0.3×${fmt(totalAtk)} + 0.1×${fmt(totalHp)}</span><span class="breakdown-line">= <b>${fmt(totalPenForce)}</b></span>`;
       document.getElementById('b_cr').innerHTML = `${baseCr}% + ${j(src.cr)} = ${fmt(totalCr)}%`;
       document.getElementById('b_actual_cr').innerHTML = `<span class="breakdown-line">${fmt(totalCd)}%×35% + ${fmt(totalCr)}%</span><span class="breakdown-line">= <b>${fmt(actualCr)}%</b></span>`;
+      document.getElementById('b_blast_dmg').innerHTML = blastDmg === null
+        ? ''
+        : `<span class="breakdown-line">固有属性，不受词条、音擎与套装影响</span><span class="breakdown-line">= <b>${fmt(blastDmg)}%</b></span>`;
       document.getElementById('b_cd').innerHTML = `${baseCd}% + ${j(src.cd)} = ${fmt(totalCd)}%`;
       document.getElementById('b_dmg').innerHTML = `${j(src.dmg)} = ${fmt(totalDmg)}%`;
       document.getElementById('b_pr').innerHTML = `${basePr}% + ${j(src.pr)} = ${fmt(totalPr)}%`;
