@@ -11,7 +11,7 @@
 | 目录重构 | 建立 frontend/ backend/ 骨架，legacy 下沉 | ✅ 已完成 |
 | 第 0 步 | 搭壳（Vite + Vue3 + TS，不迁业务） | ✅ 已完成（2026-10-02） |
 | 第 1 步 | 静态结构（无计算） | ✅ 已完成（2026-10-02） |
-| 第 2 步 | 交互逻辑（仍在前端算） | ⬜ 未开始 |
+| 第 2 步 | 交互逻辑（仍在前端算） | ✅ 已完成（2026-10-02） |
 | 第 3 步 | 计算下沉到 Python | ⬜ 未开始 |
 | 第 4 步 | 预设数据改造为 JSON | ⬜ 未开始 |
 | 第 5 步 | 收尾，删除 legacy 与重定向页 | ⬜ 未开始 |
@@ -60,10 +60,10 @@ frontend/
 src/
 ├── assets/styles/       index.css 为入口，按 tokens → base → components 顺序引入
 ├── components/
-│   ├── ui/              PanelModule / NumberField / TextField / SelectField / StepperInput
-│   └── calculator/      六大模块 + ResultPanel，经 index.ts 统一导出
-├── constants/
-│   └── placeholderOptions.ts   占位选项，第 4 步整体删除
+│   ├── common/          PanelModule / NumberField / TextField / SelectField / StepperInput
+│   ├── calculator/      六大模块 + ResultPanel，经 index.ts 统一导出
+│   └── layout/
+├── constants/           选项表，第 2 步起由 placeholderOptions.ts 改为 calculatorOptions.ts
 └── types/panel.ts       类型契约，键名对齐 legacy 的 DOM id
 ```
 
@@ -72,6 +72,11 @@ src/
 - legacy 的 `.grid3` 未被任何页面引用，未迁入。
 - `TextField` 与 `NumberField` 分开：音擎的「固定副词条属性」需承载 `—`，
   数字输入框无法表示，沿用 legacy 的 `type="text"`。
+
+通用组件最终落在 `components/common/` 而非 `components/ui/`——按
+`docs/directory-layout.md` 的规范分层，并去掉了多余的 `ui/` 嵌套。
+`constants/placeholderOptions.ts` 是第 1 步的占位选项，第 2 步接入真实数据后
+已替换为 `constants/calculatorOptions.ts`。
 
 已验证：`vue-tsc --noEmit` 通过；`npm run build` 成功；`tests/calculator-view.spec.ts`
 13 项渲染断言全绿（模块顺序与色条变体、12 个基础字段与命破专属字段默认隐藏、
@@ -88,6 +93,59 @@ src/
 10. `applyAgentPreset`（`calculator.js:224-365`）的防御性校验先在前端保留一份
     用于即时反馈，后续与 `backend/src/zzz_panel/presets/validate.py` 对齐。
 11. **验收**：同一组输入，新旧页面显示完全相同的 12 项数值与明细文案。
+
+## 第 2 步 · 交互逻辑（已完成 2026-10-02）
+
+`frontend/legacy/` 全程零改动，回退路径完好。
+
+```
+src/
+├── stores/panelStore.ts        表单状态 + 派生 getters + actions
+├── composables/
+│   ├── usePanelCalc.ts         实算逻辑，替换第 1 步的写死结果
+│   ├── useSubStatLimit.ts      总条数 ≤54、单项 ≤36 钳制
+│   ├── usePanelMode.ts         命破/锋御字段显隐与能量类文案替换
+│   └── useAgentPreset.ts       预设校验、载入与 URL 查询参数初始化
+├── utils/                      fmt.ts 对齐 legacy 取整与千分位，clamp.ts
+├── data/                       agentPresets.ts / weaponPresets.ts 静态兜底
+├── types/                      agentPresets.ts / weaponPresets.ts
+├── constants/calculatorOptions.ts
+└── components/common/          通用字段组件改为 v-model 契约
+```
+
+音擎三级锁定（等级 → 类别 → 名称）与代理人标签过滤实现为 store action；
+切换上游时清空下游选择与只读回填区。切换代理人标签会把 `panelMode` 回落到
+URL 请求的模式，非法 `mode` 参数回落 `standard`。
+
+### 测试中的两个坑
+
+`tests/legacy-parity.spec.ts` 用 jsdom 加载 legacy 页面联跑，两个细节容易踩：
+
+- 必须 `runScripts: 'dangerously'`：只有该模式会编译 HTML 内联的 `onchange`
+  属性，否则 `updateWeaponGrade` / `applyAgentPreset` 等联动根本不触发。
+- 多个 legacy `<script>` 必须合并成**一段**内联脚本：真实浏览器中它们共享
+  全局词法作用域，而独立 `eval()` 各自成域，`const` 声明的 `CORE_OPTIONS`
+  等将不可见。
+
+另外 legacy 的 `clearAgentPresetFields` 只重置基础面板、核心与二件套，
+**不触碰 4/5/6 号主词条与副词条**。共用一个 JSDOM 会让上一个用例的驱动盘
+配置漏进下一个用例，产生假差异（曾表现为攻击力 1449.6 vs 1136），
+因此每个用例都重建 DOM。
+
+### 已验证
+
+`vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 42 项全绿：
+
+- `tests/calculator-view.spec.ts` 13 项渲染断言。其中两条随第 2 步的行为更新：
+  副词条按钮不再是「全部禁用」，而是条数为 0 时减号禁用、加号可用；
+  结果区不再是 `—` 占位而是实算值。
+- `tests/legacy-parity.spec.ts` 4 项对拍：默认空配置与满配两档下，
+  12~13 行数值及明细文案**逐字符**一致。
+- `tests/panel-interactions.spec.ts` 25 项交互行为：音擎三级锁定与下游清空、
+  代理人标签过滤、副词条钳制（含负数与小数归一化）、
+  锋御文案替换、预设载入的错误路径。
+
+dev server 下 `/`、`/calculator` 与三个 legacy 页面均返回 200。
 
 ## 第 3 步 · 计算下沉到 Python
 
