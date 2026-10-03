@@ -1,7 +1,7 @@
 """配装规则表。
 
 这是词条、二件套与核心加成的**唯一权威来源**，取值逐条对齐
-``frontend/legacy/scripts/calculator-config.js``。
+``frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js``。
 
 前端 ``src/constants/calculatorOptions.ts`` 目前保留同一份副本，
 因为下拉框需要在浏览器里渲染 label；第 4 步第 20 条会让本模块**单向生成**

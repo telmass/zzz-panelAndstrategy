@@ -4,9 +4,10 @@ Scans the wiki entry_page_id space through the public content API, keeps every
 page whose 晋升需求 table uses the weapon-specific 突破前基础 / 突破后基础 keys,
 and extracts the level-60 (0 突破) base ATK plus the fixed high-level substat.
 
-``data/weapon-presets.json`` 是全仓库唯一真实源；legacy 页面所需的
-``frontend/legacy/data/weapon-presets.js`` 由 ``tools/sync_presets.py --to-legacy``
-从本文件反向生成，不要直接写 legacy。序列化复用 sync_presets 的规范化实现。
+``data/weapon-presets.json`` 是全仓库唯一真实源；参照实现夹具所需的
+``frontend/tests/fixtures/legacy-calculator/data/weapon-presets.js`` 由
+``tools/sync_presets.py --to-legacy`` 从本文件反向生成，不要直接写它。
+序列化复用 sync_presets 的规范化实现。
 
 Default paths are relative to the repository root; run from there:
 

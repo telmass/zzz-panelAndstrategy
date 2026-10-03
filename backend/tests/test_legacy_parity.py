@@ -1,7 +1,7 @@
 """legacy 抽样用例对拍（第 3 步验收项 16）。
 
 期望值由 ``frontend/tools/dump_legacy_cases.mjs`` 从**未经改动的 legacy 页面**
-导出：它在 jsdom 里加载 ``frontend/legacy/pages/calculator.html`` 与四个原始脚本，
+导出：它在 jsdom 里加载 ``frontend/tests/fixtures/legacy-calculator/pages/calculator.html`` 与四个原始脚本，
 按真实交互路径设置表单后读取结果区。因此本文件断言的是「Python 与旧页面数值全等」。
 
 四组场景与 ``frontend/tests/legacy-parity.spec.ts`` 一一对应：

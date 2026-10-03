@@ -1,6 +1,6 @@
 """词条 / 二件套 / 音擎修正量的合成与分类。
 
-对应 ``frontend/legacy/scripts/calculator.js`` 中累加器 ``S`` 与来源记录
+对应 ``frontend/tests/fixtures/legacy-calculator/scripts/calculator.js`` 中累加器 ``S`` 与来源记录
 ``src``：把「选了什么」翻译成「各修正量加了多少、由谁贡献」。
 
 保持不 import fastapi/pydantic、不读文件、不打印。

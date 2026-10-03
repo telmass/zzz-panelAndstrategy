@@ -9,9 +9,10 @@ writes one preset per agent with:
   * fully upgraded core skill, grouped per attribute from ranks A-F;
   * the official 特性 tag and the matching calculator panel mode.
 
-``data/agent-presets.json`` 是全仓库唯一真实源；legacy 页面所需的
-``frontend/legacy/data/agent-presets.js`` 由 ``tools/sync_presets.py --to-legacy``
-从本文件反向生成，不要直接写 legacy。序列化复用 sync_presets 的规范化实现。
+``data/agent-presets.json`` 是全仓库唯一真实源；参照实现夹具所需的
+``frontend/tests/fixtures/legacy-calculator/data/agent-presets.js`` 由
+``tools/sync_presets.py --to-legacy`` 从本文件反向生成，不要直接写它。
+序列化复用 sync_presets 的规范化实现。
 
 Default paths are relative to the repository root; run from there:
 
@@ -310,7 +311,10 @@ def render(presets):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-id", type=int, default=2600)
-    parser.add_argument("--config", default="frontend/legacy/scripts/calculator-config.js")
+    parser.add_argument(
+        "--config",
+        default="frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js",
+    )
     parser.add_argument("--out", default=OUTPUT)
     args = parser.parse_args()
 

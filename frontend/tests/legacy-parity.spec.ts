@@ -16,8 +16,10 @@ import { flushCalc } from './support/flush';
 /**
  * 三方对拍：legacy 原生 JS ≡ Vue3 页面 ≡ Python 后端。
  *
- * legacy 侧在独立 JSDOM 窗口里加载未经改动的原始 HTML 与四个脚本，
- * 按 calculator.html 中的顺序求值，跑的是旧实现本身。
+ * legacy 侧在独立 JSDOM 窗口里加载原始 HTML 与四个脚本，按calculator.html
+ * 中的顺序求值，跑的是旧实现本身。该实现已于第5 步从 `frontend/legacy/`
+ * 移入 `tests/fixtures/legacy-calculator/`（见其 README），
+ * 此后**禁止修改**——改了基准就等于自己跟自己比。
  *
  * Vue 侧自第 3 步起不再本地计算，结果来自真实拉起的 FastAPI 后端
  * （`tests/support/backend.ts`）。因此这里断言的是完整链路：
@@ -26,7 +28,7 @@ import { flushCalc } from './support/flush';
  * 后端拉不起来时整体 skip，而不是让 CI 变红。
  */
 
-const LEGACY_ROOT = resolve(__dirname, '../legacy');
+const LEGACY_ROOT = resolve(__dirname, 'fixtures/legacy-calculator');
 const LEGACY_SCRIPTS = [
   'data/agent-presets.js',
   'data/weapon-presets.js',

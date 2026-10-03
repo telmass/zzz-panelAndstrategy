@@ -3,6 +3,8 @@
  *
  * 用法：
  *   cd frontend && node tools/diff_breakdown.mjs <legacy_cases.json> <backend_resp.json> [场景]
+ *
+ * legacy 侧读 `tests/fixtures/legacy-calculator/`，只读，勿修改。
  */
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
@@ -10,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const LEGACY_ROOT = resolve(HERE, '../legacy');
+const LEGACY_ROOT = resolve(HERE, '../tests/fixtures/legacy-calculator');
 const LEGACY_SCRIPTS = [
   'data/agent-presets.js',
   'data/weapon-presets.js',

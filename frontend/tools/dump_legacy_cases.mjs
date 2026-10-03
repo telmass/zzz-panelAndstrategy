@@ -1,6 +1,8 @@
 /**
- * 从 legacy 页面导出抽样用例的数值，作为 backend/tests/test_panel.py 的夹具。
+ * 从 legacy 参照实现导出抽样用例的数值，作为 backend/tests/test_panel.py 的夹具。
  * 用法：node tools/dump_legacy_cases.mjs > /tmp/legacy_cases.json
+ *
+ * 参照实现位于 `tests/fixtures/legacy-calculator/`，只读，勿修改。
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
@@ -8,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const LEGACY_ROOT = resolve(HERE, '../legacy');
+const LEGACY_ROOT = resolve(HERE, '../tests/fixtures/legacy-calculator');
 const LEGACY_SCRIPTS = [
   'data/agent-presets.js',
   'data/weapon-presets.js',

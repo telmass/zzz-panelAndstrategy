@@ -1,20 +1,23 @@
 ﻿"""同步预设与规则表数据。
 
-    python tools/sync_presets.py --from-legacy   # legacy/data/*.js → data/*.json（一次性引导）
-    python tools/sync_presets.py --to-legacy     # data/*.json → legacy/data/*.js（长期方向）
+    python tools/sync_presets.py --from-legacy   # 夹具 data/*.js → data/*.json（一次性引导）
+    python tools/sync_presets.py --to-legacy     # data/*.json → 夹具 data/*.js（长期方向）
     python tools/sync_presets.py --options       # core/*.py → data/options.json（单向）
     python tools/sync_presets.py --check         # 只比对，不写文件；有漂移则退出码 1
 
 预设的两个方向都做同一件事：把数据规范化到本模块定义的键序后再写出。
-因此「legacy → JSON → legacy」必定字节一致，可用来验证转换无损；
+因此「夹具 → JSON → 夹具」必定字节一致，可用来验证转换无损；
 重复执行也不会产生 diff（写前比对，不一致才落盘）。
 
 规则表只有一个方向：``data/options.json`` 是 ``core/options.py`` 与
 ``core/constants.py`` 的派生产物。前端 ``src/constants/calculatorOptions.ts``
 不再持有副本，从该 JSON 读取，故下拉框无需等一次 HTTP 往返即可渲染。
 
-legacy 的 .js 是 JS 字面量而非 JSON：单引号、无转义、键名不引号。
-抓取脚本 ``refresh_*_presets.py`` 按此风格整体覆盖生成，不可手工编辑。
+「legacy」在本脚本中特指**参照实现夹具**
+``frontend/tests/fixtures/legacy-calculator/``：第 5 步删除了 ``frontend/legacy/``
+的页面，但把三方对拍所需的 ``data/*.js`` 原样留在了夹具里。
+它仍读 ``window.AGENT_PRESETS``，故这份 JS 包装必须继续跟着 JSON 走。
+文件是 JS 字面量而非 JSON：单引号、无转义、键名不引号，不可手工编辑。
 """
 
 from __future__ import annotations
@@ -27,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-LEGACY_DIR = REPO_ROOT / "frontend" / "legacy" / "data"
+LEGACY_DIR = REPO_ROOT / "frontend" / "tests" / "fixtures" / "legacy-calculator" / "data"
 DATA_DIR = REPO_ROOT / "data"
 BACKEND_SRC = REPO_ROOT / "backend" / "src"
 OPTIONS_JSON = DATA_DIR / "options.json"

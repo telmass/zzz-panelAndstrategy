@@ -18,6 +18,6 @@ uv run pytest
 
 | 文件 | 覆盖内容 |
 | --- | --- |
-| `test_breakdown.py` | 计算明细来源与 legacy `calculator.js:567-583` 一致 |
+| `test_breakdown.py` | 计算明细来源与参照实现 `calculator.js:567-583` 一致 |
 | `test_presets.py` | 预设加载与结构校验 |
 | `test_api.py` | FastAPI 路由（需 `httpx`，已在 dev 依赖组中） |

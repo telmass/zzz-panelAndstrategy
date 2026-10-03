@@ -5,7 +5,7 @@
 | 文件 | 用途 |
 | --- | --- |
 | `dev.ps1` | 一键启停本地开发服务（uvicorn :8000 + vite :5173） |
-| `sync_presets.py` | 预设 `data/*.json` ↔ `frontend/legacy/data/*.js`；规则表 `core/*.py` → `data/options.json` |
+| `sync_presets.py` | 预设 `data/*.json` ↔ 对拍夹具 `data/*.js`；规则表 `core/*.py` → `data/options.json` |
 | `dump_backend_responses.py` | 把 `legacy_cases.json` 的每条用例 POST 给后端并落盘，用于排查对拍差异 |
 
 ## 一键启停
@@ -51,18 +51,22 @@ PowerShell 变量大小写不敏感：`Start-Service` 里 `foreach ($file in ...
 
 | 文件 | 用途 |
 | --- | --- |
-| `sync_presets.py` | 预设 `data/*.json` ↔ `frontend/legacy/data/*.js`；规则表 `core/*.py` → `data/options.json` |
+| `sync_presets.py` | 预设 `data/*.json` ↔ `frontend/tests/fixtures/legacy-calculator/data/*.js`；规则表 `core/*.py` → `data/options.json` |
 
 ```powershell
-python tools/sync_presets.py --from-legacy          # 预设 JS → JSON（一次性引导）
-python tools/sync_presets.py --to-legacy            # 预设 JSON → JS（长期方向）
+python tools/sync_presets.py --from-legacy          # 夹具 JS → JSON（一次性引导）
+python tools/sync_presets.py --to-legacy            # 预设 JSON → 夹具 JS（长期方向）
 python tools/sync_presets.py --options              # 规则表 core/*.py → data/options.json
 python tools/sync_presets.py --to-legacy --check    # 只报漂移，退出码 1 = 不同步
 python tools/sync_presets.py --options --check      # 规则表是否已重新生成
 ```
 
 预设的两个方向都先把数据规范化到脚本内定义的键序再写出，因此重复执行不产生 diff，
-且 `legacy → JSON → legacy` 字节一致（已验证，可作无损性回归检查）。
+且 `夹具 → JSON → 夹具` 字节一致（已验证，可作无损性回归检查）。
+
+脚本中的「legacy」特指只读参照实现夹具
+`frontend/tests/fixtures/legacy-calculator/`——旧的原生页面已删除，
+但三方对拍仍在读那份 `data/*.js`。
 
 规则表只有一个方向：`data/options.json` 是派生产物，前端不再持有副本。
 `core` 层零第三方依赖，脚本用 `sys.path` 加 `backend/src` 直接 import，
@@ -88,7 +92,7 @@ python tools/sync_presets.py --options --check      # 规则表是否已重新�
 | 文件 | 用途 |
 | --- | --- |
 | `dump_backend_responses.py` | 把 `backend/tests/legacy_cases.json` 的每条用例 POST 给后端，落盘完整响应 JSON |
-| `../frontend/tools/diff_breakdown.mjs` | 把落盘 JSON 与 legacy 实算明细逐行 diff，按 DOM 层级归类 |
+| `../frontend/tools/diff_breakdown.mjs` | 把落盘 JSON 与参照实现实算明细逐行 diff，按 DOM 层级归类 |
 
 典型流程：先跑前者拿后端响应，再跑后者看差异明细，最后回到 `core/` 下对应模块修正。
 

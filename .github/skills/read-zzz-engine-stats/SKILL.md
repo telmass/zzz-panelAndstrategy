@@ -143,10 +143,10 @@ As of 2026-10-01 it produces 100 presets: 47 S, 37 A, 16 B, of which 4 are é”‹å¾
 idempotent, so re-running must leave the file byte-identical; compare hashes to prove nothing
 drifted.
 
-`data/weapon-presets.json` is the single source of truth for the whole repository. The legacy
-page's `frontend/legacy/data/weapon-presets.js` is generated from it by
-`sync_presets.py --to-legacy`; never write the legacy file from this script. After a refresh,
-run that command so the legacy page stays in sync, and
+`data/weapon-presets.json` is the single source of truth for the whole repository. The
+parity fixture's `frontend/tests/fixtures/legacy-calculator/data/weapon-presets.js` is
+generated from it by `sync_presets.py --to-legacy`; never write that file from this
+script. After a refresh, run that command so the fixture stays in sync, and
 `python tools/sync_presets.py --to-legacy --check` must exit 0.
 
 Parsing rules the script encodes, each of which broke an earlier hand-written regex:

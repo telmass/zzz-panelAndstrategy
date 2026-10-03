@@ -6,7 +6,7 @@
 
 | 文件 | 来源 | 方向 |
 | --- | --- | --- |
-| `agent-presets.json` / `weapon-presets.json` | Skill 抓取脚本 | 抓取脚本写 JSON，`sync_presets.py --to-legacy` 反向生成 legacy 的 JS 包装 |
+| `agent-presets.json` / `weapon-presets.json` | Skill 抓取脚本 | 抓取脚本写 JSON，`sync_presets.py --to-legacy` 反向生成对拍夹具的 JS 包装 |
 | `options.json` | `backend/src/zzz_panel/core/*.py` | 单向生成，`sync_presets.py --options` |
 
 ```powershell
@@ -23,19 +23,22 @@ python tools/sync_presets.py --to-legacy --check      # 预设两侧是否同步
 不能等一次 HTTP 往返。预设则相反，走 `GET /api/presets/*`，
 因为数据量大且需刷新，见 `docs/migration-vue3.md` 第 4 步第 18、20 条。
 
-## 与 legacy 的区别
+## 与 JS 包装的区别
 
-预设数据的 legacy 副本：
+预设数据的 JS 副本（`frontend/tests/fixtures/legacy-calculator/data/*.js`）：
 
-| | 本目录 | `frontend/legacy/data/*.js` |
+| | 本目录 | 夹具 `data/*.js` |
 | --- | --- | --- |
 | 格式 | JSON | JS 字面量（`window.AGENT_PRESETS`） |
-| 角色 | 权威数据源 | 过渡期产物，由本目录生成 |
-| 消费者 | 后端 `presets/loader.py`、前端经 API | 仅 legacy 页面 |
+| 角色 | 权威数据源 | 派生产物，由本目录生成 |
+| 消费者 | 后端 `presets/loader.py`、前端经 API | 仅三方对拍的参照实现 |
 | 状态 | **已生成** | 与本目录同步 |
 
-已验证「legacy → JSON → legacy」字节一致，故转换无损。改动任一侧后跑
+已验证「夹具 → JSON → 夹具」字节一致，故转换无损。改动任一侧后跑
 `python tools/sync_presets.py --to-legacy --check`，退出码非 0 即表示两侧漂移。
 预设的 `.js` 与 `.json` 都不可手工编辑。
+
+之所以还要维护这份 JS 包装：参照实现在顶层直接读取 `window.AGENT_PRESETS` /
+`window.WEAPON_PRESETS`，删了它三方对拍就跑不起来。
 
 字段结构见 [../docs/data-schema.md](../docs/data-schema.md)。

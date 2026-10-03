@@ -1,6 +1,6 @@
 """计算明细（来源追溯）。
 
-必须与 ``frontend/legacy/scripts/calculator.js`` 的明细文案逐段等价，
+必须与 ``frontend/tests/fixtures/legacy-calculator/scripts/calculator.js`` 的明细文案逐段等价，
 否则 Vue3 迁移后右侧「计算明细」面板会变样。
 
 按 ``constants.py`` 的建议输出**结构化片段**而非 HTML 字符串：每个片段是

@@ -72,10 +72,16 @@ python tools/sync_presets.py --to-legacy
 ```
 
 `data/agent-presets.json` is the single source of truth for the whole repository. The
-legacy page's `frontend/legacy/data/agent-presets.js` is generated from it by
-`sync_presets.py --to-legacy`; never write the legacy file from this script. After a
-refresh, run that command so the legacy page stays in sync, and
+parity fixture's `frontend/tests/fixtures/legacy-calculator/data/agent-presets.js` is
+generated from it by `sync_presets.py --to-legacy`; never write that file from this
+script. After a refresh, run that command so the fixture stays in sync, and
 `python tools/sync_presets.py --to-legacy --check` must exit 0.
+
+`--config` defaults to
+`frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js`, which the
+script parses for core-option values. That file is the pre-migration option table and is
+now the only remaining consumer of the old format; keep its formatting intact, or the
+regex parse fails silently.
 
 - The level-60 panel comes from the 晋升需求 slider rows 初始/满级, merged field by field.
 - Legacy labels are normalized (`生命/攻击/防御`, `暴击/暴伤`, `异常掌控`, `基础能量自动回复提升0.12点/秒`).

@@ -10,7 +10,7 @@ Use this skill when the user provides:
 1. An agent name.
 2. A desired calculator mode: standard (普通), special-break (命破), or sharp-guard (锋御). If the mode is omitted and cannot be determined from the request, ask which mode to use.
 
-The repository has one unified calculator, currently `frontend/legacy/pages/calculator.html`. Add the agent to that calculator regardless of mode: selecting its preset applies the corresponding final-panel calculation. Do not create or update a separate calculator page for each mode.
+The repository has one unified calculator, now the Vue3 app at `frontend/src/` (page `frontend/src/views/CalculatorView.vue`, route `/calculator`, served by Vite on `http://localhost:5173`). Add the agent to that calculator regardless of mode: selecting its preset applies the corresponding final-panel calculation. Do not create or update a separate calculator page for each mode.
 
 ## Read verified agent data
 
@@ -22,9 +22,9 @@ If the official source is unavailable, the agent match is ambiguous, or any requ
 
 Use the unified calculator and its external preset data rather than guessing filenames:
 
-Inspect `frontend/legacy/pages/calculator.html`, `frontend/legacy/scripts/calculator.js`, `frontend/legacy/scripts/calculator-config.js`, `frontend/legacy/data/agent-presets.js`, and the current calculation-mode handling. Preset data belongs in the separate JavaScript data file, not embedded as a large object in calculator HTML.
+Inspect `data/agent-presets.json` (the single source of truth), `backend/src/zzz_panel/presets/` for how it is loaded and validated, `backend/src/zzz_panel/core/modes.py` for the calculation-mode handling, and `frontend/src/components/calculator/AgentPresetModule.vue` for the UI that consumes presets. Preset data belongs in its own JSON data file, not embedded as a large object in a component.
 
-The pages above live under `frontend/legacy/` and are the pre-Vue3 native implementation kept for reference during migration. The Vue3 replacement is planned under `frontend/src/` with the calculation rules moving to `backend/src/zzz_panel/core/`; until that migration lands, edit the legacy files only.
+The Vue3 migration is complete: the calculator lives in `frontend/src/`, the calculation rules live in `backend/src/zzz_panel/core/`, and presets are served by `GET /api/presets/agent`. The pre-Vue3 native implementation has been deleted, except for a **read-only reference fixture** at `frontend/tests/fixtures/legacy-calculator/` that the parity tests compare against. Never edit anything under `tests/fixtures/` — changing the baseline makes the comparison compare the implementation with itself.
 
 ## Add accurate, maintainable preset data
 
@@ -85,7 +85,7 @@ Use the browser or an equivalent DOM test to verify in the requested calculator 
 - The empty initial state retains the blank defaults and the set option “无”.
 - Manual core selection still works.
 
-Run a syntax check for any external JavaScript data and inline scripts touched, plus `git diff --check`. Report the files changed, the Wiki source, the verified base/core values, and validation results.
+Run the preset-schema tests (`uv run pytest backend/tests/test_presets.py`) and the frontend suite (`npm run test` in `frontend/`) after changing preset data, plus `git diff --check`. `npm run test` includes a three-way parity test that compares the Vue3 page, the Python backend, and the read-only legacy fixture; it must stay green, which means the preset must be added through the normal JSON pipeline rather than by editing anything else. Report the files changed, the Wiki source, the verified base/core values, and validation results.
 
 ## Example invocation
 

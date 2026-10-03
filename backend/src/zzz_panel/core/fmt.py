@@ -7,7 +7,7 @@
 3. 否则保留两位小数。
 
 第 3 步要求前后端格式化结果一致，``tests/test_fmt_parity.py`` 以
-``frontend/legacy/scripts/calculator.js`` 为共同基准逐值比对。
+``frontend/tests/fixtures/legacy-calculator/scripts/calculator.js`` 为共同基准逐值比对。
 
 注意：旧的 ``cli._fmt`` 不带千分位，与前端不一致，本模块取代它。
 """

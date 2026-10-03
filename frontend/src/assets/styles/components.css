@@ -360,25 +360,6 @@
   overflow-wrap: anywhere;
 }
 
-/* ====== 重置按钮 ====== */
-
-.reset-btn {
-  margin-top: 14px;
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: var(--radius-lg);
-  background: var(--color-danger);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.reset-btn:hover {
-  background: var(--color-danger-hover);
-}
-
 /* ====== 按钮 ======
  * 与副词条步进器按钮（.sub-count-btn）同一套视觉：accent 浅底 + accent 描边 +
  * accent 文字。子页返回按钮与指南页的跳转按钮都复用它，不另写一套配色。

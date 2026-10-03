@@ -1,6 +1,6 @@
 # 面板计算规则
 
-本文件是 `frontend/legacy/pages/guide.html`（面板计算方式学习指南）的可维护文本版。
+本文件是「面板计算方式学习指南」（现 `frontend/src/views/GuideView.vue`）的可维护文本版。
 规则真源最终以 `backend/src/zzz_panel/core/` 为准。
 
 ## 基础规则
@@ -73,5 +73,6 @@
 - 计算明细来源追溯（→ `core/breakdown.py`）
 - `penforce` / `energy_accumulation` 输入字段
 
-迁移时**以 `frontend/legacy/scripts/calculator.js` 为行为基准**，Python 侧现有实现仅作公式参考。
-逐项差异见 [architecture.md](architecture.md) 与 `docs/migration-vue3.md`。
+规则**以 `frontend/tests/fixtures/legacy-calculator/scripts/calculator.js` 为行为基准**（只读参照实现），
+由它逐项对拍到 Python 侧。逐项差异见 [architecture.md](architecture.md) 与
+[docs/migration-vue3.md](migration-vue3.md)。

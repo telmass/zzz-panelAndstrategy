@@ -4,7 +4,6 @@ import { mount, type VueWrapper } from '@vue/test-utils';
 
 import router from '@/router';
 import CalculatorView from '@/views/CalculatorView.vue';
-import ExampleView from '@/views/ExampleView.vue';
 import GuideView from '@/views/GuideView.vue';
 import LauncherView from '@/views/LauncherView.vue';
 import { usePanelStore } from '@/stores/panelStore';
@@ -37,13 +36,9 @@ function mountCalculator(): VueWrapper {
   return mount(CalculatorView, { global: { plugins: [pinia] } });
 }
 
-/** 指南页与示例页不需要 pinia，但统一放这里便于各 describe 复用。 */
+/** 指南页不需要 pinia，放这里便于各 describe 复用。 */
 function mountGuide(): VueWrapper {
   return mount(GuideView);
-}
-
-function mountExample(): VueWrapper {
-  return mount(ExampleView, { global: { plugins: [pinia] } });
 }
 
 /* ====== 取值助手：vue-tsc 不接受 VueNode<Element> 上的表单属性 ====== */
@@ -233,25 +228,23 @@ describe('LauncherView 静态骨架', () => {
     expect(wrapper.find('h1').text()).toBe('代理人面板计算器');
   });
 
-  it('提供计算器、指南与示例三个入口，共用同一套卡片样式', () => {
+  it('提供计算器与指南两个入口，共用同一套卡片样式', () => {
     const wrapper = mountLauncher();
     const cards = wrapper.findAll('.card');
-    expect(cards).toHaveLength(3);
-    // 三个入口同源，不加区分色，视觉必然一致
-    expect(cards[1].classes()).toEqual(cards[2].classes());
+    expect(cards).toHaveLength(2);
+    // 两个入口同源，不加区分色，视觉必然一致
+    expect(cards[0].classes()).toEqual(cards[1].classes());
     expect(wrapper.findAll('.badge').map((node) => node.text())).toEqual([
       '统一计算器',
       '学习指南',
-      '标准版示例',
     ]);
   });
 
-  it('三张卡片分别指向 /calculator、/guide 与 /example', () => {
+  it('两张卡片分别指向 /calculator 与 /guide', () => {
     const wrapper = mountLauncher();
     expect(wrapper.findAll('a').map((node) => node.attributes('href'))).toEqual([
       '/calculator',
       '/guide',
-      '/example',
     ]);
   });
 
@@ -287,20 +280,18 @@ describe('子页面返回导航', () => {
   it('挂了返回按钮的页面用 .page-with-back 让出顶部空间', () => {
     expect(mountCalculator().find('.page-with-back').exists()).toBe(true);
     expect(mountGuide().find('.page-with-back').exists()).toBe(true);
-    expect(mountExample().find('.page-with-back').exists()).toBe(true);
   });
 
-  it('三个子页面都只有返回主页这一个链接，不留死链', () => {
-    for (const wrapper of [mountCalculator(), mountGuide(), mountExample()]) {
+  it('两个子页面都只有返回主页这一个链接，不留死链', () => {
+    for (const wrapper of [mountCalculator(), mountGuide()]) {
       expect(wrapper.findAll('a').map((node) => node.attributes('href'))).toEqual(['/']);
     }
   });
 
-  it('四条路由均有对应视图', () => {
+  it('三条路由均有对应视图', () => {
     expect(router.getRoutes().map((route) => route.path).sort()).toEqual([
       '/',
       '/calculator',
-      '/example',
       '/guide',
     ]);
   });
@@ -335,42 +326,5 @@ describe('GuideView 吸收 legacy guide.html', () => {
     expect(wrapper.findAll('.guide-callout').length).toBeGreaterThan(10);
     expect(wrapper.findAll('.guide-table').length).toBeGreaterThan(10);
     expect(wrapper.findAll('.guide-attrs').length).toBeGreaterThanOrEqual(3);
-  });
-});
-
-describe('ExampleView 吸收 legacy example-template.html', () => {
-  it('复用统一计算器的六大模块与结果区，不自带第二套实现', () => {
-    const wrapper = mountExample();
-    expect(wrapper.findAll('.module').length).toBeGreaterThanOrEqual(6);
-    expect(wrapper.find('.result-module').exists()).toBe(true);
-  });
-
-  it('挂载后预填 legacy 示例值', () => {
-    const panel = usePanelStore();
-    mountExample();
-    expect(panel.base).toMatchObject({ hp: 8000, atk: 1000, def: 600, cr: 5, cd: 50 });
-    expect(panel.core).toEqual({ core1: 'cr', core2: 'atk_base' });
-    expect(panel.discMain).toEqual({ disc4: 'cr_24', disc5: 'dmg_30', disc6: 'er_pct_60' });
-    expect(panel.setEffects).toEqual({ set0: 'cr_8', set1: 'dmg_10', set2: '' });
-    expect(panel.subStats.cr).toBe(6);
-    expect(panel.subStats.cd).toBe(6);
-    expect(panel.subStats.atk_flat).toBe(0);
-  });
-
-  it('示例页固定为标准模式，不受命破 / 锋御影响', () => {
-    const panel = usePanelStore();
-    panel.setPanelMode('rupture');
-    mountExample();
-    expect(panel.panelMode).toBe('standard');
-  });
-
-  it('重置按钮把改过的字段恢复成示例值', async () => {
-    const panel = usePanelStore();
-    const wrapper = mountExample();
-    panel.base.hp = 1;
-    panel.subStats.cr = 0;
-    await wrapper.get('.reset-btn').trigger('click');
-    expect(panel.base.hp).toBe(8000);
-    expect(panel.subStats.cr).toBe(6);
   });
 });

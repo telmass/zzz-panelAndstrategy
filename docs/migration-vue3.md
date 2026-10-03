@@ -2,7 +2,8 @@
 
 原方案：`.kilo/plans/1790874878566-frontend-backend-directory-refactor.md`
 
-每一步都保持 `frontend/legacy/` 可用，随时可回退。
+第 0～4 步期间每一步都保持 `frontend/legacy/` 可用，随时可回退；第 5 步收尾时将其删除，
+计算部分改为以只读夹具 `frontend/tests/fixtures/legacy-calculator/` 的形式保留（见第 5 步）。
 
 ## 进度
 
@@ -14,7 +15,10 @@
 | 第 2 步 | 交互逻辑（仍在前端算） | ✅ 已完成（2026-10-02） |
 | 第 3 步 | 计算下沉到 Python | ✅ 已完成（2026-10-02） |
 | 第 4 步 | 预设数据改造为 JSON | ✅ 已完成（2026-10-03） |
-| 第 5 步 | 收尾，删除 legacy 与重定向页 | ⬜ 未开始 |
+| 第 5 步 | 收尾，删除 legacy 与重定向页 | ✅ 已完成（2026-10-03） |
+
+迁移已全部完成。当前形态：Vue3 前端 + FastAPI 后端计算，网页与命令行共用
+`backend/src/zzz_panel/core/` 一份规则。
 
 ## 第 0 步 · 搭壳（已完成 2026-10-02）
 
@@ -317,14 +321,66 @@ data/
       `ModifierKind` 类型与 `AGENT_ROLE_TAGS`、`PANEL_MODE_LABELS`、
       `MODELED_BASE_STAT_LABELS`、`FENGYU_BLAST_DMG` 四组纯枚举。
 
-## 第 5 步 · 收尾
+## 第 5 步 · 收尾（已完成 2026-10-03）
 
-21. 吸收 `guide.html`、`example-template.html` 为 `GuideView` / `ExampleView`。
+21. 吸收 `guide.html` 为 `GuideView`；`example-template.html` **不吸收**，示例页整体不做（其计算逻辑与统一计算器重复）。
+    **已完成**：新增 `components/guide/` 四个展示组件（`GuideSection` / `GuideCallout` /
+    `GuideAttrGrid` / `GuideTable`）与桶文件，`GuideView.vue` 承载 guide.html 全文
+    （30 秒速览、示例角色、六大模块、攻防血公式与两个算例、双爆、驱动盘进阶），
+    原文 400 多行内联样式收进 `components.css` 的「指南页」区块，配色一律走
+    `tokens.css` 的 tag 令牌。原文两处笔误（「第三步」标题、孤立class `step4`）
+    按原样保留并在注释中标注。
+
 22. `npm run build` 验证产物。
+
 23. **删除 `frontend/legacy/` 与仓库根目录 6 个中文重定向页。**
+    **已完成，但未按字面执行**：删除前发现 `frontend/legacy/` 仍被 5 处活代码依赖，
+    直接删会同时废掉两道最强护栏——
+    `tests/legacy-parity.spec.ts`（三方对拍 4 项，会红灯）与
+    `backend/tests/test_fmt_parity.py`（跨语言 fmt 对拍，基准文件缺失时走
+    `pytest.skip`，会**静默变成假绿灯**，比红灯更糟）。
+    因此把对拍真正需要的 6 个文件 `git mv` 到
+    `frontend/tests/fixtures/legacy-calculator/`（保留 `pages/ data/ scripts/ styles/`
+    子目录结构，因 `calculator.html` 用相对路径引用），并新增该目录的 README
+    写明「禁止修改」——改了基准，对拍就变成自己和自己比。
+    删除 `pageps/index.html`、`guide.html`、`example-template.html`、
+    `redirect-rupture.html`、`redirect-fengyu.html`（无吸收价值或已被
+    `?mode=` query 取代）、`frontend/legacy/README.md`，以及仓库根目录 6 个
+    纯 `meta refresh` 中文桩。
+    改路径的消费者：`tests/legacy-parity.spec.ts`、
+    `tools/dump_legacy_cases.mjs`、`tools/diff_breakdown.mjs`、
+    `tools/sync_presets.py`、`refresh_agent_presets.py` 的 `--config` 默认值、
+    `tsconfig.json` 的 exclude、`vite.config.ts` 注释，以及
+    `README.md`、`docs/{architecture,directory-layout,data-schema,calculation-rules,legacy-pages}.md`、
+    `data/README.md`、`tools/README.md`、`backend/tests/README.md` 与三个 `SKILL.md`
+    中的失效路径。
+    顺带堵掉 `test_fmt_parity.py` 的假绿灯：只有 node 不可用才skip，
+    基准文件缺失或 node 非 0 退出改为**断言失败**。
+
 24. 在本文件更新进度表。
+
+### 第 5 步的最终验收
+
+| 检查 | 结果 |
+| --- | --- |
+| `uv run pytest`（backend） | 87 passed，无 skip |
+| `npm run test`（frontend） | 64 passed / 3 files，含三方对拍 4 项 |
+| `npm run build` | `vue-tsc --noEmit` 通过；CSS 19.91 kB、JS 170.27 kB |
+| `sync_presets.py --to-legacy --check` | 退出码 0 |
+| `sync_presets.py --options --check` | 退出码 0 |
+| `node tools/dump_legacy_cases.mjs` | 4 场景，12 / 12 / 13 / 14 行 |
+| dev server `/`、`/calculator`、`/guide` | 均 200 |
+
+保留的 legacy 痕迹只有一处，且是**有意保留**：夹具
+`frontend/tests/fixtures/legacy-calculator/` 供对拍使用，不参与运行时与构建。
 
 ## 回退方式
 
-每步独立提交。若某步出现问题，`git revert` 对应提交即可回到上一步；
-`frontend/legacy/` 在整个迁移过程中始终可用，用户侧功能不受影响。
+第 0～4 步各自独立提交，`git revert` 对应提交即可回到上一步；那几步期间
+`frontend/legacy/` 始终可用，用户侧功能不受影响。
+
+第 5 步删除 legacy 后的回退：`git revert` 该次提交即可恢复
+`frontend/legacy/` 与 6 个中文重定向页；也可单独取回某个文件
+（`git checkout <commit> -- frontend/legacy/pages/calculator.html`）。
+注意 `tests/legacy-parity.spec.ts` 等 5 处消费者与 legacy 是同一次提交改的路径，
+回退时须一并还原，否则对拍会因找不到参照实现而失败。

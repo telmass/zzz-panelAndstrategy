@@ -1,10 +1,14 @@
 """前后端格式化一致性（第 3 步验收项 15）。
 
-以 ``frontend/legacy/scripts/calculator.js`` 的 ``fmt`` 为共同基准：本文件用 node
-**真正执行** legacy 的实现（由 ``_fmt_driver.cjs`` 从 calculator.js 中提取函数体），
-再与 ``core.fmt.fmt`` 逐值比对。因此这不是「照着抄一遍」，而是跨语言的实际对拍。
+以 legacy 参照实现的 ``fmt`` 为共同基准：本文件用 node **真正执行** 它的实现
+（由 ``_fmt_driver.cjs`` 从 calculator.js 中提取函数体），再与 ``core.fmt.fmt``
+逐值比对。因此这不是「照着抄一遍」，而是跨语言的实际对拍。
 
-node 不可用时整体跳过，不让 CI 因环境缺依赖而红。
+参照实现在 ``frontend/tests/fixtures/legacy-calculator/``，第 5 步从
+``frontend/legacy/`` 原样搬来，**只读**：改了它对拍就变成自己跟自己比。
+
+只有 node 不可用才跳过。基准文件缺失或无法执行一律**失败**——静默 skip 会让
+这道护栏变成假绿灯，是比红灯更糟的失效方式。
 """
 
 from __future__ import annotations
@@ -20,7 +24,9 @@ from zzz_panel.core.fmt import fmt
 
 TESTS_DIR = Path(__file__).resolve().parent
 REPO_ROOT = TESTS_DIR.parents[1]
-LEGACY_JS = REPO_ROOT / "frontend" / "legacy" / "scripts" / "calculator.js"
+LEGACY_JS = (
+    REPO_ROOT / "frontend" / "tests" / "fixtures" / "legacy-calculator" / "scripts" / "calculator.js"
+)
 DRIVER = TESTS_DIR / "_fmt_driver.cjs"
 
 # 覆盖整数 / 千分位 / 小数 / 尾零 / 负数 / 浮点噪声 / 极值
@@ -34,6 +40,10 @@ VALUES = [
 
 
 def _legacy_fmt(values: list[float]) -> list[str]:
+    # 基准被挪动或误删时必须炸，不能降级为 skip。
+    assert LEGACY_JS.is_file(), f"legacy fmt 基准不存在：{LEGACY_JS}"
+    assert DRIVER.is_file(), f"node 驱动脚本不存在：{DRIVER}"
+
     result = subprocess.run(
         ["node", str(DRIVER), str(LEGACY_JS), json.dumps(values)],
         capture_output=True,
@@ -41,8 +51,7 @@ def _legacy_fmt(values: list[float]) -> list[str]:
         encoding="utf-8",
         check=False,
     )
-    if result.returncode != 0:
-        pytest.skip(f"无法执行 legacy fmt：{result.stderr.strip()}")
+    assert result.returncode == 0, f"无法执行 legacy fmt：{result.stderr.strip()}"
     return json.loads(result.stdout)
 
 

@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue';
 // 前端工程配置。
 // docs/architecture.md 的分层约束：
 // - 组件内禁止直接 fetch，一律经 src/api/（第 3 步已创建 src/api/panel.ts）
-// - legacy/ 是过渡期原生实现，不参与 npm run build
+// - tests/fixtures/legacy-calculator/ 是只读的参照实现，不参与 npm run build
 export default defineConfig({
   plugins: [vue()],
 

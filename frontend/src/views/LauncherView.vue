@@ -4,8 +4,12 @@
  * tokens.css 的浅色令牌，与计算器页共用同一套视觉（第 5 步）。
  *
  * 命破与锋御两张卡在 legacy 中已被统一计算器取代（`redirect-*.html`
- * 已改为跳转桩），因此这里只保留「统一计算器」「学习指南」与「标准版示例」
- * 三个入口。三张卡片共用 `.card` 样式，不加区分色，保证视觉一致。
+ * 已改为跳转桩），因此这里只保留「统一计算器」与「学习指南」两个入口。
+ * 两张卡片共用 `.card` 样式，不加区分色，保证视觉一致。
+ *
+ * 曾短暂存在过第三个入口「标准版示例」（/example，吸收自
+ * legacy/pages/example-template.html），已按要求整体移除：
+ * 路由、视图文件与本页卡片均不复存在。
  */
 </script>
 
@@ -36,13 +40,6 @@
         <h2>面板计算方式学习指南</h2>
         <p>说明各字段的取值口径、计算顺序，以及命破与锋御专属面板的差异。</p>
         <span class="launch">打开指南 <span class="arrow" aria-hidden="true">→</span></span>
-      </RouterLink>
-
-      <RouterLink class="card" to="/example">
-        <span class="badge">标准版示例</span>
-        <h2>面板计算器（标准版）</h2>
-        <p>不选代理人预设的纯净版本，打开即是一组填好的示例值，可直接观察计算链路。</p>
-        <span class="launch">打开示例 <span class="arrow" aria-hidden="true">→</span></span>
       </RouterLink>
     </section>
 

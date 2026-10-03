@@ -1,7 +1,7 @@
 """硬编码常量。
 
 驱动盘 1/2/3 号固定主词条与锋御固有属性「锐暴伤害」。
-数值来自 ``frontend/legacy/scripts/calculator.js``，均为固定值，不随配装变化。
+数值来自 ``frontend/tests/fixtures/legacy-calculator/scripts/calculator.js``，均为固定值，不随配装变化。
 """
 
 from __future__ import annotations

@@ -1,20 +1,25 @@
 # 数据结构与 API 契约
 
-> 本文描述预设数据的**目标**结构与 API 契约。FastAPI 已在第 3 步落地，
+> 本文描述预设数据的结构与 API 契约。FastAPI 已在第 3 步落地，
 > 落地情况见文末「实现状态」。
 
 ## 预设数据
 
-### 当前形态（过渡期）
-
-`frontend/legacy/data/agent-presets.js` 定义 `window.AGENT_PRESETS`，
-`frontend/legacy/data/weapon-presets.js` 定义 `window.WEAPON_PRESETS`。
-两者都是 JS 字面量，由 Skill 脚本整体覆盖生成，**不可手工编辑**。
-
-### 目标形态
+### 权威形态
 
 `data/agent-presets.json` 与 `data/weapon-presets.json` 是唯一真实源。
-`frontend/legacy/data/*.js` 在迁移期由 `tools/sync_presets.py` 从 JSON 反向生成。
+前端不再持有副本，经 `GET /api/presets/*` 获取。
+
+### JS 包装（仅供对拍夹具）
+
+`frontend/tests/fixtures/legacy-calculator/data/agent-presets.js` 定义
+`window.AGENT_PRESETS`，`.../weapon-presets.js` 定义 `window.WEAPON_PRESETS`。
+两者都是 JS 字面量，由 `tools/sync_presets.py --to-legacy` 从 JSON 生成，
+**不可手工编辑**。
+
+这份包装曾经供迁移前的原生页面使用；那些页面已删除，现在唯一的读者是三方对拍
+测试加载的参照实现。保留它是因为旧实现要在顶层直接读取这两个全局量——
+改了它，对拍就变成自己跟自己比。
 
 ### 校验的两层分工
 
@@ -88,8 +93,9 @@
 
 ### 校验规则
 
-从 `frontend/legacy/scripts/calculator.js:47-58` 与 `applyAgentPreset` 迁入，
-改为**启动时一次性校验，失败即报错**（而非运行时逐条抛错）：
+从 `frontend/tests/fixtures/legacy-calculator/scripts/calculator.js:47-58`
+与 `applyAgentPreset` 迁入，改为**启动时一次性校验，失败即报错**
+（而非运行时逐条抛错）：
 
 - `id` / `name` / `roleTag` 非空，`roleTag` 属于 7 个合法职业之一
 - 同类型内 `id` 不重复
