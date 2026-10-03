@@ -99,8 +99,9 @@ export interface ResultRow {
 /**
  * 单行结果。`value` 为格式化后的数值，`breakdown` 为已转义的明细 HTML 片段。
  *
- * 沿用 legacy 的 innerHTML 写法以保证与旧页面逐字符一致；
- * 第 3 步改为结构化字段后由前端渲染，不再拼接 HTML。
+ * 第 3 步起数值与明细片段均来自后端（`PanelApiResponse`），这里只保留
+ * 「已渲染好、可直接 `v-html`」的形态，以便与 legacy 的 innerHTML 逐字符一致。
+ * `tests/legacy-parity.spec.ts` 守住这一等价性。
  */
 export interface ResultValue {
   value: string;
@@ -109,6 +110,108 @@ export interface ResultValue {
 
 /** 全部结果的映射，键为 `ResultRow.key`。 */
 export type PanelResult = Record<string, ResultValue>;
+
+/* ====== 第 3 步：与后端的 HTTP 契约 ======
+ * 与 backend/src/zzz_panel/schemas/panel.py 一一对应。
+ */
+
+/** 请求里的角色基础面板。键名与本文件的 `BaseStats` 一致。 */
+export type PanelCalcBase = {
+  hp: number;
+  atk: number;
+  /** 防御力。JSON 键为 `def`，Python 侧是 `def_` 关键字规避。 */
+  def: number;
+  impact: number;
+  cr: number;
+  cd: number;
+  ac: number;
+  am: number;
+  pr: number;
+  er: number;
+};
+
+/** 音擎固定副词条。已从音擎预设解析出目标修正量与数值。 */
+export interface PanelCalcWeaponSubstat {
+  /** 目标修正量键名，取自 `ModifierKey`。 */
+  target: string;
+  value: number;
+  kind: 'pct' | 'flat';
+  label: string;
+}
+
+export interface PanelCalcWeapon {
+  baseKind: 'atk' | 'def';
+  baseValue: number;
+  substat: PanelCalcWeaponSubstat | null;
+}
+
+export interface PanelCalcCore {
+  core1: string;
+  core2: string;
+}
+
+export interface PanelCalcDiscMain {
+  disc4: string;
+  disc5: string;
+  disc6: string;
+}
+
+export interface PanelCalcSets {
+  set0: string;
+  set1: string;
+  set2: string;
+}
+
+/** 发起计算所需的全部信息。只带选择，不带数值。 */
+export interface PanelCalcRequest {
+  mode: PanelMode;
+  base: PanelCalcBase;
+  weapon: PanelCalcWeapon;
+  core: PanelCalcCore;
+  discMain: PanelCalcDiscMain;
+  /** 副词条条数。键为**规则表 id**（snake_case，如 `hp_flat`），非 camelCase。 */
+  subStats: Record<string, number>;
+  sets: PanelCalcSets;
+}
+
+/** 明细片段：与后端 `core/breakdown.py` 的 dataclass 一一对应。 */
+export type BreakdownSegment =
+  | { type: 'text'; text: string }
+  /** 关键百分比，`text` 已含 `%`。 */
+  | { type: 'kw'; text: string }
+  /** 裸数值，渲染时套 `fmt`；`bold` 对应 legacy 明细末值的 `<b>`，`unit` 渲染进 `<b>` 内。 */
+  | { type: 'num'; value: number; bold: boolean; unit: string }
+  /** 来源数组，渲染时以 ` + ` 连接。 */
+  | { type: 'sources'; items: string[] };
+
+export interface BreakdownLine {
+  type: 'line';
+  parts: BreakdownSegment[];
+  /** false 时不套 `breakdown-line`，对应 legacy 的纯加法裸行。 */
+  wrapped: boolean;
+}
+
+/** 后端返回的最终面板。 */
+export interface PanelApiResponse {
+  mode: PanelMode;
+  /** 12 行通用结果，键为 `hp/atk/def/cr/cd/dmg/pr/pv/am/ac/imp/er`。 */
+  totals: Record<string, number>;
+  /** 命破 `penforce` 或锋御 `actual_cr` / `fengyu_blast_dmg`。 */
+  modeStats: Record<string, number>;
+  /** 锋御固有属性「锐暴伤害」，非锋御模式为 null。 */
+  blastDmg: number | null;
+  /** 修正量累加器，中间量，供明细渲染。 */
+  sums: Record<string, number>;
+  /** 每个修正量的来源说明。 */
+  sources: Record<string, string[]>;
+  /** 副词条中固定值三类的小计。 */
+  subFixed: Record<string, number>;
+  /** 音擎基础值归属。 */
+  weaponBase: Record<string, number>;
+  /** 结构化明细，渲染交由前端。键为结果行键（snake_case，与 `totals` 一致）。 */
+  breakdown: Record<string, BreakdownLine[]>;
+}
+
 
 /** 下拉框的一项。 */
 export interface SelectOption {

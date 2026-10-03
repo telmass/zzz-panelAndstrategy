@@ -12,7 +12,7 @@
 | 第 0 步 | 搭壳（Vite + Vue3 + TS，不迁业务） | ✅ 已完成（2026-10-02） |
 | 第 1 步 | 静态结构（无计算） | ✅ 已完成（2026-10-02） |
 | 第 2 步 | 交互逻辑（仍在前端算） | ✅ 已完成（2026-10-02） |
-| 第 3 步 | 计算下沉到 Python | ⬜ 未开始 |
+| 第 3 步 | 计算下沉到 Python | ✅ 已完成（2026-10-02） |
 | 第 4 步 | 预设数据改造为 JSON | ⬜ 未开始 |
 | 第 5 步 | 收尾，删除 legacy 与重定向页 | ⬜ 未开始 |
 
@@ -147,7 +147,7 @@ URL 请求的模式，非法 `mode` 参数回落 `standard`。
 
 dev server 下 `/`、`/calculator` 与三个 legacy 页面均返回 200。
 
-## 第 3 步 · 计算下沉到 Python
+## 第 3 步 · 计算下沉到 Python（已完成 2026-10-02）
 
 12. `core/modes.py` 已落地贯穿力、实际暴击率与锋御固定锐暴伤害；
     继续实现 `core/constants.py`（驱动盘 1/2/3）、
@@ -156,6 +156,79 @@ dev server 下 `/`、`/calculator` 与三个 legacy 页面均返回 200。
 14. `src/api/panel.ts` + `usePanelCalc`（防抖 150~300ms）替换前端 `calc()`。
 15. `src/utils/fmt` 与后端格式化规则保持一致。
 16. **验收**：`backend/tests/test_panel.py` 中 legacy 抽样用例数值全等。
+
+`frontend/legacy/` 仍零改动，回退路径完好。
+
+```
+backend/
+├── pyproject.toml
+├── src/zzz_panel/
+│   ├── core/
+│   │   ├── options.py          选项表权威来源（legacy 数组下标 → 稳定 id）
+│   │   ├── constants.py        驱动盘 1/2/3 固定值
+│   │   ├── modifiers.py        4/5/6 号主词条、副词条换算、二件套
+│   │   ├── modes.py            贯穿力、实际暴击率、锋御固定锐暴伤害
+│   │   ├── models.py           输入/输出模型与核心默认值
+│   │   ├── breakdown.py        明细
+│   │   ├── fmt.py              与 frontend/src/utils/fmt.ts 同规则
+│   │   └── panel.py            编排入口
+│   ├── schemas/panel.py        Pydantic 请求/响应模型
+│   ├── services/panel_service.py
+│   ├── api/routes/panel.py     POST /api/calc/panel、GET /api/options
+│   └── api/app.py              CORS
+└── tests/                      test_panel / test_legacy_parity / test_fmt_parity / test_api
+```
+
+接口两个：`POST /api/calc/panel` 与 `GET /api/options`。前者接收面板 + 核心 +
+二件套 + 4/5/6 号主词条与副词条，返回聚合值、逐项加成与明细文案；后者把
+`core/options.py` 暴露给前端。
+
+### 数值权威：后端选项表 vs 前端副本
+
+规则表此前前后端各存一份，改一处必然漏另一处。本步以
+`backend/src/zzz_panel/core/options.py` 为唯一权威来源，前端
+`src/constants/calculatorOptions.ts` 只是过渡期副本；`GET /api/options` 已能把
+副本彻底去掉，但那属于第 4 步「预设数据改造为 JSON」的范围，本步未做。
+
+legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DISC4_OPTIONS[i]` …）。
+后端保留这个顺序不变，另加稳定字符串 `id`，避免跨端按下标对齐。
+
+### 两个诊断脚本
+
+排查对拍差异时用，不要当测试跑：
+
+| 脚本 | 用途 |
+| --- | --- |
+| `tools/dump_backend_responses.py` | 把 `backend/tests/legacy_cases.json` 的每条用例 POST 给后端，落盘完整响应 JSON。用于回答「后端这一侧到底算出了什么」 |
+| `frontend/tools/diff_breakdown.mjs` | 把上面的落盘 JSON 与 legacy 实算明细逐行 diff，按 DOM 层级归类。用于回答「差在哪个字段、差了几个数量级」 |
+
+典型流程：先跑前者拿后端响应，再跑后者看差异明细，最后回到对应 core 模块修正。
+二者都不做断言，退出码不代表通过与否。
+
+### 测试中的三个坑
+
+- **uvicorn 启动行在 stderr**。`Uvicorn running on http://host:port` 不走 stdout，
+  且 `--log-level warning` 会把它整行抑制掉。`frontend/tests/support/backend.ts`
+  必须监听 stderr 并以 info 级别启动，否则永远等不到端口。
+- **Windows 上 `uv run` 是两层进程**：`uv` → Python/uvicorn。只终止 `uv` 会留下
+  孤儿 uvicorn 拖住 Vitest 退出。夹具用 `killOrphanUvicorn()` 在正常停止、
+  健康检查失败和未解析到端口三条路径上兜底清理。
+- **jsdom 联跑 legacy 时的作用域**见第 2 步「测试中的两个坑」，第 3 步新增的
+  `tests/breakdown-parity.spec.ts` 同样受其约束。
+
+### 已验证
+
+后端 `pytest` 51 项全绿：`test_panel` 覆盖加成链路与边界，
+`test_legacy_parity` 对 `legacy_cases.json` 逐条比对数值，
+`test_fmt_parity` 用 Node 驱动 legacy 的取整与千分位函数对齐 Python 侧格式，
+`test_api` 校验路由与 CORS。
+
+前端 `vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 62 项全绿：
+
+- `tests/calculator-view.spec.ts` 13 项渲染断言。
+- `tests/panel-interactions.spec.ts` 25 项交互行为。
+- `tests/legacy-parity.spec.ts` 7 项、`tests/breakdown-parity.spec.ts` 17 项对拍，
+  两档配置下 12~13 行数值与明细文案**逐字符**一致。
 
 ## 第 4 步 · 预设数据改造
 

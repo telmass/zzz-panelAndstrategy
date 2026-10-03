@@ -252,6 +252,20 @@
 
 /* ====== 结果区 ====== */
 
+/* 第 3 步起结果来自后端，需要计算中 / 失败反馈。
+   字号沿用本文件既有的硬编码 px 约定（本项目未抽 font-size token）。 */
+.calc-pending {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.calc-error {
+  margin: 0 0 var(--space-2);
+  color: var(--color-danger);
+  font-size: 12px;
+}
+
 .result {
   position: sticky;
   top: var(--layout-result-offset);

@@ -1,23 +1,28 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { JSDOM } from 'jsdom';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
 import { mount, type VueWrapper } from '@vue/test-utils';
-import { nextTick } from 'vue';
 
 import CalculatorView from '@/views/CalculatorView.vue';
 import { useAgentPreset } from '@/composables/useAgentPreset';
 import { usePanelMode } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
+import { routeFetchToBackend, startBackend, stopBackend } from './support/backend';
+import { flushCalc } from './support/flush';
 
 /**
- * 新旧对拍：同一组输入下，Vue3 页面与 legacy 页面必须给出
- * 完全相同的数值与明细文案。这是第 2 步的验收标准，
- * 也是第 3 步把计算下沉到 Python 后需要继续守住的等价性。
+ * 三方对拍：legacy 原生 JS ≡ Vue3 页面 ≡ Python 后端。
  *
  * legacy 侧在独立 JSDOM 窗口里加载未经改动的原始 HTML 与四个脚本，
- * 按 calculator.html 中的顺序求值，因此跑的是旧实现本身。
+ * 按 calculator.html 中的顺序求值，跑的是旧实现本身。
+ *
+ * Vue 侧自第 3 步起不再本地计算，结果来自真实拉起的 FastAPI 后端
+ * （`tests/support/backend.ts`）。因此这里断言的是完整链路：
+ * 旧页面算出来的每一个数值与每一段明细，新页面经 HTTP 取回后必须逐字符相同。
+ *
+ * 后端拉不起来时整体 skip，而不是让 CI 变红。
  */
 
 const LEGACY_ROOT = resolve(__dirname, '../legacy');
@@ -60,6 +65,24 @@ function createLegacyWindow(): Window & typeof globalThis {
 }
 
 let pinia: Pinia;
+/** 后端不可用时为 null，整套对拍 skip。 */
+let backendUrl: string | null = null;
+let backendError: string | null = null;
+
+beforeAll(async () => {
+  try {
+    const backend = await startBackend();
+    backendUrl = backend?.baseUrl ?? null;
+    if (backendUrl) {
+      routeFetchToBackend(backendUrl);
+    }
+  } catch (cause) {
+    backendError = cause instanceof Error ? cause.message : String(cause);
+  }
+}, 90_000);
+afterAll(async () => {
+  await stopBackend();
+});
 
 beforeEach(() => {
   legacyWindow = createLegacyWindow();
@@ -234,9 +257,18 @@ function applyFullBuildVue(): void {
   panel.setEffects.set2 = 'er_pct_20';
 }
 
-describe('新旧对拍 · 第 2 步验收', () => {
-  it('默认空配置：12 行结果逐字符一致', () => {
+/** 后端不可用时给出明确原因而不是让断言莫名失败。 */
+function requireBackend(): void {
+  if (!backendUrl) {
+    throw new Error(`后端未就绪，三方对拍无法进行：${backendError ?? '未知原因'}`);
+  }
+}
+
+describe('三方对拍 · legacy ≡ Vue3 ≡ Python', () => {
+  it('默认空配置：12 行结果逐字符一致', async () => {
+    requireBackend();
     const wrapper = mountVue();
+    await flushCalc();
 
     expect(vueVisibleLabels(wrapper)).toHaveLength(12);
     expect(vueVisibleLabels(wrapper)).toEqual(legacyVisibleLabels());
@@ -244,22 +276,24 @@ describe('新旧对拍 · 第 2 步验收', () => {
   });
 
   it('满配：数值与明细文案完全一致', async () => {
+    requireBackend();
     applyFullBuildLegacy();
     const wrapper = mountVue();
     applyFullBuildVue();
-    // legacy 直接写 DOM 是同步的；Vue 侧需等一次渲染刷新。
-    await nextTick();
+    // legacy 直接写 DOM 是同步的；Vue 侧需等防抖 + HTTP + 渲染。
+    await flushCalc();
 
     expect(vueVisibleLabels(wrapper)).toEqual(legacyVisibleLabels());
     expect(readVueRows(wrapper)).toEqual(legacyRows());
   });
 
   it('命破代理人：贯穿力行与命破专属字段一致', async () => {
+    requireBackend();
     applyLegacyAgent('命破', 'ep-1299');
     const wrapper = mountVue();
     usePanelStore().selectAgentRole('命破');
     useAgentPreset().applyAgentPreset('ep-1299');
-    await nextTick();
+    await flushCalc();
 
     expect(vueVisibleLabels(wrapper)).toContain('贯穿力');
     expect(vueVisibleLabels(wrapper)).toEqual(legacyVisibleLabels());
@@ -267,11 +301,12 @@ describe('新旧对拍 · 第 2 步验收', () => {
   });
 
   it('锋御代理人：实际暴击率与锐暴伤害行一致', async () => {
+    requireBackend();
     applyLegacyAgent('锋御', 'ep-2145');
     const wrapper = mountVue();
     usePanelStore().selectAgentRole('锋御');
     useAgentPreset().applyAgentPreset('ep-2145');
-    await nextTick();
+    await flushCalc();
 
     const labels = vueVisibleLabels(wrapper);
     expect(labels).toContain('实际暴击率');

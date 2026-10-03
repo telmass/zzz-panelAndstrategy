@@ -1,10 +1,12 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
 import { mount, type VueWrapper } from '@vue/test-utils';
 
 import CalculatorView from '@/views/CalculatorView.vue';
 import LauncherView from '@/views/LauncherView.vue';
 import { usePanelStore } from '@/stores/panelStore';
+import { mockPanelApi } from './support/panelApi';
+import { flushCalc } from './support/flush';
 
 /**
  * 组件树与测试断言必须共用同一个 pinia 实例：
@@ -16,6 +18,13 @@ let pinia: Pinia;
 beforeEach(() => {
   pinia = createPinia();
   setActivePinia(pinia);
+  // 第 3 步起结果来自后端；这里用假后端保证渲染路径可跑通。
+  // 数值本身的正确性由 legacy-parity.spec.ts 与后端测试负责。
+  mockPanelApi();
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
 });
 
 function mountCalculator(): VueWrapper {
@@ -148,7 +157,7 @@ describe('CalculatorView 静态骨架', () => {
     }
   });
 
-  it('standard 模式只显示 12 行通用结果', () => {
+  it('standard 模式只显示 12 行通用结果', async () => {
     const wrapper = mountCalculator();
     const labels = wrapper.findAll('.r-label').map((node) => node.text());
     expect(labels).toEqual([
@@ -165,7 +174,10 @@ describe('CalculatorView 静态骨架', () => {
       '冲击力',
       '能量回复',
     ]);
-    // 第 2 步起结果为实算值，默认面板的生命值 = 8000×1 + 2200 = 10,200
+
+    // 第 3 步起数值来自后端，需等过防抖 + HTTP 才有内容。
+    // 假后端返回生命值 10,200（= 8000 + 驱动盘 1 号固定 2200）。
+    await flushCalc();
     expect(wrapper.find('.r-value').text()).toBe('10,200');
     expect(wrapper.findAll('.r-value').every((node) => node.text() !== '—')).toBe(true);
     // 明细不再是空片段

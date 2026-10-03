@@ -11,8 +11,9 @@ import type { ResultRow } from '@/types/panel';
  * 行顺序、标签与主属性标记对齐 legacy/calculator.html 的 15 行结果区，
  * 命破与锋御专属行通过 `ruptureOnly` / `fengyuOnly` 标注显隐条件。
  *
- * 数值与明细由 `usePanelCalc` 派生。沿用 legacy 的 innerHTML 写法，
- * 以保证第 3 步下沉 Python 前后与旧页面逐字符一致。
+ * 数值来自后端（`usePanelCalc` 经 `src/api/panel.ts` 拉取，200ms 防抖），
+ * 明细由后端给的结构化片段在 `usePanelCalc` 内渲染成 HTML——仍用 `v-html`，
+ * 以保证下沉前后与旧页面逐字符一致。
  */
 interface ResultRowDef extends ResultRow {
   /** 标签随面板模式在「能量回复 / 锐能自动累积」之间切换。 */
@@ -37,7 +38,7 @@ const ROWS: ResultRowDef[] = [
   { key: 'er', label: '能量回复', energyLabel: true },
 ];
 
-const { result } = usePanelCalc();
+const { result, pending, error } = usePanelCalc();
 const { showRuptureResult, showFengyuResult, energyResultLabel } = usePanelMode();
 
 /** 按当前面板模式筛选可见行，并替换随模式变化的标签。 */
@@ -61,6 +62,11 @@ const visibleRows = computed(() =>
   <aside class="result">
     <div class="result-module">
       <h2>最终面板</h2>
+
+      <!-- 第 3 步起结果来自后端，需要显式的计算中 / 失败反馈，
+           否则服务不可用时只会静默显示一列「—」。 -->
+      <p v-if="error" class="calc-error" role="alert">面板计算失败：{{ error }}</p>
+      <p v-else-if="pending" class="calc-pending">计算中…</p>
 
       <div
         v-for="row in visibleRows"

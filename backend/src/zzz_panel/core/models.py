@@ -15,18 +15,23 @@ from typing import Dict
 
 @dataclass
 class PanelInputs:
-    """面板计算输入。"""
+    """面板计算输入。
+
+    默认值对齐 legacy ``calculator.html`` 表单的默认值（与前端
+    ``stores/panelStore.ts`` 的 ``defaultBase()`` 一致），这样 CLI 示例与
+    空表单场景都得到与旧页面相同的面板。
+    """
 
     base_hp: float = 8000.0
     base_atk: float = 1000.0
     base_def: float = 600.0
-    base_cr: float = 20.0
+    base_cr: float = 5.0
     base_cd: float = 50.0
     base_pr: float = 0.0
-    base_impact: float = 0.0
-    base_anomaly_ctrl: float = 0.0
+    base_impact: float = 90.0
+    base_anomaly_ctrl: float = 100.0
     base_energy_regen: float = 1.2
-    base_anomaly_mastery: float = 0.0
+    base_anomaly_mastery: float = 100.0
     base_pen_value: float = 0.0
 
     weapon_base_atk: float = 0.0

@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
-import { mount, type VueWrapper } from '@vue/test-utils';
+import { enableAutoUnmount, mount, type VueWrapper } from '@vue/test-utils';
 import { nextTick } from 'vue';
 
 import CalculatorView from '@/views/CalculatorView.vue';
@@ -8,17 +8,37 @@ import { useAgentPreset } from '@/composables/useAgentPreset';
 import { displayEnergyAttributeLabel, usePanelMode } from '@/composables/usePanelMode';
 import { useSubStatLimit } from '@/composables/useSubStatLimit';
 import { usePanelStore } from '@/stores/panelStore';
+import { mockPanelApi, mockPanelApiFailure, requests } from './support/panelApi';
+import { flushCalc } from './support/flush';
 
 /**
  * 交互行为测试：对应第 2 步指南第 9、10 项。
  * 数值等价性由 tests/legacy-parity.spec.ts 负责，此处只验证状态流转。
+ *
+ * 第 3 步起结果来自后端，因此挂载组件前先接上假后端：否则 jsdom 里 fetch
+ * 会静默失败，组件停在 `—`，用例会因「碰巧不依赖数值」而通过——
+ * 看似绿，实则没验证到渲染路径。
  */
 
 let pinia: Pinia;
 
+/**
+ * 必须自动卸载。
+ *
+ * `usePanelCalc` 的 watcher 回调里调用 `usePanelStore()`，在 watcher 作用域外
+ * 会回落到 activePinia。若组件不卸载，上一个用例遗留的 watcher 就会跟着
+ * 新用例的 store 一起触发，请求计数变得不可预测。
+ */
+enableAutoUnmount(afterEach);
+
 beforeEach(() => {
   pinia = createPinia();
   setActivePinia(pinia);
+  mockPanelApi();
+});
+
+afterEach(() => {
+  vi.unstubAllGlobals();
 });
 
 function mountView(): VueWrapper {
@@ -293,5 +313,91 @@ describe('代理人标签联动与预设载入', () => {
   it('URL 的 mode 参数合法时采用该模式', () => {
     useAgentPreset().initFromQueryParam('fengyu');
     expect(usePanelStore().panelMode).toBe('fengyu');
+  });
+});
+
+/**
+ * 第 3 步新增：计算下沉到后端后，请求组装与失败反馈成为接口契约的一部分。
+ * 这些断言无法在第 2 步存在——那时前端自己算，没有网络请求可言。
+ */
+describe('后端对接', () => {
+  it('挂载后发出计算请求，且只带选择不带数值口径', async () => {
+    mountView();
+    await flushCalc();
+
+    expect(requests.length).toBeGreaterThanOrEqual(1);
+    const body = requests[requests.length - 1];
+    // 选择以 id 形式上传
+    expect(body.core).toEqual({ core1: '', core2: '' });
+    expect(body.discMain).toEqual({ disc4: '', disc5: '', disc6: '' });
+    expect(body.sets).toEqual({ set0: '', set1: '', set2: '' });
+    // 基础面板与模式
+    expect(body.mode).toBe('standard');
+    expect(body.base.hp).toBe(8000);
+    // 未选音擎时不带副词条
+    expect(body.weapon.substat).toBeNull();
+  });
+
+  it('改动副词条条数会重新请求，且请求体反映最新条数', async () => {
+    mountView();
+    await flushCalc();
+    const before = requests.length;
+
+    useSubStatLimit().setCount('cr', 6);
+    await flushCalc();
+
+    expect(requests.length).toBeGreaterThan(before);
+    expect(requests[requests.length - 1].subStats.cr).toBe(6);
+  });
+
+  it('选定音擎后请求带上基础值与固定副词条', async () => {
+    const panel = usePanelStore();
+    mountView();
+    panel.selectWeaponGrade('S');
+    panel.selectWeaponRole('强攻');
+    const preset = panel.filteredWeaponPresets[0];
+    panel.selectWeaponPreset(preset.id, (text) => text);
+
+    await flushCalc();
+
+    const last = requests[requests.length - 1];
+    expect(last.weapon.baseKind).toBe(preset.baseKind ?? 'atk');
+    expect(last.weapon.baseValue).toBe(panel.weapon.baseValue);
+    expect(last.weapon.substat).toMatchObject({
+      value: preset.substat.value,
+      label: preset.substat.label,
+    });
+  });
+
+  it('面板模式变化会带上新的 mode 重新请求', async () => {
+    const panel = usePanelStore();
+    mountView();
+    await flushCalc();
+
+    panel.setPanelMode('rupture');
+    await flushCalc();
+
+    expect(requests[requests.length - 1].mode).toBe('rupture');
+  });
+
+  it('后端不可用时给出失败提示而不是静默显示占位符', async () => {
+    mockPanelApiFailure('服务不可用', 503);
+    const wrapper = mountView();
+    await flushCalc();
+
+    expect(wrapper.find('.calc-error').text()).toContain('面板计算失败');
+    expect(wrapper.find('.calc-error').text()).toContain('服务不可用');
+    // 失败时数值回落到占位符
+    expect(wrapper.find('.r-value').text()).toBe('—');
+  });
+
+  it('请求进行中显示计算中提示', async () => {
+    const wrapper = mountView();
+    // 防抖窗口内、响应回来之前
+    await new Promise((r) => setTimeout(r, 50));
+    expect(wrapper.find('.calc-pending').exists()).toBe(true);
+
+    await flushCalc();
+    expect(wrapper.find('.calc-pending').exists()).toBe(false);
   });
 });

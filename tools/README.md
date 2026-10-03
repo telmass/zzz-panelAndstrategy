@@ -7,6 +7,17 @@
 | `dev.ps1` | 一键启动后端（uvicorn :8000）+ 前端（vite dev :5173） | 待实现 |
 | `sync_presets.py` | 双向同步预设：抓取脚本 → `data/*.json` → `frontend/legacy/data/*.js` | 待实现 |
 
+## 第 3 步新增的诊断脚本
+
+排查前后端对拍差异时用，**不做断言**，退出码不代表通过与否。
+
+| 文件 | 用途 |
+| --- | --- |
+| `dump_backend_responses.py` | 把 `backend/tests/legacy_cases.json` 的每条用例 POST 给后端，落盘完整响应 JSON |
+| `../frontend/tools/diff_breakdown.mjs` | 把落盘 JSON 与 legacy 实算明细逐行 diff，按 DOM 层级归类 |
+
+典型流程：先跑前者拿后端响应，再跑后者看差异明细，最后回到 `core/` 下对应模块修正。
+
 ## 不放这里的东西
 
 **数据抓取脚本刻意保留在 `.github/skills/*/scripts/`**，因为 `SKILL.md` 依赖它们的
