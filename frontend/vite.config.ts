@@ -14,12 +14,17 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // 仓库根 data/ 是预设与规则表的唯一真实源，由 tools/sync_presets.py 生成。
+      // 前端直接读同一份文件而非复制一份，构建产物因此不含规则表副本。
+      '@data': fileURLToPath(new URL('../data', import.meta.url)),
     },
   },
 
   server: {
     port: 5173,
     strictPort: true,
+    // @data 指到 frontend/ 之外，默认的 fs.allow 不放行，需显式加上仓库根。
+    fs: { allow: [fileURLToPath(new URL('..', import.meta.url))] },
     // 开发期由 Vite 代理转发到 FastAPI，前端代码里统一用相对路径 /api，
     // 因此本地开发不需要处理 CORS。
     proxy: {

@@ -1,15 +1,20 @@
-"""双向同步预设数据。
+﻿"""同步预设与规则表数据。
 
     python tools/sync_presets.py --from-legacy   # legacy/data/*.js → data/*.json（一次性引导）
     python tools/sync_presets.py --to-legacy     # data/*.json → legacy/data/*.js（长期方向）
+    python tools/sync_presets.py --options       # core/*.py → data/options.json（单向）
     python tools/sync_presets.py --check         # 只比对，不写文件；有漂移则退出码 1
 
-两个方向都做同一件事：把数据规范化到本模块定义的键序后再写出。
+预设的两个方向都做同一件事：把数据规范化到本模块定义的键序后再写出。
 因此「legacy → JSON → legacy」必定字节一致，可用来验证转换无损；
 重复执行也不会产生 diff（写前比对，不一致才落盘）。
 
+规则表只有一个方向：``data/options.json`` 是 ``core/options.py`` 与
+``core/constants.py`` 的派生产物。前端 ``src/constants/calculatorOptions.ts``
+不再持有副本，从该 JSON 读取，故下拉框无需等一次 HTTP 往返即可渲染。
+
 legacy 的 .js 是 JS 字面量而非 JSON：单引号、无转义、键名不引号。
-抓取脚本 `refresh_*_presets.py` 按此风格整体覆盖生成，不可手工编辑。
+抓取脚本 ``refresh_*_presets.py`` 按此风格整体覆盖生成，不可手工编辑。
 """
 
 from __future__ import annotations
@@ -24,10 +29,28 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parent.parent
 LEGACY_DIR = REPO_ROOT / "frontend" / "legacy" / "data"
 DATA_DIR = REPO_ROOT / "data"
+BACKEND_SRC = REPO_ROOT / "backend" / "src"
+OPTIONS_JSON = DATA_DIR / "options.json"
 
 FILES = (
     ("AGENT_PRESETS", LEGACY_DIR / "agent-presets.js", DATA_DIR / "agent-presets.json"),
     ("WEAPON_PRESETS", LEGACY_DIR / "weapon-presets.js", DATA_DIR / "weapon-presets.json"),
+)
+
+#: ``data/options.json`` 里的表 -> ``core`` 模块里的变量名。
+#: 键同时是 JSON 的键名，改这里等于改前端取数的字段名。
+OPTION_TABLES = (
+    ("coreOptions", "options", "CORE_OPTIONS"),
+    ("disc4Options", "options", "DISC4_OPTIONS"),
+    ("disc5Options", "options", "DISC5_OPTIONS"),
+    ("disc6Options", "options", "DISC6_OPTIONS"),
+    ("setOptions", "options", "SET_OPTIONS"),
+    ("subStats", "options", "SUB_STATS"),
+)
+
+OPTIONS_NOTICE = (
+    "由 tools/sync_presets.py --options 从 backend/src/zzz_panel/core/ 生成，勿手改；"
+    "规则表的唯一真实源是 core/options.py 与 core/constants.py。"
 )
 
 AGENT_KEY_ORDER = (
@@ -319,6 +342,14 @@ def dump_js(var_name: str, items: list[dict[str, Any]]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def display(path: Path) -> str:
+    """仓库内显示相对路径，仓库外（测试的临时目录）退回绝对路径。"""
+    try:
+        return str(path.name)
+    except ValueError:
+        return str(path)
+
+
 def write_if_changed(path: Path, text: str, check_only: bool) -> str | None:
     """写前比对；返回 None 表示已一致，否则返回动作描述。"""
     current = path.read_text(encoding="utf-8") if path.exists() else None
@@ -329,6 +360,48 @@ def write_if_changed(path: Path, text: str, check_only: bool) -> str | None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8", newline="\n")
     return "updated" if current is not None else "created"
+
+
+def load_core_module(name: str):
+    """按路径导入 ``zzz_panel.core`` 下的模块。
+
+    刻意用绝对路径导入而非 ``pip install`` 后的包名：本脚本要能被纯 stdlib 的
+    ``python`` 直接跑起来（Skill 抓取脚本就是用系统 python 执行的）。
+    ``core`` 层零第三方依赖，因此这样导入不会拉起 fastapi/pydantic。
+    """
+    if str(BACKEND_SRC) not in sys.path:
+        sys.path.insert(0, str(BACKEND_SRC))
+    from importlib import import_module
+
+    return import_module(f"zzz_panel.core.{name}")
+
+
+def build_options() -> dict[str, Any]:
+    """从 Python 规则表生成 ``data/options.json`` 的内容。"""
+    options = load_core_module("options")
+    constants = load_core_module("constants")
+
+    result: dict[str, Any] = {"_generated": OPTIONS_NOTICE}
+    for json_key, module_name, attr in OPTION_TABLES:
+        result[json_key] = [
+            {"id": o.id, "label": o.label, "value": o.value, "kind": o.kind, "to": o.to}
+            for o in getattr(options, attr)
+        ]
+    result["discFixedStats"] = [
+        {"slot": s.slot, "label": s.label, "value": s.value, "target": s.target}
+        for s in constants.DISC_FIXED_STATS
+    ]
+    return result
+
+
+def run_options(check_only: bool) -> int:
+    action = write_if_changed(OPTIONS_JSON, dump_json(build_options()), check_only)
+    if action is None:
+        print(f"  ok       {display(OPTIONS_JSON)}")
+        return 0
+    verb = "drift" if check_only else action
+    print(f"  {verb:9} {display(OPTIONS_JSON)}")
+    return 1 if check_only else 0
 
 
 def run(direction: str, check_only: bool) -> int:
@@ -345,11 +418,11 @@ def run(direction: str, check_only: bool) -> int:
             target, text = json_path, dump_json(items)
         action = write_if_changed(target, text, check_only)
         if action is None:
-            print(f"  ok       {target.relative_to(REPO_ROOT)}")
+            print(f"  ok       {display(target)}")
         else:
             drift += 1
             verb = "drift" if check_only else action
-            print(f"  {verb:9} {target.relative_to(REPO_ROOT)}")
+            print(f"  {verb:9} {display(target)}")
     if drift:
         print(f"{'存在漂移' if check_only else '已写入'}：{drift} 个文件")
     return 1 if check_only and drift else 0
@@ -362,9 +435,20 @@ def main() -> int:
                        help="legacy/data/*.js → data/*.json")
     group.add_argument("--to-legacy", action="store_true",
                        help="data/*.json → legacy/data/*.js")
+    group.add_argument("--options", action="store_true",
+                       help="core/*.py → data/options.json（单向）")
     parser.add_argument("--check", action="store_true",
                        help="只报告漂移，不写文件")
     args = parser.parse_args()
+
+    if args.options:
+        print("规则表同步（options）" if not args.check else "规则表检查（options）")
+        try:
+            return run_options(args.check)
+        except (ImportError, AttributeError, OSError) as error:
+            print(f"错误：{error}", file=sys.stderr)
+            return 2
+
     direction = "to-legacy" if args.to_legacy else "from-legacy"
     print(f"{'检查' if args.check else '同步'}（{direction}）")
     try:

@@ -58,7 +58,7 @@ Show each rank's effect and a summed total grouped by attribute and bonus type.
 
 Include a source link to the official agent detail page. Be explicit about any field that was unavailable, ambiguous, or could not be verified. Do not modify calculator files unless the user separately requests an implementation.
 
-## Batch refresh of `frontend/legacy/data/agent-presets.js`
+## Batch refresh of `data/agent-presets.json`
 
 `scripts/refresh_agent_presets.py` performs the same reads without a browser. It scans
 `entry_page_id=1..2600` on `https://act-api-takumi.mihoyo.com/hoyowiki/zzz/wapi/entry_page_v2?entry_page_id=<id>`
@@ -68,14 +68,21 @@ Run from the repository root; the default `--config` and `--out` paths are repo-
 
 ```
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
+python tools/sync_presets.py --to-legacy
 ```
+
+`data/agent-presets.json` is the single source of truth for the whole repository. The
+legacy page's `frontend/legacy/data/agent-presets.js` is generated from it by
+`sync_presets.py --to-legacy`; never write the legacy file from this script. After a
+refresh, run that command so the legacy page stays in sync, and
+`python tools/sync_presets.py --to-legacy --check` must exit 0.
 
 - The level-60 panel comes from the 晋升需求 slider rows 初始/满级, merged field by field.
 - Legacy labels are normalized (`生命/攻击/防御`, `暴击/暴伤`, `异常掌控`, `基础能量自动回复提升0.12点/秒`).
 - 命破 agents put `贯穿力` into `additionalBaseStats.penforce` and `闪能自动累积` into `additionalBaseStats.energyAccumulation`; missing `pr`/`er` are listed in `unavailableBaseStats`.
 - 锋御 agents put `锐能自动累积` into `base.er`. `锐暴伤害` is already modeled by the calculator: it is a fixed 150% intrinsic stat displayed only in the 锋御 final panel, never as a calculation input. The scraper still writes the Wiki label into `unmodeledBaseStats` for traceability, and the calculator filters it out via `MODELED_BASE_STAT_LABELS`; never describe it to the user as unmodeled. Only genuinely unmodelled attributes belong there.
 - Core ranks are read per rank letter and only `A`–`F` are accepted; older pages also emit empty `2..6` entries.
-- Presets are written sorted by official grade (S before A) then by id. The output is deterministic, so a rerun must reproduce the same file.
+- Presets are written sorted by official grade (S before A) then by id. Serialization reuses `tools/sync_presets.py`, so the output is canonical and byte-deterministic: a rerun must reproduce the same file.
 
 ## Verified example: 叶瞬光
 

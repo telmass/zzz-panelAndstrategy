@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from ..schemas.panel import HealthResponse
 from .routes.panel import router as panel_router
+from .routes.presets import router as presets_router
 
 app = FastAPI(
     title="ZZZ Panel API",
@@ -30,6 +31,7 @@ app.add_middleware(
 )
 
 app.include_router(panel_router)
+app.include_router(presets_router)
 
 
 @app.get("/api/health", response_model=HealthResponse, tags=["panel"], summary="健康检查")

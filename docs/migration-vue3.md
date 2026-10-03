@@ -13,7 +13,7 @@
 | 第 1 步 | 静态结构（无计算） | ✅ 已完成（2026-10-02） |
 | 第 2 步 | 交互逻辑（仍在前端算） | ✅ 已完成（2026-10-02） |
 | 第 3 步 | 计算下沉到 Python | ✅ 已完成（2026-10-02） |
-| 第 4 步 | 预设数据改造为 JSON | ⬜ 未开始 |
+| 第 4 步 | 预设数据改造为 JSON | ✅ 已完成（2026-10-03） |
 | 第 5 步 | 收尾，删除 legacy 与重定向页 | ⬜ 未开始 |
 
 ## 第 0 步 · 搭壳（已完成 2026-10-02）
@@ -230,7 +230,43 @@ legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DIS
 - `tests/legacy-parity.spec.ts` 4 项对拍，两档配置下 12~13 行数值与
   明细文案**逐字符**一致；其中 4 项走真实 uvicorn + HTTP。
 
-## 第 4 步 · 预设数据改造
+## 第 4 步 · 预设数据改造（已完成 2026-10-03）
+
+`frontend/legacy/` 仍零改动，回退路径完好。
+
+完成后仓库里只剩**一份**预设数据与**一份**规则表：
+
+```
+data/
+├── agent-presets.json     60 条，由 refresh_agent_presets.py 抓取写入
+├── weapon-presets.json    100 条，由 refresh_weapon_presets.py 抓取写入
+├── options.json           规则表，由 core/*.py 单向生成
+└── README.md
+```
+
+三条数据通路的分工是本步的核心结论：
+
+| 数据 | 通路 | 理由 |
+| --- | --- | --- |
+| 代理人/音擎预设 | 抓取脚本 → `data/*.json` → 后端 `GET /api/presets/*` → 前端 | 数据量大、需刷新，走接口便于统一缓存与失效 |
+| 配装规则表 | `core/*.py` → `data/options.json` → 前端 `@data` 直接 import | 规则表要求瞬时可用，下拉框不能等一次 HTTP 往返 |
+| legacy 的 `.js` 包装 | `data/*.json` → `sync_presets.py --to-legacy` | legacy 页面在第 5 步删除前一直要能用 |
+
+预设走接口、规则表走本地 JSON 是**故意不对称**，不是遗漏。
+
+### 防漂移的三道闸
+
+1. `sync_presets.py --check` 报 legacy 与 JSON 不同步。
+2. `backend/tests/test_options_json.py` 断言 `options.json` 与 Python 规则表一致。
+3. `backend/tests/test_presets.py` 断言 `data/*.json` 已是规范形式，且两个抓取
+   脚本的 `render()` 喂入已提交数据后能**原样重现**该文件。
+
+三道闸的共同前提：抓取脚本复用 `sync_presets.py` 的序列化，不各写一套。
+
+### 已验证
+
+后端 `pytest` 87 项、前端 `vue-tsc --noEmit` 与 `npm run test` 48 项全绿。
+`--to-legacy --check` 与 `--options --check` 均退出 0，重跑写入不产生 diff。
 
 17. 写 `tools/sync_presets.py`：把 `legacy/data/*.js` 转为根 `data/*.json`。
     脚本必须可重复执行且字节幂等。
@@ -238,27 +274,48 @@ legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DIS
     「legacy → JSON → legacy」字节一致（60 代理人 + 100 音擎），
     故转换无损，可作回归检查。JSON 为派生产物，随 legacy 引导而来。
 18. `presetStore` 改从 `GET /api/presets/*` 拉取。
+    **已完成**：后端 `presets/validate.py`（语义校验）+ `presets/loader.py`
+    （读盘、按 mtime 缓存、失败统一为 `PresetLoadError`）+ `api/routes/presets.py`
+    （数据非法返回 503 而非 500）；前端新增 `api/presets.ts` 与
+    `stores/presetStore.ts`，`main.ts` 在 `mount` 前 `await loadAll()`，
+    `panelStore` / `useAgentPreset` / `usePanelCalc` 三处消费方改读 store。
+    `src/data/agentPresets.ts` 与 `weaponPresets.ts` 已删除——前端不再持有副本，
+    构建产物因此从 182.90 kB 降到 128.97 kB。
     注意这里与第 20 条**故意不对称**：预设走接口，选项表走本地 JSON。
     预设数据量大且需刷新（抓取脚本更新频率高），走接口便于统一缓存与失效；
     选项表小且要求瞬时可用，本地 JSON 更合适。两者不冲突。
 19. 抓取脚本（`refresh_*_presets.py`）输出目标改为 `data/*.json`；
     legacy 页面所需的 JS 包装由同步脚本反向生成。
+    **已完成**：两个脚本的 `render()` 改为输出规范化 JSON，`--out` 默认
+    指向 `data/agent-presets.json` / `data/weapon-presets.json`，
+    docstring 与两个 `SKILL.md`、根 README 同步更新。
+    两个脚本复用 `tools/sync_presets.py` 的序列化而非各写一套——
+    否则重新抓取后 `--check` 永远报漂移且原因极难定位。
+    核心加成与音擎基础值补 `num()` 归一（`420.0 → 420`、`713.0 → 713`），
+    否则 JSON 会写成浮点字面量而与既有文件不一致。
+    `--from-legacy` 由此退化为一次性引导/回归用途，不再是常规流程。
 20. **删除前端 `src/constants/calculatorOptions.ts` 选项表副本**，
     改读 `data/options.json`。本项原属第 3 步的收尾，
     因与预设 JSON 改造共用同一套「静态副本 → 单一 JSON 数据源」的模式，
     合并到本步一次做完，避免同一文件在两个步骤间反复改动。
+    **已完成**：`sync_presets.py --options` 从 `core/options.py` 与
+    `core/constants.py` 单向生成 `data/options.json`；前端加 `@data` 别名
+    直接读该文件，`calculatorOptions.ts` 只留类型与纯枚举。
+    七张表迁移前已逐条比对确认等价（含 `DISC_FIXED_STATS` 的 `target`→`to`改名）。
+    副词条上限 36/54 未迁——后端只对条数向下取整，不设上限，无对应表。
 
     选项表**不走接口**，与预设不同：下拉框要瞬时可用，不能等一次 HTTP 往返，
-    也不能因为接口不可用就让整个计算器瘫掉。`data/options.json` 由
-    `sync_presets.py` 从 `core/options.py` **单向生成**，是派生产物而非副本，
-    与第 17 条的预设 JSON 同一性质。
+    也不能因为接口不可用就让整个计算器瘫掉。`data/options.json` 是派生产物而非副本。
 
     验收三条：
-    - 仓库内规则表只存在于 `core/options.py` 一处（`data/options.json` 为生成物，
-      带「勿手改」头注释，且可由脚本重新生成到字节一致）。
-    - 前端构建产物不内嵌任何手写的选项常量。
-    - 现有 `src/constants/calculatorOptions.ts` 删除后无残留引用，
-      `frontend/tests/` 中依赖静态常量表的断言相应改读 `data/options.json`。
+    - 规则表只存在于 `core/options.py` 与 `core/constants.py` 两处，
+      `data/options.json` 为生成物，带 `_generated` 声明勿手改。
+      `backend/tests/test_options_json.py` 断言 JSON 与 Python 当前值一致，
+      改了 Python 忘了重新生成即失败。
+    - 前端构建产物不含任何手写的选项常量。
+    - `src/constants/calculatorOptions.ts` 保留 `RuleOption` / `ModifierKey` /
+      `ModifierKind` 类型与 `AGENT_ROLE_TAGS`、`PANEL_MODE_LABELS`、
+      `MODELED_BASE_STAT_LABELS`、`FENGYU_BLAST_DMG` 四组纯枚举。
 
 ## 第 5 步 · 收尾
 

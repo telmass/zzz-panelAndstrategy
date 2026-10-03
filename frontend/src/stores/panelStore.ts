@@ -5,8 +5,7 @@ import {
   PANEL_MODE_LABELS,
   SUB_STATS,
 } from '@/constants/calculatorOptions';
-import { AGENT_PRESETS } from '@/data/agentPresets';
-import { WEAPON_PRESETS } from '@/data/weaponPresets';
+import { usePresetStore } from '@/stores/presetStore';
 import type {
   AgentSelection,
   BaseStats,
@@ -97,31 +96,36 @@ export const usePanelStore = defineStore('panel', {
 
   getters: {
     /** 代理人标签下拉选项。顺序取自 `AGENT_ROLE_TAGS`，与 legacy 一致。 */
-    agentRoleOptions: (): string[] =>
-      AGENT_ROLE_TAGS.filter((role) => AGENT_PRESETS.some((agent) => agent.roleTag === role)),
+    agentRoleOptions: (): string[] => {
+      const { agents } = usePresetStore();
+      return AGENT_ROLE_TAGS.filter((role) => agents.some((agent) => agent.roleTag === role));
+    },
 
     /** 当前标签下的代理人预设。 */
     filteredAgentPresets(): AgentPreset[] {
+      const { agents } = usePresetStore();
       return this.agent.roleTag
-        ? AGENT_PRESETS.filter((agent) => agent.roleTag === this.agent.roleTag)
+        ? agents.filter((agent) => agent.roleTag === this.agent.roleTag)
         : [];
     },
 
     /** 音擎等级下拉选项，按 S / A / B 排列。 */
     weaponGradeOptions(): string[] {
-      return [...new Set(WEAPON_PRESETS.map((weapon) => weapon.grade))].sort(
+      const { weapons } = usePresetStore();
+      return [...new Set(weapons.map((weapon) => weapon.grade))].sort(
         (a, b) => GRADE_ORDER.indexOf(a) - GRADE_ORDER.indexOf(b),
       );
     },
 
     /** 当前等级下的音擎类别选项。 */
     weaponRoleOptions(): string[] {
+      const { weapons } = usePresetStore();
       if (!this.weapon.grade) {
         return [];
       }
       return [
         ...new Set(
-          WEAPON_PRESETS.filter((weapon) => weapon.grade === this.weapon.grade).map(
+          weapons.filter((weapon) => weapon.grade === this.weapon.grade).map(
             (weapon) => weapon.roleTag,
           ),
         ),
@@ -130,11 +134,12 @@ export const usePanelStore = defineStore('panel', {
 
     /** 当前等级与类别下的音擎预设。 */
     filteredWeaponPresets(): WeaponPreset[] {
+      const { weapons } = usePresetStore();
       const { grade, roleTag } = this.weapon;
       if (!grade || !roleTag) {
         return [];
       }
-      return WEAPON_PRESETS.filter(
+      return weapons.filter(
         (weapon) => weapon.grade === grade && weapon.roleTag === roleTag,
       );
     },
@@ -183,7 +188,7 @@ export const usePanelStore = defineStore('panel', {
      * 使锋御模式显示「锐能自动累积」而非「能量自动回复」。
      */
     selectWeaponPreset(presetId: string, localize: (text: string) => string): void {
-      const weapon = WEAPON_PRESETS.find((item) => item.id === presetId);
+      const weapon = usePresetStore().weaponById.get(presetId);
       if (!weapon) {
         this.weapon.preset = '';
         this.clearWeaponStats();

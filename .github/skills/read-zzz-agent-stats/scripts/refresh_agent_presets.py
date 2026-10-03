@@ -1,4 +1,4 @@
-"""Refresh frontend/legacy/data/agent-presets.js from the official HoYoLAB ZZZ Wiki.
+"""Refresh data/agent-presets.json from the official HoYoLAB ZZZ Wiki.
 
 Scans the whole entry_page_id space through the public content API, keeps every
 page carrying a `role_base_info` component (only agent pages have one), and
@@ -9,6 +9,10 @@ writes one preset per agent with:
   * fully upgraded core skill, grouped per attribute from ranks A-F;
   * the official 特性 tag and the matching calculator panel mode.
 
+``data/agent-presets.json`` 是全仓库唯一真实源；legacy 页面所需的
+``frontend/legacy/data/agent-presets.js`` 由 ``tools/sync_presets.py --to-legacy``
+从本文件反向生成，不要直接写 legacy。序列化复用 sync_presets 的规范化实现。
+
 Default paths are relative to the repository root; run from there:
 
 Usage:
@@ -18,9 +22,11 @@ Usage:
 import argparse
 import json
 import re
+import sys
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 API = "https://act-api-takumi.mihoyo.com/hoyowiki/zzz/wapi/entry_page_v2?entry_page_id={}"
 HEADERS = {
@@ -56,6 +62,10 @@ BASE_ALIASES = {
     "闪能自动积累": "energyAccumulation",
     "闪能自动累计": "energyAccumulation",
 }
+#: 默认输出。仓库根 ``data/`` 是唯一真实源；legacy 的 JS 包装由
+#: ``tools/sync_presets.py --to-legacy`` 反向生成，不在本脚本的职责内。
+OUTPUT = "data/agent-presets.json"
+
 BASE_FIELDS = ("hp", "atk", "def", "impact", "cr", "cd", "ac", "am", "pr", "er")
 EXTRA_FIELDS = {"penforce": "penforce", "energyAccumulation": "energyAccumulation"}
 
@@ -176,8 +186,10 @@ def core_bonuses(ranks, core_options):
             "optionId": option_id,
             "ranks": ranks_list,
             "label": label,
-            "perRankValue": value,
-            "totalValue": total,
+            # num() 把 420.0 收敛成 420：JSON 里整值就该是整数，
+            # 否则与既有 data/*.json 的字面量不一致，--check 会一直报漂移。
+            "perRankValue": num(value),
+            "totalValue": num(total),
             "unit": entry["unit"],
         }
         if round(count) > 1:
@@ -197,6 +209,24 @@ def load_core_options(config_path):
 
 def num(value):
     return int(value) if float(value).is_integer() else value
+
+
+#: 仓库根。本脚本从 ``.github/skills/<skill>/scripts/`` 上溯四层到达。
+REPO_ROOT = Path(__file__).resolve().parents[4]
+
+
+def load_sync_presets():
+    """导入 ``tools/sync_presets.py`` 以复用其规范化与 JSON 序列化。
+
+    刻意不复制一份序列化逻辑：预设 JSON 的键序与缩进由该脚本单一定义，
+    ``sync_presets.py --to-legacy --check`` 依赖两侧字节一致。这里若各写一套，
+    重新抓取后 ``--check`` 就会一直报漂移，而漂移原因极难定位。
+    """
+    if str(REPO_ROOT / "tools") not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT / "tools"))
+    import sync_presets
+
+    return sync_presets
 
 
 def build(agent, core_options):
@@ -266,58 +296,22 @@ def scan(max_id):
 
 
 def render(presets):
-    lines = ["window.AGENT_PRESETS = ["]
-    for preset in presets:
-        lines += [
-            "  {",
-            "    id: '{}',".format(preset["id"]),
-            "    name: '{}',".format(preset["name"]),
-            "    roleTag: '{}',".format(preset["roleTag"]),
-            "    panelMode: '{}',".format(preset["panelMode"]),
-            "    source: '{}',".format(preset["source"]),
-            "    base: {",
-        ]
-        for field in BASE_FIELDS:
-            if field in preset["base"]:
-                lines.append("      {}: {},".format(field, preset["base"][field]))
-        lines.append("    },")
-        if "unavailableBaseStats" in preset:
-            lines.append("    unavailableBaseStats: [{}],".format(", ".join("'{}'".format(f) for f in preset["unavailableBaseStats"])))
-        if "additionalBaseStats" in preset:
-            lines.append("    additionalBaseStats: {")
-            for field, value in preset["additionalBaseStats"].items():
-                lines.append("      {}: {},".format(field, value))
-            lines.append("    },")
-        if "unmodeledBaseStats" in preset:
-            lines.append("    unmodeledBaseStats: [")
-            for stat in preset["unmodeledBaseStats"]:
-                lines.append("      {{ label: '{}', value: {}, unit: '{}' }},".format(stat["label"], stat["value"], stat["unit"]))
-            lines.append("    ],")
-        lines.append("    coreBonuses: [")
-        for bonus in preset["coreBonuses"]:
-            lines.append("      {")
-            if "optionCount" in bonus:
-                lines.append("        optionId: '{}',".format(bonus["optionId"]))
-                lines.append("        optionCount: {},".format(bonus["optionCount"]))
-            else:
-                lines.append("        optionId: '{}',".format(bonus["optionId"]))
-            lines.append("        ranks: [{}],".format(", ".join("'{}'".format(r) for r in bonus["ranks"])))
-            lines.append("        label: '{}',".format(bonus["label"]))
-            lines.append("        perRankValue: {},".format(num(bonus["perRankValue"])))
-            lines.append("        totalValue: {},".format(num(bonus["totalValue"])))
-            lines.append("        unit: '{}',".format(bonus["unit"]))
-            lines.append("      },")
-        lines.append("    ],")
-        lines.append("  },")
-    lines.append("];")
-    return "\n".join(lines) + "\n"
+    """序列化为规范化的预设 JSON。
+
+    键序与缩进由 ``tools/sync_presets.py`` 单一定义，因此重新抓取后
+    ``sync_presets.py --to-legacy --check`` 仍能通过。
+    """
+    sync_presets = load_sync_presets()
+    normalized = [sync_presets.order_preset(preset, agent=True) for preset in presets]
+    sync_presets.check_ids(normalized, "data/agent-presets.json")
+    return sync_presets.dump_json(normalized)
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-id", type=int, default=2600)
     parser.add_argument("--config", default="frontend/legacy/scripts/calculator-config.js")
-    parser.add_argument("--out", default="frontend/legacy/data/agent-presets.js")
+    parser.add_argument("--out", default=OUTPUT)
     args = parser.parse_args()
 
     core_options = load_core_options(args.config)
@@ -329,10 +323,12 @@ def main():
         except ValueError as error:
             problems.append((agent["id"], agent["name"], str(error)))
     presets.sort(key=lambda item: (GRADE_ORDER.get(item["grade"], 9), item["id"]))
-    with open(args.out, "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(render(presets))
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(render(presets), encoding="utf-8", newline="\n")
     print("agents found: {}".format(len(agents)))
     print("presets written: {} -> {}".format(len(presets), args.out))
+    print("next: python tools/sync_presets.py --to-legacy")
     for problem in problems:
         print("SKIPPED:", problem)
 

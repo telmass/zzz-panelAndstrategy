@@ -11,16 +11,28 @@
 
 | 文件 | 用途 |
 | --- | --- |
-| `sync_presets.py` | `data/*.json` ↔ `frontend/legacy/data/*.js` 双向同步 |
+| `sync_presets.py` | 预设 `data/*.json` ↔ `frontend/legacy/data/*.js`；规则表 `core/*.py` → `data/options.json` |
 
 ```powershell
-python tools/sync_presets.py --from-legacy          # JS → JSON（一次性引导）
-python tools/sync_presets.py --to-legacy            # JSON → JS（长期方向）
+python tools/sync_presets.py --from-legacy          # 预设 JS → JSON（一次性引导）
+python tools/sync_presets.py --to-legacy            # 预设 JSON → JS（长期方向）
+python tools/sync_presets.py --options              # 规则表 core/*.py → data/options.json
 python tools/sync_presets.py --to-legacy --check    # 只报漂移，退出码 1 = 不同步
+python tools/sync_presets.py --options --check      # 规则表是否已重新生成
 ```
 
-两个方向都先把数据规范化到脚本内定义的键序再写出，因此重复执行不产生 diff，
+预设的两个方向都先把数据规范化到脚本内定义的键序再写出，因此重复执行不产生 diff，
 且 `legacy → JSON → legacy` 字节一致（已验证，可作无损性回归检查）。
+
+规则表只有一个方向：`data/options.json` 是派生产物，前端不再持有副本。
+`core` 层零第三方依赖，脚本用 `sys.path` 加 `backend/src` 直接 import，
+因此**纯 stdlib 的 `python` 即可运行**，不必 `uv run`。
+`backend/tests/test_options_json.py` 断言该 JSON 与 Python 当前值一致。
+
+两个抓取脚本 `refresh_*_presets.py` 也**复用本模块的序列化**（`load_sync_presets()`），
+不各写一套——否则重新抓取后 `--check` 会一直报漂移且原因极难定位。
+`backend/tests/test_presets.py` 断言 `data/*.json` 已是规范形式，
+且两个脚本的 `render()` 喂入已提交数据后能原样重现该文件。
 
 脚本内置一个 JS 字面量解析器，只支持抓取脚本产出的子集：单引号字符串、
 **无转义序列**、键名不引号。遇到反斜杠会显式报错而非猜测。两个易踩的点：

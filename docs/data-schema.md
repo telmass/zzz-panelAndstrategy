@@ -16,6 +16,18 @@
 `data/agent-presets.json` 与 `data/weapon-presets.json` 是唯一真实源。
 `frontend/legacy/data/*.js` 在迁移期由 `tools/sync_presets.py` 从 JSON 反向生成。
 
+### 校验的两层分工
+
+| 层 | 位置 | 负责 |
+| --- | --- | --- |
+| 结构与类型 | `schemas/presets.py`（Pydantic） | 类型、必填项、`panelMode` / `baseKind` / `kind` 枚举 |
+| 语义 | `presets/validate.py` | id 唯一、roleTag 合法、核心加成能否由选项表示、能否填满两个槽位、缺失基础键是否已声明 unavailable |
+
+`loader.py` 把两层的失败统一转成 `PresetLoadError`，路由返回 **503**——
+预设数据非法是「数据源坏了」，不是「服务器崩了」。
+前端启动时一次性装载（`main.ts` 在 `mount` 前 `await loadAll()`），
+因此各 getter 保持同步派生，不需要在使用点处理加载态。
+
 ### 代理人预设
 
 ```jsonc
@@ -86,6 +98,8 @@
 - 每项 `perRankValue × len(ranks)` 等于 `totalValue`
 - `coreBonuses` 展开后恰好能填入 2 个核心槽位
 - `unmodeledBaseStats` 每项的 `label` / `value` / `unit` 类型正确
+- `base` 中缺失的键必须显式列入 `unavailableBaseStats`，否则前端会把缺值当 0 写进面板且无提示
+- `panelMode` 为 `rupture` 时 `additionalBaseStats` 必须给出 `penforce` 与 `energyAccumulation`
 
 ### 已建模属性的例外：锐暴伤害
 
@@ -98,7 +112,7 @@
 
 ```
 GET  /api/health
-     → { "status": "ok", "version": "0.1.0" }
+     → { "status": "ok" }
 
 GET  /api/presets/agents
      → { "items": [ /* 代理人预设数组 */ ] }
@@ -110,9 +124,13 @@ POST /api/panel/calc
 ```
 
 第 3 步已实现 `GET /api/health` 与 `POST /api/panel/calc`；
-`GET /api/presets/*` 属于第 4 步第 18 条，尚未实现。
-选项表不经接口，由 `core/options.py` 单向生成本地 `data/options.json`
-供前端读取，理由见 `migration-vue3.md` 第 4 步第 20 条。
+第 4 步第 18 条已实现 `GET /api/presets/agents` 与 `GET /api/presets/weapons`，
+响应体均为 `{"items": [...]}`，内容与 `data/*.json` 逐条等价
+（`backend/tests/test_presets.py` 有等价性断言）。
+
+选项表不经接口，由 `core/options.py` 与 `core/constants.py` 单向生成本地
+`data/options.json`，前端通过 `@data` 别名直接读该文件。理由与验收见
+`migration-vue3.md` 第 4 步第 20 条；漂移由 `backend/tests/test_options_json.py` 守卫。
 
 请求体：
 

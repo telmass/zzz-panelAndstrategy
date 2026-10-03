@@ -5,7 +5,7 @@ import { mount, type VueWrapper } from '@vue/test-utils';
 import CalculatorView from '@/views/CalculatorView.vue';
 import LauncherView from '@/views/LauncherView.vue';
 import { usePanelStore } from '@/stores/panelStore';
-import { mockPanelApi } from './support/panelApi';
+import { loadPresets, mockApi } from './support/api';
 import { flushCalc } from './support/flush';
 
 /**
@@ -15,12 +15,14 @@ import { flushCalc } from './support/flush';
  */
 let pinia: Pinia;
 
-beforeEach(() => {
+beforeEach(async () => {
   pinia = createPinia();
   setActivePinia(pinia);
   // 第 3 步起结果来自后端；这里用假后端保证渲染路径可跑通。
   // 数值本身的正确性由 legacy-parity.spec.ts 与后端测试负责。
-  mockPanelApi();
+  mockApi();
+  // 第 4 步起预设也来自接口，生产的 main.ts 在 mount 前装载，测试同理。
+  await loadPresets();
 });
 
 afterEach(() => {

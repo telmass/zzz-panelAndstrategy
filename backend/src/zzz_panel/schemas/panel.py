@@ -20,16 +20,12 @@ from __future__ import annotations
 
 from typing import Dict, List, Literal, Optional, Union
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 from pydantic.alias_generators import to_camel
 
+from .base import CamelModel as _CamelModel
+
 PanelMode = Literal["standard", "rupture", "fengyu"]
-
-
-class _CamelModel(BaseModel):
-    """按 camelCase 收发；仍允许用字段名传入，便于测试与 Python 侧调用。"""
-
-    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
 
 class BaseStatsIn(_CamelModel):

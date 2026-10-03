@@ -66,15 +66,25 @@ test/
 
 ## 数据来源
 
-代理人与音擎预设由 Skill 脚本从米游社官方 WIKI 抓取生成，
-**不要手工编辑** `frontend/legacy/data/agent-presets.js` 与
-`frontend/legacy/data/weapon-presets.js`（每次运行脚本会被整体覆盖）。
+代理人与音擎预设由 Skill 脚本从米游社官方 WIKI 抓取生成。
+**唯一真实源是仓库根 [`data/*.json`](data/README.md)，不要手工编辑**——
+每次运行抓取脚本都会被整体覆盖。
 
-刷新方式（需在仓库根目录执行）：
+`frontend/legacy/data/*.js` 是 legacy 页面用的派生产物，由
+`tools/sync_presets.py --to-legacy` 从 JSON 反向生成，同样不可手工编辑。
+
+刷新方式（需在仓库根目录执行，抓取后必须再跑一次同步）：
 
 ```powershell
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
+python tools/sync_presets.py --to-legacy
+```
+
+改了配装规则表（`backend/src/zzz_panel/core/*.py`）后重新生成前端用的规则表：
+
+```powershell
+python tools/sync_presets.py --options
 ```
 
 ## 相关文档

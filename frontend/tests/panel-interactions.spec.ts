@@ -8,7 +8,7 @@ import { useAgentPreset } from '@/composables/useAgentPreset';
 import { displayEnergyAttributeLabel, usePanelMode } from '@/composables/usePanelMode';
 import { useSubStatLimit } from '@/composables/useSubStatLimit';
 import { usePanelStore } from '@/stores/panelStore';
-import { mockPanelApi, mockPanelApiFailure, requests } from './support/panelApi';
+import { loadPresets, mockApi, mockPanelApiFailure, requests } from './support/api';
 import { flushCalc } from './support/flush';
 
 /**
@@ -17,7 +17,7 @@ import { flushCalc } from './support/flush';
  *
  * 第 3 步起结果来自后端，因此挂载组件前先接上假后端：否则 jsdom 里 fetch
  * 会静默失败，组件停在 `—`，用例会因「碰巧不依赖数值」而通过——
- * 看似绿，实则没验证到渲染路径。
+ * 看似绿，实则没验证到渲染路径。第 4 步起预设同样走接口，故一并装载。
  */
 
 let pinia: Pinia;
@@ -31,10 +31,11 @@ let pinia: Pinia;
  */
 enableAutoUnmount(afterEach);
 
-beforeEach(() => {
+beforeEach(async () => {
   pinia = createPinia();
   setActivePinia(pinia);
-  mockPanelApi();
+  mockApi();
+  await loadPresets();
 });
 
 afterEach(() => {

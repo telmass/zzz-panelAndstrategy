@@ -28,9 +28,8 @@
 | `src/composables/` | 跨组件复用的行为：`usePanelCalc`、`useSubStatLimit`（≤54 钳制）、`usePanelMode`（锋御文案替换） |
 | `src/api/` | **唯一**网络出口。组件内禁止直接 `fetch` |
 | `src/types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 一一对应 |
-| `src/constants/` | 枚举：面板模式、职业标签、属性键名 |
+| `src/constants/` | 枚举：面板模式、职业标签、属性键名。第 4 步第 20 条后选项表迁走，只留纯枚举 |
 | `src/utils/` | 纯函数：`fmt`（须对齐 `calculator.js` 的取整与千分位规则）、`clamp` |
-| `src/data/` | 前端静态兜底数据，仅在后端不可用时降级使用 |
 | `tests/` | Vitest 单测 |
 
 ### frontend/legacy/ — 过渡期原生实现

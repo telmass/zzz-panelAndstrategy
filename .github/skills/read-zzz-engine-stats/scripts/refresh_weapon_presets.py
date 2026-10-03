@@ -1,9 +1,12 @@
-"""Refresh frontend/legacy/data/weapon-presets.js from the official HoYoLAB ZZZ Wiki.
+"""Refresh data/weapon-presets.json from the official HoYoLAB ZZZ Wiki.
 
 Scans the wiki entry_page_id space through the public content API, keeps every
 page whose 晋升需求 table uses the weapon-specific 突破前基础 / 突破后基础 keys,
-extracts the level-60 (0 突破) base ATK and the fixed high-level substat, and
-rewrites window.WEAPON_PRESETS.
+and extracts the level-60 (0 突破) base ATK plus the fixed high-level substat.
+
+``data/weapon-presets.json`` 是全仓库唯一真实源；legacy 页面所需的
+``frontend/legacy/data/weapon-presets.js`` 由 ``tools/sync_presets.py --to-legacy``
+从本文件反向生成，不要直接写 legacy。序列化复用 sync_presets 的规范化实现。
 
 Default paths are relative to the repository root; run from there:
 
@@ -15,9 +18,11 @@ Usage:
 import argparse
 import json
 import re
+import sys
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 API = "https://act-api-takumi.mihoyo.com/hoyowiki/zzz/wapi/entry_page_v2?entry_page_id={}"
 HEADERS = {
@@ -25,7 +30,26 @@ HEADERS = {
     "Referer": "https://baike.mihoyo.com/",
     "x-rpc-wiki_app": "zzz",
 }
-OUTPUT = "frontend/legacy/data/weapon-presets.js"
+#: 默认输出。仓库根 ``data/`` 是唯一真实源；legacy 的 JS 包装由
+#: ``tools/sync_presets.py --to-legacy`` 反向生成，不在本脚本的职责内。
+OUTPUT = "data/weapon-presets.json"
+
+#: 仓库根。本脚本从 ``.github/skills/<skill>/scripts/`` 上溯四层到达。
+REPO_ROOT = Path(__file__).resolve().parents[4]
+
+
+def load_sync_presets():
+    """导入 ``tools/sync_presets.py`` 以复用其规范化与 JSON 序列化。
+
+    刻意不复制一份序列化逻辑：预设 JSON 的键序与缩进由该脚本单一定义，
+    ``sync_presets.py --to-legacy --check`` 依赖两侧字节一致。这里若各写一套，
+    重新抓取后 ``--check`` 就会一直报漂移，而漂移原因极难定位。
+    """
+    if str(REPO_ROOT / "tools") not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT / "tools"))
+    import sync_presets
+
+    return sync_presets
 
 # 初始面板：基础攻击力+50 暴击伤害+19.2%   满级面板：基础攻击力+743 暴击伤害+48%
 # 锋御 engines use 基础防御力 instead of 基础攻击力 (初始面板：基础防御力+29  防御力+19.2%).
@@ -170,38 +194,42 @@ def scan(max_id, workers):
 
 
 def render(records):
-    lines = ["window.WEAPON_PRESETS = ["]
+    """序列化为规范化的预设 JSON。
+
+    键序与缩进由 ``tools/sync_presets.py`` 单一定义，因此重新抓取后
+    ``sync_presets.py --to-legacy --check`` 仍能通过。
+    """
+    sync_presets = load_sync_presets()
     skipped = []
     ordered = sorted(records, key=lambda item: (GRADE_ORDER.get(item["grade"], 9), item["id"]))
+    presets = []
     for item in ordered:
         mapped = SUBSTAT_TO_CALCULATOR.get(item["substatLabel"])
         if mapped is None or (mapped[1] == "pct" and not item["substatIsPct"]):
             skipped.append((item["id"], item["name"], item["substatLabel"]))
             continue
         to, kind = mapped
-        value = item["substatValue"]
-        value_text = str(int(value)) if float(value).is_integer() else str(value)
-        base_kind = item.get("baseKind", "atk")
-        lines += [
-            "  {",
-            "    id: 'ep-{}',".format(item["id"]),
-            "    name: '{}',".format(item["name"]),
-            "    grade: '{}',".format(item["grade"]),
-            "    roleTag: '{}',".format(item["roleTags"][0] if item["roleTags"] else ""),
-            "    source: 'https://baike.mihoyo.com/zzz/wiki/content/{}/detail?mhy_presentation_style=fullscreen',".format(item["id"]),
-            "    baseKind: '{}',".format(base_kind),
-            "    baseAttack: {},".format(int(item["baseAttack"])),
-            "    baseDefense: {},".format(int(item["baseDefense"])),
-            "    substat: {",
-            "      label: '{}',".format(item["substatLabel"]),
-            "      value: {},".format(value_text),
-            "      kind: '{}',".format(kind),
-            "      to: '{}',".format(to),
-            "    },",
-            "  },",
-        ]
-    lines.append("];")
-    return "\n".join(lines) + "\n", skipped, len(ordered) - len(skipped)
+        presets.append({
+            "id": "ep-{}".format(item["id"]),
+            "name": item["name"],
+            "grade": item["grade"],
+            "roleTag": item["roleTags"][0] if item["roleTags"] else "",
+            "source": "https://baike.mihoyo.com/zzz/wiki/content/{}/detail?mhy_presentation_style=fullscreen".format(item["id"]),
+            "baseKind": item.get("baseKind", "atk"),
+            # 整值收敛成 int：JSON 里整值就该是整数，否则与既有
+            # data/*.json 的字面量不一致，--check 会一直报漂移。
+            "baseAttack": int(item["baseAttack"]),
+            "baseDefense": int(item["baseDefense"]),
+            "substat": {
+                "label": item["substatLabel"],
+                "value": int(item["substatValue"]) if float(item["substatValue"]).is_integer() else item["substatValue"],
+                "kind": kind,
+                "to": to,
+            },
+        })
+    normalized = [sync_presets.order_preset(preset, agent=False) for preset in presets]
+    sync_presets.check_ids(normalized, OUTPUT)
+    return sync_presets.dump_json(normalized), skipped, len(ordered) - len(skipped)
 
 
 def main():
@@ -213,10 +241,12 @@ def main():
 
     records = scan(args.max_id, args.workers)
     content, skipped, written = render(records)
-    with open(args.out, "w", encoding="utf-8", newline="\n") as handle:
-        handle.write(content)
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(content, encoding="utf-8", newline="\n")
     print("engines found: {}".format(len(records)))
     print("presets written: {} -> {}".format(written, args.out))
+    print("next: python tools/sync_presets.py --to-legacy")
     for entry in skipped:
         print("SKIPPED (unmapped substat):", entry)
 

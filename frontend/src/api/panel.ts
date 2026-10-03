@@ -13,19 +13,11 @@ import type {
   PanelApiResponse,
   PanelCalcRequest,
 } from '@/types/panel';
+import { PanelApiError } from './errors';
+
+export { PanelApiError };
 
 const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? '/api';
-
-/** 面板计算的网络错误。保留后端返回的 detail 便于排查。 */
-export class PanelApiError extends Error {
-  readonly status: number;
-
-  constructor(message: string, status: number) {
-    super(message);
-    this.name = 'PanelApiError';
-    this.status = status;
-  }
-}
 
 function describe(status: number, body: unknown): string {
   if (body && typeof body === 'object' && 'detail' in body) {

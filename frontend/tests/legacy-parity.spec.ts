@@ -10,6 +10,7 @@ import { useAgentPreset } from '@/composables/useAgentPreset';
 import { usePanelMode } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
 import { routeFetchToBackend, startBackend, stopBackend } from './support/backend';
+import { loadPresets } from './support/api';
 import { flushCalc } from './support/flush';
 
 /**
@@ -84,10 +85,16 @@ afterAll(async () => {
   await stopBackend();
 });
 
-beforeEach(() => {
+beforeEach(async () => {
   legacyWindow = createLegacyWindow();
   pinia = createPinia();
   setActivePinia(pinia);
+  // 预设现在也来自后端，这条链路同样要被三方对拍覆盖：
+  // legacy 页面读打包进 HTML 的 window.AGENT_PRESETS，Vue 页面读 HTTP 接口，
+  // 两者必须拿到同一份数据。
+  if (backendUrl) {
+    await loadPresets();
+  }
 });
 
 /* ====== legacy 侧 ====== */

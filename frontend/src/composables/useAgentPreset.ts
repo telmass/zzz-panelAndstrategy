@@ -3,10 +3,10 @@ import {
   MODELED_BASE_STAT_LABELS,
   PANEL_MODE_LABELS,
 } from '@/constants/calculatorOptions';
-import { AGENT_PRESETS } from '@/data/agentPresets';
 import { AGENT_ROLE_TAGS } from '@/constants/calculatorOptions';
 import { displayEnergyAttributeLabel, isPanelMode } from '@/composables/usePanelMode';
 import { usePanelStore, type AgentNote } from '@/stores/panelStore';
+import { usePresetStore } from '@/stores/presetStore';
 import { fmt } from '@/utils/fmt';
 import type { AgentPreset } from '@/types/agentPresets';
 import type { PanelMode } from '@/types/panel';
@@ -26,9 +26,14 @@ const EPSILON = 0.0000001;
  *
  * 在应用预设前一次性跑完，任何一条不通过都视为数据源损坏，
  * 此时所有预设均不可载入——比 legacy 逐项抛错更早暴露问题。
+ *
+ * 第 4 步起预设由 `GET /api/presets/agents` 下发，后端已在
+ * `presets/validate.py` 做过同一套检查。这里保留是为了不把「数据可用性」
+ * 完全托付给网络：即便后端换了数据源，前端也不会把坏数据写进面板。
  */
 export function validateAgentPresetData(): void {
-  const invalid = AGENT_PRESETS.filter(
+  const { agents } = usePresetStore();
+  const invalid = agents.filter(
     (agent) => !agent.id || !agent.name || !AGENT_ROLE_TAGS.includes(agent.roleTag as never),
   );
   if (invalid.length) {
@@ -39,8 +44,8 @@ export function validateAgentPresetData(): void {
     );
   }
 
-  const duplicateIds = AGENT_PRESETS.filter(
-    (agent, index) => AGENT_PRESETS.findIndex((candidate) => candidate.id === agent.id) !== index,
+  const duplicateIds = agents.filter(
+    (agent, index) => agents.findIndex((candidate) => candidate.id === agent.id) !== index,
   );
   if (duplicateIds.length) {
     throw new Error(
@@ -205,7 +210,7 @@ export function useAgentPreset() {
       return note;
     }
 
-    const agent = AGENT_PRESETS.find((item) => item.id === agentId);
+    const agent = usePresetStore().agentById.get(agentId);
     if (!agent) {
       return fail(`代理人预设加载失败：找不到“${agentId}”的数据。`);
     }

@@ -4,8 +4,9 @@
 ``frontend/legacy/scripts/calculator-config.js``。
 
 前端 ``src/constants/calculatorOptions.ts`` 目前保留同一份副本，
-因为下拉框需要在浏览器里渲染 label；第 3 步只要求计算下沉，
-表格下发（``GET /api/options``）留到第 4 步与预设数据一起处理。
+因为下拉框需要在浏览器里渲染 label；第 4 步第 20 条会让本模块**单向生成**
+本地 ``data/options.json`` 供前端读取，从而去掉副本——选项表不经接口，
+下拉框要瞬时可用，不能等一次 HTTP 往返。
 
 ``id`` 缺失的条目按出现顺序补齐，与 legacy 用数组下拉定位的行为等价。
 """

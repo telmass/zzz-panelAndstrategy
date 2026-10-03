@@ -2,9 +2,9 @@ import { computed, onScopeDispose, ref, shallowRef, watch } from 'vue';
 
 import { calcPanel, PanelApiError } from '@/api/panel';
 import { CORE_OPTIONS } from '@/constants/calculatorOptions';
-import { WEAPON_PRESETS } from '@/data/weaponPresets';
 import { displayEnergyAttributeLabel } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
+import { usePresetStore } from '@/stores/presetStore';
 import type {
   BreakdownLine,
   BreakdownSegment,
@@ -85,7 +85,7 @@ export function buildRequest(): PanelCalcRequest {
 
   // 音擎的固定副词条已由预设解析出目标与数值，直接透传给后端。
   // ModifierKind 还有 'base'（核心专用），音擎副词条只有百分比与固定值两种。
-  const preset = WEAPON_PRESETS.find((item) => item.id === weapon.preset);
+  const preset = usePresetStore().weaponById.get(weapon.preset);
   const substat =
     preset && weapon.subValue
       ? {
