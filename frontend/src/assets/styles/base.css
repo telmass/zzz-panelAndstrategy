@@ -104,6 +104,12 @@ h1 {
   .layout {
     grid-template-columns: 1fr;
   }
+
+  /* 单列布局下结果区改为吸顶，会撞上固定在左上角的返回按钮，
+     让它让出一个按钮高度（44 + 24 边距）。该令牌只被 .result 使用。 */
+  :root {
+    --layout-result-offset: calc(var(--touch-target) + var(--space-6));
+  }
 }
 
 @media (width <= 560px) {

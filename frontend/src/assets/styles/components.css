@@ -379,148 +379,696 @@
   background: var(--color-danger-hover);
 }
 
-/* ====== 启动界面（复刻 legacy/pages/index.html） ======
- * 仅 / 路由使用。与计算器页共用同一份 body，故用 :has() 将深色主题
- * 限定在挂载了 .launcher-shell 的文档上，避免污染计算器页。
+/* ====== 按钮 ======
+ * 与副词条步进器按钮（.sub-count-btn）同一套视觉：accent 浅底 + accent 描边 +
+ * accent 文字。子页返回按钮与指南页的跳转按钮都复用它，不另写一套配色。
  */
 
-body:has(.launcher-shell) {
-  color-scheme: dark;
-  background:
-    radial-gradient(ellipse at 15% 10%, rgb(99 102 241 / 20%), transparent 36%),
-    radial-gradient(ellipse at 90% 85%, rgb(236 72 153 / 14%), transparent 34%),
-    #101521;
-  color: #f4f6fb;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-target);
+  padding: 8px 12px;
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-base) var(--ease-base),
+    border-color var(--duration-base) var(--ease-base),
+    color var(--duration-base) var(--ease-base);
 }
 
-.launcher-shell {
-  width: min(100%, 1060px);
-  margin: 0 auto;
+.btn:hover {
+  border-color: var(--color-accent-border-strong);
+  background: var(--color-accent-hover-bg);
+  color: var(--color-accent-hover-text);
 }
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-strong);
+}
+
+/* 返回按钮固定在视口左上角。固定定位不占文档流，因此挂了该按钮的页面
+   必须自行用 .page-with-back 让出顶部空间，否则会压住标题。 */
+.back-link {
+  position: fixed;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 20;
+}
+
+.back-link__arrow {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* 顶部让位：按钮自身 44px，加上它距视口顶部的 16px 与 4px 呼吸位。
+   有了这行，返回按钮与页面标题之间恒有间距，与容器宽度无关。 */
+.page-with-back {
+  padding-top: calc(var(--touch-target) + var(--space-5));
+}
+
+/* ====== 指南页（/guide） =====
+ * 内容来自 legacy/pages/guide.html 的静态长文，原文自带一大段内联样式。
+ * 这里全部收进本文件，并统一改用 tokens.css 的令牌：
+ *   - 类名统一加 `guide-` 前缀。原文的 `.card` / `.tag` / `.formula-box` 等
+ *     通用名会与启动页的 `.card`、模块标题的 `.tag` 撞车，必须避开。
+ *   - 原文的五套配色（蓝/绿/紫/橙/琥珀）分别映射到既有的
+ *     --tag-base / --tag-core / --tag-sub / --tag-set / --tag-weapon，
+ *     不再引入只有本页才用的颜色值。
+ * 排版规则挂在 `.guide` 下，避免影响计算器页与启动页。
+ */
+
+.guide h2 {
+  margin: var(--space-6) 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid var(--color-border);
+  font-size: 19px;
+  color: var(--color-text-strong);
+}
+
+.guide h3 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: 15px;
+  color: var(--color-text-strong);
+}
+
+.guide h4 {
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.guide p {
+  margin: 0 0 var(--space-2);
+}
+
+.guide-card {
+  margin-bottom: var(--module-margin-bottom);
+  padding: 18px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-module);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-module);
+}
+
+.guide-card > :last-child {
+  margin-bottom: 0;
+}
+
+/* 原文的 .tag-* 五个配色，映射到模块标题标签的同一组令牌 */
+.guide-tag {
+  display: inline-block;
+  margin-right: var(--space-1);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--tag-base-bg);
+  color: var(--tag-base-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.guide-tag--weapon {
+  background: var(--tag-weapon-bg);
+  color: var(--tag-weapon-text);
+}
+
+.guide-tag--core {
+  background: var(--tag-core-bg);
+  color: var(--tag-core-text);
+}
+
+.guide-tag--drive {
+  background: var(--tag-disc-bg);
+  color: var(--tag-disc-text);
+}
+
+.guide-tag--set {
+  background: var(--tag-set-bg);
+  color: var(--tag-set-text);
+}
+
+/* 提示框。tone 与原文 .highlight 的五个变体一一对应 */
+.guide-callout {
+  margin: var(--space-3) 0;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--tag-weapon-text) 40%, white);
+  border-radius: var(--radius-lg);
+  background: var(--tag-weapon-bg);
+}
+
+.guide-callout__title {
+  margin: 0 0 var(--space-1);
+  color: var(--tag-weapon-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.guide-callout--blue {
+  border-color: color-mix(in srgb, var(--tag-base-text) 40%, white);
+  background: var(--tag-base-bg);
+}
+
+.guide-callout--blue .guide-callout__title {
+  color: var(--tag-base-text);
+}
+
+.guide-callout--green {
+  border-color: color-mix(in srgb, var(--tag-core-text) 40%, white);
+  background: var(--tag-core-bg);
+}
+
+.guide-callout--green .guide-callout__title {
+  color: var(--tag-core-text);
+}
+
+.guide-callout--purple {
+  border-color: color-mix(in srgb, var(--tag-sub-text) 40%, white);
+  background: var(--tag-sub-bg);
+}
+
+.guide-callout--purple .guide-callout__title {
+  color: var(--tag-sub-text);
+}
+
+/* 原文写的是 class="highlight yellow" 但并无对应规则，实际渲染为默认琥珀色，
+   故 yellow 与 plain 同色，保留写法以免改动原文语义 */
+.guide-callout--yellow {
+  border-color: color-mix(in srgb, var(--tag-weapon-text) 40%, white);
+  background: var(--tag-weapon-bg);
+}
+
+.guide-callout--yellow .guide-callout__title {
+  color: var(--tag-weapon-text);
+}
+
+.guide-callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* 公式框 */
+.guide-formula {
+  margin: var(--space-3) 0;
+  padding: 12px 16px;
+  border-left: 4px solid var(--tag-base-text);
+  border-radius: var(--radius-md);
+  background: var(--tag-base-bg);
+  font-family: Consolas, Monaco, monospace;
+  font-size: 13px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.guide-formula__label {
+  margin: 0 0 var(--space-1);
+  color: var(--tag-base-text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.guide-formula--purple {
+  border-left-color: var(--tag-sub-text);
+  background: var(--tag-sub-bg);
+}
+
+.guide-formula--purple .guide-formula__label {
+  color: var(--tag-sub-text);
+}
+
+.guide-formula--green {
+  border-left-color: var(--tag-core-text);
+  background: var(--tag-core-bg);
+}
+
+.guide-formula--green .guide-formula__label {
+  color: var(--tag-core-text);
+}
+
+.guide-formula--orange {
+  border-left-color: var(--tag-set-text);
+  background: var(--tag-set-bg);
+}
+
+.guide-formula--orange .guide-formula__label {
+  color: var(--tag-set-text);
+}
+
+/* 计算步骤框。原文只有 step1~3 三种配色，第四步沿用默认样式 */
+.guide-step {
+  margin: 6px 0;
+  padding: 10px 14px;
+  border-left: 3px solid var(--color-text-muted);
+  border-radius: var(--radius-md);
+  background: var(--color-input-readonly-bg);
+  font-size: 13px;
+}
+
+.guide-step__label {
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.guide-step--1 {
+  border-left-color: var(--tag-base-text);
+}
+
+.guide-step--1 .guide-step__label {
+  color: var(--tag-base-text);
+}
+
+.guide-step--2 {
+  border-left-color: var(--tag-core-text);
+}
+
+.guide-step--2 .guide-step__label {
+  color: var(--tag-core-text);
+}
+
+.guide-step--3 {
+  border-left-color: var(--tag-weapon-text);
+}
+
+.guide-step--3 .guide-step__label {
+  color: var(--tag-weapon-text);
+}
+
+/* 表格 */
+.guide-table {
+  width: 100%;
+  margin: var(--space-3) 0;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.guide-table--compact {
+  font-size: 12px;
+}
+
+.guide-table th,
+.guide-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.guide-table th {
+  background: var(--color-input-readonly-bg);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.guide-table tbody tr:hover {
+  background: var(--color-input-readonly-bg);
+}
+
+.guide-table--numeric td:last-child {
+  font-family: Consolas, Monaco, monospace;
+  text-align: right;
+}
+
+.guide-table__section td {
+  background: var(--color-fixed-stat-bg);
+  color: var(--color-input-readonly-text);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.guide-table__total td {
+  background: var(--tag-base-bg);
+  color: var(--tag-base-text);
+  font-weight: 600;
+}
+
+/* 表格内的着色单元格。原文用行内 hex，这里改走令牌 */
+.guide-yes {
+  color: var(--color-success);
+}
+
+.guide-no {
+  color: var(--color-danger);
+}
+
+.guide-num {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.guide-pct {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.guide-warn {
+  color: var(--color-danger);
+  font-size: 11px;
+}
+
+/* 职业列。原文六种颜色改映射到既有令牌，六色仍可区分 */
+.guide-role {
+  font-weight: 600;
+}
+
+.guide-role--assault {
+  color: var(--color-danger);
+}
+
+.guide-role--defense {
+  color: var(--tag-base-text);
+}
+
+.guide-role--abnormal {
+  color: var(--tag-sub-text);
+}
+
+.guide-role--stun {
+  color: var(--tag-set-text);
+}
+
+.guide-role--rupture {
+  color: var(--tag-disc-text);
+}
+
+.guide-role--support {
+  color: var(--tag-core-text);
+}
+
+/* 「基础值 / 百分比 / 固定值」三类型列 */
+.guide-kind {
+  font-weight: 600;
+}
+
+.guide-kind--base {
+  color: var(--tag-base-text);
+}
+
+.guide-kind--pct {
+  color: var(--tag-core-text);
+}
+
+.guide-kind--flat {
+  color: var(--tag-disc-text);
+}
+
+/* 属性卡片网格 */
+.guide-attrs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.guide-attrs__item {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-input-readonly-bg);
+}
+
+.guide-attrs__label {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.guide-attrs__value {
+  margin-top: 2px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+/* 概览流程图 */
+.guide-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: var(--space-3) 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-input-readonly-bg);
+}
+
+.guide-flow__item {
+  min-width: 70px;
+  padding: 8px 14px;
+  border-radius: var(--radius-lg);
+  background: var(--tag-base-bg);
+  color: var(--tag-base-text);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.guide-flow__item--weapon {
+  background: var(--tag-weapon-bg);
+  color: var(--tag-weapon-text);
+}
+
+.guide-flow__item--core {
+  background: var(--tag-core-bg);
+  color: var(--tag-core-text);
+}
+
+.guide-flow__item--drive {
+  background: var(--tag-disc-bg);
+  color: var(--tag-disc-text);
+}
+
+.guide-flow__item--set {
+  background: var(--tag-set-bg);
+  color: var(--tag-set-text);
+}
+
+/* 最终面板：琥珀底 + 深色字，与原文的深蓝渐变在同一套令牌里取对比色 */
+.guide-flow__item--final {
+  background: var(--result-value-main);
+  color: var(--color-text-strong);
+}
+
+.guide-flow__arrow {
+  color: var(--color-text-faint);
+  font-size: 18px;
+}
+
+/* 30 秒快速理解 */
+.guide-quick {
+  margin-bottom: var(--module-margin-bottom);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-module);
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--tag-sub-text) 100%);
+  color: #fff;
+}
+
+.guide-quick__title {
+  margin: 0 0 var(--space-2);
+  font-size: 15px;
+}
+
+.guide-quick ul {
+  margin: 0;
+  padding-left: var(--space-5);
+  font-size: 13px;
+}
+
+.guide-quick li {
+  margin-bottom: var(--space-1);
+}
+
+/* 示例角色介绍 */
+.guide-char {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--module-margin-bottom);
+  padding: 14px 18px;
+  border-radius: var(--radius-module);
+  background: var(--tag-weapon-bg);
+}
+
+.guide-char__avatar {
+  display: flex;
+  flex: 0 0 56px;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  font-size: 28px;
+}
+
+.guide-char__body h3 {
+  margin: 0 0 2px;
+  font-size: 16px;
+}
+
+.guide-char__body p {
+  margin: 0;
+  color: var(--tag-weapon-text);
+  font-size: 12px;
+}
+
+/* 总结卡片 */
+.guide-summary {
+  margin: var(--space-3) 0;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-module);
+  background: linear-gradient(135deg, var(--tag-core-bg) 0%, var(--tag-disc-bg) 100%);
+}
+
+.guide-summary h3 {
+  margin-top: 0;
+  color: var(--tag-core-text);
+}
+
+/* 最终面板一览：压在深色渐变上，属性卡改用半透明白底 */
+.guide-final {
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--tag-sub-text) 100%);
+}
+
+.guide-final h3 {
+  color: #fff;
+}
+
+.guide-final__config,
+.guide-final__note {
+  margin-bottom: var(--space-3);
+  color: var(--tag-base-bg);
+  font-size: 12px;
+}
+
+.guide-final__note {
+  margin: var(--space-3) 0 0;
+  font-size: 11px;
+  text-align: center;
+}
+
+.guide-attrs--dark .guide-attrs__item {
+  border-color: rgb(255 255 255 / 20%);
+  background: rgb(255 255 255 / 15%);
+}
+
+.guide-attrs--dark .guide-attrs__label,
+.guide-attrs--dark .guide-attrs__value {
+  color: #fff;
+}
+
+/* 收尾祝贺卡 */
+.guide-done {
+  border: none;
+  background: var(--tag-weapon-bg);
+}
+
+.guide-done h3 {
+  margin-top: 0;
+}
+
+.guide-done p,
+.guide-done ol {
+  color: var(--tag-weapon-text);
+  font-size: 13px;
+}
+
+.guide-done ol {
+  margin: 6px 0 0;
+  padding-left: 22px;
+}
+
+/* ====== 启动界面（/ 路由） =====
+ * 版式沿用 legacy/pages/index.html 的卡片网格；原先这里用
+ * `body:has(.launcher-shell)` 把整页覆写成深色主题，与计算器页割裂。
+ * 现改为与计算器页共用 tokens.css 的浅色令牌与 .module 的表面样式，
+ * 三页（/、/calculator、/guide）因此是同一套视觉体系。
+ */
 
 .launcher-header {
-  margin-bottom: 34px;
+  margin-bottom: var(--space-5);
 }
 
 .eyebrow {
-  margin: 0 0 10px;
-  color: #a5b4fc;
+  margin: 0 0 var(--space-1);
+  color: var(--color-accent);
   font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-}
-
-.launcher-shell h1 {
-  margin: 0;
-  font-size: clamp(30px, 6vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.04em;
-}
-
-.intro {
-  max-width: 620px;
-  margin: 14px 0 0;
-  color: #a8b0c2;
-  font-size: 15px;
-  line-height: 1.8;
 }
 
 .cards {
   display: grid;
-  grid-template-columns: minmax(0, 760px);
-  justify-content: center;
-  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--layout-gap);
 }
 
+/* 卡片刻意复用 .module 的表面色、圆角、左侧色条与内边距令牌，
+   与计算器六大模块同源；两张入口卡片因此必然视觉一致。 */
 .card {
-  --accent: #a5b4fc;
-  position: relative;
   display: flex;
-  min-height: 260px;
+  min-height: 200px;
   flex-direction: column;
-  overflow: hidden;
-  padding: 23px;
-  border: 1px solid rgb(255 255 255 / 10%);
-  border-radius: 18px;
-  background: linear-gradient(145deg, rgb(34 42 59 / 96%), rgb(24 30 43 / 96%));
-  box-shadow: 0 16px 40px rgb(0 0 0 / 20%);
+  padding: var(--module-padding-block) var(--module-padding-inline);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-module);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-module);
   text-decoration: none;
   color: inherit;
   transition:
-    transform 0.18s var(--ease-base),
-    border-color 0.18s var(--ease-base),
-    box-shadow 0.18s var(--ease-base);
-}
-
-.card::after {
-  position: absolute;
-  right: -42px;
-  bottom: -66px;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  background: var(--accent);
-  content: '';
-  opacity: 0.08;
-  filter: blur(2px);
-  transition:
-    opacity 0.18s var(--ease-base),
-    transform 0.18s var(--ease-base);
+    transform var(--duration-base) var(--ease-base),
+    box-shadow var(--duration-base) var(--ease-base);
 }
 
 .card:hover,
 .card:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 50px rgb(0 0 0 / 30%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-result);
   outline: none;
 }
 
-.card:hover::after,
-.card:focus-visible::after {
-  transform: scale(1.16);
-  opacity: 0.15;
-}
-
-.card--rupture {
-  --accent: #fb7185;
-}
-
-.card--fengyu {
-  --accent: #38bdf8;
-}
-
-.badge {
-  align-self: flex-start;
-  padding: 5px 9px;
-  border: 1px solid color-mix(in srgb, var(--accent) 44%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 750;
-  letter-spacing: 0.04em;
-}
-
 .card h2 {
-  margin: 23px 0 9px;
-  font-size: 22px;
-  letter-spacing: -0.02em;
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: 18px;
+  color: var(--color-text-strong);
 }
 
 .card p {
   margin: 0;
-  color: #a8b0c2;
+  color: var(--color-text-muted);
   font-size: 13px;
   line-height: 1.75;
 }
 
+/* 徽标沿用模块标题标签（.module-title .tag）的取色。 */
+.badge {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--tag-base-bg);
+  color: var(--tag-base-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
 .formula {
   display: inline-block;
-  margin-top: 14px;
-  color: #e2e8f0;
+  margin-top: var(--space-3);
+  color: var(--color-text-strong);
   font-size: 12px;
-  font-weight: 650;
   line-height: 1.6;
 }
 
@@ -529,15 +1077,15 @@ body:has(.launcher-shell) {
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
-  padding-top: var(--space-6);
-  color: var(--accent);
+  padding-top: var(--space-4);
+  color: var(--color-accent-text);
   font-size: 13px;
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .arrow {
-  font-size: 19px;
-  transition: transform 0.18s var(--ease-base);
+  font-size: 16px;
+  transition: transform var(--duration-base) var(--ease-base);
 }
 
 .card:hover .arrow,
@@ -546,18 +1094,14 @@ body:has(.launcher-shell) {
 }
 
 .launcher-footer {
-  margin-top: var(--space-6);
-  color: #737e94;
+  margin-top: var(--space-5);
+  color: var(--color-text-faint);
   font-size: 12px;
   text-align: center;
 }
 
 @media (width <= 760px) {
   .cards {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    min-height: 220px;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

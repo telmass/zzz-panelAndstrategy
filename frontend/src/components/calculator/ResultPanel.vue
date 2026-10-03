@@ -81,5 +81,8 @@ const visibleRows = computed(() =>
         </div>
       </div>
     </div>
+
+    <!-- 默认插槽：示例页在此挂「重置为示例值」，与 legacy 的 .reset-btn 同位置 -->
+    <slot />
   </aside>
 </template>

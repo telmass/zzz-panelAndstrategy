@@ -2,7 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
 import { mount, type VueWrapper } from '@vue/test-utils';
 
+import router from '@/router';
 import CalculatorView from '@/views/CalculatorView.vue';
+import ExampleView from '@/views/ExampleView.vue';
+import GuideView from '@/views/GuideView.vue';
 import LauncherView from '@/views/LauncherView.vue';
 import { usePanelStore } from '@/stores/panelStore';
 import { loadPresets, mockApi } from './support/api';
@@ -30,7 +33,17 @@ afterEach(() => {
 });
 
 function mountCalculator(): VueWrapper {
+  // RouterLink 桩由 tests/support/setup.ts 全局注入，各 spec 无需再声明 stubs
   return mount(CalculatorView, { global: { plugins: [pinia] } });
+}
+
+/** 指南页与示例页不需要 pinia，但统一放这里便于各 describe 复用。 */
+function mountGuide(): VueWrapper {
+  return mount(GuideView);
+}
+
+function mountExample(): VueWrapper {
+  return mount(ExampleView, { global: { plugins: [pinia] } });
 }
 
 /* ====== 取值助手：vue-tsc 不接受 VueNode<Element> 上的表单属性 ====== */
@@ -211,32 +224,153 @@ describe('CalculatorView 静态骨架', () => {
 
 describe('LauncherView 静态骨架', () => {
   function mountLauncher() {
-    return mount(LauncherView, {
-      global: {
-        stubs: {
-          RouterLink: {
-            props: ['to'],
-            template: '<a :href="to"><slot /></a>',
-          },
-        },
-      },
-    });
+    return mount(LauncherView);
   }
 
-  it('复刻 legacy 首页的单卡片入口', () => {
+  it('保留 eyebrow 与主标题', () => {
     const wrapper = mountLauncher();
     expect(wrapper.find('.eyebrow').text()).toBe('ZENLESS ZONE ZERO · PANEL TOOLS');
     expect(wrapper.find('h1').text()).toBe('代理人面板计算器');
-    expect(wrapper.findAll('.card')).toHaveLength(1);
-    expect(wrapper.find('.badge').text()).toBe('统一计算器');
   });
 
-  it('卡片指向 /calculator 并保留两条公式说明', () => {
+  it('提供计算器、指南与示例三个入口，共用同一套卡片样式', () => {
     const wrapper = mountLauncher();
-    expect(wrapper.find('a').attributes('href')).toBe('/calculator');
+    const cards = wrapper.findAll('.card');
+    expect(cards).toHaveLength(3);
+    // 三个入口同源，不加区分色，视觉必然一致
+    expect(cards[1].classes()).toEqual(cards[2].classes());
+    expect(wrapper.findAll('.badge').map((node) => node.text())).toEqual([
+      '统一计算器',
+      '学习指南',
+      '标准版示例',
+    ]);
+  });
 
+  it('三张卡片分别指向 /calculator、/guide 与 /example', () => {
+    const wrapper = mountLauncher();
+    expect(wrapper.findAll('a').map((node) => node.attributes('href'))).toEqual([
+      '/calculator',
+      '/guide',
+      '/example',
+    ]);
+  });
+
+  it('计算器卡片保留两条公式说明', () => {
+    const wrapper = mountLauncher();
     const formula = wrapper.find('.formula').text();
     expect(formula).toContain('命破：贯穿力 = 0.3 × 最终攻击力 + 0.1 × 最终生命值');
     expect(formula).toContain('锋御：实际暴击率 = 最终暴击伤害 × 35% + 原最终暴击率');
+  });
+
+  it('启动页本身不放返回按钮', () => {
+    expect(mountLauncher().find('.back-link').exists()).toBe(false);
+  });
+});
+
+describe('子页面返回导航', () => {
+  it('计算器页左上角有指向 / 的返回按钮', () => {
+    const back = mountCalculator().get('.back-link');
+    expect(back.attributes('href')).toBe('/');
+    expect(back.text()).toContain('返回主页');
+  });
+
+  it('指南页左上角有指向 / 的返回按钮', () => {
+    const back = mountGuide().get('.back-link');
+    expect(back.attributes('href')).toBe('/');
+    expect(back.text()).toContain('返回主页');
+  });
+
+  it('返回按钮复用 .btn，与步进器按钮同一套视觉', () => {
+    expect(mountGuide().get('.back-link').classes()).toContain('btn');
+  });
+
+  it('挂了返回按钮的页面用 .page-with-back 让出顶部空间', () => {
+    expect(mountCalculator().find('.page-with-back').exists()).toBe(true);
+    expect(mountGuide().find('.page-with-back').exists()).toBe(true);
+    expect(mountExample().find('.page-with-back').exists()).toBe(true);
+  });
+
+  it('三个子页面都只有返回主页这一个链接，不留死链', () => {
+    for (const wrapper of [mountCalculator(), mountGuide(), mountExample()]) {
+      expect(wrapper.findAll('a').map((node) => node.attributes('href'))).toEqual(['/']);
+    }
+  });
+
+  it('四条路由均有对应视图', () => {
+    expect(router.getRoutes().map((route) => route.path).sort()).toEqual([
+      '/',
+      '/calculator',
+      '/example',
+      '/guide',
+    ]);
+  });
+});
+
+describe('GuideView 吸收 legacy guide.html', () => {
+  it('六个章节齐全且带锚点', () => {
+    const ids = mountGuide().findAll('h2').map((node) => node.attributes('id'));
+    expect(ids).toEqual(['overview', 'modules', 'attack', 'crit', 'drive', 'summary']);
+  });
+
+  it('保留 30 秒快速理解的四条要点', () => {
+    expect(mountGuide().findAll('.guide-quick li')).toHaveLength(4);
+  });
+
+  it('核心加成的 8 项加成表逐行保留', () => {
+    const rows = mountGuide().findAll('.guide-card table');
+    // 基础面板来源 3 行 + 核心 8 行 + 其余表，核心表按表头文案定位
+    const coreTable = rows.find((table) => table.findAll('th').map((th) => th.text()).includes('归属'));
+    expect(coreTable?.findAll('tbody tr')).toHaveLength(8);
+  });
+
+  it('关键公式与结论文案未丢失', () => {
+    const text = mountGuide().text();
+    expect(text).toContain('最终属性 = ( 基础总值 ) × ( 1 + 所有百分比加成 ) + 所有固定值加成');
+    expect(text).toContain('3064.75');
+    expect(text).toContain('先乘后加6种');
+  });
+
+  it('复用四个展示组件而不是散落的内联样式', () => {
+    const wrapper = mountGuide();
+    expect(wrapper.findAll('.guide-callout').length).toBeGreaterThan(10);
+    expect(wrapper.findAll('.guide-table').length).toBeGreaterThan(10);
+    expect(wrapper.findAll('.guide-attrs').length).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe('ExampleView 吸收 legacy example-template.html', () => {
+  it('复用统一计算器的六大模块与结果区，不自带第二套实现', () => {
+    const wrapper = mountExample();
+    expect(wrapper.findAll('.module').length).toBeGreaterThanOrEqual(6);
+    expect(wrapper.find('.result-module').exists()).toBe(true);
+  });
+
+  it('挂载后预填 legacy 示例值', () => {
+    const panel = usePanelStore();
+    mountExample();
+    expect(panel.base).toMatchObject({ hp: 8000, atk: 1000, def: 600, cr: 5, cd: 50 });
+    expect(panel.core).toEqual({ core1: 'cr', core2: 'atk_base' });
+    expect(panel.discMain).toEqual({ disc4: 'cr_24', disc5: 'dmg_30', disc6: 'er_pct_60' });
+    expect(panel.setEffects).toEqual({ set0: 'cr_8', set1: 'dmg_10', set2: '' });
+    expect(panel.subStats.cr).toBe(6);
+    expect(panel.subStats.cd).toBe(6);
+    expect(panel.subStats.atk_flat).toBe(0);
+  });
+
+  it('示例页固定为标准模式，不受命破 / 锋御影响', () => {
+    const panel = usePanelStore();
+    panel.setPanelMode('rupture');
+    mountExample();
+    expect(panel.panelMode).toBe('standard');
+  });
+
+  it('重置按钮把改过的字段恢复成示例值', async () => {
+    const panel = usePanelStore();
+    const wrapper = mountExample();
+    panel.base.hp = 1;
+    panel.subStats.cr = 0;
+    await wrapper.get('.reset-btn').trigger('click');
+    expect(panel.base.hp).toBe(8000);
+    expect(panel.subStats.cr).toBe(6);
   });
 });

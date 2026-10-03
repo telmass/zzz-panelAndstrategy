@@ -10,6 +10,7 @@ import {
   SetEffectModule,
   WeaponModule,
 } from '@/components/calculator';
+import { BackToLauncher } from '@/components/layout';
 import { useAgentPreset, validateAgentPresetData } from '@/composables/useAgentPreset';
 
 /**
@@ -28,7 +29,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
+  <BackToLauncher />
+
+  <div class="container page-with-back">
     <h1>绝区零代理人面板计算器</h1>
 
     <div class="layout">
