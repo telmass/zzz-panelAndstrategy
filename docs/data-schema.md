@@ -1,6 +1,7 @@
 # 数据结构与 API 契约
 
-> 本文描述**目标**结构。FastAPI 尚未实现，落地时需同步更新本文。
+> 本文描述预设数据的**目标**结构与 API 契约。FastAPI 已在第 3 步落地，
+> 落地情况见文末「实现状态」。
 
 ## 预设数据
 
@@ -105,8 +106,13 @@ GET  /api/presets/agents
 GET  /api/presets/weapons
      → { "items": [ /* 音擎预设数组 */ ] }
 
-POST /api/panel/calculate
+POST /api/panel/calc
 ```
+
+第 3 步已实现 `GET /api/health` 与 `POST /api/panel/calc`；
+`GET /api/presets/*` 属于第 4 步第 18 条，尚未实现。
+选项表不经接口，由 `core/options.py` 单向生成本地 `data/options.json`
+供前端读取，理由见 `migration-vue3.md` 第 4 步第 20 条。
 
 请求体：
 

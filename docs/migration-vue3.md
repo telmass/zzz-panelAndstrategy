@@ -174,21 +174,22 @@ backend/
 │   │   └── panel.py            编排入口
 │   ├── schemas/panel.py        Pydantic 请求/响应模型
 │   ├── services/panel_service.py
-│   ├── api/routes/panel.py     POST /api/calc/panel、GET /api/options
-│   └── api/app.py              CORS
+│   ├── api/routes/panel.py     POST /api/panel/calc
+│   └── api/app.py              GET /api/health、CORS
 └── tests/                      test_panel / test_legacy_parity / test_fmt_parity / test_api
 ```
 
-接口两个：`POST /api/calc/panel` 与 `GET /api/options`。前者接收面板 + 核心 +
-二件套 + 4/5/6 号主词条与副词条，返回聚合值、逐项加成与明细文案；后者把
-`core/options.py` 暴露给前端。
+计算接口一个：`POST /api/panel/calc`，另有 `GET /api/health` 供测试夹具探活。
+前者接收面板 + 核心 + 二件套 + 4/5/6 号主词条与副词条，返回聚合值、
+逐项加成与明细文案。
 
 ### 数值权威：后端选项表 vs 前端副本
 
 规则表此前前后端各存一份，改一处必然漏另一处。本步以
 `backend/src/zzz_panel/core/options.py` 为唯一权威来源，前端
-`src/constants/calculatorOptions.ts` 只是过渡期副本；`GET /api/options` 已能把
-副本彻底去掉，但那属于第 4 步「预设数据改造为 JSON」的范围，本步未做。
+`src/constants/calculatorOptions.ts` 只是过渡期副本。本步**没有**加接口来
+暴露选项表——去重归入第 4 步第 20 条，与预设 JSON 改造同批做，方案是让
+`core/options.py` 单向生成本地 `data/options.json`，前端读文件而非走 HTTP。
 
 legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DISC4_OPTIONS[i]` …）。
 后端保留这个顺序不变，另加稳定字符串 `id`，避免跨端按下标对齐。
@@ -213,8 +214,7 @@ legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DIS
 - **Windows 上 `uv run` 是两层进程**：`uv` → Python/uvicorn。只终止 `uv` 会留下
   孤儿 uvicorn 拖住 Vitest 退出。夹具用 `killOrphanUvicorn()` 在正常停止、
   健康检查失败和未解析到端口三条路径上兜底清理。
-- **jsdom 联跑 legacy 时的作用域**见第 2 步「测试中的两个坑」，第 3 步新增的
-  `tests/breakdown-parity.spec.ts` 同样受其约束。
+- **jsdom 联跑 legacy 时的作用域**见第 2 步「测试中的两个坑」。
 
 ### 已验证
 
@@ -223,27 +223,49 @@ legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DIS
 `test_fmt_parity` 用 Node 驱动 legacy 的取整与千分位函数对齐 Python 侧格式，
 `test_api` 校验路由与 CORS。
 
-前端 `vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 62 项全绿：
+前端 `vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 48 项全绿：
 
 - `tests/calculator-view.spec.ts` 13 项渲染断言。
-- `tests/panel-interactions.spec.ts` 25 项交互行为。
-- `tests/legacy-parity.spec.ts` 7 项、`tests/breakdown-parity.spec.ts` 17 项对拍，
-  两档配置下 12~13 行数值与明细文案**逐字符**一致。
+- `tests/panel-interactions.spec.ts` 31 项交互行为。
+- `tests/legacy-parity.spec.ts` 4 项对拍，两档配置下 12~13 行数值与
+  明细文案**逐字符**一致；其中 4 项走真实 uvicorn + HTTP。
 
 ## 第 4 步 · 预设数据改造
 
 17. 写 `tools/sync_presets.py`：把 `legacy/data/*.js` 转为根 `data/*.json`。
     脚本必须可重复执行且字节幂等。
+    **已完成**：`--from-legacy` / `--to-legacy` / `--check` 三个模式齐备，
+    「legacy → JSON → legacy」字节一致（60 代理人 + 100 音擎），
+    故转换无损，可作回归检查。JSON 为派生产物，随 legacy 引导而来。
 18. `presetStore` 改从 `GET /api/presets/*` 拉取。
+    注意这里与第 20 条**故意不对称**：预设走接口，选项表走本地 JSON。
+    预设数据量大且需刷新（抓取脚本更新频率高），走接口便于统一缓存与失效；
+    选项表小且要求瞬时可用，本地 JSON 更合适。两者不冲突。
 19. 抓取脚本（`refresh_*_presets.py`）输出目标改为 `data/*.json`；
     legacy 页面所需的 JS 包装由同步脚本反向生成。
+20. **删除前端 `src/constants/calculatorOptions.ts` 选项表副本**，
+    改读 `data/options.json`。本项原属第 3 步的收尾，
+    因与预设 JSON 改造共用同一套「静态副本 → 单一 JSON 数据源」的模式，
+    合并到本步一次做完，避免同一文件在两个步骤间反复改动。
+
+    选项表**不走接口**，与预设不同：下拉框要瞬时可用，不能等一次 HTTP 往返，
+    也不能因为接口不可用就让整个计算器瘫掉。`data/options.json` 由
+    `sync_presets.py` 从 `core/options.py` **单向生成**，是派生产物而非副本，
+    与第 17 条的预设 JSON 同一性质。
+
+    验收三条：
+    - 仓库内规则表只存在于 `core/options.py` 一处（`data/options.json` 为生成物，
+      带「勿手改」头注释，且可由脚本重新生成到字节一致）。
+    - 前端构建产物不内嵌任何手写的选项常量。
+    - 现有 `src/constants/calculatorOptions.ts` 删除后无残留引用，
+      `frontend/tests/` 中依赖静态常量表的断言相应改读 `data/options.json`。
 
 ## 第 5 步 · 收尾
 
-20. 吸收 `guide.html`、`example-template.html` 为 `GuideView` / `ExampleView`。
-21. `npm run build` 验证产物。
-22. **删除 `frontend/legacy/` 与仓库根目录 6 个中文重定向页。**
-23. 在本文件更新进度表。
+21. 吸收 `guide.html`、`example-template.html` 为 `GuideView` / `ExampleView`。
+22. `npm run build` 验证产物。
+23. **删除 `frontend/legacy/` 与仓库根目录 6 个中文重定向页。**
+24. 在本文件更新进度表。
 
 ## 回退方式
 
