@@ -180,6 +180,10 @@
 
 /* ====== 副词条步进器 ====== */
 
+/* 累加值紧跟在 + 按钮之后，与 legacy 一致。
+   `.sub-grid` 的 2 列（列宽 353px）已容得下整行所需的 208px，
+   因此 nowrap 不会触发换行；`flex-wrap` 只是视口窄到 250px 以下的兜底，
+   宁可换行也不允许溢出格仔被相邻列覆盖。 */
 .sub-count {
   display: flex;
   flex-wrap: wrap;
@@ -188,7 +192,7 @@
 }
 
 .sub-count input {
-  flex: 0 1 52px;
+  flex: 0 0 52px;
   width: 52px;
   min-height: var(--touch-target);
   padding: 6px 4px;
@@ -245,13 +249,11 @@
   cursor: not-allowed;
 }
 
-/* 累加值允许换行独占一行并右对齐：4 列栅格下单行需要
-   44 + 52 + 44 + 44 + 8×3 = 208px，而列宽只有 172.5px，
-   强行同排会溢出格仔、被下一列先绘制的按钮盖住。
-   nowrap 保证较长的数值（如 4,032）不从中间断行。 */
+/* 累加值紧跟在 + 按钮之后，不设 margin-left: auto，保持与 legacy 一致的紧邻位置。
+   min-width 44px 是原有约定：最坏情况（36 条 × 4.8% = 172.8%）也在其中。 */
 .sub-count .total {
   flex: 0 0 auto;
-  margin-left: auto;
+  min-width: var(--touch-target);
   font-size: 12px;
   color: var(--color-text-faint);
   font-variant-numeric: tabular-nums;

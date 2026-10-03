@@ -19,7 +19,7 @@ const { entries, totalCount, isTotalExceeded, step, setCount } = useSubStatLimit
       填写6盘合计副词条条数（每盘4初始+5强化=9条）。单条数值见标签，自动按条数折算。
     </p>
 
-    <div class="grid-4">
+    <div class="sub-grid">
       <StepperInput
         v-for="entry in entries"
         :key="entry.def.id"

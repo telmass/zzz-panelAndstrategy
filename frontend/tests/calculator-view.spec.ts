@@ -128,7 +128,8 @@ describe('CalculatorView 静态骨架', () => {
     const steppers = wrapper.findAll('.sub-count');
     expect(steppers).toHaveLength(10);
 
-    const labels = wrapper.findAll('.grid-4 .field > label').map((node) => node.text().trim());
+    // 副词条用 `.sub-grid`（2 列），累加值要留在步进器同一行，列宽不能像 `.grid-4` 那样只有 172.5px
+    const labels = wrapper.findAll('.sub-grid .field > label').map((node) => node.text().trim());
     expect(labels).toEqual([
       '小生命 +112/条',
       '大生命% +3%/条',
