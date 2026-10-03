@@ -1,74 +1,170 @@
 # 目录职责详解
 
-## 顶层
+## 1. 顶层
 
 | 路径 | 职责 |
 | --- | --- |
-| `pyproject.toml` | 唯一 Python 依赖源（uv）。`[project.scripts]` 暴露 `zzz-panel` 命令；`[tool.hatch.build.targets.wheel]` 指向 `backend/src/zzz_panel`；`[tool.pytest.ini_options]` 配置 `pythonpath` |
+| `README.md` | 项目入口文档：简介、功能、技术栈、快速开始、目录结构 |
+| `pyproject.toml` | 唯一 Python 依赖源（uv）。`[project.scripts]` 暴露 `zzz-panel`；`[tool.hatch.build.targets.wheel]` 指向 `backend/src/zzz_panel`；`[tool.pytest.ini_options]` 配置 `pythonpath` 与 `testpaths` |
 | `uv.lock` | 锁文件，改依赖后必须 `uv lock` |
 | `.python-version` | Python 版本锁定（>= 3.13） |
 | `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.venv/`、`node_modules/`、`dist/`、`.env` 等 |
 
-## frontend/ — 前端工程（Vite root）
+根目录**没有 HTML 文件**。迁移期的 6 个中文书签兼容页已在第5 步删除，
+记录见 [completeds/legacy-pages.md](completeds/legacy-pages.md)。
+
+## 2. frontend/ — 前端工程（Vite root）
+
+| 路径 | 职责与边界 |
+| --- | --- |
+| `index.html` | Vue3 应用入口。Vite 要求其位于 root 根 |
+| `.env.example` | `VITE_API_BASE_URL` 的取值示例。**构建期变量**，运行时改无效 |
+| `vite.config.ts` | dev 代理 `/api` → `http://127.0.0.1:8000`（避免 CORS）；别名 `@` → `src`、`@data` → `../data`；**Vitest 配置也在此文件的 `test` 块中**（无独立 `vitest.config.ts`） |
+| `tsconfig.json` | `strict` + `noUnusedLocals` + `noUnusedParameters`；别名 `@/*`、`@data/*`；`exclude` 含 `tests/fixtures` |
+| `package.json` | 6 个脚本：`dev` / `build` / `preview` / `typecheck` / `test` / `test:watch` |
+| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 160 张代理人/音擎PNG（见下方说明） |
+| `tools/` | 两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中 |
+| `tests/` | Vitest 测试 + 夹具，见第 4 节 |
+
+### 2.1 frontend/src/
 
 | 目录 | 职责与边界 |
 | --- | --- |
-| `index.html` | Vue3 应用入口，Vite 要求其位于 root 根 |
-| `vite.config.ts` | dev 代理 `/api` → `http://127.0.0.1:8000`（避免 CORS）、别名 `@` → `src` |
-| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 放「运行时按 URL 取」的资源。注意：`public/` 下的文件**不能被 `import`**，只能按路径引用。当前存放 160 张代理人/音擎 PNG |
-| `src/assets/` | **经 Vite 处理**：`import` 后生成带 hash 的 URL，可被 CSS `url()` 引用。放页面内联插图、自定义字体、全局样式 |
-| `src/assets/styles/` | `tokens.css`（设计变量，替代散落的 `#dc2626` 硬编码）、`base.css`（reset）、`components.css`（`.field` / `.module` / `.breakdown-item` 等复用类）。原 `legacy/styles/calculator.css` 的最终归宿 |
-| `src/views/` | 路由级页面：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
-| `src/components/layout/` | 页面骨架（AppHeader / AppShell / AppFooter），与业务无关 |
-| `src/components/common/` | 通用件：BaseSelect / NumberField / StatRow |
-| `src/components/calculator/` | 业务组件，按原页面的 `.module` 切分 |
-| `src/router/` | 路由表 + 守卫。原 legacy 的 `?mode=standard\|rupture\|fengyu` 已提升为路由 query |
-| `src/stores/` | Pinia。`panelStore` 为输入唯一真源；`presetStore` 管预设联动；`uiStore` 放纯 UI 态 |
-| `src/composables/` | 跨组件复用的行为：`usePanelCalc`、`useSubStatLimit`（≤54 钳制）、`usePanelMode`（锋御文案替换） |
-| `src/api/` | **唯一**网络出口。组件内禁止直接 `fetch` |
-| `src/types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 一一对应 |
-| `src/constants/` | 枚举：面板模式、职业标签、属性键名。第 4 步第 20 条后选项表迁走，只留纯枚举 |
-| `src/utils/` | 纯函数：`fmt`（须对齐 `calculator.js` 的取整与千分位规则）、`clamp` |
-| `tests/` | Vitest 单测 |
+| `main.ts` | 引导：建 app + Pinia，**`mount` 之前 `await loadAll()`** 装载预设 |
+| `App.vue` |仅渲染 `<router-view />` |
+| `views/` | 路由级页面，3 个：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
+| `components/layout/` | `BackToLauncher.vue` —— 子页左上角的「返回主页」。**与业务无关** |
+| `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput` |
+| `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页的六块UI |
+| `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
+| `router/` | 3 条路由表。**无导航守卫** |
+| `stores/` | Pinia 两个 store：`panelStore`（输入唯一真源）、`presetStore`（预设拉取）。**均不持久化** |
+| `composables/` | `usePanelCalc`（防抖调用后端 + 明细渲染）、`useAgentPreset`（预设校验与套用）、`usePanelMode`（模式派生显隐与文案）、`useSubStatLimit`（副词条钳制） |
+| `api/` | **唯一**网络出口。`panel.ts`（计算）、`presets.ts`（预设）、`errors.ts`（`ApiError` 及两个子类） |
+| `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
+| `constants/` | **只有一个文件** `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量 |
+| `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（`clamp` + `normalizeCount`） |
+| `assets/styles/` | 4 个文件，**顺序由 `index.css` 固定**：tokens → base → components |
+| `types/`、`README.md` | 见下|
 
-### frontend/tests/fixtures/legacy-calculator/ — 只读参照实现
+各目录的具体文件清单：
 
-Vue3 迁移完成后 `frontend/legacy/` 整体删除，但其中计算部分作为**对拍基准**
-被原样保留在这里。**禁止修改**——改了基准，三方对拍就变成自己跟自己比。
+| 路径 | 说明 |
+| --- | --- |
+| `assets/styles/index.css` | 仅用 `@import` 按序引入下列三个，**自身不写任何规则** |
+| `assets/styles/tokens.css` | 75 个设计变量（颜色、间距、圆角、阴影、布局、模块强调色、结果区渐变）。**无字号令牌**，也**无暗色模式** |
+| `assets/styles/base.css` | reset + 排版 + 页面骨架 + 各类栅格；3 个响应式断点（960 / 560 / 480px） |
+| `assets/styles/components.css` | 9 个区块：模块卡片、表单字段、提示文字、固定词条徽标、副词条步进器、结果区、按钮、指南页、启动界面 |
+| `README.md` | 见 [requirements.md](requirements.md) 同级说明；实际内容为本目录的使用约定 |
+
+### 2.2 资源放置规则（易错）
+
+|放哪 | 规则 |
+| --- | --- |
+| `frontend/public/` | 运行时按 URL 取的资源。**不能被 `import`** |
+| `frontend/src/assets/` | 会被 `import`、生成带 hash 的 URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
+
+> ⚠️ `public/images/` 下的 160 张 PNG **当前没有任何代码引用**（`src/` 中零匹配）。
+> 它们是预设头像/音擎图，但 Vue3 版尚未接入展示。属于已知冗余，
+> 记录在 [requirements.md](requirements.md) 的已知限制。
+
+## 3. backend/ — Python 计算服务
+
+src-layout，包名 `zzz_panel`。
+
+| 目录 | 职责与约束 |
+| --- | --- |
+| `core/` | **规则真源。** 零 IO、零 Web 框架依赖、不`print`。见下表 |
+| `schemas/` | Pydantic 请求/响应模型。`base.py` 提供 `CamelModel`（camelCase 别名） |
+| `services/` | 用例编排。**不含任何公式**，只做命名空间转换与结果打包 |
+| `api/` | FastAPI 传输层。`app.py` 是应用与CORS；`routes/panel.py`、`routes/presets.py`。**不挂载静态文件** |
+| `presets/` | `loader.py`（按 mtime 缓存的 JSON 加载）、`validate.py`（语义校验） |
+| `cli.py` | 命令行入口。无子命令，固定跑一组示例并打印 12 行 |
+| `tests/` | pytest，6 个文件 |
+
+### 3.1 core/ 各模块
+
+| 文件 | 职责 |
+| --- | --- |
+| `panel.py` | 两个入口：`calculate_panel`（CLI 契约，输出 12 键）与 `calculate_selection`（API 契约，输出 9 个结构化字段）。`_apply_totals` 是基础公式的实现处 |
+| `modes.py` | 三种模式的专属公式 |
+| `options.py` | 6 张选项表 + `find_option`。**规则表的权威源之一** |
+| `constants.py` | `DISC_FIXED_STATS`（1/2/3 号固定词条）、`FENGYU_BLAST_DMG`。规则表权威源之二 |
+| `modifiers.py` | 选择项 → 加成累加 + 来源记录。含累加器与副词条钳制 |
+| `breakdown.py` | 逐行计算明细，输出结构化片段而非 HTML |
+| `models.py` | `PanelInputs` dataclass（CLI 用的输入模型，约 50 个标量字段） |
+| `fmt.py` | `fmt` —— 取整、千分位、小数位。**跨语言对拍的基准之一** |
+
+### 3.2 api/ 的实际形状
+
+| 项 | 值 |
+| --- | --- |
+| 路由前缀 | `/api`（两个 router 都带此前缀） |
+| CORS 白名单 | 仅 `http://localhost:5173` 与 `http://127.0.0.1:5173`，`allow_credentials=False` |
+| 静态文件 | **无** |
+| 异常处理 | 无自定义 handler；仅预设路由捕获 `PresetLoadError` → 503 |
+
+> `api/__init__.py` 与 `api/routes/__init__.py` 的 docstring 仍提到未实现的
+> `create_app`、`deps.py`、`health.py` 与路径 `/api/panel/calculate`
+> （实际是 `/api/panel/calc`，且health 内联在 `app.py`）。**以
+> [api-reference.md](api-reference.md) 为准。**
+
+## 4. frontend/tests/
+
+| 路径 | 说明 |
+| --- | --- |
+| `calculator-view.spec.ts` | 27 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
+| `panel-interactions.spec.ts` | 33 项交互与后端对接 |
+| `legacy-parity.spec.ts` | 4 项三方对拍 |
+| `support/` | 夹具层：`setup.ts`、`router.ts`、`api.ts`（假后端）、`backend.ts`（拉起真实 uvicorn）、`flush.ts` |
+| `fixtures/legacy-calculator/` | **只读参照实现**，见第 5 节 |
+
+### frontend/tests/fixtures/legacy-calculator/
+
+迁移前的原生实现，原样保留作为对拍基准。**禁止修改。**
 
 | 路径 | 说明 |
 | --- | --- |
 | `pages/calculator.html` | 原「代理人面板计算器.html」，唯一引用外部资源的页面 |
 | `scripts/calculator.js` | 全部交互与计算逻辑，当前实现的**行为基准** |
 | `scripts/calculator-config.js` | 选项常量。**是数据抓取脚本的正则解析源，格式不可随意改动** |
-| `styles/calculator.css` | 旧样式表，其规则已拆进 `src/assets/styles/` |
+| `styles/calculator.css` | 旧样式表，规则已拆进 `src/assets/styles/` |
 | `data/agent-presets.js`<br>`data/weapon-presets.js` | `sync_presets.py --to-legacy` 生成物，勿手改 |
+| `README.md` | 维护约束与「已删除页面去向」对照表 |
 
-已删除、不再保留的页面：`index.html`、`guide.html`、`example-template.html`、
-`redirect-rupture.html`、`redirect-fengyu.html`。逐页去向见
-[legacy-pages.md](legacy-pages.md)。
+**子目录结构必须保持**：`calculator.html` 用 `../styles`、`../data`、`../scripts`
+相对引用，改位置会静默失效。
 
-> 夹具位于 Vite root 内，dev server 可通过
-> `/tests/fixtures/legacy-calculator/pages/calculator.html` 打开人工核对，
-> 但它**不参与 `npm run build`**，不会被拷进 `dist/`；`tsconfig.json` 已 exclude。
+不参与 `npm run build`，`tsconfig.json` 已 exclude。可经 dev server 以
+`/tests/fixtures/legacy-calculator/pages/calculator.html` 打开人工核对。
 
-## backend/ — Python 计算服务
+## 5. backend/tests/
 
-| 目录 | 职责与约束 |
+| 文件 | 覆盖 |
 | --- | --- |
-| `src/zzz_panel/core/` | **唯一规则真源。** 零 IO、零 Web 框架依赖。`models.py`（输入模型）、`panel.py`（`calculate_panel`）、`modes.py`（模式专属计算）；`constants.py` / `modifiers.py` / `breakdown.py` 为预留待实现 |
-| `src/zzz_panel/api/` | FastAPI 传输层（预留）。只做协议转换 |
-| `src/zzz_panel/schemas/` | Pydantic 请求/响应模型（预留） |
-| `src/zzz_panel/services/` | 用例编排（预留），被 API 与 CLI 共同调用 |
-| `src/zzz_panel/presets/` | 预设加载与结构校验（预留） |
-| `src/zzz_panel/cli.py` | 命令行入口，承自原 `main.py` 的打印块 |
-| `tests/` | pytest 回归测试 |
+| `test_presets.py` | 加载、结构与语义校验、响应与 JSON 等价、503 行为 |
+| `test_panel.py` | 加成链路、武器并入顺序、模式公式、取整 |
+| `test_options_json.py` | `options.json` 与 Python 规则表一致 |
+| `test_legacy_parity.py` | Python 侧对 `legacy_cases.json` 逐条比对 |
+| `test_fmt_parity.py` | 跨语言格式化对拍（用 Node 驱动参照实现） |
+| `test_api.py` | 路由形状、CORS、422 触发条件、响应键名 |
+| `legacy_cases.json` | 抽样用例夹具，由 `frontend/tools/dump_legacy_cases.mjs` 导出 |
+| `_fmt_driver.cjs` | 从参照实现提取 `fmt` 函数体并执行 |
+| `README.md` | 各文件覆盖内容 |
 
-## data/、docs/、tools/
+## 6. data/、docs/、tools/、.github/
 
 | 目录 | 职责 |
 | --- | --- |
-| `data/*.json` | **唯一的真实数据源。** `frontend/tests/fixtures/legacy-calculator/data/*.js` 是由这里生成的对拍夹具产物 |
-| `docs/` | 长期文档 |
+| `data/` | **唯一真实数据源**，三个 JSON 全部是生成物。见 [data-schema.md](data-schema.md) |
+| `docs/` | 长期技术文档。见 [docs/README.md](README.md) |
+| `docs/completeds/` | 已完成事项的归档（迁移记录、旧页面删除记录）。**不是当前状态的描述** |
 | `tools/` | 开发辅助脚本。**数据抓取脚本刻意不放这里**——它们是 Skill 契约的一部分，必须留在 `.github/skills/*/scripts/` |
+| `tools/dev.ps1` | 一键启停前后端。**必须保留 UTF-8 BOM**，否则 Windows PowerShell 5.1 会因中文产生 ParserError |
 | `.github/skills/` | Skill 定义与抓取脚本，位置固定 |
+
+## 7. 相关文档
+
+- [requirements.md](requirements.md) —— 项目定位与已知限制
+- [architecture.md](architecture.md) —— 分层与依赖方向
+- [development.md](development.md) —— 目录相关的开发流程与坑

@@ -1,4 +1,16 @@
-# Vue3 迁移指南
+# Vue3 迁移指南（已归档）
+
+> ⚠️ **归档文档 · 不描述当前状态。**
+> Vue3 迁移已于2026-10-03 全部完成。本文件记录的是**过程**：每一步的产出、
+> 当时的验收标准与踩过的坑，不是现状说明。
+>
+> 想了解项目现在是什么样，请看：
+> [requirements.md](../requirements.md)（范围与已知限制）、
+> [architecture.md](../architecture.md)（架构与设计决策）、
+> [development.md](../development.md)（开发流程）。
+>
+> **本文仍有价值的部分**：`legacy-parity.spec.ts` 的 jsdom 作用域两个坑至今生效，
+> 改对拍测试前必读第 2 节「测试中的两个坑」。
 
 原方案：`.kilo/plans/1790874878566-frontend-backend-directory-refactor.md`
 

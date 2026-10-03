@@ -1,4 +1,14 @@
-# legacy 页面说明（已删除）
+# legacy 页面说明（已归档）
+
+> ⚠️ **归档文档 · 记录已删除的内容。**
+> `frontend/legacy/` 与仓库根目录 6 个中文重定向页已于 2026-10-03 全部删除。
+>
+> 想了解夹具现在的样子，请看
+> [directory-layout.md](../directory-layout.md) 第 4 节。
+>
+> **本文仍有价值的部分**：「迁移期已知特性」一节至今生效——
+> `scripts/calculator-config.js` 是数据抓取脚本的正则解析源，
+> 改它的格式会让抓取脚本**静默失效**。
 
 `frontend/legacy/` 是重构前的原生 HTML 实现，Vue3 迁移期间是**用户实际使用的版本**。
 第 5 步已把它连同仓库根目录的 6 个中文重定向页一并删除。
@@ -7,8 +17,6 @@
 需要用到的那几个文件被原样`git mv` 到了
 `frontend/tests/fixtures/legacy-calculator/`（保留 `pages/ data/ scripts/ styles/`
 子目录结构，因为 `calculator.html` 用相对路径引用它们）。
-
-## 现在的状态
 
 | 原路径 | 现在 |
 | --- | --- |
@@ -28,7 +36,7 @@
 
 ## 夹具的维护约束
 
-见 [../frontend/tests/fixtures/legacy-calculator/README.md](../frontend/tests/fixtures/legacy-calculator/README.md)。
+见 [../../frontend/tests/fixtures/legacy-calculator/README.md](../../frontend/tests/fixtures/legacy-calculator/README.md)。
 最重要的一条：**禁止修改夹具内任何文件**。改了参照基准，三方对拍就退化成
 「自己和自己比」，永远不会失败。
 
