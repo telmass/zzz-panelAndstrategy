@@ -1,11 +1,51 @@
 # 开发辅助脚本
 
-## 计划中的脚本
+## 脚本一览
 
-| 文件 | 用途 | 状态 |
-| --- | --- | --- |
-| `dev.ps1` | 一键启动后端（uvicorn :8000）+ 前端（vite dev :5173） | 待实现 |
-| `sync_presets.py` | 双向同步预设：抓取脚本 → `data/*.json` → `frontend/legacy/data/*.js` | 待实现 |
+| 文件 | 用途 |
+| --- | --- |
+| `dev.ps1` | 一键启停本地开发服务（uvicorn :8000 + vite :5173） |
+| `sync_presets.py` | 预设 `data/*.json` ↔ `frontend/legacy/data/*.js`；规则表 `core/*.py` → `data/options.json` |
+| `dump_backend_responses.py` | 把 `legacy_cases.json` 的每条用例 POST 给后端并落盘，用于排查对拍差异 |
+
+## 一键启停
+
+```powershell
+pwsh tools/dev.ps1            # start（默认）
+pwsh tools/dev.ps1 start
+pwsh tools/dev.ps1 stop
+pwsh tools/dev.ps1 restart
+pwsh tools/dev.ps1 status
+```
+
+一条命令同时拉起前后端，两个日志按来源着色实时输出；`Ctrl+C` 等同 `stop`。
+运行状态写在 `.dev/pids.json`，日志在 `.dev/logs/`（已 gitignore）。
+
+已验证：`start` / `stop` / `restart` / `status` 四个动作，以及
+`/api/health`、`/api/presets/agents`、`/calculator` 三个端点。
+
+### 三个必须绕开的坑
+
+- **`.ps1` 必须存成带 BOM 的 UTF-8**。Windows PowerShell 5.1 按 GBK 读无 BOM 的
+  文件，中文字节被拆坏后直接抛 `ParserError`（报错信息本身也是乱码，容易误判为语法错误）。
+  `pwsh` 7+ 无此问题，但要在 5.1 上跑就得带 BOM。
+- **进程树有两层**。`uv run uvicorn` 是 `uv` → `python/uvicorn`，
+  `npm run dev` 是 `npm.cmd` → `npm-cli` → `vite`。`taskkill /T` 的主进程一旦先死，
+  其子孙会被 reparent，从已死的 PID 出发就找不到它们，于是 python 继续占着 8000。
+  `stop` 因此分三层：`taskkill /T` → `taskkill /T /F` → 按命令行特征清理残留。
+  与 `frontend/tests/support/backend.ts` 的 `killOrphanUvicorn()` 同思路。
+- **原生命令的 stderr 会被升级成终止性错误**。脚本级
+  `$ErrorActionPreference = 'Stop'` 下，`taskkill` 输出的
+  `ERROR: ... could not be terminated` 会中断整个 `stop`，再也走不到强杀与兜底。
+  `Invoke-TaskKill()` 临时降级为 `Continue` 再还原。
+
+### 变量名不要撞参数名
+
+PowerShell 变量大小写不敏感：`Start-Service` 里 `foreach ($file in ...)` 会覆盖
+同名参数 `$File`，结果把日志文件当可执行文件去启动。改名 `$logPath` 即可。
+
+残留清理用**多个片段同时命中**（如 `zzz_panel` + `uvicorn`、`vite` + `frontend`）
+而不是单一关键词，避免误杀同机其它项目的同名进程。
 
 ## 双向同步脚本
 

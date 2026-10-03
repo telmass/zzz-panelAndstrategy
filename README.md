@@ -31,7 +31,18 @@ uv run python -m zzz_panel # 等价入口
 uv run pytest              # 运行回归测试
 ```
 
-FastAPI 服务与 Vue3 前端尚未实现，依赖已在 `pyproject.toml` 中预留。
+### 本地开发服务
+
+前后端都已实现，用一条命令同时拉起（uvicorn :8000 + vite :5173，日志实时输出，
+`Ctrl+C` 停止）：
+
+```powershell
+pwsh tools/dev.ps1            # start（默认）/ stop / restart / status
+```
+
+打开 http://localhost:5173/calculator 。单独启动时后端用
+`uv run uvicorn zzz_panel.api.app:app --port 8000`，前端用 `npm run dev`。
+详见 [tools/README.md](tools/README.md)。
 
 ## 目录结构
 
