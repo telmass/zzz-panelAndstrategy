@@ -8,9 +8,9 @@
 | 套件 | 命令 | 用例数 | 覆盖 |
 | --- | --- | --- | --- |
 | 后端 | `uv run pytest` | 87 | 计算、格式化、预设校验、HTTP 契约 |
-| 前端 | `npm run test` | 64 | 渲染、交互、请求构造、**三方对拍** |
+| 前端 | `npm run test` | 73 | 渲染、交互、请求构造、**三方对拍** |
 
-测试状态以这两个命令的输出为准，共 151 项。
+测试状态以这两个命令的输出为准，共 154 项。
 
 ## 2. 核心资产：三方对拍
 
@@ -93,16 +93,29 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
   测试明确记录这个行为，避免有人误加约束导致对拍失败。
 - **空body `{}` 是合法请求**：所有字段都有默认值。
 
-## 5. 前端测试（64 项）
+## 5. 前端测试（73 项）
 
 Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 `vitest.config.ts`**，容易找错）。
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
-| `calculator-view.spec.ts` | 27 | 计算器骨架、启动页、子页返回导航、指南页 |
-| `panel-interactions.spec.ts` | 33 | 音擎三级联动、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
+| `calculator-view.spec.ts` | 30 | 计算器骨架、启动页、子页返回导航、指南页 |
+| `panel-interactions.spec.ts` | 39 | 音擎 cascader 分组与回填、选项前缀图标与菜单文案、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `legacy-parity.spec.ts` | 4 | 三方对拍 |
+
+### naive-ui 组件的三条测试约束
+
+音擎选择器换成 `n-cascader` 后，这三点会反复绊到人：
+
+- **浮层 Teleport 到 `body`**，不在 wrapper 树内。要断言浮层只能查
+  `document.body`，`wrapper.find()` 一律查不到；且用例必须挂
+  `enableAutoUnmount(afterEach)`，否则展开过的浮层会留给后续用例。
+- **选项在 `n-virtual-list` 里**（naive-ui 默认 `virtualScroll` 为 `true`）。
+  jsdom 没有布局引擎，容器高度算出来是 0，**一项都不会渲染**。因此
+  「7 个一级项」只在 store 层断言，DOM 层只验证浮层打开。
+- **placeholder 是覆盖层**，落在 `.n-base-selection-placeholder` 上，
+  不是 `<input>` 的 `placeholder` 属性（后者为空字符串）。
 
 ### 渲染断言写得比数字断言重
 

@@ -40,3 +40,23 @@ export interface WeaponPreset {
   baseDefense: number;
   substat: WeaponSubstat;
 }
+
+/**
+ * 音擎 cascader 的一个选项。
+ *
+ * 结构与 naive-ui 的 `CascaderOption` 对齐：一级项是职业标签（带 `children`），
+ * 二级项是具体音擎（叶子）。`label` 已经是拼好的完整文案
+ * 「名称 / 职业 / 等级」，因为 `filterable` 的过滤就是拿 `label` 匹配的，
+ * 这样用户输入「S」也能命中 S 级音擎。
+ */
+export interface WeaponCascaderOption {
+  label: string;
+  /** 一级为职业标签，二级为音擎 id。 */
+  value: string;
+  children?: WeaponCascaderOption[];
+  /**
+   * naive-ui 的 `CascaderOption` 带字符串索引签名，去掉它就无法直接
+   * 传给 `n-cascader` 的 `options`。保留签名以确保结构兼容。
+   */
+  [key: string]: unknown;
+}

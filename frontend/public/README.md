@@ -12,9 +12,27 @@ Vite 会把本目录内容**原样拷贝**到 `dist/` 根，不做指纹化、�
 
 | 路径 | 内容 |
 | --- | --- |
-| `images/agents/` | 60 张代理人 PNG，文件名 `ep-{id}.png` |
-| `images/weapons/` | 100 张音擎 PNG，文件名 `ep-{id}.png` |
+| `images/agents/` | 60 张代理人 PNG，文件名 `ep-{id}.png`（**尚无代码引用**） |
+| `images/weapons/` | 100 张音擎 PNG，文件名 `ep-{id}.png`（音擎 `n-cascader` 选中卡片与选项前缀已引用） |
+| `images/icons/` | 7 张 roletag 类别图标（音擎 `n-cascader` 一级选项前缀已引用） |
 
-这些图片**目前没有任何代码引用**，属预留素材；文件名与预设数据的 `id` 一一对应
-（`data/agent-presets.json` 的 `id` 即 `ep-1109` 形式），接入时按
-`/images/agents/${id}.png` 拼路径即可。
+`images/agents/` 与 `images/weapons/` 的文件名与预设数据的 `id` 一一对应
+（`data/agent-presets.json`、`data/weapon-presets.json` 的 `id` 即 `ep-1109` 形式），
+接入时按 `/images/{agents,weapons}/${id}.png` 拼路径即可。
+
+`images/icons/` 的文件名是 roletag 的**英文 slug**，与 roletag 的映射集中在
+`WeaponModule.vue` 的 `ROLE_ICON`。slug 取自官方 Wiki 的 profession key，
+与 `.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py` 同源：
+
+| roletag | 文件名 |
+| --- | --- |
+| 强攻 | `strike.png` |
+| 击破 | `pierce.png` |
+| 异常 | `abnormal.png` |
+| 支援 | `support.png` |
+| 防护 | `guard.png` |
+| 命破 | `rupture.png` |
+| 锋御 | `armero.png` |
+
+> 文件名一律小写 ASCII。曾用中文名（`强攻.png`），虽可用但在 URL 里需百分号编码，
+> 跨平台与工具链下容易出问题，已全部重命名。

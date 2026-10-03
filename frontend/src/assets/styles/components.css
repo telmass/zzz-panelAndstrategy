@@ -139,6 +139,85 @@
   font-weight: 600;
 }
 
+/* ====== 音擎选择器与头像卡片 ====== */
+
+/* 选择器与卡片都占满整行，三个只读回填字段才排得下一行三列。
+   写在这里而非 base.css 的响应式段，因为与断点无关。 */
+.weapon-picker,
+.weapon-card {
+  grid-column: 1 / -1;
+}
+
+/* 标签沿用 .field label 的视觉，但这里是 <span> 而非 <label>：
+   cascader 由 naive-ui 渲染，无法像原生控件那样用 for/id 关联。 */
+.weapon-picker-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+/* naive-ui 默认高度 34px，比项目其它输入框（6px 内边距 + 14px 字号 ≈ 32px）
+   略高；统一成 34px 会让同一行的只读输入框显得参差，故对齐到 32px。 */
+.weapon-picker-input .n-base-selection {
+  height: 32px;
+}
+
+.weapon-picker-input .n-base-selection-label {
+  padding-left: var(--space-2);
+  padding-right: 26px;
+}
+
+.weapon-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-input-readonly-bg);
+}
+
+.weapon-card-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex: none;
+}
+
+/* cascader 选项前缀图标（一级 roletag 图标 / 二级音擎头像）。
+   naive 的 .n-cascader-option__prefix 已是 32px 宽的 flex 居中容器，这里只定尺寸。
+   ⚠️ 必须写成全局类名：浮层 Teleport 到 body，不在 .weapon-picker 子树内，
+   写成 `.weapon-picker .weapon-option-icon` 不会命中。 */
+.weapon-option-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.weapon-card-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.weapon-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-strong);
+  /* 长音擎名在窄屏下换行而非撑破卡片 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weapon-card-meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
 /* ====== 提示文字 ====== */
 
 .note {

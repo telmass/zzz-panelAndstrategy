@@ -4,6 +4,7 @@ import {
   AGENT_ROLE_TAGS,
   PANEL_MODE_LABELS,
   SUB_STATS,
+  WEAPON_ROLE_TAGS,
 } from '@/constants/calculatorOptions';
 import { usePresetStore } from '@/stores/presetStore';
 import type {
@@ -17,10 +18,7 @@ import type {
   WeaponSelection,
 } from '@/types/panel';
 import type { AgentPreset } from '@/types/agentPresets';
-import type { WeaponPreset } from '@/types/weaponPresets';
-
-/** 音擎等级的展示顺序，对应 legacy 的排序依据。 */
-const GRADE_ORDER = ['S', 'A', 'B'];
+import type { WeaponCascaderOption, WeaponPreset } from '@/types/weaponPresets';
 
 /** 默认基础面板，取自 legacy calculator.html 上各 input 的默认值。 */
 function defaultBase(): BaseStats {
@@ -55,6 +53,32 @@ export interface AgentNote {
 }
 
 const NEUTRAL_NOTE: AgentNote = { text: '', tone: 'neutral' };
+
+/**
+ * 「角色推荐」标记的数据源。
+ *
+ * 推荐关系（哪个代理人与哪条音擎适配）由**另一份预设 JSON** 提供，
+ * 该文件尚未落地，故此处恒返回 `undefined`，选项文案不追加该段。
+ *
+ * ⚠️ 这是一个刻意留出的接缝，**不是死代码**：JSON 到位后只改这一个函数，
+ * `weaponOptionLabel` 无需改动。清理时勿当作未使用代码删除。
+ *
+ * @param weaponId 音擎预设 id。
+ */
+function recommendationBadge(_weaponId: string): string | undefined {
+  return undefined;
+}
+
+/**
+ * 音擎选项文案：`名称 / 职业 / 等级`，末尾可选追加「角色推荐」标记。
+ *
+ * 等级不再作为筛选轴（与目标站一致），故写进文案，让用户仍能分辨 S/A/B。
+ * 段序与目标站 `zzzcaculator.top` 的音擎选择器一致。
+ */
+function weaponOptionLabel(weapon: WeaponPreset): string {
+  const badge = recommendationBadge(weapon.id);
+  return [weapon.name, weapon.roleTag, `${weapon.grade}级`, badge].filter(Boolean).join(' / ');
+}
 
 /**
  * 面板输入的唯一真源。
@@ -109,39 +133,28 @@ export const usePanelStore = defineStore('panel', {
         : [];
     },
 
-    /** 音擎等级下拉选项，按 S / A / B 排列。 */
-    weaponGradeOptions(): string[] {
+    /**
+     * 全部音擎预设，按职业标签分组成 cascader 的两级选项。
+     *
+     * 等级**不再是筛选轴**（与目标站一致，写进选项文案），故这里不按等级过滤。
+     *
+     * 组序取自 `WEAPON_ROLE_TAGS` 而非首次出现顺序：后者随数据变化，
+     * 会导致分组跳序。组内保持 `data/weapon-presets.json` 原序。
+     */
+    weaponPresetGroups(): WeaponCascaderOption[] {
       const { weapons } = usePresetStore();
-      return [...new Set(weapons.map((weapon) => weapon.grade))].sort(
-        (a, b) => GRADE_ORDER.indexOf(a) - GRADE_ORDER.indexOf(b),
-      );
+      return WEAPON_ROLE_TAGS.map((roleTag) => ({
+        label: roleTag,
+        value: roleTag,
+        children: weapons
+          .filter((weapon) => weapon.roleTag === roleTag)
+          .map((weapon) => ({ label: weaponOptionLabel(weapon), value: weapon.id })),
+      })).filter((group) => group.children && group.children.length > 0);
     },
 
-    /** 当前等级下的音擎类别选项。 */
-    weaponRoleOptions(): string[] {
-      const { weapons } = usePresetStore();
-      if (!this.weapon.grade) {
-        return [];
-      }
-      return [
-        ...new Set(
-          weapons.filter((weapon) => weapon.grade === this.weapon.grade).map(
-            (weapon) => weapon.roleTag,
-          ),
-        ),
-      ];
-    },
-
-    /** 当前等级与类别下的音擎预设。 */
-    filteredWeaponPresets(): WeaponPreset[] {
-      const { weapons } = usePresetStore();
-      const { grade, roleTag } = this.weapon;
-      if (!grade || !roleTag) {
-        return [];
-      }
-      return weapons.filter(
-        (weapon) => weapon.grade === grade && weapon.roleTag === roleTag,
-      );
+    /** 当前选中的音擎预设，供选中后的头像卡片渲染。 */
+    selectedWeapon(): WeaponPreset | null {
+      return usePresetStore().weaponById.get(this.weapon.preset) ?? null;
     },
   },
 
@@ -152,25 +165,7 @@ export const usePanelStore = defineStore('panel', {
       this.panelMode = mode;
     },
 
-    /* ====== 音擎三级联动 ====== */
-
-    /**
-     * 选择音擎等级。对应 legacy 的 `updateWeaponGrade`：
-     * 清空下游的类别与预设，并重置只读回填区。
-     */
-    selectWeaponGrade(grade: string): void {
-      this.weapon.grade = grade;
-      this.weapon.roleTag = '';
-      this.weapon.preset = '';
-      this.clearWeaponStats();
-    },
-
-    /** 选择音擎类别。对应 legacy 的 `updateWeaponRole`。 */
-    selectWeaponRole(roleTag: string): void {
-      this.weapon.roleTag = roleTag;
-      this.weapon.preset = '';
-      this.clearWeaponStats();
-    },
+    /* ====== 音擎选择 ====== */
 
     /** 清空音擎只读回填区。对应 legacy 的 `clearWeaponStats`。 */
     clearWeaponStats(): void {
@@ -183,6 +178,12 @@ export const usePanelStore = defineStore('panel', {
     /**
      * 选择音擎预设并回填固定属性。对应 legacy 的 `updateWeaponSelection`。
      *
+     * 职业标签与等级都由预设反向同步回 `weapon.roleTag` / `weapon.grade`：
+     * UI 已不再单列这两个维度（等级写进选项文案、职业标签作为一级分组），
+     * 但选中后的头像卡片要显示「职业 / 等级」，故仍需保留。
+     * 未命中预设（含用户点清除按钮）时两者一并清空，
+     * 否则会出现 `roleTag` 有值而 `preset` 为空的矛盾状态。
+     *
      * 基础值标签随 baseKind 变化：锋御音擎提供基础防御力。
      * `localize` 传入当前面板模式下的文案替换函数，
      * 使锋御模式显示「锐能自动累积」而非「能量自动回复」。
@@ -191,11 +192,15 @@ export const usePanelStore = defineStore('panel', {
       const weapon = usePresetStore().weaponById.get(presetId);
       if (!weapon) {
         this.weapon.preset = '';
+        this.weapon.roleTag = '';
+        this.weapon.grade = '';
         this.clearWeaponStats();
         return;
       }
       const baseKind = weapon.baseKind ?? 'atk';
       this.weapon.preset = weapon.id;
+      this.weapon.roleTag = weapon.roleTag;
+      this.weapon.grade = weapon.grade;
       this.weapon.baseLabel = baseKind === 'def' ? '基础防御力' : '基础攻击力';
       this.weapon.baseValue = baseKind === 'def' ? weapon.baseDefense : weapon.baseAttack;
       this.weapon.subType = localize(weapon.substat.label);

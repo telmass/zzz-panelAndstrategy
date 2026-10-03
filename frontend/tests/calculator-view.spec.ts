@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
-import { mount, type VueWrapper } from '@vue/test-utils';
+import { enableAutoUnmount, mount, type VueWrapper } from '@vue/test-utils';
+import { nextTick } from 'vue';
+import { NCascader } from 'naive-ui';
 
 import router from '@/router';
 import CalculatorView from '@/views/CalculatorView.vue';
@@ -27,6 +29,14 @@ beforeEach(async () => {
   await loadPresets();
 });
 
+/**
+ * 必须自动卸载。
+ *
+ * cascader 的浮层 Teleport 到 body，不随 wrapper 一起消失；不卸载的话
+ * 展开过浮层的用例会把它留给后续用例，「未展开时没有浮层」这类断言就会假红。
+ */
+enableAutoUnmount(afterEach);
+
 afterEach(() => {
   vi.unstubAllGlobals();
 });
@@ -45,10 +55,6 @@ function mountGuide(): VueWrapper {
 
 function input(wrapper: VueWrapper, selector: string): HTMLInputElement {
   return wrapper.get(selector).element as HTMLInputElement;
-}
-
-function select(wrapper: VueWrapper, selector: string): HTMLSelectElement {
-  return wrapper.get(selector).element as HTMLSelectElement;
 }
 
 /** 表单控件所在的外层 `.field`，用于断言整块显隐。 */
@@ -104,13 +110,40 @@ describe('CalculatorView 静态骨架', () => {
     expect(fieldOf(wrapper, 'base_pr').hidden).toBe(false);
   });
 
-  it('音擎三个下拉与三个只读回填字段齐备', () => {
+  it('音擎只有一个 cascader 与三个只读回填字段', () => {
     const wrapper = mountCalculator();
-    expect(select(wrapper, '#weapon_grade').disabled).toBe(false);
-    expect(select(wrapper, '#weapon_role').disabled).toBe(true);
-    expect(select(wrapper, '#weapon_preset').disabled).toBe(true);
+    expect(wrapper.find('.weapon-picker .n-cascader').exists()).toBe(true);
     expect(input(wrapper, '#weapon_sub_type').value).toBe('—');
     expect(input(wrapper, '#weapon_base_value').readOnly).toBe(true);
+    expect(input(wrapper, '#weapon_sub_val').readOnly).toBe(true);
+  });
+
+  it('音擎模块不再有等级与类别下拉，二级分组只存在于 cascader 内', async () => {
+    const wrapper = mountCalculator();
+    expect(wrapper.find('#weapon_grade').exists()).toBe(false);
+    expect(wrapper.find('#weapon_role').exists()).toBe(false);
+    expect(wrapper.find('#weapon_preset').exists()).toBe(false);
+    // 未展开时页面上没有浮层 DOM
+    expect(document.body.querySelector('.n-cascader-menu')).toBeNull();
+
+    await wrapper.get('.weapon-picker-input .n-base-selection').trigger('click');
+    await nextTick();
+    // 浮层 Teleport 到 body，不在 wrapper 树内，只能从 document 上找
+    expect(document.body.querySelector('.n-cascader-menu')).not.toBeNull();
+  });
+
+  it('cascader 带 filterable 与 clearable，placeholder 为「选择音擎」', () => {
+    const wrapper = mountCalculator();
+    const cascader = wrapper.findComponent(NCascader);
+    expect(cascader.props('filterable')).toBe(true);
+    expect(cascader.props('clearable')).toBe(true);
+    expect(cascader.props('placeholder')).toBe('选择音擎');
+    // naive-ui 把 placeholder 渲染成覆盖层，不落在 <input> 的 placeholder 属性上
+    expect(wrapper.get('.weapon-picker .n-base-selection-placeholder').text()).toBe('选择音擎');
+  });
+
+  it('未选音擎时不渲染头像卡片', () => {
+    expect(mountCalculator().find('.weapon-card').exists()).toBe(false);
   });
 
   it('核心加成两个下拉均提供 12 项', () => {

@@ -1,6 +1,6 @@
 # frontend/tests — 前端测试
 
-Vitest + jsdom，共 **64 项**。
+Vitest + jsdom，共 **73 项**。
 
 ```powershell
 npm run test          # 一次性
@@ -16,15 +16,15 @@ npm run test:watch    # 监听
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
-| `calculator-view.spec.ts` | 27 | 计算器骨架、启动页、子页返回导航、指南页 |
-| `panel-interactions.spec.ts` | 33 | 音擎三级联动、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
+| `calculator-view.spec.ts` | 30 | 计算器骨架、启动页、子页返回导航、指南页 |
+| `panel-interactions.spec.ts` | 39 | 音擎 cascader 分组与回填、选项前缀图标与菜单文案、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `legacy-parity.spec.ts` | 4 | **三方对拍**：旧 JS ≡ Vue3 页面 ≡ Python 后端 |
 
 ## support/ — 夹具层
 
 | 文件 | 作用 |
 | --- | --- |
-| `setup.ts` | 全局 stub `RouterLink` |
+| `setup.ts` | 全局 stub `RouterLink`，并补 jsdom 缺失的浏览器 API：`matchMedia`、`ResizeObserver`、`IntersectionObserver`、`getBoundingClientRect`（naive-ui 的浮层与虚拟列表要用） |
 | `router.ts` | `RouterLinkStub`，把 `to` 渲染成 `href` |
 | `api.ts` | 假后端。**读真实的 `data/*.json`**，因此下拉框项数断言能发现数据漂移 |
 | `backend.ts` | 拉起真实 uvicorn（端口 0 自动分配），仅供三方对拍使用 |
@@ -48,7 +48,14 @@ npm run test:watch    # 监听
 ### `panel-interactions.spec.ts` 必须 `enableAutoUnmount`
 
 因为 `usePanelCalc` 的 watcher 会在 watcher 作用域之外调用
-`usePanelStore()`，不自动卸载会造成实例残留。
+`usePanelStore()`，不自动卸载会造成实例残留。`calculator-view.spec.ts` 也加了
+同样的声明——cascader 浮层 Teleport 到 `body`，不卸载会留给后续用例。
+
+### naive-ui 的三条测试约束
+
+见 [docs/testing.md](../../docs/testing.md) 第 5 节：浮层 Teleport 到 `body`、
+选项在 `n-virtual-list` 里 jsdom 渲染不出来、placeholder 是覆盖层而非
+`<input>` 的属性。
 
 ## 相关文档
 

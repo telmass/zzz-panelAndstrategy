@@ -5,6 +5,71 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-03 · 音擎菜单项只显示名称，完整信息留到选中后
+
+### 变更
+
+| 变更 | 说明 |
+| --- | --- |
+| **浏览菜单时二级选项只显示武器名称** | 不再显示 roletag 与评级。选项前缀的武器头像照旧 |
+| 一级选项不变 | 仍是职业标签分组名 |
+| 选中后展示不变 | 折叠框仍显示「名称 / 职业 / 等级」，下方头像卡片仍显示图标、名称与「职业 / 等级」 |
+
+实现方式：给 `n-cascader` 加 `render-label`，叶子项按 `value` 从 `presetStore.weaponById`
+取 `name`。**完整文案仍留在选项的 `label` 字段上**——naive-ui 渲染折叠框时直接读
+`rawNode.label` 构造 `selectedOption`（`Cascader.mjs:402`），不经过 `render-label`，
+所以选中后的展示没有被这次改动波及。未改 `label` 字段，故 `filterable` 的搜索
+结果列表文案也保持原样。
+
+## 2026-10-03 · 音擎下拉选项新增前缀图标
+
+### 变更
+
+| 变更 | 说明 |
+| --- | --- |
+| **一级选项显示 roletag 图标** | 7 个职业标签各配一张类别图标，取自新增的 `public/images/icons/` |
+| **二级选项显示音擎头像** | 与已选中的头像卡片同源，按 `/images/weapons/{id}.png` 取图 |
+| **图标文件名改为小写英文** | 原为中文名（`强攻.png` 等），已重命名为 `strike` / `pierce` / `abnormal` / `support` / `guard` / `rupture` / `armero`。slug 取自官方 Wiki profession key，与 `.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py` 同源 |
+| 缺图不显示破图 | 职业标签未在映射表内、或图片加载失败时隐藏 `<img>`，不留破图方块 |
+
+> 纯展示层改动：新增 `WeaponModule.vue` 的 `ROLE_ICON` 映射与 `render-prefix`，
+> **未触碰** `panelStore`、选项数据结构、事件处理与请求体。
+> 搜索结果列表仍为纯文本——naive-ui 的 `CascaderSelectMenu` 会把选项裁成
+> `{value, label}` 且不提供任何渲染钩子，无法加图标；这与目标站行为一致。
+
+## 2026-10-03 · 音擎选择器改为 naive-ui `n-cascader`（对齐 zzzcaculator.top）
+
+### 变更
+
+| 变更 | 说明 |
+| --- | --- |
+| **音擎模块只余一个控件** | 等级与类别两个下拉全部撤销，合并为一个可搜索（`filterable`）、可清除（`clearable`）的 `n-cascader`。占位文案「选择音擎」 |
+| **引入 naive-ui 2** | 首个 UI 框架依赖。主题经 `App.vue` 的 `n-config-provider` 注入，`composables/useNaiveTheme.ts` 从 `tokens.css` 的 CSS 变量读主色/圆角/字体后转 `themeOverrides`，不另抄 hex |
+| **等级不再是筛选轴，改写进文案** | 选项与卡片文案为 `名称 / 职业 / 等级`（如 `云霓孤光 / 强攻 / S级`）。一级分组即职业标签，组序固定为 `WEAPON_ROLE_TAGS` |
+| **选中后展示头像卡片** | 头像按 `/images/weapons/{id}.png` 取自 `public/`，含名称与 `职业 / 等级`；缺图时隐藏图片而非显示破图 |
+| **删除 `GroupedSelectField` 与相关 store API** | `components/common/GroupedSelectField.vue`、`types/panel.ts` 的 `SelectOptionGroup`、`panelStore` 的 `weaponGradeOptions` / `selectWeaponGrade` / `filteredWeaponPresets` / `GRADE_ORDER` 均移除，无替代 API |
+| `selectWeaponPreset` 改为**双向同步** `roleTag` 与 `grade` | UI 不再单列这两个维度，但卡片要显示「职业 / 等级」，故保留；未命中预设（含点清除）时两者一并清空，不留 `roleTag` 有值而 `preset` 为空的矛盾态 |
+| 预留「角色推荐」接缝 | `recommendationBadge(weaponId)` 恒返回 `undefined`；推荐关系数据来自另一份尚未落地的预设 JSON。落地后只改这一个函数 |
+
+> ⚠️ 计算语义、请求体结构与后端**均未改动**。等级从不进入请求体
+> （`usePanelCalc` 只发 `baseKind` / `baseValue` / `substat`），故去等级轴不触碰接口契约。
+
+## 2026-10-03 · 音擎选择器改为「等级 + 职业标签分组」
+
+### 变更
+
+| 变更 | 说明 |
+| --- | --- |
+| **删除「类别」下拉** | 音擎模块由三个下拉减为两个。`panelStore` 的 `weaponRoleOptions` getter 与 `selectWeaponRole` action 一并移除，无替代 API |
+| **音擎名称按职业标签分组** | 名称下拉内部改用 `<optgroup>`（新组件 `components/common/GroupedSelectField.vue`），组序固定为 `WEAPON_ROLE_TAGS`：强攻 / 击破 / 异常 / 支援 / 防护 / 命破 / 锋御。等级仍是唯一的筛选轴 |
+| 分组不显示等级后缀 | 选项文案为纯音擎名称。等级已是外层筛选，组内选项同级，后缀是冗余 |
+| `filteredWeaponPresets` 只按等级过滤 | 不再需要 `weapon.roleTag` 才有结果；未选等级时返回空数组 |
+| `selectWeaponPreset` 反向同步 `weapon.roleTag` | 该字段无外部消费方，保留供展示与断言「切等级清空类别」 |
+
+> ⚠️ 计算语义、请求体结构与后端**均未改动**。`frontend/tests/fixtures/legacy-calculator/`
+> 保持冻结的三级参考实现不动，对拍改为按**音擎 id** 比对两侧输入等价性
+> （legacy 走「S 级 + 强攻 → 首个选项」，Vue 侧按 `roleTag` 显式定位）。
+
 ## 2026-10-03 · Vue3 迁移收尾（第 5 步）
 
 ### 删除

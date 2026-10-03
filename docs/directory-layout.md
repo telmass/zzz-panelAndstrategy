@@ -22,7 +22,7 @@
 | `vite.config.ts` | dev 代理 `/api` → `http://127.0.0.1:8000`（避免 CORS）；别名 `@` → `src`、`@data` → `../data`；**Vitest 配置也在此文件的 `test` 块中**（无独立 `vitest.config.ts`） |
 | `tsconfig.json` | `strict` + `noUnusedLocals` + `noUnusedParameters`；别名 `@/*`、`@data/*`；`exclude` 含 `tests/fixtures` |
 | `package.json` | 6 个脚本：`dev` / `build` / `preview` / `typecheck` / `test` / `test:watch` |
-| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 160 张代理人/音擎PNG（见下方说明） |
+| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 167 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标（见下方说明） |
 | `tools/` | 两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中 |
 | `tests/` | Vitest 测试 + 夹具，见第 4 节 |
 
@@ -31,10 +31,10 @@
 | 目录 | 职责与边界 |
 | --- | --- |
 | `main.ts` | 引导：建 app + Pinia，**`mount` 之前 `await loadAll()`** 装载预设 |
-| `App.vue` |仅渲染 `<router-view />` |
+| `App.vue` | `<n-config-provider>` 包 `<router-view />`；主题映射见 `composables/useNaiveTheme.ts` |
 | `views/` | 路由级页面，3 个：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
 | `components/layout/` | `BackToLauncher.vue` —— 子页左上角的「返回主页」。**与业务无关** |
-| `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput` |
+| `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput`。音擎改用 naive-ui 的 `n-cascader`，故**无** `GroupedSelectField` |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页的六块UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
 | `router/` | 3 条路由表。**无导航守卫** |
@@ -64,9 +64,16 @@
 | `frontend/public/` | 运行时按 URL 取的资源。**不能被 `import`** |
 | `frontend/src/assets/` | 会被 `import`、生成带 hash 的 URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
-> ⚠️ `public/images/` 下的 160 张 PNG **当前没有任何代码引用**（`src/` 中零匹配）。
-> 它们是预设头像/音擎图，但 Vue3 版尚未接入展示。属于已知冗余，
+> ⚠️ `public/images/` 下 167 张 PNG 的接入状态分三块：
+> **`weapons/`（100 张）已接入**——音擎 `n-cascader` 的头像卡片与二级选项前缀按
+> `/images/weapons/{id}.png` 取图（`WeaponModule.vue`）。
+> **`icons/`（7 张）已接入**——音擎 `n-cascader` 的一级选项前缀按
+> `/images/icons/{slug}.png` 取图，roletag → slug 映射见 `WeaponModule.vue` 的 `ROLE_ICON`
+> （slug 取自官方 Wiki profession key）。
+> **`agents/`（60 张）仍无任何代码引用**（`src/` 中零匹配），属已知冗余，
 > 记录在 [requirements.md](requirements.md) 的已知限制。
+>
+> `icons/` 曾用中文文件名（`强攻.png`），已重命名为小写 ASCII slug。
 
 ## 3. backend/ — Python 计算服务
 
@@ -113,8 +120,8 @@ src-layout，包名 `zzz_panel`。
 
 | 路径 | 说明 |
 | --- | --- |
-| `calculator-view.spec.ts` | 27 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
-| `panel-interactions.spec.ts` | 33 项交互与后端对接 |
+| `calculator-view.spec.ts` | 30 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
+| `panel-interactions.spec.ts` | 39 项交互与后端对接 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
 | `support/` | 夹具层：`setup.ts`、`router.ts`、`api.ts`（假后端）、`backend.ts`（拉起真实 uvicorn）、`flush.ts` |
 | `fixtures/legacy-calculator/` | **只读参照实现**，见第 5 节 |

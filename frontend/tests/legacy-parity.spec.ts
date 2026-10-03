@@ -9,6 +9,7 @@ import CalculatorView from '@/views/CalculatorView.vue';
 import { useAgentPreset } from '@/composables/useAgentPreset';
 import { usePanelMode } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
+import { usePresetStore } from '@/stores/presetStore';
 import { routeFetchToBackend, startBackend, stopBackend } from './support/backend';
 import { loadPresets } from './support/api';
 import { flushCalc } from './support/flush';
@@ -185,8 +186,13 @@ function legacyRows(): { label: string; value: string; breakdown: string }[] {
 
 /* ====== 场景：两侧各一份，取值相同 ====== */
 
-/** 满配场景：legacy 侧。 */
-function applyFullBuildLegacy(): void {
+/** legacy 侧当前选中的音擎 id。 */
+function legacyWeaponId(): string {
+  return (legacyDoc().getElementById('weapon_preset') as HTMLSelectElement).value;
+}
+
+/** 满配场景：legacy 侧。返回所选音擎 id，供两侧对齐断言。 */
+function applyFullBuildLegacy(): string {
   setLegacyNumber('base_hp', 8000);
   setLegacyNumber('base_atk', 1000);
   setLegacyNumber('base_def', 600);
@@ -224,10 +230,18 @@ function applyFullBuildLegacy(): void {
   selectLegacyByLabel('set0', '攻击力 +10%');
   selectLegacyByLabel('set1', '暴击伤害 +16%');
   selectLegacyByLabel('set2', '能量回复 +20%');
+
+  return legacyWeaponId();
 }
 
-/** 满配场景：Vue 侧。音擎取同样的「第一个」。 */
-function applyFullBuildVue(): void {
+/**
+ * 满配场景：Vue 侧。返回所选音擎 id，供两侧对齐断言。
+ *
+ * legacy 侧走「等级 + 类别」两级筛选后取首个选项；Vue 侧只有等级筛选，
+ * 因此按 roleTag 显式定位到同一条音擎。**不依赖数据文件的首条顺序**——
+ * 两侧等价由调用方比对 id 保证，数据顺序变化不会让对拍变成「比不同的东西」。
+ */
+function applyFullBuildVue(): string {
   const panel = usePanelStore();
   const { localize } = usePanelMode();
 
@@ -242,9 +256,15 @@ function applyFullBuildVue(): void {
   panel.base.pr = 0;
   panel.base.er = 1.2;
 
-  panel.selectWeaponGrade('S');
-  panel.selectWeaponRole('强攻');
-  panel.selectWeaponPreset(panel.filteredWeaponPresets[0].id, localize);
+  // Vue 侧已无等级筛选轴，按 legacy 的「S 级 + 强攻 → 首个选项」显式定位同一条。
+// **不依赖数据文件的首条顺序**——两侧等价由调用方比对 id 保证。
+const weapon = usePresetStore().weapons.find(
+  (item) => item.grade === 'S' && item.roleTag === '强攻',
+);
+if (!weapon) {
+  throw new Error('S 级强攻音擎缺失，预设数据已漂移');
+}
+panel.selectWeaponPreset(weapon.id, localize);
 
   panel.core.core1 = 'cr';
   panel.core.core2 = 'cd';
@@ -264,6 +284,8 @@ function applyFullBuildVue(): void {
   panel.setEffects.set0 = 'atk_pct_10';
   panel.setEffects.set1 = 'cd_16';
   panel.setEffects.set2 = 'er_pct_20';
+
+  return weapon.id;
 }
 
 /** 后端不可用时给出明确原因而不是让断言莫名失败。 */
@@ -286,9 +308,12 @@ describe('三方对拍 · legacy ≡ Vue3 ≡ Python', () => {
 
   it('满配：数值与明细文案完全一致', async () => {
     requireBackend();
-    applyFullBuildLegacy();
+    const legacyWeapon = applyFullBuildLegacy();
     const wrapper = mountVue();
-    applyFullBuildVue();
+    const vueWeapon = applyFullBuildVue();
+    // Vue 侧改为「等级 + 分组名称」两级联动，必须先确认两侧选的是同一条音擎，
+    // 否则下面比对的是两套不同输入，数值一致只能说明巧合。
+    expect(vueWeapon).toBe(legacyWeapon);
     // legacy 直接写 DOM 是同步的；Vue 侧需等防抖 + HTTP + 渲染。
     await flushCalc();
 

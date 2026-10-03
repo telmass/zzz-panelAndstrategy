@@ -10,7 +10,7 @@
 | --- | --- |
 | `views/` | 3 个路由页：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
 | `components/layout/` | `BackToLauncher.vue` —— 子页返回主页，与业务无关 |
-| `components/common/` | 表单原语：`PanelModule`、`SelectField`、`NumberField`、`TextField`、`StepperInput` |
+| `components/common/` | 表单原语：`PanelModule`、`SelectField`、`NumberField`、`TextField`、`StepperInput`。音擎用 naive-ui 的 `n-cascader`，不走这里 |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页六块 UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
 | `router/` | 3 条路由，**无导航守卫** |
@@ -48,7 +48,9 @@
 | `frontend/public/` | 运行时按 URL 取。**不能被 `import`** |
 | `frontend/src/assets/` | 会被 `import`、生成带 hash URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
-> `public/images/` 下的 160 张 PNG 当前无任何代码引用，属已知冗余。
+> `public/images/` 下的 160 张 PNG 接入状态分两半：`weapons/`（100 张）已由音擎
+> `n-cascader` 的选中卡片按 `/images/weapons/{id}.png` 引用；`agents/`（60 张）
+> 仍无任何代码引用，属已知冗余。
 
 ### 样式
 
@@ -56,6 +58,9 @@
   唯一的例外是 `CoreModule.vue` 未选择核心时的红色提示（内联样式）。
 - 新增样式按区块加进 `components.css`，不要另起文件。
 - 无字号令牌、无暗色模式。
+- naive-ui 组件的配色经 `App.vue` 的 `n-config-provider` 注入，
+  `composables/useNaiveTheme.ts` **从 `tokens.css` 的 CSS 变量读值**再转成
+  `themeOverrides`，不另抄一份 hex —— 改令牌两边同时生效。
 
 ### 路由与直达链接
 

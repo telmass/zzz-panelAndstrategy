@@ -24,8 +24,8 @@
 
 | 层 | 技术 |
 | --- | --- |
-| 前端 | Vue 3.5 + TypeScript 5.7 + Vite 6 + Pinia 2 + Vue Router 4 |
-| 样式 | 原生 CSS + CSS 变量设计令牌（无 UI 框架、无 Tailwind） |
+| 前端 | Vue 3.5 + TypeScript 5.7 + Vite 6 + Pinia 2 + Vue Router 4 + naive-ui 2 |
+| 样式 | 原生 CSS + CSS 变量设计令牌；音擎选择器用 naive-ui 的 `n-cascader`，主题经 `n-config-provider` 接入既有令牌（无 Tailwind） |
 | 后端 | Python 3.13+ + FastAPI + Pydantic v2 |
 | 测试 | Vitest + @vue/test-utils + jsdom（前端）；pytest（后端） |
 | 包管理 | uv（Python）、npm（前端） |
@@ -77,7 +77,7 @@ uv run zzz-panel           # 固定跑一组示例输入，打印 12 行结果
 
 ```powershell
 uv run pytest                           # 后端 87 项
-cd frontend; npm run test               # 前端 64 项
+cd frontend; npm run test               # 前端 73 项
 ```
 
 > **pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行。

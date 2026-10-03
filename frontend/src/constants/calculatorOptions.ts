@@ -119,6 +119,18 @@ export const FENGYU_BLAST_DMG = 150;
 /** 代理人标签全集，用于校验预设数据的 roleTag。 */
 export const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'] as const;
 
+/**
+ * 音擎职业标签全集，用于音擎下拉的分组顺序。
+ *
+ * 与 `AGENT_ROLE_TAGS` 当前取值一致，但语义独立（一个是代理人阵营，
+ * 一个是音擎适配定位），故不复用——改名或合并会波及代理人数据校验。
+ *
+ * 分组顺序必须固定为此表，不能用首次出现顺序：按等级过滤后首次出现
+ * 顺序会随等级变化（S 级 强攻→异常→支援→…、A 级 击破→防护→异常→…），
+ * 会导致切换等级时分组跳序。
+ */
+export const WEAPON_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'] as const;
+
 /** 面板模式的中文名，用于代理人预设下拉的标签拼接。 */
 export const PANEL_MODE_LABELS: Record<string, string> = {
   standard: '通用',

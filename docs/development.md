@@ -18,7 +18,7 @@
 ```powershell
 uv sync                # 安装 Python 依赖（含 dev 组：pytest、httpx）
 cd frontend
-npm install
+npm install            # 含 naive-ui
 cd ..
 ```
 
@@ -61,7 +61,7 @@ uv run zzz-panel            # 等价于 uv run python -m zzz_panel
 
 ```powershell
 uv run pytest                          # 后端 87 项
-cd frontend; npm run test              # 前端 64 项
+cd frontend; npm run test              # 前端 73 项
 ```
 
 前端另外两个脚本：
@@ -162,6 +162,20 @@ python tools/sync_presets.py --options       # 重新生成 data/options.json
 ## 8. 常见坑
 
 这些都是实际踩过的，改动相关区域前值得先看。
+
+### naive-ui 组件的测试与主题
+
+音擎选择器用 `n-cascader`。改动相关代码前先知道三件事：
+
+- 主题走 `App.vue` 的 `n-config-provider`，颜色由 `composables/useNaiveTheme.ts`
+  **从 `tokens.css` 读 CSS 变量**转成 `themeOverrides`。新增 naive 组件时在
+  `themeOverrides` 里补映射，**不要写死 hex**。
+- **组件测试都绕过 `App.vue`**，因此测试里看不到主题映射，走的是 naive 默认色。
+  这是已知的覆盖缺口，不是 bug；要给主题加断言得单独 mount 一层 provider。
+- naive 的浮层依赖 `matchMedia` / `ResizeObserver` / `IntersectionObserver`，
+  jsdom 一个都没有，全局桩在 `frontend/tests/support/setup.ts`。
+  浮层 Teleport 到 `body`（`wrapper.find()` 查不到），选项在 `n-virtual-list` 里、
+  jsdom 无布局时一项都不渲染——详见 [testing.md](testing.md) 第 5 节。
 
 ### Windows 上 `uv run` 是两层进程
 

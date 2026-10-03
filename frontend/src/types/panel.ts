@@ -31,6 +31,7 @@ export interface BaseStats {
 /** 音擎选择与只读回填字段。对应 legacy 的 `#weapon_*`。 */
 export interface WeaponSelection {
   grade: string;
+  /** 由 `selectWeaponPreset` 从所选音擎反向同步，UI 不再单列该下拉。 */
   roleTag: string;
   preset: string;
   /** 「基础攻击力」或「基础防御力」，随音擎 baseKind 变化。 */

@@ -2,12 +2,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
 import { enableAutoUnmount, mount, type VueWrapper } from '@vue/test-utils';
 import { nextTick } from 'vue';
+import { NCascader } from 'naive-ui';
 
 import CalculatorView from '@/views/CalculatorView.vue';
 import { useAgentPreset } from '@/composables/useAgentPreset';
 import { displayEnergyAttributeLabel, usePanelMode } from '@/composables/usePanelMode';
 import { useSubStatLimit } from '@/composables/useSubStatLimit';
 import { usePanelStore } from '@/stores/panelStore';
+import { usePresetStore } from '@/stores/presetStore';
 import { loadPresets, mockApi, mockPanelApiFailure, requests } from './support/api';
 import { flushCalc } from './support/flush';
 
@@ -50,70 +52,189 @@ function select(wrapper: VueWrapper, id: string): HTMLSelectElement {
   return wrapper.get(`#${id}`).element as HTMLSelectElement;
 }
 
-describe('音擎三级联动', () => {
-  it('未选等级时类别与名称均禁用', () => {
+/** 数值/文本输入框。 */
+function input(wrapper: VueWrapper, id: string): HTMLInputElement {
+  return wrapper.get(`#${id}`).element as HTMLInputElement;
+}
+
+/** 音擎职业标签全集，分组顺序即此顺序。 */
+const WEAPON_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'];
+
+/** 取预设库里的全部音擎，供不依赖界面直接验证 store 的用例使用。 */
+function allWeapons() {
+  return usePresetStore().weapons;
+}
+
+describe('音 cascader 分组与回填', () => {
+  it('未选音擎时不出卡片，只读回填区为初始态', () => {
     const wrapper = mountView();
-    expect(select(wrapper, 'weapon_role').disabled).toBe(true);
-    expect(select(wrapper, 'weapon_preset').disabled).toBe(true);
+    expect(wrapper.find('.weapon-card').exists()).toBe(false);
+    expect(usePanelStore().selectedWeapon).toBeNull();
+    expect(input(wrapper, 'weapon_base_value').value).toBe('0');
+    expect(input(wrapper, 'weapon_sub_type').value).toBe('—');
   });
 
-  it('选等级后解锁类别、仍锁定名称，并清空只读回填区', async () => {
-    const wrapper = mountView();
-    const grade = select(wrapper, 'weapon_grade');
-    grade.value = 'S';
-    grade.dispatchEvent(new Event('change'));
+  it('按 7 个职业标签分组，组序固定为 WEAPON_ROLE_TAGS', () => {
+    const groups = usePanelStore().weaponPresetGroups;
+    expect(groups.map((group) => group.label)).toEqual(WEAPON_ROLE_TAGS);
+    // 一级项的 value 即职业标签，二级项才是具体音擎
+    expect(groups.every((group) => group.value === group.label)).toBe(true);
+  });
 
+  it('等级不再是筛选轴：全部音擎都在分组内，且每个职业标签都非空', () => {
+    const panel = usePanelStore();
+    const weapons = allWeapons();
+    const grouped = panel.weaponPresetGroups.flatMap((group) => group.children ?? []);
+
+    expect(grouped).toHaveLength(weapons.length);
+    // 每条音擎恰好出现一次，不重不漏
+    expect(new Set(grouped.map((option) => option.value)).size).toBe(weapons.length);
+    for (const roleTag of WEAPON_ROLE_TAGS) {
+      expect(weapons.some((weapon) => weapon.roleTag === roleTag)).toBe(true);
+    }
+  });
+
+  it('选项文案为「名称 / 职业 / 等级」，且不含推荐标记（数据源尚未落地）', () => {
+    const weapons = allWeapons();
+    const grouped = usePanelStore().weaponPresetGroups.flatMap((group) => group.children ?? []);
+    const offense = weapons.find((weapon) => weapon.roleTag === '强攻');
+    const offenseLabel = grouped.find((option) => option.value === offense?.id)?.label;
+
+    expect(offenseLabel).toBe(`${offense?.name} / 强攻 / ${offense?.grade}级`);
+    expect(offenseLabel).not.toContain('角色推荐');
+    // 段数固定为 3：多一段说明推荐接缝意外产出了值
+    expect(offenseLabel?.split(' / ')).toHaveLength(3);
+  });
+
+  it('展开浮层 Teleport 到 body，一级项与 store 分组同源', async () => {
+    const wrapper = mountView();
+
+    expect(document.body.querySelector('.n-cascader-menu')).toBeNull();
+    await wrapper.get('.weapon-picker-input .n-base-selection').trigger('click');
     await nextTick();
-    expect(select(wrapper, 'weapon_role').disabled).toBe(false);
-    expect(select(wrapper, 'weapon_preset').disabled).toBe(true);
-    expect(select(wrapper, 'weapon_role').options.length).toBeGreaterThan(1);
+
+    // 浮层 Teleport 到 body，不在 wrapper 树内。选项本身在 n-virtual-list 内，
+    // jsdom 无布局时容器高度为 0、一项都不会渲染，所以「7 个一级项」在上面的
+    // store 用例里断言；此处只验证浮层确实被打开。
+    expect(document.body.querySelector('.n-cascader-menu')).not.toBeNull();
+    expect(wrapper.findComponent(NCascader).props('options')).toHaveLength(WEAPON_ROLE_TAGS.length);
   });
 
-  it('锁定顺序：等级 → 类别 → 名称，逐级解锁', async () => {
+  it('render-prefix：一级取 roletag 图标、二级取音擎头像，未知 roletag 不渲染', () => {
+    const wrapper = mountView();
+    const renderPrefix = wrapper.findComponent(NCascader).props('renderPrefix') as
+      (props: { option: unknown }) => { props: Record<string, unknown> } | null;
+
+    // 一级项带 children，value 即职业标签
+    const group = usePanelStore().weaponPresetGroups[0];
+    const groupIcon = renderPrefix({ option: group });
+    expect(groupIcon?.props.src).toBe('/images/icons/strike.png');
+
+    // 二级项是叶子，value 即音擎 id
+    const weapon = allWeapons()[0];
+    const leafIcon = renderPrefix({ option: group.children?.[0] });
+    expect(leafIcon?.props.src).toBe(`/images/weapons/${weapon.id}.png`);
+    // 图标是纯装饰，不参与 filterable 的匹配，故 alt 必须为空
+    expect(groupIcon?.props.alt).toBe('');
+
+    // 职业标签不在映射表里时返回 null——宁可没有图标，也不要破图方块
+    expect(renderPrefix({ option: { label: 'x', value: '未知职业', children: [{}] } })).toBeNull();
+    expect(renderPrefix({ option: { label: 'x', value: '' } })).toBeNull();
+  });
+
+  it('render-label：浏览时二级项只显示名称，但选项 label 与选中后展示仍是完整文案', () => {
+    const wrapper = mountView();
+    const cascader = wrapper.findComponent(NCascader);
+    const renderLabel = cascader.props('renderLabel') as (option: unknown) => string | undefined;
+    const panel = usePanelStore();
+    const weapon = allWeapons()[0];
+
+    const group = panel.weaponPresetGroups[0];
+    const leaf = group.children?.find((option) => option.value === weapon.id);
+    expect(leaf).toBeDefined();
+
+    // 浏览过程中：一级仍是职业标签，二级只有武器名称，不含 roletag 与评级
+    expect(renderLabel(group)).toBe('强攻');
+    expect(renderLabel(leaf)).toBe(weapon.name);
+    expect(renderLabel(leaf)).not.toContain(weapon.roleTag);
+    expect(renderLabel(leaf)).not.toContain(`${weapon.grade}级`);
+
+    // 完整文案必须留在 label 上：naive-ui 渲染折叠框时直接读 rawNode.label，
+    // 不经过 renderLabel，所以选中后仍显示「名称 / 职业 / 等级」
+    expect(leaf?.label).toBe(`${weapon.name} / ${weapon.roleTag} / ${weapon.grade}级`);
+
+    // 未知 id 退回原 label，不渲染空白项
+    expect(renderLabel({ label: '未知项', value: 'ep-does-not-exist' })).toBe('未知项');
+  });
+
+  it('cascader 上报叶子值后回填基础值、固定副词条、职业标签与等级', async () => {
     const wrapper = mountView();
     const panel = usePanelStore();
+    const weapon = allWeapons()[0];
 
-    panel.selectWeaponGrade('S');
+    // 走组件自己的 onSelect，而不是绕过它直接调 store
+    wrapper.findComponent(NCascader).vm.$emit('update:value', weapon.id);
     await nextTick();
-    expect(select(wrapper, 'weapon_role').disabled).toBe(false);
 
-    panel.selectWeaponRole('强攻');
-    await nextTick();
-    expect(select(wrapper, 'weapon_preset').disabled).toBe(false);
-  });
-
-  it('切换等级会清空下游选择与回填区', () => {
-    const panel = usePanelStore();
-    panel.selectWeaponGrade('S');
-    panel.selectWeaponRole('强攻');
-    panel.selectWeaponPreset(panel.filteredWeaponPresets[0].id, (text) => text);
-    expect(panel.weapon.preset).not.toBe('');
-
-    panel.selectWeaponGrade('A');
-    expect(panel.weapon.roleTag).toBe('');
-    expect(panel.weapon.preset).toBe('');
-    expect(panel.weapon.baseValue).toBe(0);
-    expect(panel.weapon.subType).toBe('—');
-    expect(panel.weapon.baseLabel).toBe('基础攻击力');
-  });
-
-  it('选中音擎后回填基础值与固定副词条', () => {
-    const panel = usePanelStore();
-    panel.selectWeaponGrade('S');
-    panel.selectWeaponRole('强攻');
-    const weapon = panel.filteredWeaponPresets[0];
-    panel.selectWeaponPreset(weapon.id, (text) => text);
-
+    expect(panel.weapon.roleTag).toBe(weapon.roleTag);
+    expect(panel.weapon.grade).toBe(weapon.grade);
     expect(panel.weapon.baseValue).toBe(weapon.baseKind === 'def' ? weapon.baseDefense : weapon.baseAttack);
     expect(panel.weapon.subType).toBe(weapon.substat.label);
     expect(panel.weapon.subValue).toBe(weapon.substat.value);
   });
 
+  it('cascader 上报 null 走 clearable 路径，清除选择', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    panel.selectWeaponPreset(allWeapons()[0].id, (text) => text);
+    await nextTick();
+
+    wrapper.findComponent(NCascader).vm.$emit('update:value', null);
+    await nextTick();
+
+    expect(panel.weapon.preset).toBe('');
+    expect(wrapper.find('.weapon-card').exists()).toBe(false);
+  });
+
+  it('选中后展示头像卡片：名称、职业/等级与按 id 拼出的图片路径', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    const weapon = allWeapons()[0];
+
+    expect(wrapper.find('.weapon-card').exists()).toBe(false);
+    panel.selectWeaponPreset(weapon.id, (text) => text);
+    await nextTick();
+
+    const card = wrapper.get('.weapon-card');
+    expect(card.get('.weapon-card-name').text()).toBe(weapon.name);
+    expect(card.get('.weapon-card-meta').text()).toBe(`${weapon.roleTag} / ${weapon.grade}级`);
+    // public/ 原样拷贝到 dist 根，故按 URL 取而非 import
+    expect(card.get('.weapon-card-avatar').attributes('src')).toBe(`/images/weapons/${weapon.id}.png`);
+  });
+
+  it('清除选择后 preset、职业标签、等级与回填区一并复位', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    panel.selectWeaponPreset(allWeapons()[0].id, (text) => text);
+    await nextTick();
+    expect(wrapper.find('.weapon-card').exists()).toBe(true);
+
+    // cascader 的 clearable 走的就是「值为 null」这条回调
+    panel.selectWeaponPreset('', (text) => text);
+    await nextTick();
+
+    expect(panel.weapon.preset).toBe('');
+    expect(panel.weapon.roleTag).toBe('');
+    expect(panel.weapon.grade).toBe('');
+    expect(panel.weapon.baseValue).toBe(0);
+    expect(panel.weapon.subType).toBe('—');
+    expect(panel.weapon.baseLabel).toBe('基础攻击力');
+    expect(wrapper.find('.weapon-card').exists()).toBe(false);
+  });
+
   it('锋御音擎（baseKind=def）回填基础防御力', () => {
     const panel = usePanelStore();
-    panel.selectWeaponGrade('S');
-    panel.selectWeaponRole('强攻');
-    const defWeapon = panel.filteredWeaponPresets.find((w) => w.baseKind === 'def');
+    const defWeapon = allWeapons().find((w) => w.baseKind === 'def');
     if (!defWeapon) {
       return;
     }
@@ -302,7 +423,7 @@ describe('代理人标签联动与预设载入', () => {
     const panel = usePanelStore();
     useSubStatLimit().setCount('hp_flat', 5);
     panel.setEffects.set0 = 'atk_pct_10';
-    panel.selectWeaponGrade('S');
+    panel.selectWeaponPreset(allWeapons()[0].id, (text) => text);
 
     panel.selectAgentRole('强攻');
     useAgentPreset().applyAgentPreset(panel.filteredAgentPresets[0].id);
@@ -372,9 +493,7 @@ describe('后端对接', () => {
   it('选定音擎后请求带上基础值与固定副词条', async () => {
     const panel = usePanelStore();
     mountView();
-    panel.selectWeaponGrade('S');
-    panel.selectWeaponRole('强攻');
-    const preset = panel.filteredWeaponPresets[0];
+    const preset = allWeapons()[0];
     panel.selectWeaponPreset(preset.id, (text) => text);
 
     await flushCalc();
