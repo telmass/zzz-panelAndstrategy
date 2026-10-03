@@ -2,6 +2,7 @@ import { computed } from 'vue';
 
 import { SUB_STATS, SUB_STAT_LIMIT_PER_KEY, SUB_STAT_TOTAL_LIMIT } from '@/constants/calculatorOptions';
 import { normalizeCount } from '@/utils/clamp';
+import { fmt } from '@/utils/fmt';
 import { usePanelStore } from '@/stores/panelStore';
 import type { RuleOption } from '@/constants/calculatorOptions';
 
@@ -41,11 +42,13 @@ export function useSubStatLimit() {
     const total = totalCount.value;
     return SUB_STATS.map((def) => {
       const count = panel.subStats[def.id] ?? 0;
-      const value = count * def.value;
+      // 单条值里的 4.8 / 2.4 在二进制浮点下不精确，4.8*3 === 14.399999999999999，
+      // 直接 String() 会把误差原样显示。走 fmt 与 legacy calculator.js:524 一致。
+      const value = fmt(count * def.value);
       return {
         def,
         count,
-        total: count === 0 ? '0' : def.kind === 'pct' ? `${value}%` : String(value),
+        total: count === 0 ? '0' : def.kind === 'pct' ? `${value}%` : value,
         canDecrease: count > 0,
         canIncrease: count < SUB_STAT_LIMIT_PER_KEY && total < SUB_STAT_TOTAL_LIMIT,
       };

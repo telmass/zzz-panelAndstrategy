@@ -182,11 +182,13 @@
 
 .sub-count {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
 }
 
 .sub-count input {
+  flex: 0 1 52px;
   width: 52px;
   min-height: var(--touch-target);
   padding: 6px 4px;
@@ -243,11 +245,17 @@
   cursor: not-allowed;
 }
 
+/* 累加值允许换行独占一行并右对齐：4 列栅格下单行需要
+   44 + 52 + 44 + 44 + 8×3 = 208px，而列宽只有 172.5px，
+   强行同排会溢出格仔、被下一列先绘制的按钮盖住。
+   nowrap 保证较长的数值（如 4,032）不从中间断行。 */
 .sub-count .total {
+  flex: 0 0 auto;
+  margin-left: auto;
   font-size: 12px;
   color: var(--color-text-faint);
-  min-width: var(--touch-target);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* ====== 结果区 ====== */

@@ -187,6 +187,24 @@ describe('副词条钳制', () => {
     const entry = entries.value.find((item) => item.def.id === 'hp_pct');
     expect(entry?.total).toBe('12%');
   });
+
+  // 4.8 在二进制浮点下存成 4.799999999999999822…，×3 后落在相邻两个 double 的
+  // 正中点，round-half-to-even 舍到 14.399999999999999。不做舍入就会原样显示。
+  it('小数单条值的累加不出现浮点误差', () => {
+    const { setCount } = useSubStatLimit();
+    setCount('def_pct', 3);
+    const { entries } = useSubStatLimit();
+    const entry = entries.value.find((item) => item.def.id === 'def_pct');
+    expect(entry?.total).toBe('14.4%');
+  });
+
+  it('固定值累加显示千分位', () => {
+    const { setCount } = useSubStatLimit();
+    setCount('hp_flat', 36);
+    const { entries } = useSubStatLimit();
+    const entry = entries.value.find((item) => item.def.id === 'hp_flat');
+    expect(entry?.total).toBe('4,032');
+  });
 });
 
 describe('面板模式与锋御文案', () => {
