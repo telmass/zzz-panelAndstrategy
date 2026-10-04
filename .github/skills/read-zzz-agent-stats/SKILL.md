@@ -113,6 +113,7 @@ Run from the repository root; the default `--config` and `--out` paths are repo-
 ```
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 python tools/sync_presets.py --to-legacy
+python tools/bundle_worker_data.py
 ```
 
 `data/agent-presets.json` is the single source of truth for the whole repository. The
@@ -120,6 +121,16 @@ parity fixture's `frontend/tests/fixtures/legacy-calculator/data/agent-presets.j
 generated from it by `sync_presets.py --to-legacy`; never write that file from this
 script. After a refresh, run that command so the fixture stays in sync, and
 `python tools/sync_presets.py --to-legacy --check` must exit 0.
+
+The third command, `python tools/bundle_worker_data.py`, is the Cloudflare deploy gate
+and must be re-run after **any** change to `agent-presets.json` or
+`weapon-presets.json`. `pywrangler` uploads only `.py` files, so a refreshed preset
+that is not recompiled never reaches production: `pywrangler` silently drops the
+`.json`, `loader.py` falls back to the generated `zzz_panel._bundled_data` module, and
+the live `/api/presets/*` keeps serving the previous data. With no generated module at
+all (a clean clone deployed directly) the route returns 503 instead. The module is a
+build artifact and is gitignored, so nothing catches the omission — use
+`python tools/bundle_worker_data.py --check` as the drift gate (non-zero exit = stale).
 
 `--config` defaults to
 `frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js`, which the
@@ -140,5 +151,5 @@ This example records the browser-read values confirmed by the user; it also serv
 
 - Initial base panel: HP 617, ATK 135, DEF 49, Impact 83, CR 5%, CD 50%, Anomaly Mastery 94, Anomaly Proficiency 93, PEN Ratio 0%, Energy Regen 1.2.
 - Level-60 displayed values: HP 7673, ATK 863, DEF 606.
-- Merged level-60 base panel without core: HP 7673, ATK 863, DEF 606, Impact 83, CR 5%, CD 50%, Anomaly Proficiency 94, Anomaly Mastery 93, PEN Ratio 0%, Energy Regen 1.2.
+- Merged level-60 base panel without core: HP 7673, ATK 863, DEF 606, Impact 83, CR 5%, CD 50%, Anomaly Mastery 94, Anomaly Proficiency 93, PEN Ratio 0%, Energy Regen 1.2. (`Anomaly Mastery` is 异常掌控 → `ac`; `Anomaly Proficiency` is 异常精通 → `am`.)
 - Core ranks A/C/E each give CR +4.8%; ranks B/D/F each give base ATK +25. Full-core totals: CR +14.4% and base ATK +75.

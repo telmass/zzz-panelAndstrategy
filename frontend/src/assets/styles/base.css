@@ -67,16 +67,9 @@ h1 {
   gap: 10px 14px;
 }
 
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-2) 10px;
-}
-
 /* 副词条步进器单独用 2 列：一行要放下 − / 输入框 / + / 累加值，
-   最窄需 44 + 52 + 44 + 8×3 + 44 = 208px，而 `.grid-4` 的列宽只有 172.5px
-   （(720 − 10×3) ÷ 4），累加值必然溢出格仔被下一列的按钮盖住。
-   2 列时列宽 353px，累加值能留在同一行。窄屏再退到 1 列。 */
+最窄需 44 + 52 + 44 + 8×3 + 44 = 208px。2 列时列宽 353px，累加值能留在同一行。
+窄屏再退到 1 列。 */
 .sub-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -113,7 +106,6 @@ h1 {
 }
 
 @media (width <= 560px) {
-  .grid-4,
   .weapon-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

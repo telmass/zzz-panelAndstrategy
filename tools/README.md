@@ -6,7 +6,15 @@
 | --- | --- |
 | `dev.ps1` | 一键启停本地开发服务（uvicorn :8000 + vite :5173） |
 | `sync_presets.py` | 预设 `data/*.json` ↔ 对拍夹具 `data/*.js`；规则表 `core/*.py` → `data/options.json` |
+| `bundle_worker_data.py` | 预设 `data/*.json` → `backend/src/zzz_panel/_bundled_data.py`，供 Cloudflare Worker 使用 |
 | `dump_backend_responses.py` | 把 `legacy_cases.json` 的每条用例 POST 给后端并落盘，用于排查对拍差异 |
+
+前端另有两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中：
+
+| 文件 | 用途 |
+| --- | --- |
+| `frontend/tools/dump_legacy_cases.mjs` | 在 jsdom 里跑夹具，导出 `backend/tests/legacy_cases.json` 的期望值 |
+| `frontend/tools/diff_breakdown.mjs` | 把落盘的后端响应与夹具实算明细逐行 diff，按 DOM 层级归类 |
 
 ## 一键启停
 
@@ -84,6 +92,39 @@ python tools/sync_presets.py --options --check      # 规则表是否已重新�
 - 剥注释必须字符串优先，否则 URL 里的 `//` 会被当行注释，把 `source` 整条截断。
 - 抓取脚本对**对象键**也输出尾随逗号，对「值全为标量的扁平对象数组」
   （`unmodeledBaseStats`）则整元素单行渲染。这两条规则不还原就无法字节一致。
+
+## Worker 编译产物（部署硬闸）
+
+```powershell
+python tools/bundle_worker_data.py                            # 生成/刷新
+python tools/bundle_worker_data.py --check                    # 只比对，有漂移则退出码 1
+python tools/bundle_worker_data.py --data-dir <目录> --dest <目标.py>   # 覆盖输入与输出路径
+```
+
+`pywrangler` 部署时**只上传 `.py` 文件**，入口目录下的 `.json` / `.html` 会被
+**静默**丢弃——部署不报错，线上却读不到。预设数据因此必须以 Python 模块的形式
+跟着上线：`data/agent-presets.json` 与 `weapon-presets.json` 的原文按
+「每行一个相邻字符串字面量」编译成
+`backend/src/zzz_panel/_bundled_data.py` 的 `AGENTS_JSON` / `WEAPONS_JSON`。
+放在 `backend/src/` 之下才会被附加，pywrangler 只附加 Worker 入口
+`backend/src/worker.py` 所在目录的整棵树。
+
+几条关键性质：
+
+- **生成物，不提交**（`.gitignore` 已列），唯一真实源永远是仓库根的 `data/`。
+- 与源文件**逐字节**一致，因此 `--check` 能可靠判定漂移；不依赖虚拟文件系统的
+  任何行为，也不需要 `importlib.resources`。
+- 只收这两个预设 JSON。`options.json` **不收**——它由前端在**构建期**经 Vite
+  别名 `@data` 读真实源，根本不经过后端。
+- 内容已是最新时报「已是最新」且**不写盘**，重复执行无 diff；源文件缺失时报错
+  并返回 1。
+- `--data-dir` / `--dest` 只供测试写到临时目录，日常不用。
+
+`backend/tests/test_worker_bundle.py` 的 15 项覆盖逐字节还原、幂等、check 模式，
+以及 `loader.py` 的编译产物回退分支（含校验同样生效、报错文案、两侧模块名对得上）。
+
+> ⚠️ **刷新 `data/*.json` 后必须重跑**，否则线上 `/api/presets/*` 会继续供旧数据；
+> 干净 clone 上从未生成过则没有编译产物，路由捕获 `PresetLoadError` 返回 **503**。
 
 ## 第 3 步新增的诊断脚本
 

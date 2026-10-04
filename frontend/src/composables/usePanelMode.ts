@@ -68,16 +68,7 @@ export function usePanelMode() {
     return displayEnergyAttributeLabel(label, mode.value);
   }
 
-  /**
-   * 切换面板模式。对应 legacy 的 `updatePanelMode`。
-   * 仅写入 store，组件经上面的 computed 自动更新显隐。
-   */
-  function setPanelMode(next: PanelMode): void {
-    panel.panelMode = next;
-  }
-
   return {
-    mode,
     showRuptureResult,
     showFengyuResult,
     showPenetrationInput,
@@ -87,6 +78,5 @@ export function usePanelMode() {
     energyInputLabel,
     energyResultLabel,
     localize,
-    setPanelMode,
   };
 }

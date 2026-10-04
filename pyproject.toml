@@ -12,16 +12,6 @@ dependencies = [
     "pydantic>=2.9",
 ]
 
-[project.optional-dependencies]
-# 数据分析与画图用的依赖，计算链路零引用（见 .kilo/plans/ 里当初的记录）。
-# 留作可选组：既不拖累常规安装，也不会让 Worker 部署解析到 matplotlib/seaborn
-# ——这两包 Pyodide 根本没有。
-analysis = [
-    "matplotlib>=3.10.6",
-    "pandas>=3.0.0",
-    "seaborn>=0.13.2",
-]
-
 [dependency-groups]
 dev = [
     "httpx>=0.27",

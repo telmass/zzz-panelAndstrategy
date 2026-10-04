@@ -16,16 +16,12 @@ withDefaults(
     modelValue?: string;
     /** 首个空选项的文案。 */
     placeholder?: string;
-    disabled?: boolean;
-    hidden?: boolean;
   }>(),
   {
     labelUnit: '',
     options: () => [],
     modelValue: '',
     placeholder: '请选择',
-    disabled: false,
-    hidden: false,
   },
 );
 
@@ -37,9 +33,9 @@ function onChange(event: Event): void {
 </script>
 
 <template>
-  <div class="field" :hidden="hidden">
+  <div class="field">
     <label :for="name">{{ label }}<span v-if="labelUnit" class="unit"> {{ labelUnit }}</span></label>
-    <select :id="name" :value="modelValue" :disabled="disabled" @change="onChange">
+    <select :id="name" :value="modelValue" @change="onChange">
       <option value="">{{ placeholder }}</option>
       <option v-for="option in options" :key="option.value" :value="option.value">
         {{ option.label }}

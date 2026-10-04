@@ -139,6 +139,7 @@ Run from the repository root; the default `--out` path is repo-root relative.
 ```
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
 python tools/sync_presets.py --to-legacy
+python tools/bundle_worker_data.py
 ```
 
 It scans, filters weapon pages, extracts the values, and rewrites `data/weapon-presets.json`.
@@ -151,6 +152,17 @@ parity fixture's `frontend/tests/fixtures/legacy-calculator/data/weapon-presets.
 generated from it by `sync_presets.py --to-legacy`; never write that file from this
 script. After a refresh, run that command so the fixture stays in sync, and
 `python tools/sync_presets.py --to-legacy --check` must exit 0.
+
+The third command, `python tools/bundle_worker_data.py`, is the Cloudflare deploy gate
+and must be re-run after **any** change to `weapon-presets.json` or
+`agent-presets.json` (both files are compiled into the same module).
+`pywrangler` uploads only `.py` files, so a refreshed preset that is not recompiled
+never reaches production: the `.json` is silently dropped, `loader.py` falls back to
+the generated `zzz_panel._bundled_data` module, and the live `/api/presets/*` keeps
+serving the previous data. With no generated module at all (a clean clone deployed
+directly) the route returns 503 instead. The module is a build artifact and is
+gitignored, so nothing catches the omission — use
+`python tools/bundle_worker_data.py --check` as the drift gate (non-zero exit = stale).
 
 Parsing rules the script encodes, each of which broke an earlier hand-written regex:
 

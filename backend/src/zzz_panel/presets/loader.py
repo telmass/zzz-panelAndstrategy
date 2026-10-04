@@ -123,7 +123,8 @@ _EMBEDDED: dict[str, Any] = {}
 def _read_text(path: Path) -> str:
     if not path.exists():
         raise PresetLoadError(
-            f"缺少预设数据文件 {path}。运行 `python tools/sync_presets.py --from-legacy` 生成。"
+            f"缺少预设数据文件 {path}。运行 `.github/skills/read-zzz-agent-stats` 或 "
+            f"`read-zzz-engine-stats` 的抓取脚本重新生成。"
         )
     return path.read_text(encoding="utf-8")
 

@@ -1,26 +1,32 @@
 # 部署指南
 
 本项目是**单机个人工具**：无账号、无数据库、无外部服务依赖。
-部署的实质就是「把 `frontend/dist/` 交给静态服务器，把 FastAPI 挂起来，
-让两者能互相找到」。
+
+**线上站点是 <https://zzzstrategy.cc.cd>，形态 D（Cloudflare Workers），公开访问。**
+下面四种形态里，A/B 是自建服务器的替代方案，C 是不部署，D 是当前生产形态。
 
 ## 1. 部署形态选型
 
 后端**不托管**前端静态文件（`backend/src/zzz_panel/api/app.py` 里没有任何
-`StaticFiles` / `mount`），因此有三种可选形态：
+`StaticFiles` / `mount`），因此有四种可选形态：
 
-| 形态 | 适用| 代价 |
+| 形态 | 适用 | 代价 |
 | --- | --- | --- |
-| **A. 同域反代**（推荐） | 任何长期使用 | 需要一个反向代理（Nginx / Caddy） |
+| A. 同域反代 | 已有服务器、不想引入 Cloudflare | 需要一个反向代理（Nginx / Caddy） |
 | B. 双域分离 | 前端部署在 CDN | 前端构建产物需写绝对 API 地址，且要放开后端 CORS |
-| C. 仅本地 | 自用 | 后端加 CORS 白名单，前端跑 `vite preview` |
-| **D. Cloudflare Workers** | 想要一个公网直开的网址，又不维护服务器 | Python 只能装纯包与 PyEmscripten wheel；免费额度有请求上限 |
+| C. 仅本地 | 自用，不上线 | 无 |
+| **D. Cloudflare Workers（线上在用）** | 想要一个公网直开的网址，又不维护服务器 | Python 只能装纯包与 PyEmscripten wheel；免费额度有请求上限 |
+
+### 形态 C：仅本地
+
+不部署，只在本机跑：`pwsh tools/dev.ps1`（Vite 5173 + uvicorn 8000）。
+`/api` 由 Vite 代理同源转发，因此连 CORS 都不涉及——见第 3 节末尾的说明。
 
 ### 为什么默认走同域
 
 开发期前端用相对路径 `/api`，由 Vite 代理到后端，因此**开发期完全不涉及 CORS**。
 生产期沿用这个思路：让页面与 API 同域，相对路径继续有效，浏览器同源策略直接放行，
-CORS 配置就变成兜底而非必需。
+CORS 配置就变成兜底而非必需。形态 D 用 `run_worker_first` 天然满足这一点。
 
 ## 2. 构建
 
@@ -53,8 +59,9 @@ dist/
 uv build               # hatchling，产出 dist/*.whl
 ```
 
-`[tool.hatch.build.targets.wheel]` 已指向 `backend/src/zzz_panel`，
-包内不含 `data/`——预设数据在运行时从仓库根读取，见第 6 节。
+`[tool.hatch.build.targets.wheel]` 已指向 `backend/src/zzz_panel`。
+wheel 里**不含 `data/` 目录**——本地与自建部署在运行时从仓库根读取（见第 6 节）；
+形态 D 则改读编译进包的 `zzz_panel/_bundled_data.py`（见 5.3）。
 
 ## 3. 形态 A：同域反向代理（推荐）
 
@@ -148,12 +155,15 @@ allow_origins=[
 后端 CORS 也不用放开。它就是第 3 节那套 Nginx 配置的反代，只是把反代换成了
 Wrangler 的 assets 路由。
 
+线上地址：**<https://zzzstrategy.cc.cd>**（另有一个 `workers.dev` 备用地址）。
+
 | 项 | 值 |
 | --- | --- |
 | 入口 | `backend/src/worker.py` |
 | 配置 | `wrangler.jsonc` |
 | 运行时 | Python Workers（CPython 编译到 WebAssembly 的 Pyodide） |
 | 费用 | 免费额度可用。不需要 Docker，也不需要服务器 |
+| 站点可用性 | 与任何一台自有服务器无关。部署完即可关机关机 |
 
 ### 5.1 路由分工
 
@@ -168,7 +178,7 @@ Wrangler 的 assets 路由。
 
 ### 5.2 部署步骤
 
-前置条件（两条都是实测踩到的）：
+前置条件（三条都是实测踩到的）：
 
 - **`uv` >= 0.12.3**。`pywrangler sync` 会自己检查并直接报错退出。版本过低时
   报 `ERROR uv version at least 0.12.3 required`，升级：`uv self update`
@@ -176,10 +186,18 @@ Wrangler 的 assets 路由。
   解析这个文件，中文 Windows（GBK）下任何非 ASCII 字节都会让部署在解析阶段
   就失败（`'gbk' codec can't decode byte ...`）。所以该文件的注释是英文的，
   说明文字一律放本文档。
+- **本机要有可用的 HTTP 代理**（中国大陆部署机基本都必需）。wrangler 是 Node
+  程序，不读 Windows 系统代理，直连 `api.cloudflare.com` 会超时。写法见 5.8，
+  建议直接写进部署脚本，别每次手敲。
 
 ```powershell
 # 0. 一次性：装 Wrangler，并在浏览器里授权 Cloudflare 账号
 npx wrangler login
+
+# 0.5 每次都带上：wrangler 是 Node 程序，不读 Windows 系统代理
+$env:NODE_USE_ENV_PROXY = "1"
+$env:HTTPS_PROXY = "http://127.0.0.1:7892"   # 换成你自己的端口
+$env:HTTP_PROXY  = "http://127.0.0.1:7892"
 
 cd frontend
 npm ci
@@ -193,9 +211,20 @@ uv run python tools/bundle_worker_data.py
 uv run --group worker pywrangler deploy
 ```
 
-成功后拿到 `https://zzz-panel-and-strategy.<你的子域>.workers.dev`。
-想用自己的域名，在 Cloudflare 控制台给该 Worker 加一条 Custom Domain 即可
-（域名需托管在 Cloudflare DNS）。
+部署成功后，Worker 上会有两个可达地址：
+
+| 地址 | 说明 |
+| --- | --- |
+| `https://zzzstrategy.cc.cd` | **正式地址**。自定义域名，NS 已委派到 Cloudflare（`tara` / `brett`），A 记录为 Cloudflare 任播 IP 且开启代理 |
+| `https://zzz-panel-and-strategy.<你的子域>.workers.dev` | Cloudflare 自动分配，作为备用入口 |
+
+绑定自定义域名的位置：Cloudflare 控制台 → `Workers & Pages` →
+`zzz-panel-and-strategy` → `Settings` → `Domains & Routes` → `Add` →
+`Custom domain`。域名必须已托管在 Cloudflare DNS。
+
+> **国内网络直连这两个地址都会被重置**（按 SNI 阻断，TCP 443 能连通但握手阶段
+> 被 RST）。这是本地网络环境问题，**不是站点故障**——境外网络与 Cloudflare 边缘
+> 正常。用代理访问即可。
 
 `pywrangler sync` 会生成 `pylock.toml`（PEP 751，Worker 环境的锁文件）。
 **这个文件要提交**：它固定了 Pyodide 里每个依赖的版本，不提交的话同一份代码在
@@ -224,7 +253,7 @@ uv run python tools/bundle_worker_data.py
 `options.json` **不**编译进去：它由前端在构建期经 Vite 别名 `@data` 读真实源，
 根本不经过后端。
 
-### 怎么确认生成物真的进了包
+### 5.4 怎么确认生成物真的进了包
 
 用干跑把产物 dump 出来看，别只看命令输出：
 
@@ -238,7 +267,7 @@ Get-ChildItem .wrangler-dry\zzz_panel -Recurse -File | Measure-Object
 **忘了这一步的症状**：页面能开、`/api/panel/calc` 返回 200，但两个级联选择器
 只有职业分组、没有具体条目，`/api/presets/*` 返回 503。
 
-### 5.4 本地预览
+### 5.5 本地预览
 
 ```powershell
 uv run python tools/bundle_worker_data.py
@@ -249,26 +278,26 @@ uv run --group worker pywrangler dev
 `pywrangler dev` 跑的是 workerd + Pyodide，本地就能看到 Worker 的真实行为，
 比先部署再试错快。首次运行要下载 Pyodide 解释器，较慢。
 
-### 5.5 已知约束
+### 5.6 已知约束
 
 | 约束 | 说明 |
 | --- | --- |
-| 只能装纯 Python 与带 PyEmscripten wheel 的包 | 因此 `[project.dependencies]` 里不能有 `uvicorn[standard]`、`matplotlib` 这类带 C/Rust 扩展的包，否则 `pywrangler sync` 直接失败。这也是把它们移到 dev 组与可选组的原因 |
+| 只能装纯 Python 与带 PyEmscripten wheel 的包 | 因此 `[project.dependencies]` 里不能有 `uvicorn[standard]` 这类带 C/Rust 扩展的包，否则 `pywrangler sync` 直接失败。这也是把 uvicorn 移进 dev 组、把 Worker 工具链单列为 `worker` 组的原因 |
 | **只上传 `.py`** | 包里的 `.json` / `.html` 会被静默丢弃，见 5.3 |
-| **不读系统代理** | wrangler 是 Node 程序，不走 WinINET 系统代理。直连 Cloudflare 超时时要显式给环境变量（见 5.7） |
+| **不读系统代理** | wrangler 是 Node 程序，不走 WinINET 系统代理。直连 Cloudflare 超时时要显式给环境变量（见 5.8） |
 | 请求额度 | 免费版有每日请求上限。计算是纯函数、毫秒级，CPU 时间不是瓶颈 |
 | 冷启动 | Pyodide 快照在**部署时**生成，运行时不必重跑依赖初始化。实测启动约 2.3 s |
 | 内存文件系统 | 不能写盘。本项目只读不写，无需持久化 |
-| 无鉴权 | 同第 9 节：公网暴露意味着任何人都能调接口 |
+| 无鉴权 | 刻意如此，依据与残留风险见 [5.9](#59-访问控制当前是公开的) |
 
-### 5.6 出问题先查这两处
+### 5.7 出问题先查这两处
 
 - **503 + 选择器空** → 生成物缺失或过期，见 5.3；先看 503 的 `detail`
 - **`/api` 404、但页面正常** → `run_worker_first` 与实际请求路径不匹配；
   前端打的是 `/api/*`（见 `frontend/src/api/panel.ts`）
-- **`The request to Cloudflare's API timed out`** → 见 5.7
+- **`The request to Cloudflare's API timed out`** → 见 5.8
 
-### 5.7 需要代理时
+### 5.8 需要代理时
 
 Node 不读 Windows 的系统代理设置。若直连 Cloudflare API 超时而浏览器正常，
 把代理显式交给 Node：
@@ -283,6 +312,55 @@ uv run --group worker pywrangler deploy
 wrangler 启动时若看到 `Proxy environment variables detected` 即表示已生效。
 可用 `npx wrangler whoami` 先验证，它会打印当前账号与 Token 权限。
 
+### 5.9 访问控制：当前是公开的
+
+**本项目刻意公开。** 任何人都能打开 <https://zzzstrategy.cc.cd> 直接用，无需登录、
+无需凭据。没有配置 Cloudflare Access，也没有在 Worker 里写鉴权。
+
+自测是否被 Access 挡着（被挡住时长这样）：
+
+```powershell
+$url = "https://zzzstrategy.cc.cd/"
+try { Invoke-WebRequest -Uri $url -MaximumRedirection 0 -ErrorAction Stop | Out-Null; "公开" }
+catch { "被 Access 挡住 -> " + $_.Exception.Response.Headers["Location"] }
+```
+
+响应头里出现 `cf-access-*` 或 `Set-Cookie: CF_Authorization` 也说明 Access 生效了。
+
+#### 公开的依据
+
+| 接口 | 为什么可以公开 |
+| --- | --- |
+| `POST /api/panel/calc` | 纯函数计算，不写任何状态、不落盘、不读用户数据 |
+| `GET /api/presets/*` | 只读公开的游戏数据（代理人、音擎、选项表） |
+| `GET /api/health` | 只回一个固定字符串 |
+
+全站没有账号、没有个人信息、没有可写的数据面。
+
+#### 两点残留风险
+
+| 风险 | 说明与对策 |
+| --- | --- |
+| 免费额度被消耗 | Workers 免费版有每日请求上限，别人刷流量会吃掉你的额度。计算是毫秒级的纯函数，CPU 不是瓶颈，瓶颈是请求数。真被刷了再上 WAF 限速（`Cloudflare → 你的域 → Security → WAF → Rate limiting rules`），不必提前加 |
+| 503 的 `detail` 会回显路径 | 预设加载失败时，响应里带文件路径。现在只是包内生成物的模块名，不会泄露你的本机目录；但**不要把用户目录写进任何错误信息**（见 [api-reference.md](api-reference.md)） |
+
+#### 如果哪天想改成私有
+
+用 **Cloudflare Access**，零代码：
+
+1. 控制台完成一次 Zero Trust 初始化（生成 `<团队名>.cloudflareaccess.com`）
+2. `Workers & Pages` → `zzz-panel-and-strategy` → `Settings` → `Domains & Routes`
+3. `workers.dev` 那一行点 **Enable Cloudflare Access**
+4. **Manage Cloudflare Access** → 动作 `Allow`，规则选 **Emails** 并填具体邮箱
+
+为什么不用「Worker 内自己加 Basic Auth」：我们的 `run_worker_first` 只放行
+`/api/*` 等少数路径，其余静态资源由资源层直接返回、**根本不进 Worker**，
+脚本里的鉴权拦不住 `/` 和 `/assets/*`。改 `run_worker_first: true` 能解决，
+但每个 `.png`、每个 `.js` 都要过一次 Worker（略增延迟，且静态资源请求开始计入
+请求数与 CPU）。Access 挡在 Worker 外面，官方说明它同时保护 Worker 与静态资源。
+
+两个坑：别选 **Email domain** 规则（那会允许整个邮箱域名的人通过）；
+别漏 Preview URLs（否则每个版本预览地址都还是公开的）。
 ## 6. 预设数据的部署位置
 
 后端启动时按以下顺序定位 `data/`：
@@ -314,18 +392,26 @@ uv run uvicorn zzz_panel.api.app:app --port 8000
 
 ## 7. 部署自检清单
 
+> 下列命令是 **PowerShell**。不要照抄 `curl -X POST ... -d '{}'`：PowerShell 5.1 里
+> `curl` 是 `Invoke-WebRequest` 的别名，不认这些参数。
+
+自建部署（形态 A/B/C，地址按实际改）：
+
 ```powershell
 # 1. 探活
-curl http://127.0.0.1:8000/api/health          # 期望 {"status":"ok"}
+Invoke-RestMethod http://127.0.0.1:8000/api/health          # 期望 {"status":"ok"}
 
 # 2. 预设可读
-curl http://127.0.0.1:8000/api/presets/agents   # 期望 items 长度 60
-curl http://127.0.0.1:8000/api/presets/weapons  # 期望 items 长度 100
+(Invoke-RestMethod http://127.0.0.1:8000/api/presets/agents).items.Length   # 期望 60
+(Invoke-RestMethod http://127.0.0.1:8000/api/presets/weapons).items.Length  # 期望 100
 
-# 3. 计算可用（空body 即合法请求，应返回 12 个totals 键）
-curl -X POST http://127.0.0.1:8000/api/panel/calc `
-  -H "Content-Type: application/json" -d '{}'
+# 3. 计算可用（空body 即合法请求，应返回 12 个 totals 键）
+(Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/panel/calc `
+  -ContentType 'application/json' -Body '{}').totals.PSObject.Properties.Name.Count
 ```
+
+线上 Worker（形态 D）把上面的 `127.0.0.1:8000` 换成 `https://zzzstrategy.cc.cd` 即可，
+**并且要带代理**（见 5.8）。
 
 浏览器侧逐项确认：
 
@@ -336,6 +422,7 @@ curl -X POST http://127.0.0.1:8000/api/panel/calc `
 - [ ] 换选一名**通用**代理人 → 上述两行消失、回到 12 行（模式由预设的 `panelMode` 决定，界面没有独立的模式切换器）
 - [ ] 浏览器控制台无报错
 - [ ] Network 面板无 404 / 5xx
+- [ ] 响应头无 `cf-access-*`、无 `Set-Cookie`（确认仍是公开状态，见 5.9）
 
 ## 8. 更新部署
 
@@ -357,8 +444,11 @@ python tools/sync_presets.py --to-legacy
 但**编译产物必须一起重新生成**，否则线上读的是旧预设：
 
 ```powershell
-python tools/bundle_worker_data.py
+python tools/bundle_worker_data.py            # 或先跑 --check 确认有没有漂移
 cd frontend; npm run build; cd ..
+$env:NODE_USE_ENV_PROXY = "1"
+$env:HTTPS_PROXY = "http://127.0.0.1:7892"
+$env:HTTP_PROXY  = "http://127.0.0.1:7892"
 uv run --group worker pywrangler deploy
 ```
 
@@ -372,18 +462,21 @@ uv run --group worker pywrangler deploy
 | 水平扩缩容 | 计算是纯函数、无状态、耗时在毫秒级 |
 | 分布式缓存 / 消息队列 | 唯一的缓存是进程内按 mtime 判定的一层 |
 | 数据库与迁移 | 无持久化，唯一的「状态」是 `data/` 下的三个 JSON |
-| 认证授权 | 见下|
-| 监控告警 / 日志聚合 | `/api/health` 足够；生产用 `--log-level info` |
+| 认证授权 | 全站刻意公开、无鉴权，见 [5.9](#59-访问控制当前是公开的) |
+| 监控告警 / 日志聚合 | `/api/health` 足够；Wrangler 自带 `observability`（见 `wrangler.jsonc`） |
 | CI/CD 流水线 | 仓库内没有 CI 配置。需要时按 [development.md](development.md) 第 10 节的检查项组装 |
 
 ### 关于认证
 
-**当前无任何鉴权。** `/api/panel/calc` 是纯计算、不写任何状态，
-`/api/presets/*` 只读公开的游戏数据，因此公网暴露风险有限。
+**形态 D 刻意公开**，依据、残留风险、以及「想改成私有该怎么做」全部集中在
+[5.9](#59-访问控制当前是公开的)，本文不重复。
 
-但若要放到公网，仍建议加一层反向代理 Basic Auth 或 IP 白名单：
-无鉴权意味着任何人都能调用接口，也意味着**任何人都能读你的预设数据文件路径**
-（503 的 `detail` 会回显文件路径与原因，见 [api-reference.md](api-reference.md)）。
+形态 A/B/C 本身也无鉴权：`/api/panel/calc` 是纯计算、不写任何状态，
+`/api/presets/*` 只读公开的游戏数据。若放到公网，A/B 形态在反代上加 Basic Auth
+或 IP 白名单即可；D 形态用 Cloudflare Access。
+
+无论哪种形态，都请先看 [api-reference.md](api-reference.md) 里 503 响应会回显
+文件路径这一点——无鉴权意味着任何人都能读到你的目录结构。
 
 ## 10. 相关文档
 

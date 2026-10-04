@@ -1,7 +1,11 @@
 """FastAPI 应用入口。
 
-CORS 默认放开本地开发端口：前端 Vite dev server 在 5173，
-生产环境由同源部署收敛，因此这里只做开发期放行。
+CORS 只放开本地前端 Vite dev server 的 5173（``http://localhost:5173`` 与
+``http://127.0.0.1:5173``）。生产环境由 Cloudflare Worker 同源提供前端与
+``/api/*``，浏览器不会跨源，因此无需放开任何公网来源。
+
+同一个 ``app`` 有两个宿主：本地 ``uvicorn``，以及 Cloudflare Workers 上的
+``backend/src/worker.py``（``Default = asgi.entrypoint(app)``）。
 """
 
 from __future__ import annotations

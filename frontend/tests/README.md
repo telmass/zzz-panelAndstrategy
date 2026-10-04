@@ -1,6 +1,6 @@
 # frontend/tests — 前端测试
 
-Vitest + jsdom，共 **81 项**。
+Vitest + jsdom，共 **86 项**。
 
 ```powershell
 npm run test          # 一次性
@@ -17,18 +17,24 @@ npm run test:watch    # 监听
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `calculator-view.spec.ts` | 31 | 计算器骨架、启动页、子页返回导航、指南页 |
-| `panel-interactions.spec.ts` | 46 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
+| `panel-interactions.spec.ts` | 51 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `legacy-parity.spec.ts` | 4 | **三方对拍**：旧 JS ≡ Vue3 页面 ≡ Python 后端 |
 
 ## support/ — 夹具层
 
 | 文件 | 作用 |
 | --- | --- |
-| `setup.ts` | 全局 stub `RouterLink`，并补 jsdom 缺失的浏览器 API：`matchMedia`、`ResizeObserver`、`IntersectionObserver`、`getBoundingClientRect`（naive-ui 的浮层与虚拟列表要用） |
+| `setup.ts` | 全局 stub `RouterLink`，并补 jsdom 缺失的浏览器 API：`matchMedia`、`ResizeObserver`、`IntersectionObserver`。**刻意不打 `getBoundingClientRect` 的桩**——见下 |
 | `router.ts` | `RouterLinkStub`，把 `to` 渲染成 `href` |
 | `api.ts` | 假后端。**读真实的 `data/*.json`**，因此下拉框项数断言能发现数据漂移 |
 | `backend.ts` | 拉起真实 uvicorn（端口 0 自动分配），仅供三方对拍使用 |
 | `flush.ts` | 等待 260 ms（越过 200 ms 防抖）+ 微任务 + 两个宏任务 |
+
+> ⚠️ `getBoundingClientRect` 刻意**不**打桩。jsdom 已实现它且恒返回全 0，而
+> naive-ui 的 `n-cascader` 默认 `virtualScroll`，会拿这个 0 高度决定渲染多少
+> 选项——浮层确实打开，但选项一项都不渲染。因此测试**不得断言浮层内的选项
+> DOM**：「7 个一级项」在 store 层断言，DOM 层只验证浮层已打开。理由与实测
+> 数据见 `setup.ts` 末尾的注释。
 
 ## fixtures/ — 只读参照实现
 

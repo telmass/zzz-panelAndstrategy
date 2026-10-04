@@ -16,7 +16,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Mapping, Optional, Sequence
+from typing import Dict, List, Mapping
 
 from .breakdown import Line, build_breakdown
 from .modes import calculate_mode_stats
@@ -32,10 +32,6 @@ _PCT_WEAPON_SUB_TYPES = frozenset({
 _FLAT_WEAPON_SUB_TYPES = frozenset({
     "hp_flat", "atk_flat", "def_flat", "anomaly_mastery", "pen_val",
 })
-
-
-def _sum_values(values: Iterable[float]) -> float:
-    return sum(float(v) for v in values)
 
 
 def _resolve_weapon_bonus(inputs: PanelInputs) -> Dict[str, float]:

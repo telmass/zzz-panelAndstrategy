@@ -258,10 +258,6 @@
   font-size: 13px;
 }
 
-.fixed-stat b {
-  color: var(--color-text-strong);
-}
-
 .fixed-stat .v {
   color: var(--color-success);
   font-weight: 700;

@@ -15,7 +15,7 @@
 | 文档 | 内容 |
 | --- | --- |
 | [development.md](development.md) | 环境搭建、运行命令、测试、数据管线、**8 个已知坑** |
-| [testing.md](testing.md) | 测试策略、三方对拍机制、为什么必须 0 skip |
+| [testing.md](testing.md) | 测试策略、三方对拍机制、为什么护栏失效必须是红灯 |
 | [api-reference.md](api-reference.md) | HTTP 接口、请求/响应结构、状态码 |
 | [data-schema.md](data-schema.md) | 预设 JSON 与规则表的字段定义、校验规则 |
 | [calculation-rules.md](calculation-rules.md) | 计算公式、副词条数值、模式差异、明细呈现 |
@@ -37,7 +37,7 @@
 
 ### 我要改计算公式
 
-[calculation-rules.md](calculation-rules.md) → [architecture.md](architecture.md) 第 3.4 节
+[calculation-rules.md](calculation-rules.md) → [architecture.md](architecture.md) 第 3 节「预设数据与规则表：故意不对称」
 → [development.md](development.md) 第 7 节 → [testing.md](testing.md) 第 2 节
 
 ⚠️ 改完必须跑 `npm run test`，其中 `legacy-parity.spec.ts` 的 4 个对拍场景会验证你没有改变既有数值。
@@ -63,7 +63,9 @@
 
 ### 我要把这个项目部署出去
 
-[deployment.md](deployment.md)。先读第 1 节选形态，再照第 7 节自检。
+线上站点是 <https://zzzstrategy.cc.cd>，形态是 Cloudflare Worker。
+
+[deployment.md](deployment.md)。先读第 1 节选形态（生产选 D），再照第 7 节自检。
 
 ## 文档维护约定
 
@@ -86,4 +88,6 @@
 | [../frontend/src/README.md](../frontend/src/README.md) | 前端源码约定 |
 | [../frontend/tests/README.md](../frontend/tests/README.md) | 前端测试结构 |
 | [../backend/tests/README.md](../backend/tests/README.md) | 后端测试清单 |
-| `.github/skills/*/SKILL.md` | 代理人与音擎数据抓取流程 |
+| `.github/skills/do_calculatorModel/SKILL.md` | 新增一名代理人预设的完整流程 |
+| `.github/skills/read-zzz-agent-stats/SKILL.md` | 代理人预设的抓取与刷新 |
+| `.github/skills/read-zzz-engine-stats/SKILL.md` | 音擎预设的抓取与刷新 |

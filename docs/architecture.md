@@ -5,7 +5,7 @@
 ```
 浏览器
   │
-  │  ① 静态产物（任意静态服务器）
+  │  ① 静态产物。线上由 Cloudflare Workers 的 Assets 层直接返回
   ▼
 frontend/dist/index.html
   │
@@ -34,13 +34,20 @@ backend/src/zzz_panel/cli.py             命令行入口（uv run zzz-panel-and-
 
 三个入口（网页、API、命令行）共用 `core/`，因此不存在「网页算的和命令行算的不一样」。
 
-### 部署形态的补充说明
+### 两个宿主，一个 app
 
-② 与 ③ 在生产环境通常由**同一个反向代理**接入（同域），这样前端用相对路径
-`/api` 即可，开发期与生产期的 URL 策略一致。
+`backend/src/zzz_panel/api/app.py` 的 `app` 有两个宿主，**代码完全相同**：
+
+|宿主 | 入口 | 用于 |
+| --- | --- | --- |
+| 本地 / 自建服务器 | `uvicorn zzz_panel.api.app:app` | 开发、形态 A/B/C |
+| Cloudflare Workers | `backend/src/worker.py` 的 `Default = asgi.entrypoint(app)` | **线上生产** |
+
+`wrangler.jsonc` 的 `run_worker_first: ["/api/*", "/docs", "/openapi.json"]`
+决定哪些路径进 Worker，其余由 Assets 层直接返回（不进脚本、不计 CPU）。
 
 **后端不托管前端静态文件**——`api/app.py` 中没有 `StaticFiles`，也没有 `mount()`。
-前端由 Vite dev server 或任意静态服务器提供。详见 [deployment.md](deployment.md)。
+详见 [deployment.md](deployment.md)。
 
 ### 迁移前的原生实现
 
@@ -61,13 +68,13 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 | 6 | 前端**不做任何算术**，只传「选了什么」 | 计算下沉后前端就只是渲染层，避免两套实现漂移 |
 | 7 | 参照夹具 `tests/fixtures/` 只读 | 它是对拍基准，改了对拍就变成自己跟自己比 |
 
-### 违反铁律的实例（都已修正，留作警示）
+### 曾经的违反实例（留作警示）
 
-|曾经的错误 | 现状 |
+| 曾经的错误 | 现状 |
 | --- | --- |
 | 第 2 步前端组件内自行计算面板 | 已下沉到 `core/`；`usePanelCalc.buildRequest` 只组装选择项 |
 | 预设数据在前端持有副本 | 已改为 `GET /api/presets/*`；前端不再 import `data/*.json` |
-| `SetEffectModule.vue` 直接用原生 `<select>` | 仍存在，但属样式层不一致，不违反第 5 条铁律 |
+| `SetEffectModule.vue` 直接用原生 `<select>`，未走 `SelectField` | **仍存在**。属样式层不一致，不违反上表任何一条铁律，故未修 |
 
 ## 3. 数据流
 
@@ -76,7 +83,8 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 | 数据 | 存放| 消费者 | 理由 |
 | --- | --- | --- | --- |
 | 代理人预设（60 条）<br>音擎预设（100 条） | `data/*.json` → `GET /api/presets/*` | 后端 `presets/loader.py`、前端经 HTTP | 数据量大、更新频率高（跟随游戏版本），走接口便于统一缓存与失效 |
-| 配装规则表（7 张表） | `data/options.json` → `@data` 别名直接 import | 前端 `constants/calculatorOptions.ts` | 下拉框要瞬时可用，不能等一次 HTTP 往返，也不能因接口不可用就瘫掉 |
+| 同上，**Worker 上的形态** | `data/*.json` → 编译进 `zzz_panel/_bundled_data.py` | Worker 里的 `presets/loader.py` | Worker 没有仓库目录，`data/` 上不去（pywrangler 只传 `.py`）。磁盘上有 `data/` 时优先读磁盘，编译产物只作兜底 |
+| 配装规则表（7 张表） | `data/options.json` → `@data` 别名直接 import | 前端 `constants/calculatorOptions.ts` | 下拉框要瞬时可用，不能等一次 HTTP 往返，也不能因接口不可用就瘫掉。**不编译进后端包** |
 | 对拍夹具的 JS 包装 | `tests/fixtures/legacy-calculator/data/*.js` | 仅三方对拍 | 参照实现在顶层直接读 `window.AGENT_PRESETS`，删了它对拍就跑不起来 |
 
 `data/` 下三个 JSON **全部是生成物**，改源头必须重新生成，且有测试守卫漂移：
@@ -86,6 +94,7 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 | `agent-presets.json`<br>`weapon-presets.json` | `.github/skills/*/scripts/refresh_*_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | `test_presets.py` 断言数据规范化 |
 | 夹具 `data/*.js` | `data/*.json` | `sync_presets.py --to-legacy` | `sync_presets.py --to-legacy --check` |
 | `options.json` | `core/options.py` + `core/constants.py` | `sync_presets.py --options` | `backend/tests/test_options_json.py` |
+| `_bundled_data.py`（gitignored） | `data/agent-presets.json`<br>`data/weapon-presets.json` | `tools/bundle_worker_data.py` | `bundle_worker_data.py --check`<br>`backend/tests/test_worker_bundle.py` |
 
 ### 面板计算的往返
 
@@ -126,6 +135,8 @@ ResultPanel 展示
 | 响应字段 camelCase、`totals` 键用短名、`breakdown` 键用长名 | 全部统一一种风格 | 有意的不统一，且有测试锁住。前端 `types/panel.ts` 与之逐字对齐 |
 | 保留旧实现作只读夹具 | 直接删除 | 三方对拍是唯一的端到端正确性保证；删掉后 `test_fmt_parity.py` 还会静默 skip 成假绿灯 |
 | 副词条上限 36/54 只在前端钳制 | 后端也限制 | 后端无上限契约，`core` 只做 `max(0, floor(x))`；详见 [requirements.md](requirements.md) 已知限制 |
+| 生产部署用 Cloudflare Worker | 自建服务器 + Nginx 反代 | 一个 URL 同时提供页面与 API，不维护服务器、不做端口映射。代价是只能装纯 Python 包、只能上传 `.py`（预设因此要编译进包），见 [deployment.md](deployment.md) |
+| 站点公开、无鉴权 | Cloudflare Access / Worker 内 Basic Auth | 全站无账号、无个人信息、无可写数据面。**这是刻意决定**，依据与残留风险见 [deployment.md](deployment.md) 5.9 |
 
 ## 5. 开发命令
 

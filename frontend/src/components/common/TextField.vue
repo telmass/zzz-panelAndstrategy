@@ -1,32 +1,24 @@
 <script setup lang="ts">
-/** 文本输入字段，用于承载 `—` 等非数值占位符（音擎的固定副词条属性）。 */
+/**
+ * 只读文本字段，用于承载 `—` 等非数值占位符（音擎的固定副词条属性）。
+ *
+ * 唯一使用处（音擎模块的「固定副词条属性」）恒为 `readonly` 且不监听变更，
+ * 因此本组件**不抛事件**，也不接受输入。
+ */
 withDefaults(
   defineProps<{
     name: string;
     label: string;
     modelValue?: string;
     readonly?: boolean;
-    hidden?: boolean;
   }>(),
-  { modelValue: '', readonly: false, hidden: false },
+  { modelValue: '', readonly: false },
 );
-
-const emit = defineEmits<{ 'update:modelValue': [value: string] }>();
-
-function onInput(event: Event): void {
-  emit('update:modelValue', (event.target as HTMLInputElement).value);
-}
 </script>
 
 <template>
-  <div class="field" :hidden="hidden">
+  <div class="field">
     <label :for="name">{{ label }}</label>
-    <input
-      :id="name"
-      type="text"
-      :value="modelValue"
-      :readonly="readonly"
-      @input="onInput"
-    />
+    <input :id="name" type="text" :value="modelValue" :readonly="readonly" />
   </div>
 </template>

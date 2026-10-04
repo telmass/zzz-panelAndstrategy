@@ -94,7 +94,19 @@ Use the browser or an equivalent DOM test to verify in the requested calculator 
 
 Two testing traps apply to this picker: jsdom renders no cascader options at all (they live in an `n-virtual-list` with zero measured height), so assert through `findComponent(NCascader).props('renderPrefix')` / `props('renderLabel')` or against the `panelStore` getters, never against `.n-cascader-option` DOM. And the page now has **two** cascaders (agent and W-Engine), so locate them by `.agent-picker-input` / `.weapon-picker-input` — a bare `findComponent(NCascader)` returns whichever rendered first.
 
-Run the preset-schema tests (`uv run pytest backend/tests/test_presets.py`) and the frontend suite (`npm run test` in `frontend/`) after changing preset data, plus `git diff --check`. `npm run test` includes a three-way parity test that compares the Vue3 page, the Python backend, and the read-only legacy fixture; it must stay green, which means the preset must be added through the normal JSON pipeline rather than by editing anything else. Note that the parity spec drives the Vue side through `selectAgentRole` + `applyAgentPreset` rather than the UI, so option-label changes never reach it. Report the files changed, the Wiki source, the verified base/core values, and validation results.
+Run the preset-schema tests (`uv run pytest backend/tests/test_presets.py`) and the frontend suite (`npm run test` in `frontend/`) after changing preset data, plus `git diff --check`. `npm run test` includes a three-way parity test that compares the Vue3 page, the Python backend, and the read-only legacy fixture; it must stay green, which means the preset must be added through the normal JSON pipeline rather than by editing anything else. Note that the parity spec drives the Vue side through `selectAgentRole` + `applyAgentPreset` rather than the UI, so option-label changes never reach it.
+
+Because editing `data/agent-presets.json` changes a deployed input, also refresh the downstream generated artifacts before shipping:
+
+```
+python tools/sync_presets.py --to-legacy        # 对拍夹具的 JS 包装
+python tools/bundle_worker_data.py              # Worker 编译产物，Cloudflare 部署硬闸
+python tools/bundle_worker_data.py --check      # 漂移闸，退出码非 0 = 产物已过期
+```
+
+`bundle_worker_data.py` recompiles `data/agent-presets.json` and `data/weapon-presets.json` into `backend/src/zzz_panel/_bundled_data.py`. `pywrangler` uploads only `.py` files, so without it a newly added agent is silently absent in production: the live `/api/presets/*` still serves the previous data (or returns 503 when no generated module exists at all). The module is a build artifact and is gitignored, so nothing else catches the omission.
+
+Report the files changed, the Wiki source, the verified base/core values, and validation results.
 
 ## Example invocation
 

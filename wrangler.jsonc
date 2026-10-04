@@ -9,7 +9,6 @@
 // aborts the deploy with a codec error. Keep this file ASCII; put prose in
 // docs/deployment.md instead.
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "zzz-panel-and-strategy",
   "main": "backend/src/worker.py",
 

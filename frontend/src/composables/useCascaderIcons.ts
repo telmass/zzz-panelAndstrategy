@@ -10,7 +10,7 @@ import { AGENT_ROLE_TAGS, WEAPON_ROLE_TAGS } from '@/constants/calculatorOptions
  * 但语义独立（一个是代理人阵营，一个是音擎适配定位），任一张将来扩容时
  * 下面的 `ROLE_ICON` 若漏配新键，`vue-tsc` 会直接报错，而不是运行时静默缺图。
  */
-export type RoleTag = (typeof AGENT_ROLE_TAGS)[number] | (typeof WEAPON_ROLE_TAGS)[number];
+type RoleTag = (typeof AGENT_ROLE_TAGS)[number] | (typeof WEAPON_ROLE_TAGS)[number];
 
 /**
  * 职业标签 → roletag 图标文件名（不含扩展名）。

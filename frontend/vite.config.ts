@@ -6,7 +6,7 @@ import vue from '@vitejs/plugin-vue';
 
 // 前端工程配置。
 // docs/architecture.md 的分层约束：
-// - 组件内禁止直接 fetch，一律经 src/api/（第 3 步已创建 src/api/panel.ts）
+// - 组件内禁止直接 fetch，一律经 src/api/
 // - tests/fixtures/legacy-calculator/ 是只读的参照实现，不参与 npm run build
 export default defineConfig({
   plugins: [vue()],
@@ -37,13 +37,14 @@ export default defineConfig({
 
   build: {
     outDir: 'dist',
-    // 生产部署时由 FastAPI 挂载本目录的静态产物，单进程同时提供 API 与页面。
+    // 产物由 Cloudflare Workers 的 Assets 上传并直接分发（wrangler.jsonc 的
+    // assets.directory），FastAPI 不挂载本目录，因此这里只管产出干净的 dist/。
     emptyOutDir: true,
   },
 
   test: {
     environment: 'jsdom',
-    include: ['tests/**/*.spec.ts', 'src/**/*.spec.ts'],
+    include: ['tests/**/*.spec.ts'],
     setupFiles: ['./tests/support/setup.ts'],
   },
 });

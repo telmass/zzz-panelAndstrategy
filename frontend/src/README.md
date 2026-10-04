@@ -1,6 +1,9 @@
 # frontend/src — Vue3 源码
 
-计算器前端的全部源码。当前**没有 `data/` 目录**，预设数据经 HTTP 获取。
+计算器前端的全部源码。**没有任何预设或规则表副本**：`data/options.json`
+在**构建期**经 Vite 别名 `@data` → 仓库根 `data/` 直接 import，代理人与音擎预设
+则由后端经 HTTP 提供。迁移前的 `src/data/agentPresets.ts` 与
+`weaponPresets.ts` 静态兜底已删除。
 
 完整目录职责见 [docs/directory-layout.md](../../docs/directory-layout.md) 第 2 节。
 
@@ -18,8 +21,8 @@
 | `composables/` | `usePanelCalc`、`useAgentPreset`、`usePanelMode`、`useSubStatLimit`、`useCascaderIcons`（两个 cascader 共用的选项图标与文案）、`useNaiveTheme` |
 | `api/` | **唯一**网络出口：`panel.ts`、`presets.ts`、`errors.ts` |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
-| `constants/` | 仅 `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]` |
-| `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts` |
+| `constants/` | 仅 `calculatorOptions.ts`：`@data/options.json`（构建期从仓库根 `data/` 读）→ 7 张 `RuleOption[]` |
+| `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（仅导出 `normalizeCount`，`clamp` 为模块私有） |
 | `assets/styles/` | 4 个文件，顺序由 `index.css` 固定：tokens → base → components |
 
 ## 约定

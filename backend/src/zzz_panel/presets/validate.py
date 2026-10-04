@@ -25,9 +25,6 @@ AGENT_ROLE_TAGS = frozenset({"强攻", "击破", "异常", "支援", "防护", "
 #: 基础面板的键序，同时用于「缺失的键必须在 unavailableBaseStats 中」这条检查。
 BASE_KEYS = ("hp", "atk", "def", "impact", "cr", "cd", "ac", "am", "pr", "er")
 
-#: 命破专属的基础面板键。
-EXTRA_BASE_KEYS = ("penforce", "energyAccumulation")
-
 #: 核心槽位数量。一名代理人的核心加成展开后必须恰好填满。
 CORE_SLOTS = 2
 

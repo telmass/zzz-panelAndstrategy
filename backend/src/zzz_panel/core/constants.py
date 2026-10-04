@@ -1,14 +1,14 @@
 """硬编码常量。
 
-驱动盘 1/2/3 号固定主词条与锋御固有属性「锐暴伤害」。
-数值来自 ``frontend/tests/fixtures/legacy-calculator/scripts/calculator.js``，均为固定值，不随配装变化。
+驱动盘 1/2/3 号固定主词条。数值来自
+``frontend/tests/fixtures/legacy-calculator/scripts/calculator.js``，均为固定值，不随配装变化。
+
+锋御固有属性「锐暴伤害」是面板模式专属公式的一部分，定义在 ``modes.py``。
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-
-from .options import RuleOption
 
 
 @dataclass(frozen=True)
@@ -28,22 +28,7 @@ DISC_FIXED_STATS: tuple[DiscFixedStat, ...] = (
     DiscFixedStat(slot=3, label="固定防御", value=184.0, target="def_flat"),
 )
 
-#: 锋御固有属性「锐暴伤害」，恒定 150%，不参与任何词条/音擎/套装加成。
-FENGYU_BLAST_DMG = 150.0
-
-
-def disc_fixed_stat(slot: int) -> DiscFixedStat:
-    """按槽位取固定主词条。``slot`` 为 1/2/3。"""
-    for stat in DISC_FIXED_STATS:
-        if stat.slot == slot:
-            return stat
-    raise ValueError(f"Unsupported disc slot: {slot}")
-
-
 __all__ = [
     "DISC_FIXED_STATS",
-    "FENGYU_BLAST_DMG",
     "DiscFixedStat",
-    "RuleOption",
-    "disc_fixed_stat",
 ]

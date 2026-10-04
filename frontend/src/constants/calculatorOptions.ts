@@ -53,7 +53,7 @@ export interface RuleOption {
 }
 
 /** 驱动盘 1/2/3 号固定主词条。 */
-export interface DiscFixedStat {
+interface DiscFixedStat {
   slot: number;
   label: string;
   value: number;
@@ -113,9 +113,6 @@ export const SUB_STAT_TOTAL_LIMIT = 54;
  * 预设数据重新生成并将其移入建模字段后，可从本集合移除。
  */
 export const MODELED_BASE_STAT_LABELS: ReadonlySet<string> = new Set(['锐暴伤害']);
-
-/** 锋御固有属性「锐暴伤害」，恒定 150%，不参与任何加成与修正计算。 */
-export const FENGYU_BLAST_DMG = 150;
 
 /**
  * 代理人标签全集，用于校验预设数据的 roleTag。
@@ -178,7 +175,7 @@ export const PANEL_MODE_LABELS: Record<string, string> = {
  *
  * 改回 `false` 即完全恢复，无需动任何调用点。
  */
-export const HIDE_STANDARD_MODE_LABEL = true;
+const HIDE_STANDARD_MODE_LABEL = true;
 
 /**
  * 面板模式的展示标签；`HIDE_STANDARD_MODE_LABEL` 为真且传入 `standard` 时返回空串。
@@ -188,7 +185,7 @@ export const HIDE_STANDARD_MODE_LABEL = true;
  * 校验路径（`useAgentPreset` 判断 `panelMode` 是否合法）应继续用
  * `PANEL_MODE_LABELS` ——它判的是**键是否存在**，与显示无关。
  */
-export function panelModeTagLabel(mode: string): string {
+function panelModeTagLabel(mode: string): string {
   if (HIDE_STANDARD_MODE_LABEL && mode === 'standard') {
     return '';
   }

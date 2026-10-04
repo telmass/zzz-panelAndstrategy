@@ -24,8 +24,3 @@ def fmt(value: float) -> str:
     if abs(fixed - nearest) < _EPSILON:
         return f"{nearest:,d}"
     return f"{round(fixed, 2):.2f}".rstrip("0").rstrip(".") or "0"
-
-
-def fmt_pct(value: float) -> str:
-    """百分比数值，追加 ``%``。"""
-    return f"{fmt(value)}%"

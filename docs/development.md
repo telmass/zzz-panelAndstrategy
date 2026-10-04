@@ -11,15 +11,22 @@
 | Node.js | 建议 20+ | `node --version` | 前端构建与测试 |
 | npm | 随Node | `npm --version` | 前端依赖管理 |
 
-后端用uv，前端用 npm。版本锁定在 `.python-version` 与 `frontend/package.json`。
+后端用 uv，前端用 npm。**Python 版本是硬锁定的**（`.python-version` = 3.13）；
+Node 只在本仓库文档里约定为 20+，没有 `engines` 字段或 `.nvmrc` 之类的机器可读约束。
 
 ## 2. 首次安装
 
 ```powershell
-uv sync                # 安装 Python 依赖（含 dev 组：pytest、httpx）
+uv sync                # 安装 Python 依赖（含 dev 组：pytest、httpx、uvicorn[standard]）
 cd frontend
 npm install            # 含 naive-ui
 cd ..
+```
+
+部署到 Cloudflare 还需要 Worker 工具链，它在单独的 `worker` 组，`uv sync` **不会**装：
+
+```powershell
+uv sync --group worker  # workers-py + workers-runtime-sdk，即 pywrangler
 ```
 
 ## 3. 运行
@@ -57,11 +64,23 @@ uv run zzz-panel-and-strategy  # 等价于 uv run python -m zzz_panel
 固定跑一组示例输入并打印 12 行结果。不接受参数——它是规则的可执行文档，
 不是通用 CLI。
 
+### 本地预览 Worker（可选）
+
+想在本地看线上形态的真实行为，而不是先部署再试错：
+
+```powershell
+python tools/bundle_worker_data.py
+cd frontend; npm run build; cd ..
+uv run --group worker pywrangler dev
+```
+
+`pywrangler dev` 跑的是 workerd + Pyodide。首次运行要下载 Pyodide 解释器，较慢。
+
 ## 4. 测试
 
 ```powershell
-uv run pytest                          # 后端 87 项
-cd frontend; npm run test              # 前端 81 项
+uv run pytest                          # 后端 109 项
+cd frontend; npm run test              # 前端 86 项
 ```
 
 前端另外两个脚本：
@@ -75,6 +94,10 @@ npm run test:watch     # vitest 监听模式
 尤其 `test_fmt_parity.py`，它会因「node 不可用」以外的原因跳过，
 详见 [testing.md](testing.md)。看到 skip 要查原因，不要忽略。
 
+> ⚠️ **不要并行跑 `uv run pytest` 与 `npm run test`。** 后者会拉起真实 uvicorn，
+> 两者同时触发 `uv` 重装本包时 uvicorn 20 秒内报不出端口，表现为 4 个对拍用例
+> 红灯——原因与对拍无关。串行执行。
+
 ## 5. 静态检查
 
 | 命令 | 检查什么 |
@@ -83,7 +106,8 @@ npm run test:watch     # vitest 监听模式
 | `npm run build` | 类型检查 + 打包 |
 | `git diff --check` | 行尾空白与冲突标记 |
 
-后端没有配置 linter（无 ruff / flake8）。新增代码请遵循既有风格：
+后端**没有配置任何 linter 或类型检查器**（无 ruff / flake8 / pylint / mypy）。
+后端唯一的静态约束是 `backend/tests/` 里的 pytest。新增代码请遵循既有风格：
 类型注解齐全、模块 docstring 说明职责与约束、行宽约 100。
 
 ## 6. 数据管线
@@ -102,6 +126,14 @@ data/weapon-presets.json            │
         ▼                            ▼
 tests/fixtures/legacy-calculator/  frontend/src/constants/
   data/*.js（对拍夹具）             calculatorOptions.ts
+
+        （上面两个预设 JSON 还有第三条分支：部署到 Cloudflare 时）
+        │  tools/bundle_worker_data.py
+        ▼
+backend/src/zzz_panel/_bundled_data.py（gitignored）
+        │  pywrangler 只上传 .py，.json 会被静默丢弃
+        ▼
+Cloudflare Worker → GET /api/presets/*
 ```
 
 ### 刷新预设数据
@@ -113,6 +145,21 @@ python tools/sync_presets.py --to-legacy        # 必须再跑，否则夹具漂
 ```
 
 抓取脚本的输出是**整体覆盖**，不是增量。它会打印 `next: python tools/sync_presets.py --to-legacy`。
+
+### 改了预设数据、且要部署到 Cloudflare
+
+刷新或改过 `data/agent-presets.json` / `data/weapon-presets.json` 之后，必须再编译一次：
+
+```powershell
+python tools/bundle_worker_data.py             # 生成包内镜像（gitignored）
+python tools/bundle_worker_data.py --check     # 漂移闸：产物与源不一致时退出码 1
+```
+
+漏掉的症状：页面能开、`/api/panel/calc` 200，但两个级联选择器只有职业分组、
+`/api/presets/*` 返回 503（干净 clone 因为压根没有产物，也一定是 503）。
+细节见 [deployment.md](deployment.md) 5.3。
+
+`data/options.json` **不参与**这一步——它由前端在构建期经 `@data` 读真实源。
 
 ### 改了规则表
 
@@ -213,6 +260,19 @@ python tools/sync_presets.py --options       # 重新生成 data/options.json
 中文而报「传入的对象无效」。这不是文件的问题，读 JSON 时加 `-Encoding UTF8`，
 或直接用 Node / Python 读。
 
+### wrangler 不读 Windows 系统代理
+
+部署时如果浏览器能上 Cloudflare、命令却报
+`The request to Cloudflare's API timed out`，原因是 wrangler 是 Node 程序，
+不走 WinINET 系统代理。显式给三个环境变量（`NODE_USE_ENV_PROXY`、`HTTPS_PROXY`、
+`HTTP_PROXY`）即可，写法见 [deployment.md](deployment.md) 5.8。
+
+### `wrangler.jsonc` 必须是纯 ASCII
+
+pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该文件，
+任何非 ASCII 字节都会让部署在解析阶段就失败。所以它的注释一律英文，
+中文说明只放在 [deployment.md](deployment.md) 里。
+
 ### 修改夹具的路径会连带三处
 
 夹具从 `frontend/legacy/` 移到 `tests/fixtures/legacy-calculator/` 时，
@@ -243,15 +303,22 @@ python tools/sync_presets.py --options       # 重新生成 data/options.json
 ## 10. 提交前检查
 
 ```powershell
-uv run pytest                      # 后端，0 skip
+uv run pytest                      # 后端 109 项，0 skip
 cd frontend
 npm run typecheck                  # 类型
-npm run test                       # 含三方对拍
+npm run test                       # 86 项，含三方对拍（与 pytest 串行跑）
 cd ..
 python tools/sync_presets.py --to-legacy --check
 python tools/sync_presets.py --options --check
+python tools/bundle_worker_data.py --check
 git diff --check
 ```
+
+部署（形态 D）时再加两步：`cd frontend; npm run build`，以及带代理的
+`uv run --group worker pywrangler deploy`。完整流程见
+[deployment.md](deployment.md) 第 5 节。
+
+`pylock.toml` 是 Worker 环境的锁文件，**必须提交**；它与 `uv.lock` 都要在版本控制里。
 
 ## 11. 相关文档
 

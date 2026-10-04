@@ -9,7 +9,7 @@
 | `uv.lock` | 锁文件，改依赖后必须 `uv lock` |
 | `pylock.toml` | **Worker 的**锁文件（PEP 751），由 `pywrangler sync` 生成。**要提交**：它固定 Pyodide 环境里每个依赖的版本，否则同一份代码在不同机器上部署出不同的 Worker |
 | `.python-version` | Python 版本锁定（>= 3.13） |
-| `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.venv/`、`node_modules/`、`dist/`、`.env`，以及 Worker 生成物 `_data/`、`python_modules/`、`.venv-workers/` |
+| `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.pytest_cache/`、`.venv/`、`node_modules/`、`dist/`、`.env`，以及 Worker 生成物 `backend/src/zzz_panel/_bundled_data.py`、`python_modules/`、`.venv-workers/`、`.wrangler/`、`.wrangler-dry/` |
 | `index.html` | 仓库根的**指引页**，不是应用本体。内联样式，取值抄自 `frontend/src/assets/styles/tokens.css`。给出 dev server 入口、三个入口的路径对照，以及「为什么根目录不能放应用」的说明。**不参与任何构建**（Vite root 在 `frontend/`），也因此不会被拷进 `dist/` |
 | `wrangler.jsonc` | Cloudflare Worker 配置：`main` 指向 `backend/src/worker.py`，`compatibility_flags` 含 `python_workers`，`assets` 指向 `frontend/dist/` 并开 `not_found_handling: single-page-application`。见 [deployment.md](deployment.md) 第 5 节 |
 
@@ -49,10 +49,10 @@
 | `composables/` | `usePanelCalc`（防抖调用后端 + 明细渲染）、`useAgentPreset`（预设校验与套用）、`usePanelMode`（模式派生显隐与文案）、`useSubStatLimit`（副词条钳制）、`useCascaderIcons`（代理人与音擎共用的 cascader 选项图标与文案）、`useNaiveTheme`（CSS 变量 → `themeOverrides`） |
 | `api/` | **唯一**网络出口。`panel.ts`（计算）、`presets.ts`（预设）、`errors.ts`（`ApiError` 及两个子类） |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
-| `constants/` | **只有一个文件** `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量，以及 `HIDE_STANDARD_MODE_LABEL` + `panelModeTagLabel()`（隐藏「通用」模式名的唯一开关） |
-| `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（`clamp` + `normalizeCount`） |
+| `constants/` | **只有一个文件** `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量，以及 `HIDE_STANDARD_MODE_LABEL` + `panelModeTagLabel()`（隐藏「通用」模式名的唯一开关，两者都是**模块私有**，只在本文件内生效） |
+| `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（只导出 `normalizeCount`；`clamp` 为模块私有） |
 | `assets/styles/` | 4 个文件，**顺序由 `index.css` 固定**：tokens → base → components |
-| `types/`、`README.md` | 见下|
+| `README.md` | 本目录的使用约定，见 [frontend/src/README.md](../frontend/src/README.md) |
 
 各目录的具体文件清单：
 
@@ -62,7 +62,7 @@
 | `assets/styles/tokens.css` | 75 个设计变量（颜色、间距、圆角、阴影、布局、模块强调色、结果区渐变）。**无字号令牌**，也**无暗色模式** |
 | `assets/styles/base.css` | reset + 排版 + 页面骨架 + 各类栅格；3 个响应式断点（960 / 560 / 480px） |
 | `assets/styles/components.css` | 10 个区块：模块卡片、表单字段、提示文字、固定词条徽标、副词条步进器、代理人与音擎选择器及头像卡片、结果区、按钮、指南页、启动界面 |
-| `README.md` | 见 [requirements.md](requirements.md) 同级说明；实际内容为本目录的使用约定 |
+| `../README.md` | 本目录的使用约定，见 [frontend/src/README.md](../frontend/src/README.md) |
 
 ### 2.2 资源放置规则（易错）
 
@@ -100,11 +100,12 @@ src-layout，包名 `zzz_panel`。
 ### 3.0 backend/src/ 的顶层两个文件
 
 `backend/src/` 既是包目录，也是 Cloudflare Worker 的入口目录——`pywrangler`
-会把**入口所在目录下的 `.py` 文件**附加到 Worker 里，因此 `worker.py` 必须与
-`zzz_panel/` 同级，入口才能以 `zzz_panel.xxx` 正常导入。
+会把**入口文件所在目录的整棵子树**附加到 Worker 里，但**只上传 `.py` 文件**。
+因此 `worker.py` 必须与 `zzz_panel/` 同级（入口才能以 `zzz_panel.xxx` 正常导入），
+而任何非 `.py` 资源（`.json` / `.html`）都到不了线上。预设数据的编译产物因此
+也必须是 `.py`。
 
-> 注意是「`.py` 文件」，不是「整棵目录树」。同目录下的 `.json` / `.html` 会被
-> **静默**丢弃：部署不报错，线上却读不到。预设数据的编译产物因此也必须是 `.py`。
+> 同目录下的 `.json` / `.html` 会被**静默**丢弃：部署不报错，线上却读不到。
 
 | 文件 | 说明 |
 | --- | --- |
@@ -118,7 +119,7 @@ src-layout，包名 `zzz_panel`。
 | `panel.py` | 两个入口：`calculate_panel`（CLI 契约，输出 12 键）与 `calculate_selection`（API 契约，输出 9 个结构化字段）。`_apply_totals` 是基础公式的实现处 |
 | `modes.py` | 三种模式的专属公式 |
 | `options.py` | 6 张选项表 + `find_option`。**规则表的权威源之一** |
-| `constants.py` | `DISC_FIXED_STATS`（1/2/3 号固定词条）、`FENGYU_BLAST_DMG`。规则表权威源之二 |
+| `constants.py` | `DISC_FIXED_STATS`（1/2/3 号固定词条）。规则表权威源之二。锋御的 `FENGYU_BLAST_DMG` 属模式公式，在 `modes.py` |
 | `modifiers.py` | 选择项 → 加成累加 + 来源记录。含累加器与副词条钳制 |
 | `breakdown.py` | 逐行计算明细，输出结构化片段而非 HTML |
 | `models.py` | `PanelInputs` dataclass（CLI 用的输入模型，约 50 个标量字段） |
@@ -133,17 +134,16 @@ src-layout，包名 `zzz_panel`。
 | 静态文件 | **无** |
 | 异常处理 | 无自定义 handler；仅预设路由捕获 `PresetLoadError` → 503 |
 
-> `api/__init__.py` 与 `api/routes/__init__.py` 的 docstring 仍提到未实现的
-> `create_app`、`deps.py`、`health.py` 与路径 `/api/panel/calculate`
-> （实际是 `/api/panel/calc`，且health 内联在 `app.py`）。**以
-> [api-reference.md](api-reference.md) 为准。**
+> 各 `__init__.py` 只保留职责说明，**不做再导出**。调用方一律直接 import 子模块
+> （`from .panel import calculate_panel`），不从包根取。`/api/health` 定义在 `app.py`，
+> 不在 `routes/` 里——路径以 [api-reference.md](api-reference.md) 为准。
 
 ## 4. frontend/tests/
 
 | 路径 | 说明 |
 | --- | --- |
 | `calculator-view.spec.ts` | 31 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
-| `panel-interactions.spec.ts` | 46 项交互与后端对接 |
+| `panel-interactions.spec.ts` | 51 项交互与后端对接 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
 | `support/` | 夹具层：`setup.ts`、`router.ts`、`api.ts`（假后端）、`backend.ts`（拉起真实 uvicorn）、`flush.ts` |
 | `fixtures/legacy-calculator/` | **只读参照实现**，见第 5 节 |

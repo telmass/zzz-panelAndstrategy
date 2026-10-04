@@ -5,6 +5,16 @@
 
 计算全部由后端 Python 完成，前端只负责输入与渲染——因此网页与命令行的结果必然一致。
 
+## 在线站点
+
+**https://zzzstrategy.cc.cd**
+
+已部署在 Cloudflare Workers 上，**公开访问、无需登录**（刻意如此，见
+[docs/deployment.md](docs/deployment.md) 第 5.9 节）。同一个 Worker 同时提供前端静态
+资源与 `/api/*` 接口，站点不依赖任何一台自有服务器——你的机器关机不影响访问。
+
+只有一条路径需要本机代理：执行部署命令时（见下文「部署到 Cloudflare」）。
+
 ## 核心功能
 
 | 功能 | 说明 |
@@ -37,7 +47,10 @@
 
 ### 环境要求
 
-Python >= 3.13、uv、Node.js 20+、npm。
+Python >= 3.13（由 `.python-version` 锁定）、uv、Node.js 20+、npm。
+
+> Python 版本是**硬锁定**的（`.python-version`）；Node 只在本仓库的文档里约定为 20+，
+> 没有 `engines` 字段或 `.nvmrc` 之类的机器可读约束。
 
 ### 安装
 
@@ -85,10 +98,34 @@ cd frontend; npm run test               # 前端 86 项
 
 更多命令与已知坑见 [docs/development.md](docs/development.md)。
 
+### 部署到 Cloudflare
+
+线上站点的部署形态是 Cloudflare Worker（Python Workers + 静态 Assets）。三步都不能省：
+
+```powershell
+# 1. 编译预设数据进后端包（pywrangler 只上传 .py，.json 会被静默丢弃）
+python tools/bundle_worker_data.py
+
+# 2. 构建前端产物（wrangler.jsonc 的 assets.directory 指向 frontend/dist）
+cd frontend; npm run build; cd ..
+
+# 3. 部署（需要本地 HTTP 代理；部署机在中国大陆时 workers.dev 直连不通）
+$env:NODE_USE_ENV_PROXY = "1"
+$env:HTTPS_PROXY = "http://127.0.0.1:7892"   # 换成你自己的代理端口
+$env:HTTP_PROXY  = "http://127.0.0.1:7892"
+uv run --group worker pywrangler deploy
+```
+
+域名绑定、代理配置、故障排查见 [docs/deployment.md](docs/deployment.md)。
+
 ## 目录结构
 
 ```
 .
+├── index.html                 根目录跳转页（纯指引，不参与构建）
+├── wrangler.jsonc             Cloudflare Worker 配置（部署形态 D）
+├── pylock.toml                Worker 工具链的依赖锁，**必须提交**
+├── .python-version            Python 版本锁定（3.13）
 ├── frontend/                前端工程（Vite root）
 │   ├── src/
 │   │   ├── views/           3 个路由页：启动 / 计算器 / 指南
@@ -118,8 +155,7 @@ cd frontend; npm run test               # 前端 86 项
 │
 ├── data/                    唯一真实数据源（3 个 JSON，全部是生成物）
 ├── docs/                    技术文档（见下）
-├── tools/                   开发脚本：dev.ps1 · sync_presets.py · bundle_worker_data.py
-├── wrangler.jsonc           Cloudflare Worker 配置（部署形态 D）
+├── tools/                   开发脚本：dev.ps1 · sync_presets.py · bundle_worker_data.py · dump_backend_responses.py
 └── .github/skills/          数据抓取 Skill（脚本位置固定，勿移动）
 ```
 
@@ -134,6 +170,7 @@ cd frontend; npm run test               # 前端 86 项
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
 python tools/sync_presets.py --to-legacy      # 抓取后必须再跑
+python tools/bundle_worker_data.py             # 部署到 Cloudflare 前必须再跑
 ```
 
 配装规则表的真源是 `backend/src/zzz_panel/core/options.py`，改了它要重新生成
@@ -141,6 +178,14 @@ python tools/sync_presets.py --to-legacy      # 抓取后必须再跑
 
 ```powershell
 python tools/sync_presets.py --options
+```
+
+三条漂移闸（任一失败即说明数据与代码已经不一致，必须先修再提交）：
+
+```powershell
+python tools/sync_presets.py --to-legacy --check
+python tools/sync_presets.py --options --check
+python tools/bundle_worker_data.py --check
 ```
 
 数据管线全貌见 [docs/development.md](docs/development.md) 第 6 节。
@@ -176,8 +221,9 @@ python tools/sync_presets.py --options
 
 ## 现状
 
-本仓库已完成从「原生 HTML + 内联 JS 计算」到「Vue3 前端 + Python 计算服务」的迁移。
-`frontend/src/` 与 `backend/` 是当前唯一实现。
+本仓库已完成两项迁移：从「原生 HTML + 内联 JS 计算」到「Vue3 前端 + Python 计算服务」，
+以及从「自建服务器 + Nginx 反代」到「Cloudflare Worker」。`frontend/src/` 与 `backend/`
+是当前唯一实现，旧实现只作为对拍夹具保留在 `frontend/tests/fixtures/legacy-calculator/`。
 
-已知技术债（死代码、口径不一文案的文案等）记录在
-[docs/requirements.md](docs/requirements.md) 第 7 节。
+已知限制与仍在跟踪的取舍记录在 [docs/requirements.md](docs/requirements.md) 第 7 节；
+变更历史见 [docs/changelog.md](docs/changelog.md)。

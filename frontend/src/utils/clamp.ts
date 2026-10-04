@@ -1,5 +1,5 @@
 /** 把数值钳制到 [min, max] 区间。 */
-export function clamp(value: number, min: number, max: number): number {
+function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 

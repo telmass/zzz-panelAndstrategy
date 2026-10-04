@@ -7,10 +7,11 @@
 
 | 套件 | 命令 | 用例数 | 覆盖 |
 | --- | --- | --- | --- |
-| 后端 | `uv run pytest` | 87 | 计算、格式化、预设校验、HTTP 契约 |
-| 前端 | `npm run test` | 81 | 渲染、交互、请求构造、**三方对拍** |
+| 后端 | `uv run pytest` | 109 | 计算、格式化、预设校验、Worker 数据打包、HTTP 契约 |
+| 前端 | `npm run test` | 86 | 渲染、交互、请求构造、**三方对拍** |
 
-测试状态以这两个命令的输出为准，共 168 项。
+测试状态以这两个命令的输出为准，共 195 项。仓库内没有 CI 配置
+（无 `.github/workflows/`），这两个命令目前靠人跑。
 
 ## 2. 核心资产：三方对拍
 
@@ -53,8 +54,18 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
 
 ### 后端拉不起来时
 
-整体 `skip` 并给出具体原因，而不是让 CI 变红。本机开发时这很方便，
-但**在 CI 上必须把 skip 当失败看**——它意味着这 4 项根本没执行。
+**这 4 个用例会直接失败（红灯），不会 skip。** `legacy-parity.spec.ts` 的
+`requireBackend()` 在拿不到后端地址时 `throw`，错误信息里带上 uvicorn 的启动
+输出。这是刻意的：
+
+> **护栏的失效方式必须是红灯，不许是绿灯。**
+
+如果改成 skip，本机开发是方便了，但这 4 项在 CI 或换机器上就会静默消失——
+而「三方对拍没跑」恰恰是最需要被发现的失败。宁可红。
+
+后端起不来的常见原因是端口占用、依赖没同步，或**同时有另一个 `uv` 进程在重装
+本包**（例如并行跑 `pytest` 与 `npm run test`，后者会拉起真实 uvicorn）。
+串行执行即可。
 
 ## 3. 跨语言格式对拍
 
@@ -73,16 +84,21 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
 
 > 这是本项目的一条通用原则：**护栏的失效方式必须是红灯，不许是绿灯。**
 
-## 4. 后端测试（87 项）
+## 4. 后端测试（109 项）
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
-| `test_presets.py` | 大头 | 目录定位、四类加载错误、语义校验的每条规则、响应与JSON 逐条等价、503 而非 500、id 唯一性 |
-| `test_panel.py` | — | 加成链路、武器基础值并入顺序、百分比二次加成、取整向下、模式公式与非法模式 |
-| `test_options_json.py` | — | `data/options.json` 与 Python 规则表一致；`DISC_FIXED_STATS` 顺序与槽位一致 |
-| `test_legacy_parity.py` | — | Python 侧对 `legacy_cases.json`（由参照实现导出）逐条比对数值 |
-| `test_fmt_parity.py` | 2 | 见上|
-| `test_api.py` | — | 路由形状、CORS 预检、422 触发条件、负数条数被钳制、`def` 别名、响应键名大小写 |
+| `test_presets.py` | 32 | 目录定位、四类加载错误、语义校验的每条规则、响应与 JSON 逐条等价、503 而非 500、id 唯一性 |
+| `test_panel.py` | 28 | 加成链路、武器基础值并入顺序、百分比二次加成、取整向下、模式公式与非法模式 |
+| `test_worker_bundle.py` | 15 | `tools/bundle_worker_data.py` 的打包与幂等、生成模块的加载回退、`--check` 漂移闸 |
+| `test_api.py` | 13 | 路由形状、CORS 预检、422 触发条件、负数条数被钳制、`def` 别名、响应键名大小写 |
+| `test_options_json.py` | 11 | `data/options.json` 与 Python 规则表一致；`DISC_FIXED_STATS` 顺序与槽位一致 |
+| `test_legacy_parity.py` | 8 | Python 侧对 `legacy_cases.json`（由参照实现导出）逐条比对数值 |
+| `test_fmt_parity.py` | 2 | 见上 |
+
+`conftest.py` 里有一个 autouse fixture，把 `loader._EMBEDDED_MODULE` 指向临时造的
+模块，因此 `test_worker_bundle.py` 不依赖「本机是否生成过 `_bundled_data.py`」
+这一环境状态。
 
 几个刻意设计的断言：
 
@@ -93,7 +109,7 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
   测试明确记录这个行为，避免有人误加约束导致对拍失败。
 - **空body `{}` 是合法请求**：所有字段都有默认值。
 
-## 5. 前端测试（81 项）
+## 5. 前端测试（86 项）
 
 Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 `vitest.config.ts`**，容易找错）。
@@ -101,7 +117,7 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `calculator-view.spec.ts` | 31 | 计算器骨架、启动页、子页返回导航、指南页 |
-| `panel-interactions.spec.ts` | 46 | 代理人与音 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
+| `panel-interactions.spec.ts` | 51 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `legacy-parity.spec.ts` | 4 | 三方对拍 |
 
 ### naive-ui 组件的三条测试约束
@@ -141,14 +157,18 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 
 | 文件 | 作用 |
 | --- | --- |
-| `support/setup.ts` | 全局 stub `RouterLink` |
+| `support/setup.ts` | 全局环境：stub `RouterLink`，打桩 `matchMedia` / `ResizeObserver` / `IntersectionObserver`。**刻意不打桩 `getBoundingClientRect`**——jsdom 已实现它且恒返回 0，打了桩只会掩盖问题 |
 | `support/router.ts` | `RouterLinkStub` |
 | `support/api.ts` | 假后端。**读真实的 `data/*.json`**，因此下拉框项数断言能发现数据漂移 |
-| `support/backend.ts` | 拉起真实 uvicorn（端口 0自动分配），解析 stderr 拿端口，探活 `/api/health`，三条路径上清理孤儿进程 |
+| `support/backend.ts` | 拉起真实 uvicorn（端口 0 自动分配），解析 stderr 拿端口，探活 `/api/health`，三条路径上清理孤儿进程 |
 | `support/flush.ts` | 等待 260 ms（越过 200 ms 防抖）+ 微任务 + 两个宏任务 |
 
 `support/backend.ts` 只服务于三方对拍——它让 4 个用例走完整 HTTP 链路，
 而不是 mock 掉。
+
+> `support/backend.ts` 会在测试进程里真的 `uvicorn` 起来。**不要与 `uv run pytest`
+> 并行执行**：两者都会触发 `uv` 重装本包，撞车时 uvicorn 20 秒内报不出端口，
+> 表现为 4 个对拍用例红灯，而真实原因跟对拍无关。
 
 ## 6. 没有覆盖的地方
 
@@ -156,10 +176,10 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 
 | 未覆盖 | 风险 | 建议 |
 | --- | --- | --- |
-| 前端**视觉回归** | 改CSS 不会变红 | 手工核对三个页面；引入截图对比需先解决 jsdom 无法渲染的问题 |
+| 前端**视觉回归** | 改 CSS 不会变红 | 手工核对三个页面；引入截图对比需先解决 jsdom 无法渲染的问题 |
 | 后端**并发与性能** | 个人工具，160 条预设 + 纯函数计算，实测无压力 | 暂不需要 |
 | **`refresh_*_presets.py` 的端到端** | 需要联网抓 Wiki，CI 不跑 | 由 `test_presets.py` 间接保证 `render()` 与已提交文件一致 |
-| **UI 死代码**（`useSubStatLimit.reset`、6 个后端常量） | 无害 | 见 [requirements.md](requirements.md) 已知限制 |
+| **线上 Worker 本身** | 本地测试不覆盖 Cloudflare 的运行时、配额与域名绑定 | 部署后按 [deployment.md](deployment.md) 第 7 节自检清单人工过一遍 |
 
 ## 7. 加新测试放哪
 
@@ -168,6 +188,7 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 | 一个计算公式的边界 | `backend/tests/test_panel.py` |
 | 一条预设校验规则 | `backend/tests/test_presets.py` |
 | 请求体形状 / 状态码 | `backend/tests/test_api.py` |
+| Worker 数据打包与回退 | `backend/tests/test_worker_bundle.py` |
 | 组件渲染结构 | `frontend/tests/calculator-view.spec.ts` |
 | 用户操作后的状态流转 | `frontend/tests/panel-interactions.spec.ts` |
 | **旧实现与新实现的差异** | `frontend/tests/legacy-parity.spec.ts`（只在行为**有意**变更时改） |

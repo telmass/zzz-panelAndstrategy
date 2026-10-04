@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 
 import {
   AGENT_ROLE_TAGS,
-  PANEL_MODE_LABELS,
   SUB_STATS,
   WEAPON_ROLE_TAGS,
   agentTagSegments,
@@ -287,5 +286,3 @@ export const usePanelStore = defineStore('panel', {
     },
   },
 });
-
-export { PANEL_MODE_LABELS };

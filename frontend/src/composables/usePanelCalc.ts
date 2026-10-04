@@ -25,7 +25,7 @@ import { escapeHtml, fmt } from '@/utils/fmt';
  */
 
 /** 防抖间隔。文档要求 150~300ms，取 200ms。 */
-export const CALC_DEBOUNCE_MS = 200;
+const CALC_DEBOUNCE_MS = 200;
 
 /** 来源数组渲染成明细片段，对应 legacy 的 `joinSources`。 */
 function renderSources(items: string[]): string {
@@ -66,7 +66,7 @@ function renderLine(line: BreakdownLine): string {
 }
 
 /** 整个明细渲染成 HTML。 */
-export function renderBreakdown(lines: BreakdownLine[] | undefined): string {
+function renderBreakdown(lines: BreakdownLine[] | undefined): string {
   return (lines ?? []).map(renderLine).join('');
 }
 
@@ -79,7 +79,7 @@ function optionById(options: typeof CORE_OPTIONS, id: string) {
 }
 
 /** 由 store 组装请求。只带选择，不带任何计算口径。 */
-export function buildRequest(): PanelCalcRequest {
+function buildRequest(): PanelCalcRequest {
   const panel = usePanelStore();
   const { base, weapon, core, discMain, subStats, setEffects } = panel;
 

@@ -9,7 +9,7 @@ uv run pytest
 配置在 `pyproject.toml` 的 `[tool.pytest.ini_options]`（`pythonpath = ["backend/src"]`）。
 
 > **必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行，`test_fmt_parity.py` 尤其如此。
-> 各文件的覆盖范围另见 [../../docs/directory-layout.md](../../docs/directory-layout.md) 第 3 节。
+> 各文件的覆盖范围另见 [../../docs/directory-layout.md](../../docs/directory-layout.md) 第 5 节。
 
 ## 7 个测试模块
 

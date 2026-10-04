@@ -5,6 +5,65 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-04 · 死代码清理 + 技术文档全面校准
+
+### 删除的死代码
+
+**后端**：`core/fmt.py::fmt_pct`、`core/panel.py::_sum_values`、
+`core/breakdown.py` 的 `_BASE_KEY` 与 `Segment` 别名、`core/constants.py` 里
+与 `core/modes.py` 重复的 `FENGYU_BLAST_DMG` 及无人调用的 `disc_fixed_stat()`、
+`presets/validate.py::EXTRA_BASE_KEYS`、`core/__init__.py` 与
+`presets/__init__.py` 的再导出（各 `__init__.py` 保留职责说明，调用方一律直接
+import 子模块）。计算与接口行为不变，109 项测试全绿。
+
+**前端**：`types/panel.ts` 的 `ModifierSum` / `ModifierSources`、
+`stores/panelStore.ts` 对 `PANEL_MODE_LABELS` 的多余再导出、
+`stores/presetStore.ts` 的 `status` / `error` / `ready`（三者都只写不读；
+`loadAll()` 失败改为打控制台日志）、`usePanelMode()` 返回的 `mode` 与
+`setPanelMode`、`useSubStatLimit()` 的 `reset`、`calculatorOptions.ts` 里无人导入的
+`FENGYU_BLAST_DMG`，以及 `SelectField` 的 `disabled` / `hidden` 与
+`TextField` 的 `hidden` 与整套 `update:modelValue` 事件（唯一使用处恒为只读）。
+`clamp`、`DiscFixedStat`、`panelModeTagLabel`、`HIDE_STANDARD_MODE_LABEL`、
+`CALC_DEBOUNCE_MS`、`renderBreakdown`、`buildRequest`、`RoleTag` 由 `export`
+降为模块私有。CSS 删掉 `.grid-4`、`.fixed-stat b` 与 `--color-danger-hover`
+三个无人引用的规则/令牌。
+
+**配置与仓库**：移除无人使用的 `analysis` 可选依赖组（matplotlib / pandas /
+seaborn）、`vite.config.ts` 里匹配不到任何文件的 `src/**/*.spec.ts`、
+`tsconfig.json` 的 `jsx: "preserve"`、`wrangler.jsonc` 指向不存在路径的
+`$schema`；`.gitignore` 去掉 `.mypy_cache/`、`.ruff_cache/`、`.vite/`、
+`src/vendor/` 四个无效规则，补上 `.wrangler-dry/`；删除已跟踪的会话残留
+（`.kilo/plans/*.md`、损坏的 `agent-manager.json` 备份）与 `frontend/public/README.md`
+——后者会被 Vite 原样拷进 `dist/`，等于把内部约定发布到了公网 `/README.md`。
+`.kilo/.gitignore` 补上 `plans/`、`worktrees/`、`agent-manager.json.*`。
+
+### 文档
+
+21 份文档逐条对着源码核过一遍，修正的主要是：
+
+| 类别 | 内容 |
+| --- | --- |
+| 数字漂移 | 后端测试 87/94 → **109**、前端 81 → **86**、`panel-interactions` 46 → **51**（涉 4 份文档共 10 处） |
+| 原则被写反 | `docs/testing.md` 原称后端拉不起来时「整体 skip」，而 `legacy-parity.spec.ts` 实际是 `throw`——**护栏失效必须是红灯**。文档与该 spec 的注释都已改正 |
+| 事实错误 | `docs/requirements.md` 称网页与 CLI「都调用 `core.calculate_panel`」（网页走 `calculate_selection`）；`docs/api-reference.md` 把预设的 9 个顶层字段写成 10 个；`docs/directory-layout.md` 声称 `.gitignore` 忽略 `_data/`（早已废弃）；`docs/data-schema.md` 的 §2.1 示例键序与真实 JSON 不符，且章节顺序 2.1→2.3→2.4→2.2 |
+| 缺失 | 线上地址 `https://zzzstrategy.cc.cd` 与自定义域名绑定此前**全仓库零提及**；Worker 形态在 `architecture.md` 的部署视图里完全缺失；`tools/README.md` 漏掉部署硬闸 `bundle_worker_data.py`；三个 Skill 的刷新流程都漏了「重跑打包」这一步 |
+| 重复 | 「pywrangler 只上传 `.py`」在 7 处重复、`run_worker_first` 路由表在 3 处重复、公共访问策略在同一文件里写了两遍、167 张 PNG 的放置规则在 3 处重复——统一收敛到单一真源，其余改为链接 |
+| 悬空引用 | `docs/README.md` 指向不存在的「architecture.md 第 3.4 节」；`migration-vue3.md` 引用已删除的 `.kilo/plans/…`；`backend/tests/README.md` 的「第 3 节」应为「第 5 节」 |
+
+## 2026-10-04 · 访问控制：刻意公开
+
+个人工具也允许任何人使用 —— 没有配置 Cloudflare Access，也没有在 Worker 里写鉴权。
+依据：`POST /api/panel/calc` 是纯函数计算、不写状态，`GET /api/presets/*` 只读公开的
+游戏数据，全站没有账号与个人信息。
+
+两点残留风险已记录在 `docs/deployment.md` 第 5.9 节：Workers 免费版有每日请求
+上限，别人刷流量会吃额度（真被刷了再上 WAF 限速）；以及预设加载失败时 503 的
+`detail` 会回显路径，因此不要把用户目录写进错误信息。
+
+同一节也记了「想改成私有时怎么做」：用 Cloudflare Access（零代码）。**不要**改用
+Worker 内自己加 Basic Auth —— `run_worker_first` 只放行 `/api/*`，其余静态资源由
+资源层直接返回、根本不进 Worker，脚本里的鉴权拦不住 `/` 和 `/assets/*`。
+
 ## 2026-10-04 · Cloudflare Worker 部署形态 D（已上线）
 
 ### 背景
@@ -16,7 +75,16 @@ API 与前端静态产物**，正好对上 `frontend/vite.config.ts` 里早已�
 
 ### 线上地址
 
-<https://zzz-panel-and-strategy.huangjiansheng0flipped.workers.dev>
+**<https://zzzstrategy.cc.cd>**（自定义域名，正式入口）
+备用：<https://zzz-panel-and-strategy.huangjiansheng0flipped.workers.dev>
+
+域名 `zzzstrategy.cc.cd` 已注册并把 NS 委派到 Cloudflare
+（`tara.ns.cloudflare.com` / `brett.ns.cloudflare.com`），A 记录指向 Cloudflare
+任播 IP 且开启代理。**站点完全跑在 Cloudflare 上，不依赖任何一台自有服务器**，
+部署完即可关机关机。
+
+> 国内网络直连该域名与 `*.workers.dev` 都会被按 SNI 重置。这是本地网络环境问题，
+> 不是站点故障——境外网络与 Cloudflare 边缘正常。
 
 ### 变更
 
@@ -53,7 +121,7 @@ dump 出来才看清：产物 `zzz_panel/` 里只有 27 个 `.py`，镜像的 JS
 **4. wrangler 不读 Windows 系统代理。**
 直连 `api.cloudflare.com` 超时，而 PowerShell 走 `127.0.0.1:7892` 的系统代理
 正常。wrangler 是 Node 程序，不走 WinINET；需显式给
-`NODE_USE_ENV_PROXY=1` 与 `HTTPS_PROXY`。见 `docs/deployment.md` 第 5.7 节。
+`NODE_USE_ENV_PROXY=1` 与 `HTTPS_PROXY`。见 `docs/deployment.md` 第 5.8 节。
 
 ### 依赖分组按 Pyodide 能力重排
 

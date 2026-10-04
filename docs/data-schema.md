@@ -34,12 +34,11 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
     "impact": 93, "cr": 19.4, "cd": 50,
     "ac": 94, "am": 93, "pr": 0, "er": 1.2
   },
-
+  "unavailableBaseStats": ["pr"], // 可选：官方基础面板未提供的键
   "additionalBaseStats": {// 可选：命破代理人的专属基础属性
     "penforce": 93,               // 贯穿力
     "energyAccumulation": 0       // 锐能自动累积
   },
-  "unavailableBaseStats": ["pr"], // 可选：官方基础面板未提供的键
   "unmodeledBaseStats": [         // 可选：官方列出但计算器未建模的属性
     { "label": "某属性", "value": 12, "unit": "%" }
   ],
@@ -57,6 +56,26 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
   ]
 }
 ```
+
+### 2.2 关键点
+
+**`base` 的 10 个键全部可缺失（`Optional`）。** 官方未提供的键为 `null`，
+**同时**必须列入 `unavailableBaseStats`。两个条件缺一不可：
+
+- 只留 `null` 不声明 → 前端把 `null` 当 0 写进面板，用户看到错误的 0且无提示
+- 只声明不置 `null` → 语义校验报错
+
+`base.def` 的 JSON 键名是 `def`（Python 侧字段名为 `def_`，带 `alias="def"`，
+因为 `def` 是 Python 关键字）。
+
+**`panelMode` 与 `roleTag` 是两个独立字段。** 不可从职业标签反推面板模式——
+例如命破是职业标签，但并非命破标签的代理人一定是命破模式。
+
+**`coreBonuses[].optionCount`** 用一个已有选项重复 `N` 次来表达，
+只在 `option.value × optionCount` **恰好等于** `totalValue` 时使用。
+
+**`attribute` 与 `roleTag` 也是两个独立字段。** 属性类型不参与计算，
+只用于展示与「特殊属性」判定（见 2.4）。
 
 ### 2.3 属性与评级
 
@@ -88,26 +107,6 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 
 结论随数据变化，因此**每次使用都按当前 `agents` 重算，不要缓存**。
 代码里也不得写死上面这份名单：新属性登场时它会立刻过时。
-
-### 2.2 关键点
-
-**`base` 的 10 个键全部可缺失（`Optional`）。** 官方未提供的键为 `null`，
-**同时**必须列入 `unavailableBaseStats`。两个条件缺一不可：
-
-- 只留 `null` 不声明 → 前端把 `null` 当 0 写进面板，用户看到错误的 0且无提示
-- 只声明不置 `null` → 语义校验报错
-
-`base.def` 的 JSON 键名是 `def`（Python 侧字段名为 `def_`，带 `alias="def"`，
-因为 `def` 是 Python 关键字）。
-
-**`panelMode` 与 `roleTag` 是两个独立字段。** 不可从职业标签反推面板模式——
-例如命破是职业标签，但并非命破标签的代理人一定是命破模式。
-
-**`coreBonuses[].optionCount`** 用一个已有选项重复 `N` 次来表达，
-只在 `option.value × optionCount` **恰好等于** `totalValue` 时使用。
-
-**`attribute` 与 `roleTag` 也是两个独立字段。** 属性类型不参与计算，
-只用于展示与「特殊属性」判定（见 2.4）。
 
 ## 3. 音擎预设
 

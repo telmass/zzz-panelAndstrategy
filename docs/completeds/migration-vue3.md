@@ -4,6 +4,11 @@
 > Vue3 迁移已于2026-10-03 全部完成。本文件记录的是**过程**：每一步的产出、
 > 当时的验收标准与踩过的坑，不是现状说明。
 >
+> 📌 **文中所有数字都是迁移完成时（2026-10-03）的历史快照**——测试项数、
+> 构建产物体积等此后均有增补，**不要当作现状引用**。现状以
+> `backend/tests/README.md`、`frontend/tests/README.md`、`docs/testing.md`
+> 为准。
+>
 > 想了解项目现在是什么样，请看：
 > [requirements.md](../requirements.md)（范围与已知限制）、
 > [architecture.md](../architecture.md)（架构与设计决策）、
@@ -12,7 +17,7 @@
 > **本文仍有价值的部分**：`legacy-parity.spec.ts` 的 jsdom 作用域两个坑至今生效，
 > 改对拍测试前必读第 2 节「测试中的两个坑」。
 
-原方案：`.kilo/plans/1790874878566-frontend-backend-directory-refactor.md`
+（原始方案文档在迁移完成后已从仓库删除；下面按步骤记录实际执行过程。）
 
 第 0～4 步期间每一步都保持 `frontend/legacy/` 可用，随时可回退；第 5 步收尾时将其删除，
 计算部分改为以只读夹具 `frontend/tests/fixtures/legacy-calculator/` 的形式保留（见第 5 步）。

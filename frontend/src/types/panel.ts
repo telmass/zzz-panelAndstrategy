@@ -70,19 +70,6 @@ export interface AgentSelection {
   presetId: string;
 }
 
-/**
- * 累加器：各配装对修正量的累加结果。
- *
- * `_flat` / `_base` 结尾的是纯加法或基础值修正，`_pct` 结尾的带 % 参与乘法。
- */
-export type ModifierSum = Record<string, number>;
-
-/**
- * 来源记录：每个修正量由哪些配装贡献，用于生成明细文案。
- * 键与累加器一致，值为贡献来源的说明数组。
- */
-export type ModifierSources = Record<string, string[]>;
-
 /** 结果面板的一行。 */
 export interface ResultRow {
   key: string;

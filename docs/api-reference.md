@@ -5,6 +5,15 @@
 
 在线交互式文档（后端运行时可访问）：<http://127.0.0.1:8000/docs>
 
+> **生产部署形态：Cloudflare Worker。** 线上 `https://zzzstrategy.cc.cd` 由
+> `backend/src/worker.py` 通过 `Default = asgi.entrypoint(app)` 把同一个 FastAPI
+> 应用挂到 Worker 上，因此四个接口
+> `GET /api/health`、`POST /api/panel/calc`、`GET /api/presets/agents`、
+> `GET /api/presets/weapons` 在本地 uvicorn 与线上是**同一份代码、同一份响应**，
+> 只是运行时换成 Pyodide。路由分工见 `wrangler.jsonc` 的
+> `run_worker_first: ["/api/*", "/docs", "/openapi.json"]`。详见
+> [deployment.md](deployment.md) 第 5 节。
+
 ## 通用约定
 
 | 项 | 约定 |
@@ -98,7 +107,7 @@
 
 ## GET /api/presets/weapons
 
-同为 `{"items": [...]}`，10 条字段。
+同为 `{"items": [...]}`，9 条字段。
 
 ```json
 {

@@ -26,7 +26,8 @@ import { flushCalc } from './support/flush';
  * （`tests/support/backend.ts`）。因此这里断言的是完整链路：
  * 旧页面算出来的每一个数值与每一段明细，新页面经 HTTP 取回后必须逐字符相同。
  *
- * 后端拉不起来时整体 skip，而不是让 CI 变红。
+ * 后端拉不起来时这 4 个用例直接失败（红灯），不 skip：
+ * 「三方对拍没跑」是最需要被发现的失败，skip 会把它变成静默的绿灯。
  */
 
 const LEGACY_ROOT = resolve(__dirname, 'fixtures/legacy-calculator');

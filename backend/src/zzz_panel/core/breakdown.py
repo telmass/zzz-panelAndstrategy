@@ -18,8 +18,8 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Dict, List, Mapping, Sequence, Union
+from dataclasses import dataclass
+from typing import Dict, List, Mapping, Sequence
 
 from .constants import DISC_FIXED_STATS
 from .fmt import fmt
@@ -72,16 +72,6 @@ class Line:
     parts: Sequence[object]
     wrapped: bool = True
 
-
-Segment = Union[Text, Kw, Num, Sources]
-
-# 基础面板键名 → 传给 build_breakdown 的 ``base`` 字典键名
-_BASE_KEY = {
-    "cr": "cr",
-    "cd": "cd",
-    "pr": "pr",
-    "am": "am",
-}
 
 # 需要「(基础 + 固定) × (1 + 百分比)」形态的三项
 _SCALED_ROWS = (
@@ -246,4 +236,4 @@ def build_breakdown(
     return out
 
 
-__all__ = ["build_breakdown", "Kw", "Line", "Num", "Segment", "Sources", "Text"]
+__all__ = ["build_breakdown", "Kw", "Line", "Num", "Sources", "Text"]

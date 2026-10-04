@@ -75,12 +75,5 @@ export function useSubStatLimit() {
     panel.subStats[id] = Math.min(next, room);
   }
 
-  /** 清空全部副词条。 */
-  function reset(): void {
-    for (const stat of SUB_STATS) {
-      panel.subStats[stat.id] = 0;
-    }
-  }
-
-  return { entries, totalCount, isTotalExceeded, step, setCount, reset };
+  return { entries, totalCount, isTotalExceeded, step, setCount };
 }
