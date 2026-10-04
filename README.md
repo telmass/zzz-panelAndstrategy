@@ -76,8 +76,8 @@ uv run zzz-panel-and-strategy  # 固定跑一组示例输入，打印 12 行结�
 ### 测试
 
 ```powershell
-uv run pytest                           # 后端 87 项
-cd frontend; npm run test               # 前端 81 项
+uv run pytest                           # 后端 109 项
+cd frontend; npm run test               # 前端 86 项
 ```
 
 > **pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行。
@@ -105,18 +105,21 @@ cd frontend; npm run test               # 前端 81 项
 │   └── public/images/       代理人/音擎 PNG（Vite 原样拷贝）
 │
 ├── backend/                 Python 计算服务
-│   ├── src/zzz_panel/
-│   │   ├── core/            规则真源：纯函数、零 IO、零框架依赖
-│   │   ├── api/ routes/     FastAPI，只做协议转换
-│   │   ├── schemas/         Pydantic 请求/响应模型
-│   │   ├── services/        用例编排，无公式
-│   │   ├── presets/         加载（mtime 缓存）与语义校验
-│   │   └── cli.py           命令行入口
+│   ├── src/
+│   │   ├── worker.py        Cloudflare Python Worker 入口（与 zzz_panel 同级）
+│   │   └── zzz_panel/
+│   │       ├── core/            规则真源：纯函数、零 IO、零框架依赖
+│   │       ├── api/ routes/     FastAPI，只做协议转换
+│   │       ├── schemas/         Pydantic 请求/响应模型
+│   │       ├── services/        用例编排，无公式
+│   │       ├── presets/         加载（mtime 缓存）与语义校验
+│   │       └── cli.py           命令行入口
 │   └── tests/               pytest
 │
 ├── data/                    唯一真实数据源（3 个 JSON，全部是生成物）
 ├── docs/                    技术文档（见下）
-├── tools/                   开发脚本：dev.ps1 · sync_presets.py
+├── tools/                   开发脚本：dev.ps1 · sync_presets.py · bundle_worker_data.py
+├── wrangler.jsonc           Cloudflare Worker 配置（部署形态 D）
 └── .github/skills/          数据抓取 Skill（脚本位置固定，勿移动）
 ```
 

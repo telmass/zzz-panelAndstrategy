@@ -1,0 +1,43 @@
+// Cloudflare Worker config: one Worker serves both the API and the frontend
+// static assets. See docs/deployment.md section 5 (Chinese) for the full guide.
+//
+//   uv run --group worker pywrangler dev      # local preview (workerd + Pyodide)
+//   uv run --group worker pywrangler deploy   # publish to *.workers.dev
+//
+// COMMENTS ARE ASCII ON PURPOSE. pywrangler parses this file with Python's
+// locale encoding, so on a zh-CN Windows machine (GBK) any non-ASCII byte here
+// aborts the deploy with a codec error. Keep this file ASCII; put prose in
+// docs/deployment.md instead.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "zzz-panel-and-strategy",
+  "main": "backend/src/worker.py",
+
+  // python_workers enables the Pyodide runtime; the date picks the
+  // Python/Pyodide versions.
+  "compatibility_date": "2026-10-04",
+  "compatibility_flags": ["python_workers"],
+
+  "observability": {
+    "enabled": true
+  },
+
+  "assets": {
+    // build.outDir from frontend/vite.config.ts, i.e. this directory.
+    // Requires `cd frontend; npm run build` first.
+    "directory": "./frontend/dist",
+    "binding": "ASSETS",
+
+    // SPA history fallback: unmatched paths return index.html instead of 404.
+    // Equivalent to nginx `try_files $uri $uri/ /index.html`. A 404.html copy
+    // would NOT work here: it is served with a 404 status, so the browser
+    // never runs the script inside it.
+    "not_found_handling": "single-page-application",
+
+    // Only these paths enter the Worker. Everything else is answered straight
+    // from the asset store, without invoking the script (and without CPU
+    // billing). /api/* is what the frontend calls; /docs and /openapi.json are
+    // FastAPI's own generated docs, kept reachable for contract checks.
+    "run_worker_first": ["/api/*", "/docs", "/openapi.json"]
+  }
+}

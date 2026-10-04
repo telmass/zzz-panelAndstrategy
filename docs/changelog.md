@@ -5,6 +5,77 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-04 · Cloudflare Worker 部署形态 D（已上线）
+
+### 背景
+
+原先只有「自建服务器 + Nginx 反代」这一条公网部署路径（`docs/deployment.md`
+形态 A）。GitHub Pages 托管不了本项目的后端——它是纯静态的，而计算全在
+FastAPI 侧。Cloudflare 的 Python Workers 已 GA，可以让**一个 Worker 同时提供
+API 与前端静态产物**，正好对上 `frontend/vite.config.ts` 里早已注明的设计意图。
+
+### 线上地址
+
+<https://zzz-panel-and-strategy.huangjiansheng0flipped.workers.dev>
+
+### 变更
+
+新增部署形态 D（`docs/deployment.md` 第 5 节），无新增运行时依赖：
+
+| 文件 | 作用 |
+| --- | --- |
+| `wrangler.jsonc` | Worker 配置：入口、`python_workers` 标志、assets 路由 |
+| `backend/src/worker.py` | Python Worker 入口，只有一行 `asgi.entrypoint(app)` |
+| `tools/bundle_worker_data.py` | 把 `data/*.json` 编译进 `zzz_panel/_bundled_data.py` |
+| `backend/tests/conftest.py` | autouse 夹具，切断编译产物回退路径，保证测试不依赖本机状态 |
+| `backend/tests/test_worker_bundle.py` | 15 项 |
+
+**前端零改动。** 页面与 API 同域，`VITE_API_BASE_URL=/api` 继续有效，
+后端 CORS 白名单也不用放开。
+
+### 四个实测踩出来的坑
+
+**1. `pywrangler` 只上传 `.py`，`.json` 被静默丢弃。**
+最初把 `data/*.json` 复制进包内 `_data/` 目录，部署不报错、`/api/panel/calc`
+也是 200，但 `/api/presets/*` 一律 503。`wrangler deploy --dry-run --outdir`
+dump 出来才看清：产物 `zzz_panel/` 里只有 27 个 `.py`，镜像的 JSON 不在其中。
+因此数据必须编译成 Python 模块（每行一个相邻字符串字面量，仍与源逐字节一致）。
+
+**2. loader 的编译产物模块名曾拼错。**
+`__package__` 在 `presets/loader.py` 里是 `zzz_panel.presets` 而非包根，
+拼成了 `zzz_panel.presets._bundled_data`。文件就在包里，线上却报「找不到编译
+产物」。已加 `test_default_module_name_matches_generator_output` 钉住两侧名字。
+
+**3. 生成物不进版本库，会让测试结论取决于本机状态。**
+`test_missing_file_reports_how_to_generate` 在跑过生成脚本的机器上失败、在 CI
+上通过。用 `conftest.py` 的 autouse 夹具统一切断，需要该路径的用例自己装。
+
+**4. wrangler 不读 Windows 系统代理。**
+直连 `api.cloudflare.com` 超时，而 PowerShell 走 `127.0.0.1:7892` 的系统代理
+正常。wrangler 是 Node 程序，不走 WinINET；需显式给
+`NODE_USE_ENV_PROXY=1` 与 `HTTPS_PROXY`。见 `docs/deployment.md` 第 5.7 节。
+
+### 依赖分组按 Pyodide 能力重排
+
+`pywrangler` 只解析 `[project.dependencies]`，其中任何带 C/Rust 扩展的包都会让
+`sync` 失败：
+
+| 包 | 原位置 | 现位置 | 原因 |
+| --- | --- | --- | --- |
+| `uvicorn[standard]` | `dependencies` | `dependency-groups.dev` | `uvicorn` 拉进的 uvloop / httptools 无 PyEmscripten wheel。本地开发仍可用（`uv sync` 默认装 dev 组） |
+| `matplotlib` / `pandas` / `seaborn` | `dependencies` | `optional-dependencies.analysis` | 计算链路零引用，且 Pyodide 没有 matplotlib / seaborn |
+
+### 线上自检结果
+
+`/api/health`、`/api/presets/agents`（60 条）、`/api/presets/weapons`（100 条）、
+`POST /api/panel/calc`（12 项 totals）、`/`、`/calculator`、`/guide`（SPA 回落）、
+`/docs`、`/assets/*`、`/images/*` 全部 200。Worker 启动约 2.3 s。
+
+本地：后端测试 94 → 109 项，前端 86 项不变，0 skip。
+
+> ⚠️ 部署前必须先跑 `python tools/bundle_worker_data.py`。忘了这一步的症状是
+> 页面能开但两个级联选择器为空、`/api/presets/*` 返回 503。
+
 ## 2026-10-04 · 仓库根新增 `index.html` 指引页
 
 ### 背景

@@ -7,9 +7,11 @@
 | `README.md` | 项目入口文档：简介、功能、技术栈、快速开始、目录结构 |
 | `pyproject.toml` | 唯一 Python 依赖源（uv）。`name` 为 `zzz-panel-and-strategy`，`[project.scripts]` 暴露同名命令；`[tool.hatch.build.targets.wheel]` 指向 `backend/src/zzz_panel`；`[tool.pytest.ini_options]` 配置 `pythonpath` 与 `testpaths` |
 | `uv.lock` | 锁文件，改依赖后必须 `uv lock` |
+| `pylock.toml` | **Worker 的**锁文件（PEP 751），由 `pywrangler sync` 生成。**要提交**：它固定 Pyodide 环境里每个依赖的版本，否则同一份代码在不同机器上部署出不同的 Worker |
 | `.python-version` | Python 版本锁定（>= 3.13） |
-| `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.venv/`、`node_modules/`、`dist/`、`.env` 等 |
+| `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.venv/`、`node_modules/`、`dist/`、`.env`，以及 Worker 生成物 `_data/`、`python_modules/`、`.venv-workers/` |
 | `index.html` | 仓库根的**指引页**，不是应用本体。内联样式，取值抄自 `frontend/src/assets/styles/tokens.css`。给出 dev server 入口、三个入口的路径对照，以及「为什么根目录不能放应用」的说明。**不参与任何构建**（Vite root 在 `frontend/`），也因此不会被拷进 `dist/` |
+| `wrangler.jsonc` | Cloudflare Worker 配置：`main` 指向 `backend/src/worker.py`，`compatibility_flags` 含 `python_workers`，`assets` 指向 `frontend/dist/` 并开 `not_found_handling: single-page-application`。见 [deployment.md](deployment.md) 第 5 节 |
 
 根目录的 `index.html` 刻意**不做 `meta refresh` 自动跳转**：应用在
 `http://localhost:5173`，未启动时跳转只会得到浏览器连接错误，反而丢掉启动步骤，
@@ -91,8 +93,23 @@ src-layout，包名 `zzz_panel`。
 | `services/` | 用例编排。**不含任何公式**，只做命名空间转换与结果打包 |
 | `api/` | FastAPI 传输层。`app.py` 是应用与CORS；`routes/panel.py`、`routes/presets.py`。**不挂载静态文件** |
 | `presets/` | `loader.py`（按 mtime 缓存的 JSON 加载）、`validate.py`（语义校验） |
+| `zzz_panel/_bundled_data.py` | **生成物，不提交**。`tools/bundle_worker_data.py` 把 `data/*.json` 的原文编译成两个字符串常量，供 Cloudflare Worker 读取——`pywrangler` 只上传 `.py`，包里的 `.json` 会被静默丢弃。见 [deployment.md](deployment.md) 第 5.3 节 |
 | `cli.py` | 命令行入口。无子命令，固定跑一组示例并打印 12 行 |
-| `tests/` | pytest，6 个文件 |
+| `tests/` | pytest，7 个文件 |
+
+### 3.0 backend/src/ 的顶层两个文件
+
+`backend/src/` 既是包目录，也是 Cloudflare Worker 的入口目录——`pywrangler`
+会把**入口所在目录下的 `.py` 文件**附加到 Worker 里，因此 `worker.py` 必须与
+`zzz_panel/` 同级，入口才能以 `zzz_panel.xxx` 正常导入。
+
+> 注意是「`.py` 文件」，不是「整棵目录树」。同目录下的 `.json` / `.html` 会被
+> **静默**丢弃：部署不报错，线上却读不到。预设数据的编译产物因此也必须是 `.py`。
+
+| 文件 | 说明 |
+| --- | --- |
+| `zzz_panel/` | Python 包本体 |
+| `worker.py` | Cloudflare Python Worker 入口，只有 `Default = asgi.entrypoint(app)` 一行生效。**本地 uvicorn 开发不经过它** |
 
 ### 3.1 core/ 各模块
 
@@ -160,6 +177,8 @@ src-layout，包名 `zzz_panel`。
 | `test_legacy_parity.py` | Python 侧对 `legacy_cases.json` 逐条比对 |
 | `test_fmt_parity.py` | 跨语言格式化对拍（用 Node 驱动参照实现） |
 | `test_api.py` | 路由形状、CORS、422 触发条件、响应键名 |
+| `test_worker_bundle.py` | Worker 部署形态：编译产物与真源逐字节一致、幂等、两侧模块名对得上，以及 `loader.py` 的编译产物回退分支 |
+| `conftest.py` | autouse 夹具：默认切断「包内编译产物」这条回退路径。生成物不进版本库，不切断的话测试结论会取决于本机是否跑过生成脚本 |
 | `legacy_cases.json` | 抽样用例夹具，由 `frontend/tools/dump_legacy_cases.mjs` 导出 |
 | `_fmt_driver.cjs` | 从参照实现提取 `fmt` 函数体并执行 |
 | `README.md` | 各文件覆盖内容 |
@@ -173,6 +192,8 @@ src-layout，包名 `zzz_panel`。
 | `docs/completeds/` | 已完成事项的归档（迁移记录、旧页面删除记录）。**不是当前状态的描述** |
 | `tools/` | 开发辅助脚本。**数据抓取脚本刻意不放这里**——它们是 Skill 契约的一部分，必须留在 `.github/skills/*/scripts/` |
 | `tools/dev.ps1` | 一键启停前后端。**必须保留 UTF-8 BOM**，否则 Windows PowerShell 5.1 会因中文产生 ParserError |
+| `tools/sync_presets.py` | 生成 `data/*.json`（从 legacy 夹具或 `core/options.py`），并校验往返无损 |
+| `tools/bundle_worker_data.py` | 把 `data/*.json` 编译进 `backend/src/zzz_panel/_bundled_data.py`，供 Worker 使用。`--check` 只比对不写 |
 | `.github/skills/` | Skill 定义与抓取脚本，位置固定 |
 
 ## 7. 相关文档

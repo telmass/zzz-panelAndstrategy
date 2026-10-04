@@ -15,6 +15,15 @@ node_modules/
 dist/
 .vite/
 
+# Cloudflare Worker 生成物（见 tools/bundle_worker_data.py 与 docs/deployment.md）
+# 预设数据的编译产物，唯一真实源是 data/，不提交
+backend/src/zzz_panel/_bundled_data.py
+# pywrangler sync 的中间产物与本地状态
+python_modules/
+src/vendor/
+.venv-workers/
+.wrangler/
+
 # 环境变量
 .env
 .env.local

@@ -4,10 +4,19 @@ version = "0.1.0"
 description = "绝区零代理人面板计算器：Vue3 前端 + Python 计算服务"
 readme = "README.md"
 requires-python = ">=3.13"
+# 只保留 Worker 也需要的纯依赖。pywrangler 只解析本列表，任何带 C/Rust 扩展的
+# 包（如 uvicorn[standard] 拉进来的 uvloop、httptools）都没有 PyEmscripten wheel，
+# 会让 `pywrangler sync` 直接失败——本地开发用的 uvicorn 因此放在 dev 组。
 dependencies = [
     "fastapi>=0.115",
     "pydantic>=2.9",
-    "uvicorn[standard]>=0.32",
+]
+
+[project.optional-dependencies]
+# 数据分析与画图用的依赖，计算链路零引用（见 .kilo/plans/ 里当初的记录）。
+# 留作可选组：既不拖累常规安装，也不会让 Worker 部署解析到 matplotlib/seaborn
+# ——这两包 Pyodide 根本没有。
+analysis = [
     "matplotlib>=3.10.6",
     "pandas>=3.0.0",
     "seaborn>=0.13.2",
@@ -17,6 +26,13 @@ dependencies = [
 dev = [
     "httpx>=0.27",
     "pytest>=8.3",
+    "uvicorn[standard]>=0.32",
+]
+# Cloudflare Python Worker 的工具链。仅部署时需要，故与 dev 分开：
+# `uv run --group worker pywrangler dev|deploy`。uv sync 默认不装这一组。
+worker = [
+    "workers-py",
+    "workers-runtime-sdk",
 ]
 
 [project.scripts]

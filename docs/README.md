@@ -24,7 +24,7 @@
 
 | 文档 | 内容 |
 | --- | --- |
-| [deployment.md](deployment.md) | 构建、三种部署形态、预设数据定位、自检清单 |
+| [deployment.md](deployment.md) | 构建、四种部署形态、预设数据定位、自检清单 |
 
 ## 历史
 
@@ -63,7 +63,7 @@
 
 ### 我要把这个项目部署出去
 
-[deployment.md](deployment.md)。先读第 1 节选形态，再照第 6 节自检。
+[deployment.md](deployment.md)。先读第 1 节选形态，再照第 7 节自检。
 
 ## 文档维护约定
 
