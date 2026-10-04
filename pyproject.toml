@@ -1,5 +1,5 @@
 [project]
-name = "zzz-panel"
+name = "zzz-panel-and-strategy"
 version = "0.1.0"
 description = "绝区零代理人面板计算器：Vue3 前端 + Python 计算服务"
 readme = "README.md"
@@ -20,7 +20,7 @@ dev = [
 ]
 
 [project.scripts]
-zzz-panel = "zzz_panel.cli:main"
+zzz-panel-and-strategy = "zzz_panel.cli:main"
 
 [build-system]
 requires = ["hatchling"]

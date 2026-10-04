@@ -71,10 +71,10 @@ uv run uvicorn zzz_panel.api.app:app --host 127.0.0.1 --port 8000
 ```nginx
 server {
     listen 80;
-    server_name zzz-panel.example.com;
+    server_name zzz-panel-and-strategy.example.com;
 
     # 静态产物
-    root /srv/zzz-panel/dist;
+    root /srv/zzz-panel-and-strategy/dist;
     index index.html;
 
     location / {
@@ -157,7 +157,7 @@ allow_origins=[
 | 只装了 wheel | **必须**设 `ZZZ_PANEL_DATA_DIR` 指向含 `agent-presets.json` / `weapon-presets.json` 的目录 |
 
 ```powershell
-$env:ZZZ_PANEL_DATA_DIR = "C:\srv\zzz-panel\data"
+$env:ZZZ_PANEL_DATA_DIR = "C:\srv\zzz-panel-and-strategy\data"
 uv run uvicorn zzz_panel.api.app:app --port 8000
 ```
 

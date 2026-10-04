@@ -5,7 +5,7 @@
 | 路径 | 职责 |
 | --- | --- |
 | `README.md` | 项目入口文档：简介、功能、技术栈、快速开始、目录结构 |
-| `pyproject.toml` | 唯一 Python 依赖源（uv）。`[project.scripts]` 暴露 `zzz-panel`；`[tool.hatch.build.targets.wheel]` 指向 `backend/src/zzz_panel`；`[tool.pytest.ini_options]` 配置 `pythonpath` 与 `testpaths` |
+| `pyproject.toml` | 唯一 Python 依赖源（uv）。`name` 为 `zzz-panel-and-strategy`，`[project.scripts]` 暴露同名命令；`[tool.hatch.build.targets.wheel]` 指向 `backend/src/zzz_panel`；`[tool.pytest.ini_options]` 配置 `pythonpath` 与 `testpaths` |
 | `uv.lock` | 锁文件，改依赖后必须 `uv lock` |
 | `.python-version` | Python 版本锁定（>= 3.13） |
 | `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.venv/`、`node_modules/`、`dist/`、`.env` 等 |

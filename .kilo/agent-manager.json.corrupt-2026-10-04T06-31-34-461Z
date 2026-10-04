@@ -1,0 +1,28 @@
+{
+  "worktrees": {
+    "wt-1790874842774-1": {
+      "branch": "abundance-snowflake",
+      "path": "c:\\code\zzz-panelAndstrategy\\.kilo\\worktrees\\abundance-snowflake",
+      "parentBranch": "master",
+      "createdAt": "2026-10-01T17:14:02.775Z",
+      "branchOwned": true,
+      "autoNameSessionId": "ses_f078a8078ffeZpiXRcjTQDMaRU",
+      "autoNamePromptCount": 0
+    }
+  },
+  "sessions": {
+    "ses_f078a8078ffeZpiXRcjTQDMaRU": {
+      "worktreeId": "wt-1790874842774-1",
+      "createdAt": "2026-10-02T04:11:30.804Z"
+    }
+  },
+  "tabOrder": {
+    "local": [
+      "pending:ec37c50c-dea1-455d-8ce6-01b7c28fde5f"
+    ]
+  },
+  "worktreeOrder": [
+    "wt-1790874842774-1"
+  ],
+  "sessionsCollapsed": true
+}

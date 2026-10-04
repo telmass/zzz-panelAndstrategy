@@ -29,7 +29,7 @@ backend/src/zzz_panel/core/              规则真源：纯函数、零 IO、零
   ▲
   │  ④ 同一条链路
   │
-backend/src/zzz_panel/cli.py             命令行入口（uv run zzz-panel）
+backend/src/zzz_panel/cli.py             命令行入口（uv run zzz-panel-and-strategy）
 ```
 
 三个入口（网页、API、命令行）共用 `core/`，因此不存在「网页算的和命令行算的不一样」。
@@ -133,7 +133,7 @@ ResultPanel 展示
 uv sync                                          # 安装 Python 依赖
 uv run uvicorn zzz_panel.api.app:app --port 8000  # 后端 :8000
 uv run pytest                                    # 后端测试
-uv run zzz-panel                                 # CLI 计算示例
+uv run zzz-panel-and-strategy                 # CLI 计算示例
 
 pwsh tools/dev.ps1                # 一条命令拉起前后端（推荐）
 

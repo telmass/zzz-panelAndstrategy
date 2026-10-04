@@ -1,7 +1,7 @@
 """命令行入口（承自原仓库根目录 ``main.py`` 的打印块）。
 
 用法：
-    uv run zzz-panel
+    uv run zzz-panel-and-strategy
     python -m zzz_panel
 """
 

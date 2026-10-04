@@ -51,7 +51,7 @@ cd frontend; npm run dev                              # 前端
 ### 只跑后端计算（不启服务）
 
 ```powershell
-uv run zzz-panel            # 等价于 uv run python -m zzz_panel
+uv run zzz-panel-and-strategy  # 等价于 uv run python -m zzz_panel
 ```
 
 固定跑一组示例输入并打印 12 行结果。不接受参数——它是规则的可执行文档，

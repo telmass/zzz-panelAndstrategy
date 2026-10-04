@@ -70,7 +70,7 @@ cd frontend; npm run dev                              # 前端
 ### 只跑后端计算
 
 ```powershell
-uv run zzz-panel           # 固定跑一组示例输入，打印 12 行结果
+uv run zzz-panel-and-strategy  # 固定跑一组示例输入，打印 12 行结果
 ```
 
 ### 测试
