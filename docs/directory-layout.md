@@ -9,9 +9,14 @@
 | `uv.lock` | 锁文件，改依赖后必须 `uv lock` |
 | `.python-version` | Python 版本锁定（>= 3.13） |
 | `.gitignore` | 忽略 `__pycache__/`、`*.pyc`、`.venv/`、`node_modules/`、`dist/`、`.env` 等 |
+| `index.html` | 仓库根的**指引页**，不是应用本体。内联样式，取值抄自 `frontend/src/assets/styles/tokens.css`。给出 dev server 入口、三个入口的路径对照，以及「为什么根目录不能放应用」的说明。**不参与任何构建**（Vite root 在 `frontend/`），也因此不会被拷进 `dist/` |
 
-根目录**没有 HTML 文件**。迁移期的 6 个中文书签兼容页已在第5 步删除，
-记录见 [completeds/legacy-pages.md](completeds/legacy-pages.md)。
+根目录的 `index.html` 刻意**不做 `meta refresh` 自动跳转**：应用在
+`http://localhost:5173`，未启动时跳转只会得到浏览器连接错误，反而丢掉启动步骤，
+故改为可点击的入口加命令。
+
+迁移期的 6 个中文书签兼容页已在第5 步删除，记录见
+[completeds/legacy-pages.md](completeds/legacy-pages.md)。
 
 ## 2. frontend/ — 前端工程（Vite root）
 

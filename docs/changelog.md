@@ -5,6 +5,28 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-04 · 仓库根新增 `index.html` 指引页
+
+### 背景
+
+仓库是 `backend/` + `frontend/` + `data/` 的 monorepo，从根目录打开看不到任何入口，
+容易误以为「项目缺页面」或误把 `frontend/index.html` 搬到根目录。
+
+### 变更
+
+根目录新增 `index.html`：纯静态指引页，给出 dev server 入口按钮、三个入口的路径对照
+（源码入口 / 开发服务 / 构建产物），以及根目录不能放应用的原因。内联样式，取值抄自
+`frontend/src/assets/styles/tokens.css`。
+
+**不移动 `frontend/index.html`。** Vite 的 `index.html`、`public/`、`dist/` 与 Vitest
+用例发现全部以 root（即 `frontend/`）解析，入口上移会让 `/src/main.ts`、静态资源拷贝
+路径、产物输出目录与测试发现同时失效。
+
+**也不做 `meta refresh` 自动跳转。** 应用在 `http://localhost:5173`，未启动时跳转只会
+得到浏览器连接错误并丢掉启动步骤，因此改为可点击入口加命令。
+
+同步修订 `docs/directory-layout.md` 第 1 节——原文写着「根目录没有 HTML 文件」。
+
 ## 2026-10-04 · 修复选择器折叠框里职业标签重复两次
 
 ### 问题
