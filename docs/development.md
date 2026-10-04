@@ -61,7 +61,7 @@ uv run zzz-panel            # 等价于 uv run python -m zzz_panel
 
 ```powershell
 uv run pytest                          # 后端 87 项
-cd frontend; npm run test              # 前端 73 项
+cd frontend; npm run test              # 前端 81 项
 ```
 
 前端另外两个脚本：
@@ -165,7 +165,8 @@ python tools/sync_presets.py --options       # 重新生成 data/options.json
 
 ### naive-ui 组件的测试与主题
 
-音擎选择器用 `n-cascader`。改动相关代码前先知道三件事：
+代理人与音擎选择器都用 `n-cascader`，两者的选项图标与菜单文案由
+`composables/useCascaderIcons.ts` 共用。改动相关代码前先知道三件事：
 
 - 主题走 `App.vue` 的 `n-config-provider`，颜色由 `composables/useNaiveTheme.ts`
   **从 `tokens.css` 读 CSS 变量**转成 `themeOverrides`。新增 naive 组件时在

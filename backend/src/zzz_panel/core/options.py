@@ -3,10 +3,14 @@
 这是词条、二件套与核心加成的**唯一权威来源**，取值逐条对齐
 ``frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js``。
 
-前端 ``src/constants/calculatorOptions.ts`` 目前保留同一份副本，
-因为下拉框需要在浏览器里渲染 label；第 4 步第 20 条会让本模块**单向生成**
-本地 ``data/options.json`` 供前端读取，从而去掉副本——选项表不经接口，
-下拉框要瞬时可用，不能等一次 HTTP 往返。
+本模块**单向生成** ``data/options.json``，前端
+``src/constants/calculatorOptions.ts`` 以 ``import generated from '@data/options.json'``
+读取该派生产物，**不再持有副本**。改了本模块必须跑
+``python tools/sync_presets.py --options`` 重新生成，否则
+``backend/tests/test_options_json.py`` 的防漂移测试会失败。
+
+选项表**不经接口**：下拉框要瞬时可用，不能等一次 HTTP 往返，
+所以走构建期生成而非运行时请求。
 
 ``id`` 缺失的条目按出现顺序补齐，与 legacy 用数组下拉定位的行为等价。
 """

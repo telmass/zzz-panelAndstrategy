@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { NCascader } from 'naive-ui';
 
-import { PANEL_MODE_LABELS } from '@/constants/calculatorOptions';
-import { useAgentPreset } from '@/composables/useAgentPreset';
+import { createCascaderRenderers } from '@/composables/useCascaderIcons';
+import { agentTagLabel, useAgentPreset } from '@/composables/useAgentPreset';
 import { usePanelMode } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
-import { NumberField, PanelModule, SelectField } from '@/components/common';
+import { usePresetStore } from '@/stores/presetStore';
+import { NumberField, PanelModule } from '@/components/common';
 
 /**
  * 一、基础面板。对应 legacy 的 `.module.base`。
  *
  * 面板模式相关的显隐与锋御文案替换由 `usePanelMode` 驱动；
- * 代理人下拉的联动与预设载入由 store action 与 `useAgentPreset` 承担。
+ * 代理人的载入由 `useAgentPreset` 承担。
  */
 const panel = usePanelStore();
+const presets = usePresetStore();
 const { applyAgentPreset } = useAgentPreset();
 const {
   showPenetrationInput,
@@ -23,13 +26,72 @@ const {
   energyInputLabel,
 } = usePanelMode();
 
-/** 代理人预设选项文案为「名字（标签 / 模式）」，与 legacy 一致。 */
-const agentPresetOptions = computed(() =>
-  panel.filteredAgentPresets.map((agent) => {
-    const tags = [...new Set([agent.roleTag, PANEL_MODE_LABELS[agent.panelMode]].filter(Boolean))];
-    return { value: agent.id, label: `${agent.name}（${tags.join(' / ')}）` };
-  }),
+const cascaderValue = computed<string | null>(() => panel.agent.presetId || null);
+
+/** 头像路径。`public/` 原样拷贝到 `dist/` 根，故按 URL 取而非 import。 */
+const avatarSrc = computed(() =>
+  panel.selectedAgent ? `/images/agents/${panel.selectedAgent.id}.png` : '',
 );
+
+/**
+ * 卡片副信息：`职业 / 模式`，复用 `agentTagLabel` 与载入提示同一份拼接逻辑。
+ *
+ * 通用模式的中文名被 `panelModeTagLabel` 隐去，故此处只有一段；
+ * 命破/锋御因角色与模式同字同样只剩一段。
+ */
+const metaText = computed(() => {
+  const agent = panel.selectedAgent;
+  return agent ? agentTagLabel(agent) : '';
+});
+
+/**
+ * 头像缺失时的兜底。
+ *
+ * 数据增长后可能出现有预设无 PNG 的代理人，此时不能显示破图——
+ * 隐藏图片会让卡片只剩文字，布局不至于塌。
+ */
+const avatarBroken = ref(false);
+
+function onAvatarError(): void {
+  avatarBroken.value = true;
+}
+
+/**
+ * 选中即确定 roletag —— 不再单独提供标签下拉。
+ *
+ * 与音擎的差别：音擎的 `selectWeaponPreset` 一次写全 roleTag/grade/preset，
+ * 而代理人的载入逻辑（结构校验、核心加成、二件套清空、面板模式写入）
+ * 在 `useAgentPreset` 里，不在 store。故这里串联两个既有 action，
+ * 顺序必须是先 role 后 preset——`selectAgentRole` 会把面板模式回落到
+ * `requestedMode`，`applyAgentPreset` 再写入代理人的真实模式。
+ *
+ * 清除（`null`）时只走 `selectAgentRole('')`：它已经清空 presetId、
+ * 还原基础面板/核心/二件套、回落面板模式并重置音擎，与
+ * `applyAgentPreset('')` 的效果完全一致，后者是冗余的。
+ */
+function onSelect(value: string | null): void {
+  avatarBroken.value = false;
+  const agentId = value ?? '';
+  if (!agentId) {
+    panel.selectAgentRole('');
+    return;
+  }
+  const agent = presets.agentById.get(agentId);
+  if (!agent) {
+    // 交给既有校验给出红色提示，不静默失败
+    applyAgentPreset(agentId);
+    return;
+  }
+  panel.selectAgentRole(agent.roleTag);
+  applyAgentPreset(agentId);
+}
+
+/* ====== 选项前缀图标与文案（与音擎选择器共用，见 useCascaderIcons） ====== */
+
+const { renderOptionPrefix, renderOptionLabel } = createCascaderRenderers({
+  leafIconDir: '/images/agents',
+  leafName: (id) => presets.agentById.get(id)?.name,
+});
 
 /** 基础面板的数值字段，与 legacy 的 baseFields 顺序一致。 */
 const NUMERIC_FIELDS = [
@@ -62,23 +124,36 @@ function numberModel(key: (typeof NUMERIC_FIELDS)[number]['key']) {
     </p>
 
     <div class="agent-selector-grid" style="margin-bottom: 8px">
-      <SelectField
-        name="agent_role"
-        label="代理人标签"
-        placeholder="请选择"
-        :model-value="panel.agent.roleTag"
-        :options="panel.agentRoleOptions.map((role) => ({ value: role, label: role }))"
-        @update:model-value="panel.selectAgentRole($event)"
-      />
-      <SelectField
-        name="agent_preset"
-        label="代理人名称"
-        placeholder="请先选择标签"
-        :model-value="panel.agent.presetId"
-        :options="agentPresetOptions"
-        :disabled="!panel.agent.roleTag"
-        @update:model-value="applyAgentPreset($event)"
-      />
+      <div class="field agent-picker">
+        <span class="agent-picker-label">代理人</span>
+        <n-cascader
+          class="agent-picker-input"
+          :options="panel.agentPresetGroups"
+          :value="cascaderValue"
+          :render-prefix="renderOptionPrefix"
+          :render-label="renderOptionLabel"
+          filterable
+          clearable
+          placeholder="选择代理人"
+          @update:value="onSelect"
+        />
+      </div>
+
+      <!-- 选中后展示：头像 + 名称 + 职业/模式。与音擎卡片同构 -->
+      <div v-if="panel.selectedAgent" class="agent-card">
+        <img
+          v-if="!avatarBroken"
+          class="agent-card-avatar"
+          :src="avatarSrc"
+          :alt="panel.selectedAgent.name"
+          loading="lazy"
+          @error="onAvatarError"
+        />
+        <span class="agent-card-copy">
+          <span class="agent-card-name">{{ panel.selectedAgent.name }}</span>
+          <span class="agent-card-meta">{{ metaText }}</span>
+        </span>
+      </div>
     </div>
 
     <p class="note note--lead" :style="panel.agentNote.tone === 'error' ? 'color: #dc2626' : ''">

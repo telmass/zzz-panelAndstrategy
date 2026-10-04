@@ -2,6 +2,7 @@ import {
   CORE_OPTIONS,
   MODELED_BASE_STAT_LABELS,
   PANEL_MODE_LABELS,
+  panelModeTagLabel,
 } from '@/constants/calculatorOptions';
 import { AGENT_ROLE_TAGS } from '@/constants/calculatorOptions';
 import { displayEnergyAttributeLabel, isPanelMode } from '@/composables/usePanelMode';
@@ -131,9 +132,14 @@ function resolveCoreIndexes(agent: AgentPreset): string[] {
   return coreIndexes;
 }
 
-/** 代理人的展示标签：`角色标签 / 模式名`，去重后拼接。 */
+/**
+ * 代理人的展示标签：`角色标签 / 模式名`，去重后拼接。
+ *
+ * 模式名经 `panelModeTagLabel` 取，通用模式为空串因而不出现在文案里；
+ * 角色标签与模式名同字（命破/锋御）时由 `Set` 收成一段。
+ */
 export function agentTagLabel(agent: AgentPreset): string {
-  const tags = [agent.roleTag, PANEL_MODE_LABELS[agent.panelMode]].filter(Boolean);
+  const tags = [agent.roleTag, panelModeTagLabel(agent.panelMode)].filter(Boolean);
   return [...new Set(tags)].join(' / ');
 }
 
@@ -203,7 +209,7 @@ export function useAgentPreset() {
       const note: AgentNote = {
         text: panel.agent.roleTag
           ? `已筛选“${panel.agent.roleTag}”标签，请选择具体代理人载入基础面板和核心加成。`
-          : '请先选择代理人标签，再选择具体代理人。',
+          : '请选择代理人以载入基础面板和核心加成。',
         tone: 'neutral',
       };
       panel.setAgentNote(note);

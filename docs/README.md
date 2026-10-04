@@ -40,7 +40,7 @@
 [calculation-rules.md](calculation-rules.md) → [architecture.md](architecture.md) 第 3.4 节
 → [development.md](development.md) 第 7 节 → [testing.md](testing.md) 第 2 节
 
-⚠️ 改完必须跑 `npm run test`，其中三项对拍会验证你没有改变既有数值。
+⚠️ 改完必须跑 `npm run test`，其中 `legacy-parity.spec.ts` 的 4 个对拍场景会验证你没有改变既有数值。
 
 ### 我要加一个代理人预设
 

@@ -69,3 +69,24 @@ export interface AgentPreset {
   unmodeledBaseStats?: UnmodeledBaseStat[];
   coreBonuses: AgentCoreBonus[];
 }
+
+/**
+ * 代理人 cascader 的一个选项。
+ *
+ * 结构与 `WeaponCascaderOption` 相同：一级项是职业标签（带 `children`），
+ * 二级项是具体代理人（叶子）。`label` 是浏览态看不到、但选中后可见的文案——
+ * naive-ui 渲染折叠框与 `filterable` 匹配用的都是它，`renderLabel` 只管浏览菜单。
+ *
+ * 实际段数恒为 2（「名称 / 职业」）：`panelMode` 不作独立筛选轴，只写进文案，
+ * 且命破/锋御因 `roleTag` 与模式名同字被去重、通用模式名被 `HIDE_STANDARD_MODE_LABEL`
+ * 隐去。拼接逻辑见 `panelStore` 的 `agentOptionLabel`。
+ *
+ * 索引签名是 naive-ui 的 `CascaderOption` 所必需，去掉就无法传给 `n-cascader`。
+ */
+export interface AgentCascaderOption {
+  label: string;
+  /** 一级为职业标签，二级为代理人 id。 */
+  value: string;
+  children?: AgentCascaderOption[];
+  [key: string]: unknown;
+}

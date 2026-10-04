@@ -12,8 +12,11 @@ calculators consume:
 2. The fixed 高级属性 at level 60 (暴击伤害 for most S-rank 强攻 engines).
 
 Also report the 突破 bonus table and 音擎特性 when the user asks for more than those two
-fields, and record the 职业 tag (强攻/异常/防护/命破/击破/支援) that the Wiki shows for the
-engine, which is the same tag used in the preset selector.
+fields, and record the 职业 tag that the Wiki shows for the engine, which is the same tag used
+in the preset selector. There are **seven** tags — 强攻/击破/异常/支援/防护/命破/锋御 (the full
+list is `WEAPON_ROLE_TAGS` in `frontend/src/constants/calculatorOptions.ts`) — so do not treat
+锋御 as missing: it is the one tag whose engines provide 基础防御力 instead of 基础攻击力
+(`baseKind: 'def'`).
 
 ## Source and transport
 

@@ -134,12 +134,25 @@ describe('CalculatorView 静态骨架', () => {
 
   it('cascader 带 filterable 与 clearable，placeholder 为「选择音擎」', () => {
     const wrapper = mountCalculator();
-    const cascader = wrapper.findComponent(NCascader);
+    // 页面上有两个 cascader，必须按 class 定位：findComponent(NCascader) 会命中代理人那个
+    const cascader = wrapper.getComponent<typeof NCascader>('.weapon-picker-input');
     expect(cascader.props('filterable')).toBe(true);
     expect(cascader.props('clearable')).toBe(true);
     expect(cascader.props('placeholder')).toBe('选择音擎');
     // naive-ui 把 placeholder 渲染成覆盖层，不落在 <input> 的 placeholder 属性上
     expect(wrapper.get('.weapon-picker .n-base-selection-placeholder').text()).toBe('选择音擎');
+  });
+
+  it('代理人只有一个 cascader，占位为「选择代理人」', () => {
+    const wrapper = mountCalculator();
+    const cascader = wrapper.getComponent<typeof NCascader>('.agent-picker-input');
+    expect(cascader.props('filterable')).toBe(true);
+    expect(cascader.props('clearable')).toBe(true);
+    expect(cascader.props('placeholder')).toBe('选择代理人');
+    expect(wrapper.get('.agent-picker .n-base-selection-placeholder').text()).toBe('选择代理人');
+    // 旧的两个原生下拉已移除
+    expect(wrapper.find('#agent_role').exists()).toBe(false);
+    expect(wrapper.find('#agent_preset').exists()).toBe(false);
   });
 
   it('未选音擎时不渲染头像卡片', () => {

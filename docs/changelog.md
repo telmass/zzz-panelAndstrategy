@@ -5,6 +5,65 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-04 · 代理人文案不再显示「通用」
+
+### 变更
+
+| 变更 | 说明 |
+| --- | --- |
+| **代理人选项、头像卡片与载入提示中不再出现「通用」二字** | 通用代理人的文案由「名称 / 职业 / 通用」缩为「名称 / 职业」，与命破/锋御（角色与模式同字、本就只有两段）形状一致 |
+| **命破、锋御的文案完全不变** | 仍显示角色名，两种模式名仍照常出现在文案里 |
+
+实现为**可一键恢复的隐藏**而非删除：`constants/calculatorOptions.ts` 新增
+`HIDE_STANDARD_MODE_LABEL`（当前 `true`）与 `panelModeTagLabel(mode)`，
+后者在开关打开且 `mode === 'standard'` 时返回空串。所有调用点本就带
+`filter(Boolean)`，空串会让这一段从拼接结果里消失，不会留下多余的 ` / `。
+把该常量改回 `false` 即完全恢复原文案，**无需改动任何调用点**。
+
+> ⚠️ **只影响显示，绝不影响计算。** `panel.panelMode` 仍照常写成 `'standard'`，
+> 三种模式的公式、12 行结果与请求体一个都没变；`PANEL_MODE_LABELS` 本身也仍在，
+> 因为 `useAgentPreset` 用它校验 `panelMode` 键是否合法。
+
+> 未改动两处**不在代理人选择器内**的「通用」：`LauncherView.vue` 副标题的模式说明
+> 与 `GuideView.vue` 的「攻防血通用计算」——后者是「通用公式」的意思，与面板模式无关。
+
+## 2026-10-04 · 代理人选择改为与音擎同构的 `n-cascader`
+
+### 变更
+
+| 变更 | 说明 |
+| --- | --- |
+| **两个原生下拉合并为一个级联选择器** | 原「代理人标签 + 代理人名称」两个 `<select>`（`#agent_role` / `#agent_preset`）换成单个 `n-cascader`：一级为职业标签、二级为代理人。与音擎选择器同构，`panelMode` 写进选项文案而非单列筛选轴 |
+| 浏览时二级只显示代理人名称 | 与音擎一致：前缀显示头像，标签只显示名字；完整文案留到选中后 |
+| 选中后新增头像卡片 | 折叠框下方显示头像 + 名称 + 职业，与音擎卡片同构（副信息经 `agentTagLabel` 拼接，命破/锋御因角色与模式同字只有一段，通用模式名被隐去同样只有一段） |
+| 60 张代理人 PNG 接入 | `public/images/agents/` 从「无代码引用」变为选项前缀与选中卡片均引用 |
+| 删除两个 getter | `panelStore` 的 `agentRoleOptions`、`filteredAgentPresets` 随标签下拉一起失去调用方，已删除 |
+
+### 实现
+
+新增 `composables/useCascaderIcons.ts`，把音擎原先的 `ROLE_ICON` 映射与两个渲染器
+（`render-prefix` / `render-label`）整体搬进去，两个模块改为调用同一个
+`createCascaderRenderers({ leafIconDir, leafName })`——差异只有叶子图标目录与名称
+解析函数，**渲染行为由构造保证一致，不再靠人工同步两份代码**。
+`ROLE_ICON` 的键类型取 `AGENT_ROLE_TAGS` 与 `WEAPON_ROLE_TAGS` 的并集，
+任一张表扩容而漏配图标时 `vue-tsc` 立即报错。
+CSS 类名 `.weapon-option-icon` 相应改为中性的 `.cascader-option-icon`。
+
+### 与音擎的差异
+
+| 维度 | 音擎 | 代理人 |
+| --- | --- | --- |
+| 叶子第三段文案 | 等级（`S级`） | 面板模式（`通用`/`命破`/`锋御`）——**无等级字段**。故选项实为两段，见下一行 |
+| 实际段数 | 恒 3 段 | 恒 2 段：命破/锋御因 `roleTag` 与模式名同字被去重，通用因模式名被 `HIDE_STANDARD_MODE_LABEL` 隐去（见本日上一条） |
+| 文案去重 | 不需要 | **需要**：命破/锋御代理人的 `roleTag` 与模式名同字，不去重会得到「仪玄 / 命破 / 命破」 |
+| 选中副作用 | `selectWeaponPreset` 一次写全 | `selectAgentRole` + `applyAgentPreset` **串联**，顺序不可反 |
+
+### 兼容
+
+`selectAgentRole`、`applyAgentPreset` 的语义与提示文案结构均未变
+（仅删掉已被新交互取消的「音擎与套装会重置」半句），
+`tests/legacy-parity.spec.ts` 的 Vue 侧走 store action，故三方对拍无需改动，仍全绿。
+
 ## 2026-10-03 · 音擎菜单项只显示名称，完整信息留到选中后
 
 ### 变更

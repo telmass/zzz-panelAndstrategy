@@ -1,6 +1,6 @@
 # frontend/tests — 前端测试
 
-Vitest + jsdom，共 **73 项**。
+Vitest + jsdom，共 **81 项**。
 
 ```powershell
 npm run test          # 一次性
@@ -16,8 +16,8 @@ npm run test:watch    # 监听
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
-| `calculator-view.spec.ts` | 30 | 计算器骨架、启动页、子页返回导航、指南页 |
-| `panel-interactions.spec.ts` | 39 | 音擎 cascader 分组与回填、选项前缀图标与菜单文案、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
+| `calculator-view.spec.ts` | 31 | 计算器骨架、启动页、子页返回导航、指南页 |
+| `panel-interactions.spec.ts` | 46 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `legacy-parity.spec.ts` | 4 | **三方对拍**：旧 JS ≡ Vue3 页面 ≡ Python 后端 |
 
 ## support/ — 夹具层

@@ -10,12 +10,12 @@
 | --- | --- |
 | `views/` | 3 个路由页：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
 | `components/layout/` | `BackToLauncher.vue` —— 子页返回主页，与业务无关 |
-| `components/common/` | 表单原语：`PanelModule`、`SelectField`、`NumberField`、`TextField`、`StepperInput`。音擎用 naive-ui 的 `n-cascader`，不走这里 |
+| `components/common/` | 表单原语：`PanelModule`、`SelectField`、`NumberField`、`TextField`、`StepperInput`。代理人与音擎都用 naive-ui 的 `n-cascader`，不走这里；`SelectField` 仍被核心与驱动盘主词条使用 |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页六块 UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
 | `router/` | 3 条路由，**无导航守卫** |
 | `stores/` | Pinia：`panelStore`（输入唯一真源）、`presetStore`。均不持久化 |
-| `composables/` | `usePanelCalc`、`useAgentPreset`、`usePanelMode`、`useSubStatLimit` |
+| `composables/` | `usePanelCalc`、`useAgentPreset`、`usePanelMode`、`useSubStatLimit`、`useCascaderIcons`（两个 cascader 共用的选项图标与文案）、`useNaiveTheme` |
 | `api/` | **唯一**网络出口：`panel.ts`、`presets.ts`、`errors.ts` |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
 | `constants/` | 仅 `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]` |
@@ -48,9 +48,10 @@
 | `frontend/public/` | 运行时按 URL 取。**不能被 `import`** |
 | `frontend/src/assets/` | 会被 `import`、生成带 hash URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
-> `public/images/` 下的 160 张 PNG 接入状态分两半：`weapons/`（100 张）已由音擎
-> `n-cascader` 的选中卡片按 `/images/weapons/{id}.png` 引用；`agents/`（60 张）
-> 仍无任何代码引用，属已知冗余。
+> `public/images/` 下的 167 张 PNG **全部已接入**：`weapons/`（100 张）由音擎
+> `n-cascader`、`agents/`（60 张）由代理人 `n-cascader`，各自的选中卡片按
+> `/images/{weapons,agents}/{id}.png` 引用，选项前缀同理；
+> `icons/`（7 张）为两个选择器共用的一级 roletag 图标。
 
 ### 样式
 
@@ -75,4 +76,4 @@
 - [docs/api-reference.md](../../docs/api-reference.md) —— 接口契约
 - [docs/development.md](../../docs/development.md) —— 开发流程与常见坑
 - [docs/testing.md](../../docs/testing.md) —— 测试策略
-- [docs/migration-vue3.md](../../docs/completeds/migration-vue3.md) —— 迁移记录（已归档）
+- [docs/completeds/migration-vue3.md](../../docs/completeds/migration-vue3.md) —— 迁移记录（已归档）

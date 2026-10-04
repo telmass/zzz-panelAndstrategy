@@ -34,15 +34,15 @@
 | `App.vue` | `<n-config-provider>` 包 `<router-view />`；主题映射见 `composables/useNaiveTheme.ts` |
 | `views/` | 路由级页面，3 个：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
 | `components/layout/` | `BackToLauncher.vue` —— 子页左上角的「返回主页」。**与业务无关** |
-| `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput`。音擎改用 naive-ui 的 `n-cascader`，故**无** `GroupedSelectField` |
+| `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput`。代理人与音擎改用 naive-ui 的 `n-cascader`，故**无** `GroupedSelectField`；`SelectField` 仍被核心与驱动盘主词条使用 |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页的六块UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
 | `router/` | 3 条路由表。**无导航守卫** |
 | `stores/` | Pinia 两个 store：`panelStore`（输入唯一真源）、`presetStore`（预设拉取）。**均不持久化** |
-| `composables/` | `usePanelCalc`（防抖调用后端 + 明细渲染）、`useAgentPreset`（预设校验与套用）、`usePanelMode`（模式派生显隐与文案）、`useSubStatLimit`（副词条钳制） |
+| `composables/` | `usePanelCalc`（防抖调用后端 + 明细渲染）、`useAgentPreset`（预设校验与套用）、`usePanelMode`（模式派生显隐与文案）、`useSubStatLimit`（副词条钳制）、`useCascaderIcons`（代理人与音擎共用的 cascader 选项图标与文案）、`useNaiveTheme`（CSS 变量 → `themeOverrides`） |
 | `api/` | **唯一**网络出口。`panel.ts`（计算）、`presets.ts`（预设）、`errors.ts`（`ApiError` 及两个子类） |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
-| `constants/` | **只有一个文件** `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量 |
+| `constants/` | **只有一个文件** `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量，以及 `HIDE_STANDARD_MODE_LABEL` + `panelModeTagLabel()`（隐藏「通用」模式名的唯一开关） |
 | `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（`clamp` + `normalizeCount`） |
 | `assets/styles/` | 4 个文件，**顺序由 `index.css` 固定**：tokens → base → components |
 | `types/`、`README.md` | 见下|
@@ -54,7 +54,7 @@
 | `assets/styles/index.css` | 仅用 `@import` 按序引入下列三个，**自身不写任何规则** |
 | `assets/styles/tokens.css` | 75 个设计变量（颜色、间距、圆角、阴影、布局、模块强调色、结果区渐变）。**无字号令牌**，也**无暗色模式** |
 | `assets/styles/base.css` | reset + 排版 + 页面骨架 + 各类栅格；3 个响应式断点（960 / 560 / 480px） |
-| `assets/styles/components.css` | 9 个区块：模块卡片、表单字段、提示文字、固定词条徽标、副词条步进器、结果区、按钮、指南页、启动界面 |
+| `assets/styles/components.css` | 10 个区块：模块卡片、表单字段、提示文字、固定词条徽标、副词条步进器、代理人与音擎选择器及头像卡片、结果区、按钮、指南页、启动界面 |
 | `README.md` | 见 [requirements.md](requirements.md) 同级说明；实际内容为本目录的使用约定 |
 
 ### 2.2 资源放置规则（易错）
@@ -64,14 +64,14 @@
 | `frontend/public/` | 运行时按 URL 取的资源。**不能被 `import`** |
 | `frontend/src/assets/` | 会被 `import`、生成带 hash 的 URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
-> ⚠️ `public/images/` 下 167 张 PNG 的接入状态分三块：
-> **`weapons/`（100 张）已接入**——音擎 `n-cascader` 的头像卡片与二级选项前缀按
+> ⚠️ `public/images/` 下 167 张 PNG **已全部接入**：
+> **`weapons/`（100 张）**——音擎 `n-cascader` 的头像卡片与二级选项前缀按
 > `/images/weapons/{id}.png` 取图（`WeaponModule.vue`）。
-> **`icons/`（7 张）已接入**——音擎 `n-cascader` 的一级选项前缀按
-> `/images/icons/{slug}.png` 取图，roletag → slug 映射见 `WeaponModule.vue` 的 `ROLE_ICON`
-> （slug 取自官方 Wiki profession key）。
-> **`agents/`（60 张）仍无任何代码引用**（`src/` 中零匹配），属已知冗余，
-> 记录在 [requirements.md](requirements.md) 的已知限制。
+> **`agents/`（60 张）**——代理人 `n-cascader` 同构，按
+> `/images/agents/{id}.png` 取图（`AgentBaseModule.vue`）。
+> **`icons/`（7 张）**——两个 `n-cascader` 共用的一级选项前缀按
+> `/images/icons/{slug}.png` 取图，roletag → slug 映射见
+> `composables/useCascaderIcons.ts` 的 `ROLE_ICON`（slug 取自官方 Wiki profession key）。
 >
 > `icons/` 曾用中文文件名（`强攻.png`），已重命名为小写 ASCII slug。
 
@@ -120,8 +120,8 @@ src-layout，包名 `zzz_panel`。
 
 | 路径 | 说明 |
 | --- | --- |
-| `calculator-view.spec.ts` | 30 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
-| `panel-interactions.spec.ts` | 39 项交互与后端对接 |
+| `calculator-view.spec.ts` | 31 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
+| `panel-interactions.spec.ts` | 46 项交互与后端对接 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
 | `support/` | 夹具层：`setup.ts`、`router.ts`、`api.ts`（假后端）、`backend.ts`（拉起真实 uvicorn）、`flush.ts` |
 | `fixtures/legacy-calculator/` | **只读参照实现**，见第 5 节 |

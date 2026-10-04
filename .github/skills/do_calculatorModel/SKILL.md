@@ -8,7 +8,7 @@ description: Read an agent's official level-60 stats and core bonuses, then add 
 Use this skill when the user provides:
 
 1. An agent name.
-2. A desired calculator mode: standard (普通), special-break (命破), or sharp-guard (锋御). If the mode is omitted and cannot be determined from the request, ask which mode to use.
+2. A desired calculator mode: standard (通用), special-break (命破), or sharp-guard (锋御). If the mode is omitted and cannot be determined from the request, ask which mode to use.
 
 The repository has one unified calculator, now the Vue3 app at `frontend/src/` (page `frontend/src/views/CalculatorView.vue`, route `/calculator`, served by Vite on `http://localhost:5173`). Add the agent to that calculator regardless of mode: selecting its preset applies the corresponding final-panel calculation. Do not create or update a separate calculator page for each mode.
 
@@ -22,9 +22,9 @@ If the official source is unavailable, the agent match is ambiguous, or any requ
 
 Use the unified calculator and its external preset data rather than guessing filenames:
 
-Inspect `data/agent-presets.json` (the single source of truth), `backend/src/zzz_panel/presets/` for how it is loaded and validated, `backend/src/zzz_panel/core/modes.py` for the calculation-mode handling, and `frontend/src/components/calculator/AgentPresetModule.vue` for the UI that consumes presets. Preset data belongs in its own JSON data file, not embedded as a large object in a component.
+Inspect `data/agent-presets.json` (the single source of truth), `backend/src/zzz_panel/presets/` for how it is loaded and validated, `backend/src/zzz_panel/core/modes.py` for the calculation-mode handling, and `frontend/src/components/calculator/AgentBaseModule.vue` for the UI that consumes presets (the picker plus the success note; the base-panel numeric fields below it are hand-edited and never written by a preset alone). Preset data belongs in its own JSON data file, not embedded as a large object in a component.
 
-The Vue3 migration is complete: the calculator lives in `frontend/src/`, the calculation rules live in `backend/src/zzz_panel/core/`, and presets are served by `GET /api/presets/agent`. The pre-Vue3 native implementation has been deleted, except for a **read-only reference fixture** at `frontend/tests/fixtures/legacy-calculator/` that the parity tests compare against. Never edit anything under `tests/fixtures/` — changing the baseline makes the comparison compare the implementation with itself.
+The Vue3 migration is complete: the calculator lives in `frontend/src/`, the calculation rules live in `backend/src/zzz_panel/core/`, and presets are served by `GET /api/presets/agents` (plural). The pre-Vue3 native implementation has been deleted, except for a **read-only reference fixture** at `frontend/tests/fixtures/legacy-calculator/` that the parity tests compare against. Never edit anything under `tests/fixtures/` — changing the baseline makes the comparison compare the implementation with itself.
 
 ## Add accurate, maintainable preset data
 
@@ -45,11 +45,13 @@ Use a clear mapping between Wiki attributes and the calculator's existing field/
 
 Before implementation, verify that the target calculator can represent the agent's complete A–F total exactly. If it cannot, extend the calculator's core-preset handling in a type-safe, minimally invasive way so the preset still applies accurately; do not silently approximate, discard an effect, or force an incorrect option. Keep manual core selection working.
 
-Each `roleTag` must be the agent's specific official profession label. Do not use calculation-mode labels such as `通用` as role tags. The calculator derives a deduplicated first-stage tag selector from `roleTag`, then only displays agents belonging to the selected tag in the second-stage selector. Validate that every preset has a unique ID, name, and recognized, non-empty role tag so no agent is omitted or reachable without first choosing its tag.
+Each `roleTag` must be the agent's specific official profession label. Do not use calculation-mode labels such as `通用` as role tags. The calculator groups every preset by `roleTag` into the first level of its cascader selector, keeping the group order fixed by `AGENT_ROLE_TAGS` and the in-group order identical to `data/agent-presets.json`. Validate that every preset has a unique ID, name, and recognized, non-empty role tag so no agent is omitted or hidden inside an empty group.
 
 ## Preset selection behavior
 
-Agent presets use a mandatory two-stage selector: choose a specific `roleTag`, then choose an agent from that tag's filtered list. Do not expose the full agent list before the tag is selected, and do not add a direct “all agents” shortcut.
+Agent presets use a single searchable, clearable `n-cascader`, structurally identical to the W-Engine picker: level 1 is a `roleTag` group, level 2 is the agent itself. There is **no separate tag dropdown and no "choose a tag first" gate** — the user picks the tag and the agent in one action, and picking the agent determines `agent.roleTag`. Do not reintroduce a disabled-until-tag-chosen second dropdown, and do not add a direct "all agents" shortcut.
+
+Option labels are built by `agentOptionLabel` in `frontend/src/stores/panelStore.ts` as 「名称 / 职业」 plus the panel-mode name, deduplicated. Because 命破/锋御 agents' `roleTag` already equals their mode name, their label collapses to two segments (「仪玄 / 命破」), and 通用 agents also collapse to two segments because the standard mode name is hidden (see below). While browsing, a leaf shows only the agent's name via the shared `renderLabel` in `composables/useCascaderIcons.ts`; the full label stays on the option so the collapsed box and `filterable` search still show it after selection.
 
 Selecting the agent must:
 
@@ -58,6 +60,10 @@ Selecting the agent must:
 3. Show the agent name, that core bonuses are fully upgraded, rank-to-effect/total information, and an external link to the official Wiki source.
 4. Activate the preset's `panelMode` and immediately show the corresponding final-panel formula; non-special agents use standard calculations, 命破 uses `0.3 × final ATK + 0.1 × final HP` for penetration force, and 锋御 uses actual CR.
 5. Recalculate the result immediately and surface a visible error if preset data is malformed or unsupported.
+
+The component chains two existing actions in a fixed order — `panelStore.selectAgentRole(agent.roleTag)` then `useAgentPreset().applyAgentPreset(agent.id)` — because `selectAgentRole` resets `panelMode` back to `requestedMode` while `applyAgentPreset` writes the agent's real mode. Keep that order; reversing it leaves the panel on the wrong formula. Do not fold the load logic into the store. Clearing the picker only needs `selectAgentRole('')`, which already clears the preset id, restores the base panel/core/two-piece sets, falls back the panel mode, and resets the W-Engine.
+
+`通用` is hidden from all agent-facing text by `HIDE_STANDARD_MODE_LABEL` in `frontend/src/constants/calculatorOptions.ts`, reached through `panelModeTagLabel()`. This is display-only: `panelMode` is still written as `'standard'` and all three modes' formulas are unchanged. Do not "fix" this by deleting the `standard` key from `PANEL_MODE_LABELS` — `useAgentPreset` uses that table to validate `panelMode`, and removing the key breaks every standard agent. Flip the constant to restore the text.
 
 When an agent preset is imported or cleared, reset the selected W-Engine to “请选择” and clear its read-only base-ATK and fixed-substat values to zero. Drive-disc main stats and substat counts belong to the user's build and must be preserved. Reset all three two-piece set selectors to “请选择” whenever an agent preset is imported so the user can re-evaluate the set choices for that agent. Keep the distinct “无” option available.
 For 命破 mode, hide the standard base PEN-ratio and energy-regen inputs, and show the agent-specific base penetration-force and special energy-accumulation fields. For standard and 锋御 modes, show the PEN-ratio and energy-regen inputs and hide the 命破-only fields.
@@ -76,7 +82,7 @@ Selecting an agent must not auto-fill equipment or disturb the blank build defau
 
 Use the browser or an equivalent DOM test to verify in the requested calculator that:
 
-- The new agent appears in the preset selector with its profession/tag and calculation-mode label.
+- The new agent appears in the preset selector under its profession/tag group, with a two-segment label 「名称 / 职业」 (or 「名称 / 命破」-style collapsed form) that contains no `通用`.
 - Selecting it fills every base stat and applies each core aggregate to the correct field exactly once.
 - Selecting it activates the requested panel mode: standard, 命破, or 锋御. The two special formulas must be mutually exclusive and hidden for standard agents.
 - The final panel recalculates and the source link points to the official Wiki page.
@@ -84,11 +90,26 @@ Use the browser or an equivalent DOM test to verify in the requested calculator 
 - All two-piece set selectors reset to “请选择” when switching presets, and “无” remains selectable.
 - The empty initial state retains the blank defaults and the set option “无”.
 - Manual core selection still works.
+- The agent's PNG exists at `frontend/public/images/agents/<id>.png`; a missing file must degrade to text only, never a broken-image box.
 
-Run the preset-schema tests (`uv run pytest backend/tests/test_presets.py`) and the frontend suite (`npm run test` in `frontend/`) after changing preset data, plus `git diff --check`. `npm run test` includes a three-way parity test that compares the Vue3 page, the Python backend, and the read-only legacy fixture; it must stay green, which means the preset must be added through the normal JSON pipeline rather than by editing anything else. Report the files changed, the Wiki source, the verified base/core values, and validation results.
+Two testing traps apply to this picker: jsdom renders no cascader options at all (they live in an `n-virtual-list` with zero measured height), so assert through `findComponent(NCascader).props('renderPrefix')` / `props('renderLabel')` or against the `panelStore` getters, never against `.n-cascader-option` DOM. And the page now has **two** cascaders (agent and W-Engine), so locate them by `.agent-picker-input` / `.weapon-picker-input` — a bare `findComponent(NCascader)` returns whichever rendered first.
+
+Run the preset-schema tests (`uv run pytest backend/tests/test_presets.py`) and the frontend suite (`npm run test` in `frontend/`) after changing preset data, plus `git diff --check`. `npm run test` includes a three-way parity test that compares the Vue3 page, the Python backend, and the read-only legacy fixture; it must stay green, which means the preset must be added through the normal JSON pipeline rather than by editing anything else. Note that the parity spec drives the Vue side through `selectAgentRole` + `applyAgentPreset` rather than the UI, so option-label changes never reach it. Report the files changed, the Wiki source, the verified base/core values, and validation results.
 
 ## Example invocation
 
 “Use `do_calculatorModel` to add 叶瞬光 in standard mode to the unified calculator.”
 
 Expected behavior: reread/verify 叶瞬光 and its profession/tag using `read-zzz-agent-stats`; add the verified 60-level base panel, A–F totals, tag, and `panelMode: 'standard'` to the external preset data; then test the tagged preset, mode, and untouched loadout fields in the unified calculator.
+
+## Frontend files this skill touches
+
+| File | Role |
+| --- | --- |
+| `data/agent-presets.json` | **the only file to edit** for a new agent |
+| `frontend/src/components/calculator/AgentBaseModule.vue` | picker + success note; reads presets, never hardcodes them |
+| `frontend/src/stores/panelStore.ts` | `agentPresetGroups` (cascader options), `selectedAgent` (avatar card), `agentOptionLabel` (label text) |
+| `frontend/src/composables/useAgentPreset.ts` | `applyAgentPreset` validation + load, `agentTagLabel` (note/card text) |
+| `frontend/src/constants/calculatorOptions.ts` | `AGENT_ROLE_TAGS`, `PANEL_MODE_LABELS`, `HIDE_STANDARD_MODE_LABEL` |
+| `frontend/src/composables/useCascaderIcons.ts` | shared `renderPrefix` / `renderLabel`; `ROLE_ICON` roletag→PNG slug map |
+| `frontend/public/images/agents/` | one `<id>.png` per agent |

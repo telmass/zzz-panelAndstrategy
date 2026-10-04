@@ -137,3 +137,33 @@ export const PANEL_MODE_LABELS: Record<string, string> = {
   rupture: '命破',
   fengyu: '锋御',
 };
+
+/**
+ * 是否隐藏「通用」模式的名称。
+ *
+ * 置 `true` 后 `panelModeTagLabel('standard')` 返回空串，代理人选择器的
+ * 选项文案、头像卡片副信息与载入提示里都不再出现「通用」二字——
+ * 通用代理人的文案因此缩成「名称 / 职业」，与命破/锋御的「名称 / 职业」
+ * （角色与模式同字、本就只剩两段）形状一致。
+ *
+ * ⚠️ **只影响显示，绝不影响计算。** `panel.panelMode` 仍照常写成
+ * `'standard'`，三种模式的公式、结果行与请求体一个都没变。
+ *
+ * 改回 `false` 即完全恢复，无需动任何调用点。
+ */
+export const HIDE_STANDARD_MODE_LABEL = true;
+
+/**
+ * 面板模式的展示标签；`HIDE_STANDARD_MODE_LABEL` 为真且传入 `standard` 时返回空串。
+ *
+ * 刻意返回空串而不是别的占位：所有调用点都用 `filter(Boolean)` 过滤空段，
+ * 于是这一段会自动从拼接结果里消失，不会留下多余的 ` / ` 分隔符。
+ * 校验路径（`useAgentPreset` 判断 `panelMode` 是否合法）应继续用
+ * `PANEL_MODE_LABELS` ——它判的是**键是否存在**，与显示无关。
+ */
+export function panelModeTagLabel(mode: string): string {
+  if (HIDE_STANDARD_MODE_LABEL && mode === 'standard') {
+    return '';
+  }
+  return PANEL_MODE_LABELS[mode] ?? '';
+}

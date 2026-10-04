@@ -21,7 +21,7 @@ python tools/sync_presets.py --to-legacy --check      # 预设两侧是否同步
 
 规则表**不经接口**，前端通过 `@data` 别名直接读该文件——下拉框要瞬时可用，
 不能等一次 HTTP 往返。预设则相反，走 `GET /api/presets/*`，
-因为数据量大且需刷新，见 `docs/migration-vue3.md` 第 4 步第 18、20 条。
+因为数据量大且需刷新，见 [docs/completeds/migration-vue3.md](../docs/completeds/migration-vue3.md) 第 4 步第 18、20 条（归档文档）。
 
 ## 与 JS 包装的区别
 

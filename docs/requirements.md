@@ -28,7 +28,7 @@
 
 | 编号 | 功能 | 落地位置 |
 | --- | --- | --- |
-| F1 | 三种面板模式：通用 / 命破 / 锋御，切换后显隐相应输入项并追加专属结果行 | `core/modes.py`、`usePanelMode` |
+| F1 | 三种面板模式：通用 / 命破 / 锋御，随代理人的 `panelMode` 生效，显隐相应输入项并追加专属结果行。界面**无独立的模式切换器**；`通用` 只作模式名，不出现在代理人文案里（见 `HIDE_STANDARD_MODE_LABEL`） | `core/modes.py`、`usePanelMode` |
 | F2 | 六大输入模块：基础面板、音擎、核心加成、驱动盘主词条、驱动盘副词条、二件套 | `components/calculator/` |
 | F3 | 60 名代理人预设，含等级 60 基础面板与 A–F 核心加成合计 | `data/agent-presets.json` |
 | F4 | 100 项音擎预设，含基础攻击/防御力与固定副词条 | `data/weapon-presets.json` |
@@ -109,7 +109,6 @@
 | `usePanelCalc()` 被实例化两次 | `ResultPanel.vue:41`、`CoreModule.vue:20` | 各自持有独立的防抖计时器与请求序号 |
 | 二件套模块绕过通用件 | `SetEffectModule.vue:43-52` | 直接用原生 `<select>`，未走 `common/SelectField` |
 | 核心加成条目数口径不一 | UI 文案说 8 项 / 9 选 2 | 实际 12 项；沿袭旧实现，UI 文案未同步 |
-| `public/` 下 60 张代理人 PNG 无引用 | `frontend/public/images/agents/` | 音擎图已随 `n-cascader` 选中卡片接入；代理人图仍无任何代码引用，疑为预留 |
 
 > 上述限制**均不影响计算正确性**，因此不阻塞使用。清理它们属于重构范畴，
 > 需配套对拍验证，改动前请先读[testing.md](testing.md)。

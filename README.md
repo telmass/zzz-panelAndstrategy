@@ -9,7 +9,7 @@
 
 | 功能 | 说明 |
 | --- | --- |
-|三种面板模式 | 通用 / 命破 / 锋御。切换后输入区显隐相应字段，结果区追加专属行 |
+|三种面板模式 | 通用 / 命破 / 锋御，由代理人的 `panelMode` 决定。输入区显隐相应字段，结果区追加专属行。界面无独立模式切换器 |
 | 六大输入模块 | 基础面板、音擎、核心加成、驱动盘主词条、驱动盘副词条、二件套 |
 | 60 名代理人预设 | 等级 60 基础面板 + A–F 核心加成合计，附官方 Wiki 来源链接 |
 | 100 项音擎预设 | 基础攻击/防御力 + 固定副词条 |
@@ -25,7 +25,7 @@
 | 层 | 技术 |
 | --- | --- |
 | 前端 | Vue 3.5 + TypeScript 5.7 + Vite 6 + Pinia 2 + Vue Router 4 + naive-ui 2 |
-| 样式 | 原生 CSS + CSS 变量设计令牌；音擎选择器用 naive-ui 的 `n-cascader`，主题经 `n-config-provider` 接入既有令牌（无 Tailwind） |
+| 样式 | 原生 CSS + CSS 变量设计令牌；代理人与音擎选择器都用 naive-ui 的 `n-cascader`，主题经 `n-config-provider` 接入既有令牌（无 Tailwind） |
 | 后端 | Python 3.13+ + FastAPI + Pydantic v2 |
 | 测试 | Vitest + @vue/test-utils + jsdom（前端）；pytest（后端） |
 | 包管理 | uv（Python）、npm（前端） |
@@ -77,7 +77,7 @@ uv run zzz-panel           # 固定跑一组示例输入，打印 12 行结果
 
 ```powershell
 uv run pytest                           # 后端 87 项
-cd frontend; npm run test               # 前端 73 项
+cd frontend; npm run test               # 前端 81 项
 ```
 
 > **pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行。
@@ -94,7 +94,7 @@ cd frontend; npm run test               # 前端 73 项
 │   │   ├── views/           3 个路由页：启动 / 计算器 / 指南
 │   │   ├── components/      layout · common · calculator · guide
 │   │   ├── stores/          Pinia：panelStore（输入真源）· presetStore
-│   │   ├── composables/     usePanelCalc · useAgentPreset · usePanelMode · useSubStatLimit
+│   │   ├── composables/     usePanelCalc · useAgentPreset · usePanelMode · useSubStatLimit · useCascaderIcons · useNaiveTheme
 │   │   ├── api/             唯一网络出口
 │   │   ├── types/ constants/ utils/ assets/styles/
 │   │   └── main.ts App.vue

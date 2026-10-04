@@ -48,14 +48,13 @@ function mountView(): VueWrapper {
   return mount(CalculatorView, { global: { plugins: [pinia] } });
 }
 
-function select(wrapper: VueWrapper, id: string): HTMLSelectElement {
-  return wrapper.get(`#${id}`).element as HTMLSelectElement;
-}
-
 /** 数值/文本输入框。 */
 function input(wrapper: VueWrapper, id: string): HTMLInputElement {
   return wrapper.get(`#${id}`).element as HTMLInputElement;
 }
+
+/** 代理人职业标签全集，分组顺序即此顺序。 */
+const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'];
 
 /** 音擎职业标签全集，分组顺序即此顺序。 */
 const WEAPON_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'];
@@ -63,6 +62,21 @@ const WEAPON_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命
 /** 取预设库里的全部音擎，供不依赖界面直接验证 store 的用例使用。 */
 function allWeapons() {
   return usePresetStore().weapons;
+}
+
+/**
+ * 代理人选择器的 cascader。
+ *
+ * 页面上有两个 cascader（代理人、音擎），用例必须按 class 定位：
+ * `findComponent(NCascader)` 只会命中先渲染的那个，改了模块顺序就指错人。
+ */
+function agentCascader(wrapper: VueWrapper) {
+  return wrapper.getComponent<typeof NCascader>('.agent-picker-input');
+}
+
+/** 音擎选择器的 cascader。 */
+function weaponCascader(wrapper: VueWrapper) {
+  return wrapper.getComponent<typeof NCascader>('.weapon-picker-input');
 }
 
 describe('音 cascader 分组与回填', () => {
@@ -117,12 +131,12 @@ describe('音 cascader 分组与回填', () => {
     // jsdom 无布局时容器高度为 0、一项都不会渲染，所以「7 个一级项」在上面的
     // store 用例里断言；此处只验证浮层确实被打开。
     expect(document.body.querySelector('.n-cascader-menu')).not.toBeNull();
-    expect(wrapper.findComponent(NCascader).props('options')).toHaveLength(WEAPON_ROLE_TAGS.length);
+    expect(weaponCascader(wrapper).props('options')).toHaveLength(WEAPON_ROLE_TAGS.length);
   });
 
   it('render-prefix：一级取 roletag 图标、二级取音擎头像，未知 roletag 不渲染', () => {
     const wrapper = mountView();
-    const renderPrefix = wrapper.findComponent(NCascader).props('renderPrefix') as
+    const renderPrefix = weaponCascader(wrapper).props('renderPrefix') as
       (props: { option: unknown }) => { props: Record<string, unknown> } | null;
 
     // 一级项带 children，value 即职业标签
@@ -144,8 +158,7 @@ describe('音 cascader 分组与回填', () => {
 
   it('render-label：浏览时二级项只显示名称，但选项 label 与选中后展示仍是完整文案', () => {
     const wrapper = mountView();
-    const cascader = wrapper.findComponent(NCascader);
-    const renderLabel = cascader.props('renderLabel') as (option: unknown) => string | undefined;
+    const renderLabel = weaponCascader(wrapper).props('renderLabel') as (option: unknown) => string | undefined;
     const panel = usePanelStore();
     const weapon = allWeapons()[0];
 
@@ -173,7 +186,7 @@ describe('音 cascader 分组与回填', () => {
     const weapon = allWeapons()[0];
 
     // 走组件自己的 onSelect，而不是绕过它直接调 store
-    wrapper.findComponent(NCascader).vm.$emit('update:value', weapon.id);
+    weaponCascader(wrapper).vm.$emit('update:value', weapon.id);
     await nextTick();
 
     expect(panel.weapon.roleTag).toBe(weapon.roleTag);
@@ -189,7 +202,7 @@ describe('音 cascader 分组与回填', () => {
     panel.selectWeaponPreset(allWeapons()[0].id, (text) => text);
     await nextTick();
 
-    wrapper.findComponent(NCascader).vm.$emit('update:value', null);
+    weaponCascader(wrapper).vm.$emit('update:value', null);
     await nextTick();
 
     expect(panel.weapon.preset).toBe('');
@@ -356,25 +369,178 @@ describe('面板模式与锋御文案', () => {
   });
 });
 
-describe('代理人标签联动与预设载入', () => {
-  it('未选标签时代理人下拉禁用', () => {
+describe('代理人 cascader 分组与载入', () => {
+  it('未选代理人时值为空且不锁定，展开浮层仍可选可搜', () => {
     const wrapper = mountView();
-    expect(select(wrapper, 'agent_preset').disabled).toBe(true);
+    expect(wrapper.find('.agent-card').exists()).toBe(false);
+    expect(usePanelStore().selectedAgent).toBeNull();
+
+    // 旧的「未选标签则禁用代理人下拉」状态已不存在：cascader 一律可点可搜
+    const cascader = agentCascader(wrapper);
+    expect(cascader.props('value')).toBeNull();
+    expect(cascader.props('filterable')).toBe(true);
+    expect(cascader.props('options')).toHaveLength(AGENT_ROLE_TAGS.length);
+    expect(wrapper.get('.agent-picker-input .n-base-selection').classes()).not.toContain(
+      'n-base-selection--disabled',
+    );
   });
 
-  it('选标签后解锁并按标签过滤', async () => {
+  it('分组覆盖全部代理人，组序固定为 AGENT_ROLE_TAGS，组内保持数据原序', () => {
+    const panel = usePanelStore();
+    const agents = usePresetStore().agents;
+
+    expect(panel.agentPresetGroups.map((group) => group.label)).toEqual(AGENT_ROLE_TAGS);
+    const grouped = panel.agentPresetGroups.flatMap((group) => group.children ?? []);
+    // 不重不漏：分组只是换了展示形态，不能丢代理人
+    expect(grouped).toHaveLength(agents.length);
+    expect(new Set(grouped.map((option) => option.value)).size).toBe(agents.length);
+    // 组内保持 data/agent-presets.json 的原序
+    for (const group of panel.agentPresetGroups) {
+      const expected = agents.filter((agent) => agent.roleTag === group.label).map((a) => a.id);
+      expect(group.children?.map((option) => option.value)).toEqual(expected);
+    }
+  });
+
+  it('选项文案为「名称 / 职业」，职业与模式同字时只出现一次', () => {
+    const panel = usePanelStore();
+    const agents = usePresetStore().agents;
+    const grouped = panel.agentPresetGroups.flatMap((group) => group.children ?? []);
+
+    // 通用模式的中文名被 panelModeTagLabel 隐去，故只剩两段
+    const standard = agents.find((agent) => agent.panelMode === 'standard');
+    expect(grouped.find((option) => option.value === standard?.id)?.label).toBe(
+      `${standard?.name} / ${standard?.roleTag}`,
+    );
+
+    // 命破代理人的 roleTag 与模式名同字，去重后同样只剩 2 段而不是 4 段
+    const rupture = agents.find((agent) => agent.panelMode === 'rupture');
+    const ruptureLabel = grouped.find((option) => option.value === rupture?.id)?.label;
+    expect(ruptureLabel).toBe(`${rupture?.name} / 命破`);
+    expect(ruptureLabel?.split(' / ')).toHaveLength(2);
+    expect(ruptureLabel).not.toContain('命破 / 命破');
+
+    // 三个模式都不出现「通用」二字
+    for (const option of grouped) {
+      expect(option.label).not.toContain('通用');
+    }
+  });
+
+  it('render-prefix：一级取 roletag 图标、二级取代理人头像', () => {
     const wrapper = mountView();
-    usePanelStore().selectAgentRole('命破');
+    const renderPrefix = agentCascader(wrapper).props('renderPrefix') as (
+      props: { option: unknown },
+    ) => { props: Record<string, unknown> } | null;
+
+    const group = usePanelStore().agentPresetGroups[0];
+    expect(renderPrefix({ option: group })?.props.src).toBe('/images/icons/strike.png');
+
+    const agent = usePresetStore().agents.find((item) => item.roleTag === group.label);
+    expect(renderPrefix({ option: group.children?.[0] })?.props.src).toBe(
+      `/images/agents/${agent?.id}.png`,
+    );
+    // 装饰性图标不参与 filterable 的匹配，故 alt 必须为空
+    expect(renderPrefix({ option: group })?.props.alt).toBe('');
+  });
+
+  it('render-label：浏览时二级项只显示名称，选项 label 与选中后展示仍是完整文案', () => {
+    const wrapper = mountView();
+    const renderLabel = agentCascader(wrapper).props('renderLabel') as (
+      option: unknown,
+    ) => string | undefined;
+
+    const group = usePanelStore().agentPresetGroups[0];
+    const leaf = group.children?.[0];
+    const agent = usePresetStore().agents.find((item) => item.id === leaf?.value);
+
+    // 一级仍是职业标签；二级只有名称，不含 roletag 与模式名
+    expect(renderLabel(group)).toBe(group.label);
+    expect(renderLabel(leaf)).toBe(agent?.name);
+    expect(renderLabel(leaf)).not.toContain(agent?.roleTag);
+
+    // 完整文案必须留在 label 上：naive-ui 渲染折叠框时直接读 rawNode.label，
+    // 不经过 renderLabel，所以选中后仍显示「名称 / 职业」（模式与角色同字时合成一段）
+    expect(leaf?.label.split(' / ')).toHaveLength(2);
+
+    // 未知 id 退回原 label，不渲染空白项
+    expect(renderLabel({ label: '未知项', value: 'ep-does-not-exist' })).toBe('未知项');
+  });
+
+  it('cascader 上报叶子值后同步标签、写入预设并切到该代理人的面板模式', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    const agent = usePresetStore().agents.find((item) => item.roleTag === '命破');
+
+    // 走组件自己的 onSelect，而不是绕过它直接调 store
+    agentCascader(wrapper).vm.$emit('update:value', agent?.id);
     await nextTick();
 
-    const presetSelect = select(wrapper, 'agent_preset');
-    expect(presetSelect.disabled).toBe(false);
-    // 命破代理人数量 + 1 项占位
-    expect(presetSelect.options.length).toBe(
-      usePanelStore().filteredAgentPresets.length + 1,
-    );
-    // 选项文案含角色标签与模式名
-    expect(presetSelect.options[1].textContent).toContain('命破');
+    // 两个 action 顺序反了面板模式会停在 requestedMode，故此处断言真实模式
+    expect(panel.agent.roleTag).toBe(agent?.roleTag);
+    expect(panel.agent.presetId).toBe(agent?.id);
+    expect(panel.panelMode).toBe(agent?.panelMode);
+    expect(panel.core.core1).not.toBe('');
+    expect(panel.agentNote.tone).toBe('neutral');
+  });
+
+  it('cascader 上报 null 走 clearable 路径，清空标签与预设并回落面板模式', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    const agent = usePresetStore().agents.find((item) => item.panelMode === 'rupture');
+
+    panel.selectAgentRole(agent?.roleTag ?? '');
+    useAgentPreset().applyAgentPreset(agent?.id ?? '');
+    await nextTick();
+    expect(panel.panelMode).toBe('rupture');
+
+    panel.requestedMode = 'standard';
+    agentCascader(wrapper).vm.$emit('update:value', null);
+    await nextTick();
+
+    expect(panel.agent.roleTag).toBe('');
+    expect(panel.agent.presetId).toBe('');
+    expect(panel.panelMode).toBe('standard');
+    expect(wrapper.find('.agent-card').exists()).toBe(false);
+  });
+
+  it('选中后展示头像卡片：名称、职业与按 id 拼出的图片路径', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    const agent = usePresetStore().agents.find((item) => item.panelMode === 'standard');
+
+    panel.selectAgentRole(agent?.roleTag ?? '');
+    useAgentPreset().applyAgentPreset(agent?.id ?? '');
+    await nextTick();
+
+    const card = wrapper.get('.agent-card');
+    expect(card.get('.agent-card-name').text()).toBe(agent?.name);
+    // 通用模式的中文名被隐去，副信息只剩职业一段
+    expect(card.get('.agent-card-meta').text()).toBe(agent?.roleTag);
+    // public/ 原样拷贝到 dist 根，故按 URL 取而非 import
+    expect(card.get('.agent-card-avatar').attributes('src')).toBe(`/images/agents/${agent?.id}.png`);
+  });
+
+  it('通用代理人不显示「通用」二字，命破/锋御照常显示', async () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    const agents = usePresetStore().agents;
+
+    for (const mode of ['standard', 'rupture', 'fengyu'] as const) {
+      const agent = agents.find((item) => item.panelMode === mode);
+      if (!agent) {
+        continue;
+      }
+      panel.selectAgentRole(agent.roleTag);
+      useAgentPreset().applyAgentPreset(agent.id);
+      await nextTick();
+
+      // 三种模式的副信息都只剩职业一段：通用是因为模式名被隐去，
+      // 命破/锋御是因为角色与模式同字被去重
+      expect(wrapper.get('.agent-card-meta').text()).toBe(agent.roleTag);
+      // 面板模式本身不受影响，仍照常驱动计算
+      expect(panel.panelMode).toBe(mode);
+      // 整个页面（选项文案 + 卡片 + 载入提示）都看不到「通用」
+      expect(wrapper.text()).not.toContain('通用');
+    }
   });
 
   it('载入命破预设后写入基础面板、命破专属字段与面板模式', () => {
@@ -426,7 +592,9 @@ describe('代理人标签联动与预设载入', () => {
     panel.selectWeaponPreset(allWeapons()[0].id, (text) => text);
 
     panel.selectAgentRole('强攻');
-    useAgentPreset().applyAgentPreset(panel.filteredAgentPresets[0].id);
+    useAgentPreset().applyAgentPreset(
+      usePresetStore().agents.find((agent) => agent.roleTag === '强攻')?.id ?? '',
+    );
 
     expect(panel.weapon.grade).toBe('');
     expect(panel.setEffects.set0).toBe('');

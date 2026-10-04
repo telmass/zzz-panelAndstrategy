@@ -5,6 +5,7 @@ import {
   PANEL_MODE_LABELS,
   SUB_STATS,
   WEAPON_ROLE_TAGS,
+  panelModeTagLabel,
 } from '@/constants/calculatorOptions';
 import { usePresetStore } from '@/stores/presetStore';
 import type {
@@ -17,7 +18,7 @@ import type {
   SubStatCounts,
   WeaponSelection,
 } from '@/types/panel';
-import type { AgentPreset } from '@/types/agentPresets';
+import type { AgentCascaderOption, AgentPreset } from '@/types/agentPresets';
 import type { WeaponCascaderOption, WeaponPreset } from '@/types/weaponPresets';
 
 /** 默认基础面板，取自 legacy calculator.html 上各 input 的默认值。 */
@@ -81,6 +82,19 @@ function weaponOptionLabel(weapon: WeaponPreset): string {
 }
 
 /**
+ * 代理人选项文案：`名称 / 职业`，职业与模式同字时合成一段。
+ *
+ * 与 `weaponOptionLabel` 同构（` / ` 分隔）。去重是必须的：
+ * 命破与锋御代理人的 `roleTag` 与模式名同字，
+ * 不去重会得到「仪玄 / 命破 / 命破」；通用模式的中文名被
+ * `panelModeTagLabel` 隐去，故其标签只有两段，与前两者形状一致。
+ */
+function agentOptionLabel(agent: AgentPreset): string {
+  const tags = [...new Set([agent.roleTag, panelModeTagLabel(agent.panelMode)].filter(Boolean))];
+  return [agent.name, ...tags].join(' / ');
+}
+
+/**
  * 面板输入的唯一真源。
  *
  * 只保存用户直接编辑的字段，不保存派生结果——最终面板由
@@ -119,20 +133,6 @@ export const usePanelStore = defineStore('panel', {
   }),
 
   getters: {
-    /** 代理人标签下拉选项。顺序取自 `AGENT_ROLE_TAGS`，与 legacy 一致。 */
-    agentRoleOptions: (): string[] => {
-      const { agents } = usePresetStore();
-      return AGENT_ROLE_TAGS.filter((role) => agents.some((agent) => agent.roleTag === role));
-    },
-
-    /** 当前标签下的代理人预设。 */
-    filteredAgentPresets(): AgentPreset[] {
-      const { agents } = usePresetStore();
-      return this.agent.roleTag
-        ? agents.filter((agent) => agent.roleTag === this.agent.roleTag)
-        : [];
-    },
-
     /**
      * 全部音擎预设，按职业标签分组成 cascader 的两级选项。
      *
@@ -155,6 +155,32 @@ export const usePanelStore = defineStore('panel', {
     /** 当前选中的音擎预设，供选中后的头像卡片渲染。 */
     selectedWeapon(): WeaponPreset | null {
       return usePresetStore().weaponById.get(this.weapon.preset) ?? null;
+    },
+
+    /**
+     * 全部代理人预设，按职业标签分组成 cascader 的两级选项。
+     *
+     * `panelMode` **不作为筛选轴**（与音擎的等级同理），写进叶子文案——
+     * 数据显示命破与锋御两个模式的代理人都只有一种 roletag，
+     * 单列出来只会得到「点开就一项」的退化分组。
+     *
+     * 组序取自 `AGENT_ROLE_TAGS` 而非首次出现顺序：后者随数据变化会跳序。
+     * 组内保持 `data/agent-presets.json` 原序。
+     */
+    agentPresetGroups(): AgentCascaderOption[] {
+      const { agents } = usePresetStore();
+      return AGENT_ROLE_TAGS.map((roleTag) => ({
+        label: roleTag,
+        value: roleTag,
+        children: agents
+          .filter((agent) => agent.roleTag === roleTag)
+          .map((agent) => ({ label: agentOptionLabel(agent), value: agent.id })),
+      })).filter((group) => group.children && group.children.length > 0);
+    },
+
+    /** 当前选中的代理人预设，供选中后的头像卡片渲染。 */
+    selectedAgent(): AgentPreset | null {
+      return usePresetStore().agentById.get(this.agent.presetId) ?? null;
     },
   },
 
@@ -248,8 +274,8 @@ export const usePanelStore = defineStore('panel', {
       this.resetWeaponSelection();
       this.agentNote = {
         text: roleTag
-          ? `已筛选“${roleTag}”标签，请选择具体代理人载入基础面板和核心加成；确认代理人后音擎与套装选择会重置。`
-          : '请先选择代理人标签，再选择具体代理人。',
+          ? `已筛选“${roleTag}”标签，请选择具体代理人载入基础面板和核心加成。`
+          : '请选择代理人以载入基础面板和核心加成。',
         tone: 'neutral',
       };
     },
