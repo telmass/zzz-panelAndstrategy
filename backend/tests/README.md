@@ -1,6 +1,6 @@
 # backend/tests — Python 测试
 
-pytest 回归测试，**109 项**。运行：
+pytest 回归测试，**121 项**。运行：
 
 ```powershell
 uv run pytest
@@ -15,7 +15,7 @@ uv run pytest
 
 | 文件 | 项数 | 覆盖内容 |
 | --- | --- | --- |
-| `test_panel.py` | 28 | `core/panel.py` 及模式专属计算。以重构前 `main.py` 的 `EXAMPLE` 为锚点锁定 12 项数值，另覆盖基础公式、武器副词条、命破贯穿力、锋御实际暴击率与固定锐暴伤害 |
+| `test_panel.py` | 40 | `core/panel.py` 及模式专属计算。以重构前 `main.py` 的 `EXAMPLE` 为锚点锁定 12 项数值，另覆盖基础公式、武器副词条、命破贯穿力、锋御实际暴击率与固定锐暴伤害，以及**逐条二件套选项**（11 条参数化，断言每条都加到自己的累加器键上——缺失不会报错，只表现为「下拉里选不到」） |
 | `test_presets.py` | 32 | `presets/` 的加载与结构校验：真实数据可通过、重复 id / 未知 roleTag / 未知 panelMode / 无法表示的核心加成 / 每级数值不一致 / 核心槽位数不等于 2 一律被拒。另含**防漂移**：抓取脚本须能逐字节重现已提交的 `data/*.json`，且复用 `sync_presets.py` 的序列化器 |
 | `test_api.py` | 13 | FastAPI 路由契约：`/api/health`、空请求返回 12 行、命破/锋御专属行、非法 mode 被拒、明细片段可渲染、副词条钳制落在 core 层、CORS 白名单、预设损坏返回 503 而非 500、路由已注册进 OpenAPI |
 | `test_options_json.py` | 11 | `data/options.json` 的**防漂移**：规则表真源是 `core/options.py` 与 `core/constants.py`，改了 Python 侧却忘了跑 `python tools/sync_presets.py --options` 时本测试失败 |

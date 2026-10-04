@@ -1,7 +1,9 @@
 """配装规则表。
 
-这是词条、二件套与核心加成的**唯一权威来源**，取值逐条对齐
-``frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js``。
+这是词条、二件套与核心加成的**唯一权威来源**。取值逐条对齐
+``frontend/tests/fixtures/legacy-calculator/scripts/calculator-config.js``，
+唯一的例外是二件套的 ``pr_8``（穿透率 +8%）：参照实现没有这一条，
+但游戏内的四件套效果确实存在，故在此补齐。
 
 本模块**单向生成** ``data/options.json``，前端
 ``src/constants/calculatorOptions.ts`` 以 ``import generated from '@data/options.json'``
@@ -114,6 +116,7 @@ SET_OPTIONS: tuple[RuleOption, ...] = _with_ids(
         ("ac_pct_8", "异常掌控 +8%", 8, "pct", "ac_pct"),
         ("er_pct_20", "能量回复 +20%", 20, "pct", "er_pct"),
         ("dmg_10", "增伤 +10%", 10, "pct", "dmg"),
+        ("pr_8", "穿透率 +8%", 8, "pct", "pr"),
         ("am_30", "异常精通 +30", 30, "flat", "am"),
     ),
     "set",

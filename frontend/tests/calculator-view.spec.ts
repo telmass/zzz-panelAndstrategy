@@ -209,9 +209,13 @@ describe('CalculatorView 静态骨架', () => {
   it('二件套渲染 3 组下拉', () => {
     const wrapper = mountCalculator();
     for (const id of ['set0', 'set1', 'set2']) {
-      // 1 项占位 + 10 种二件套
-      expect(wrapper.find(`#${id}`).findAll('option')).toHaveLength(11);
+      // 1 项占位 + 11 种二件套
+      expect(wrapper.find(`#${id}`).findAll('option')).toHaveLength(12);
     }
+    // 「穿透率 +8%」曾经整条缺失，且缺失不会报错，只表现为下拉里选不到
+    expect(wrapper.find('#set0').findAll('option').map((node) => node.text())).toContain(
+      '穿透率 +8%',
+    );
   });
 
   it('standard 模式只显示 12 行通用结果', async () => {

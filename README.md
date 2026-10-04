@@ -89,7 +89,7 @@ uv run zzz-panel-and-strategy  # 固定跑一组示例输入，打印 12 行结�
 ### 测试
 
 ```powershell
-uv run pytest                           # 后端 109 项
+uv run pytest                           # 后端 121 项
 cd frontend; npm run test               # 前端 86 项
 ```
 

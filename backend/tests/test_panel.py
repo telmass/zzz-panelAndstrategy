@@ -10,7 +10,9 @@ import pytest
 
 from zzz_panel.cli import EXAMPLE, _fmt
 from zzz_panel.core.models import PanelInputs
-from zzz_panel.core.panel import calculate_panel
+from zzz_panel.core.modifiers import PanelSelection
+from zzz_panel.core.options import SET_OPTIONS, find_option
+from zzz_panel.core.panel import calculate_panel, calculate_selection
 
 EXPECTED_EXAMPLE = {
     "hp": 7673.0,
@@ -25,6 +27,11 @@ EXPECTED_EXAMPLE = {
     "energy_regen": 1.2,
     "anomaly_mastery": 93.0,
     "pen_value": 0.0,
+}
+
+#: `calculate_selection` 要求完整的基础面板键集，缺失的键按 0 处理。
+_ZERO_BASE = {
+    key: 0.0 for key in ("hp", "atk", "def", "cr", "cd", "pr", "am", "ac", "impact", "er")
 }
 
 
@@ -137,6 +144,34 @@ def test_fengyu_mode_calculates_actual_crit_and_fixed_blast_damage() -> None:
 def test_unknown_panel_mode_fails_explicitly() -> None:
     with pytest.raises(ValueError, match="Unsupported panel mode"):
         calculate_panel(PanelInputs(mode="unknown"))
+
+
+@pytest.mark.parametrize("ident", sorted(option.id for option in SET_OPTIONS))
+def test_every_set_option_reaches_the_accumulator(ident: str) -> None:
+    """每条二件套都要真的进到累加器，而不只是出现在下拉框里。
+
+    条目缺失或 `to` 写错都不会报错——`find_option` 找不到就跳过，用户只会看到
+    「这个效果选不到」。因此逐条断言它加到了哪个键、加了多少。
+    """
+    option = find_option(SET_OPTIONS, ident)
+    assert option is not None
+
+    result = calculate_selection(PanelSelection(sets=(ident, "", "")), _ZERO_BASE)
+
+    assert result["sums"][option.to] == pytest.approx(option.value)
+
+
+def test_set_penetration_rate_lands_on_the_penetration_rate_row() -> None:
+    """回归：二件套「穿透率 +8%」曾经整条缺失，下拉框里选不到，且没有任何报错。
+
+    `pr` 是纯加法行，故基础值与二件套数值直接相加。
+    """
+    assert find_option(SET_OPTIONS, "pr_8") is not None
+
+    base = {**_ZERO_BASE, "pr": 4.0}
+    result = calculate_selection(PanelSelection(sets=("pr_8", "", "")), base)
+
+    assert result["totals"]["pr"] == pytest.approx(12.0)
 
 
 @pytest.mark.parametrize(

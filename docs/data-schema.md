@@ -148,7 +148,7 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 | `disc5Options` | 5 | 5 号主词条 |
 | `disc6Options` | 6 | 6 号主词条 |
 | `subStats` | 10 | 副词条，按条数换算 |
-| `setOptions` | 10 | 二件套效果，三组各选一个 |
+| `setOptions` | 11 | 二件套效果，三组各选一个 |
 | `discFixedStats` | 3 | 1/2/3 号固定主词条（**恒定生效，不可选**） |
 
 ### 4.2 条目结构

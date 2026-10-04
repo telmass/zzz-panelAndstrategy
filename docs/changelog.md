@@ -5,6 +5,35 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-04 · 补齐二件套「穿透率 +8%」
+
+二件套候选池此前只有 10 条，**缺「穿透率 +8%」**（游戏内四件套效果实际存在）。
+参照实现 `legacy-calculator/scripts/calculator-config.js` 的 `SET_OPTIONS`
+同上漏了它，本项目直接继承了这个遗漏。
+
+| 文件 | 变更 |
+| --- | --- |
+| `core/options.py` | `SET_OPTIONS` 新增 `pr_8`（`8` / `pct` / `to: pr`），放在「增伤」与「异常精通」之间 |
+| `data/options.json` | `sync_presets.py --options` 重新生成，`setOptions` 10 → **11** 条 |
+| `core/panel.py` | **无需改动**——`set_pr → pr` 的映射与纯加法行 `"pr": b("pr") + s("pr")` 早已存在，只是没有选项指向它 |
+
+前端无需改动：`SetEffectModule.vue` 遍历 `SET_OPTIONS` 渲染，`options.json` 一更新
+三个下拉就都有这一条。
+
+**为什么这类遗漏不会自己暴露**：条目缺失或 `to` 写错都不报错——`find_option`
+找不到就跳过，用户只会看到「这个效果选不到」。因此新增两道护栏：
+
+- `test_panel.py` 的参数化用例遍历 `SET_OPTIONS` 全集，逐条断言它真的加到自己的
+  累加器键上（11 项）
+- `test_panel.py::test_set_penetration_rate_lands_on_the_penetration_rate_row`
+  端到端断言基础 4% + 二件套 8% = 最终 12%（1 项）
+- `frontend/tests/calculator-view.spec.ts` 断言下拉里出现「穿透率 +8%」字样
+
+三方对拍不受影响：对拍按 id 选取（`atk_pct_10` / `cd_16` / `er_pct_20`），从不枚举
+全集，且参照实现仍是只读。**夹具刻意不补这一条**——它是行为基准，补了就不是基准了。
+
+后端测试 109 → **121** 项，前端仍 86 项（改的是既有断言）。
+
 ## 2026-10-04 · 死代码清理 + 技术文档全面校准
 
 ### 删除的死代码
@@ -14,7 +43,7 @@
 与 `core/modes.py` 重复的 `FENGYU_BLAST_DMG` 及无人调用的 `disc_fixed_stat()`、
 `presets/validate.py::EXTRA_BASE_KEYS`、`core/__init__.py` 与
 `presets/__init__.py` 的再导出（各 `__init__.py` 保留职责说明，调用方一律直接
-import 子模块）。计算与接口行为不变，109 项测试全绿。
+import 子模块）。计算与接口行为不变，121 项测试全绿。
 
 **前端**：`types/panel.ts` 的 `ModifierSum` / `ModifierSources`、
 `stores/panelStore.ts` 对 `PANEL_MODE_LABELS` 的多余再导出、

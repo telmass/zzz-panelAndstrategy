@@ -7,10 +7,10 @@
 
 | 套件 | 命令 | 用例数 | 覆盖 |
 | --- | --- | --- | --- |
-| 后端 | `uv run pytest` | 109 | 计算、格式化、预设校验、Worker 数据打包、HTTP 契约 |
+| 后端 | `uv run pytest` | 121 | 计算、格式化、预设校验、Worker 数据打包、HTTP 契约 |
 | 前端 | `npm run test` | 86 | 渲染、交互、请求构造、**三方对拍** |
 
-测试状态以这两个命令的输出为准，共 195 项。仓库内没有 CI 配置
+测试状态以这两个命令的输出为准，共 207 项。仓库内没有 CI 配置
 （无 `.github/workflows/`），这两个命令目前靠人跑。
 
 ## 2. 核心资产：三方对拍
@@ -84,17 +84,22 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
 
 > 这是本项目的一条通用原则：**护栏的失效方式必须是红灯，不许是绿灯。**
 
-## 4. 后端测试（109 项）
+## 4. 后端测试（121 项）
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `test_presets.py` | 32 | 目录定位、四类加载错误、语义校验的每条规则、响应与 JSON 逐条等价、503 而非 500、id 唯一性 |
-| `test_panel.py` | 28 | 加成链路、武器基础值并入顺序、百分比二次加成、取整向下、模式公式与非法模式 |
+| `test_panel.py` | 40 | 加成链路、武器基础值并入顺序、百分比二次加成、取整向下、模式公式与非法模式，以及**逐条二件套选项**（见下） |
 | `test_worker_bundle.py` | 15 | `tools/bundle_worker_data.py` 的打包与幂等、生成模块的加载回退、`--check` 漂移闸 |
 | `test_api.py` | 13 | 路由形状、CORS 预检、422 触发条件、负数条数被钳制、`def` 别名、响应键名大小写 |
 | `test_options_json.py` | 11 | `data/options.json` 与 Python 规则表一致；`DISC_FIXED_STATS` 顺序与槽位一致 |
 | `test_legacy_parity.py` | 8 | Python 侧对 `legacy_cases.json`（由参照实现导出）逐条比对数值 |
 | `test_fmt_parity.py` | 2 | 见上 |
+
+`test_panel.py` 里有一条参数化护栏：`SET_OPTIONS` 的**每一条**都必须真的加到
+自己的累加器键上。条目缺失或 `to` 写错都不会报错——`find_option` 找不到就跳过，
+用户只会看到「这个效果选不到」。二件套「穿透率 +8%」整条缺失过一次，就是这条
+护栏要挡的情况。
 
 `conftest.py` 里有一个 autouse fixture，把 `loader._EMBEDDED_MODULE` 指向临时造的
 模块，因此 `test_worker_bundle.py` 不依赖「本机是否生成过 `_bundled_data.py`」
