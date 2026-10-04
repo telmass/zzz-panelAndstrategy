@@ -10,6 +10,7 @@ Use this skill when the user gives an agent's name and asks to read the two stat
 1. The level-60 base panel, excluding core-skill bonuses.
 2. The total bonus from fully upgrading core skill nodes A through F.
 3. The agent's official profession/role label (职业), such as 强攻 or 异常, when preparing data for a calculator preset.
+4. The agent's official grade (评级, `S` or `A`) and attribute (属性, such as 火 or 烈霜), when preparing data for a calculator preset.
 
 ## Source
 
@@ -57,6 +58,49 @@ List each attribute and value.
 Show each rank's effect and a summed total grouped by attribute and bonus type.
 
 Include a source link to the official agent detail page. Be explicit about any field that was unavailable, ambiguous, or could not be verified. Do not modify calculator files unless the user separately requests an implementation.
+
+## Reading the grade and the attribute
+
+`scripts/refresh_agent_presets.py` reads both from the same `role_base_info` component that
+carries the name and the 特性 tag, so a browser pass is not needed for them:
+
+- **评级 `grade`** — `role_base_info.grade`, verbatim. Agents only use `S` and `A`.
+  Write whatever the Wiki says: a new grade must reach `data/agent-presets.json` and be
+  rejected by the backend whitelist, not vanish silently at scrape time.
+  `GRADE_ORDER` in the script is for **sorting only** (S before A).
+- **属性 `role_attribute`** — an English slug, translated through the script's
+  `ATTRIBUTE_LABELS`:
+
+  | slug | 页面显示 | slug | 页面显示 |
+  | --- | --- | --- | --- |
+  | `fire` | 火 | `frost` | 烈霜 |
+  | `ice` | 冰 | `auricink` | 玄墨 |
+  | `electric` | **电** | `honed_edge` | 凛刃 |
+  | `ether` | 以太 | `wind` | 风 |
+  | `physical` | 物理 | `Lumiflux` | 流明 |
+
+  Copy the page's own wording. `electric` is **电** on the official site even though the
+  community says 雷, and 凛刃 stays 凛刃 even though the page itself calls it a
+  higher-tier form of 物理. An unregistered slug makes the script **skip that agent** and
+  name it in the `SKIPPED:` report — never guess a special attribute into a regular one.
+
+The script fails an agent whose page carries no grade, so a missing field is reported
+rather than written as an empty string.
+
+## What counts as a special attribute
+
+**An attribute is special if and only if exactly one agent currently holds it.**
+
+That single condition is the whole rule. Do not add further conditions, and do not
+hardcode the current answers (烈霜 / 玄墨 / 凛刃 / 流明): a hardcoded list goes stale the
+moment the next single-holder attribute appears, and it also breaks in the other
+direction — 风 currently has two holders and is therefore **not** special.
+
+The answer is derived from the data, so it changes as the roster grows. Re-derive it on
+every use instead of caching. Implementations, both unit-tested:
+
+- backend `backend/src/zzz_panel/presets/attributes.py` → `special_agent_attributes()`
+- frontend `frontend/src/composables/useAgentPreset.ts` → `specialAgentAttributes()`
 
 ## Batch refresh of `data/agent-presets.json`
 

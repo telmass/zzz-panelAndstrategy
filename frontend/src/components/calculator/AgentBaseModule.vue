@@ -14,6 +14,11 @@ import { NumberField, PanelModule } from '@/components/common';
  *
  * 面板模式相关的显隐与锋御文案替换由 `usePanelMode` 驱动；
  * 代理人的载入由 `useAgentPreset` 承担。
+ *
+ * `show-path` 关掉：naive-ui 默认会把**整条路径**的 label 用 ` / ` 拼起来显示在
+ * 折叠框里，而一级项正是职业标签、叶子文案里又带着同一个职业标签，于是折叠框
+ * 会显示成「强攻 / 伊芙琳·舒瓦利耶 / 强攻 / 火 / S级」——职业标签重复两次。
+ * 关掉后折叠框只显示叶子文案，即 `名称 / 职业 / 属性 / 评级`。
  */
 const panel = usePanelStore();
 const presets = usePresetStore();
@@ -132,6 +137,7 @@ function numberModel(key: (typeof NUMERIC_FIELDS)[number]['key']) {
           :value="cascaderValue"
           :render-prefix="renderOptionPrefix"
           :render-label="renderOptionLabel"
+          :show-path="false"
           filterable
           clearable
           placeholder="选择代理人"

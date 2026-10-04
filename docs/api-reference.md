@@ -59,6 +59,8 @@
     {
       "id": "ep-1109",
       "name": "示例代理人",
+      "attribute": "火",
+      "grade": "S",
       "roleTag": "强攻",
       "panelMode": "standard",
       "source": "https://baike.mihoyo.com/zzz/wiki/content/1109/detail",
@@ -70,8 +72,7 @@
       "coreBonuses": [
         { "optionId": "cd", "optionCount": 2, "ranks": ["D", "E", "F"],
           "label": "暴击伤害", "perRankValue": 9.6, "totalValue": 28.8, "unit": "%" }
-      ],
-      "grade": "S"
+      ]
     }
   ]
 }
@@ -82,6 +83,8 @@
 - `base` 的 10 个键全部 `Optional`。官方未提供的键为 `null`，**同时**必须列入
   `unavailableBaseStats`，否则前端会把 `null` 当 0 写进面板且无任何提示。
 - `base.def` 的线上键名是 `def`（Pydantic 侧字段名 `def_`，带 `alias="def"`）。
+- `attribute` 与 `grade` 必填，取值白名单见 data-schema.md 第 2.3 节；
+  「特殊属性」的判定规则（人数 == 1）见第 2.4 节。
 - `response_model_exclude_none=True`：`None` 字段不出现在响应里，因此响应与
   `data/agent-presets.json` 逐字节等价（`backend/tests/test_presets.py` 有等价性断言）。
 

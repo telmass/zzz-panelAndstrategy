@@ -103,9 +103,12 @@ export function createCascaderRenderers(options: CascaderRendererOptions): {
    * 菜单选项文案：浏览过程中二级项只显示名称。
    *
    * 完整文案「名称 / 职业 / …」仍留在选项的 `label` 字段上，因此
-   * **选中后折叠框显示的仍是完整文案**（naive-ui 的 `Cascader.mjs:402`
-   * 直接读 `rawNode.label` 渲染 `selectedOption`，不经过 `renderLabel`），
-   * 选中后的头像卡片也照旧显示图标、名称与副信息。
+   * **选中后折叠框显示的仍是完整文案**——前提是调用方显式关掉了
+   * `show-path`。naive-ui 的 `Cascader.mjs` 里 `selectedOption` 是
+   * `showPath ? getPathLabel(node, separator, labelField) : rawNode[labelField]`：
+   * `showPath` 默认为 `true`，会把一级分组与叶子两段的 label 一起拼起来，
+   * 而一级正是职业标签、叶子文案里又有同一个职业标签，于是折叠框里
+   * 职业标签会出现两次。`renderLabel` 只管浏览菜单，不影响折叠框。
    *
    * 一级项是职业标签分组，按 `children` 判定后原样返回 `label`。
    * 二级项按 `value`（条目 id）由调用方解析出 `name`，

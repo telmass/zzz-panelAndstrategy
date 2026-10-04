@@ -14,6 +14,7 @@
  */
 
 import generated from '@data/options.json';
+import type { AgentPreset } from '@/types/agentPresets';
 
 /** 可被配装修正的量。与 `usePanelCalc` 的累加器一一对应。 */
 export type ModifierKey =
@@ -116,8 +117,34 @@ export const MODELED_BASE_STAT_LABELS: ReadonlySet<string> = new Set(['锐暴伤
 /** 锋御固有属性「锐暴伤害」，恒定 150%，不参与任何加成与修正计算。 */
 export const FENGYU_BLAST_DMG = 150;
 
-/** 代理人标签全集，用于校验预设数据的 roleTag。 */
+/**
+ * 代理人标签全集，用于校验预设数据的 roleTag。
+ */
 export const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'] as const;
+
+/**
+ * 代理人属性类型全集，用于校验预设数据的 attribute。
+ *
+ * 与后端 `AGENT_ATTRIBUTES` 同源，取值由抓取脚本从官方 WIKI 页面抄来。
+ * 官方对 `electric` 的写法是**电**（社区口语常作「雷」），此处照抄页面。
+ */
+export const AGENT_ATTRIBUTES = [
+  '火',
+  '冰',
+  '电',
+  '以太',
+  '物理',
+  '烈霜',
+  '玄墨',
+  '凛刃',
+  '风',
+  '流明',
+] as const;
+
+/**
+ * 官方评级全集，用于校验预设数据的 grade。代理人口前只有 S / A。
+ */
+export const AGENT_GRADES = ['S', 'A'] as const;
 
 /**
  * 音擎职业标签全集，用于音擎下拉的分组顺序。
@@ -143,8 +170,8 @@ export const PANEL_MODE_LABELS: Record<string, string> = {
  *
  * 置 `true` 后 `panelModeTagLabel('standard')` 返回空串，代理人选择器的
  * 选项文案、头像卡片副信息与载入提示里都不再出现「通用」二字——
- * 通用代理人的文案因此缩成「名称 / 职业」，与命破/锋御的「名称 / 职业」
- * （角色与模式同字、本就只剩两段）形状一致。
+ * 通用代理人的文案因此缩成「名称 / 职业 / 属性 / 评级」，与命破/锋御的
+ * 「名称 / 职业 / 属性 / 评级」（角色与模式同字、本就同形）一致。
  *
  * ⚠️ **只影响显示，绝不影响计算。** `panel.panelMode` 仍照常写成
  * `'standard'`，三种模式的公式、结果行与请求体一个都没变。
@@ -166,4 +193,27 @@ export function panelModeTagLabel(mode: string): string {
     return '';
   }
   return PANEL_MODE_LABELS[mode] ?? '';
+}
+
+/**
+ * 代理人的标签分段：`职业 / 属性 / 评级`，面板模式名按需插在职业之后。
+ *
+ * 三个展示面共用这一份分段，顺序与去重规则因此不可能各自漂移：
+ *
+ * - 代理人 cascader 折叠框：`名称` + 本函数的分段
+ * - 选中后的头像卡片副信息：只有本函数的分段（名称已单独一行）
+ * - 载入提示的括号：同样只有本函数的分段
+ *
+ * 职业与面板模式同字（命破 / 锋御）时由 `Set` 收成一段；通用模式名被
+ * `panelModeTagLabel` 隐去，故通用代理人少一段。属性与评级恒有两段，
+ * 且取值全集（`AGENT_ATTRIBUTES` / `AGENT_GRADES`）与职业、模式名没有交集，
+ * 不需要参与去重。
+ *
+ * 评级沿用音擎的写法 `${grade}级`。`attribute` / `grade` 缺失时整段略去，
+ * 而不是留下空档或 `undefined`——数据结构坏了由 `validateAgentPresetData`
+ * 报错，这里只保证不把 `undefined` 渲染到界面上。
+ */
+export function agentTagSegments(agent: AgentPreset): string[] {
+  const tags = [...new Set([agent.roleTag, panelModeTagLabel(agent.panelMode)].filter(Boolean))];
+  return [...tags, agent.attribute, `${agent.grade}级`].filter(Boolean);
 }

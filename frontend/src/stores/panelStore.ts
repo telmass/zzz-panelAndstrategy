@@ -5,7 +5,7 @@ import {
   PANEL_MODE_LABELS,
   SUB_STATS,
   WEAPON_ROLE_TAGS,
-  panelModeTagLabel,
+  agentTagSegments,
 } from '@/constants/calculatorOptions';
 import { usePresetStore } from '@/stores/presetStore';
 import type {
@@ -82,16 +82,18 @@ function weaponOptionLabel(weapon: WeaponPreset): string {
 }
 
 /**
- * 代理人选项文案：`名称 / 职业`，职业与模式同字时合成一段。
+ * 代理人选项文案：`名称 / 职业 / 属性 / 评级`。
  *
- * 与 `weaponOptionLabel` 同构（` / ` 分隔）。去重是必须的：
- * 命破与锋御代理人的 `roleTag` 与模式名同字，
- * 不去重会得到「仪玄 / 命破 / 命破」；通用模式的中文名被
- * `panelModeTagLabel` 隐去，故其标签只有两段，与前两者形状一致。
+ * 与 `weaponOptionLabel` 同构（` / ` 分隔），标签分段本身来自
+ * `agentTagSegments`，故折叠框、头像卡片与载入提示三处不会各拼各的。
+ * 职业与模式同字时的去重、以及通用模式名的隐去都在那一处完成。
+ *
+ * 这段文案只在**选中后**可见：浏览菜单走 `renderOptionLabel` 只显示名称，
+ * 但 naive-ui 的折叠框与 `filterable` 匹配用的都是 `label` 本身，
+ * 因此输入「玄墨」或「S」也能搜到对应代理人。
  */
 function agentOptionLabel(agent: AgentPreset): string {
-  const tags = [...new Set([agent.roleTag, panelModeTagLabel(agent.panelMode)].filter(Boolean))];
-  return [agent.name, ...tags].join(' / ');
+  return [agent.name, ...agentTagSegments(agent)].join(' / ');
 }
 
 /**

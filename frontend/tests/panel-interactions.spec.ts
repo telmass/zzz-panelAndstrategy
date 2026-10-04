@@ -5,7 +5,7 @@ import { nextTick } from 'vue';
 import { NCascader } from 'naive-ui';
 
 import CalculatorView from '@/views/CalculatorView.vue';
-import { useAgentPreset } from '@/composables/useAgentPreset';
+import { isSpecialAttribute, specialAgentAttributes, useAgentPreset } from '@/composables/useAgentPreset';
 import { displayEnergyAttributeLabel, usePanelMode } from '@/composables/usePanelMode';
 import { useSubStatLimit } from '@/composables/useSubStatLimit';
 import { usePanelStore } from '@/stores/panelStore';
@@ -55,6 +55,12 @@ function input(wrapper: VueWrapper, id: string): HTMLInputElement {
 
 /** 代理人职业标签全集，分组顺序即此顺序。 */
 const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'];
+
+/** 代理人属性类型全集。 */
+const AGENT_ATTRIBUTES = ['火', '冰', '电', '以太', '物理', '烈霜', '玄墨', '凛刃', '风', '流明'];
+
+/** 代理人评级全集。 */
+const AGENT_GRADES = ['S', 'A'];
 
 /** 音擎职业标签全集，分组顺序即此顺序。 */
 const WEAPON_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'];
@@ -401,27 +407,112 @@ describe('代理人 cascader 分组与载入', () => {
     }
   });
 
+  it('每条代理人都带合法 attribute 与 grade', () => {
+    const agents = usePresetStore().agents;
+
+    expect(agents).toHaveLength(60);
+    for (const agent of agents) {
+      expect(AGENT_ATTRIBUTES).toContain(agent.attribute);
+      expect(AGENT_GRADES).toContain(agent.grade);
+    }
+  });
+
+  it('特殊属性 = 当前只有一名代理人持有的属性', () => {
+    const agents = usePresetStore().agents;
+    const counts = new Map<string, number>();
+    for (const agent of agents) {
+      counts.set(agent.attribute, (counts.get(agent.attribute) ?? 0) + 1);
+    }
+
+    expect([...specialAgentAttributes(agents)].sort()).toEqual(
+      [...counts].filter(([, count]) => count === 1).map(([key]) => key).sort(),
+    );
+
+    // 规则只看人数：风 有两名持有人，因此不是特殊属性
+    expect(counts.get('风')).toBe(2);
+    expect(isSpecialAttribute('风', agents)).toBe(false);
+    expect(isSpecialAttribute('烈霜', agents)).toBe(true);
+    expect(isSpecialAttribute('火', agents)).toBe(false);
+    expect(isSpecialAttribute('不存在的属性', agents)).toBe(false);
+  });
+
+  it('特殊属性不写死名单：一个全新的单人属性同样被判为特殊', () => {
+    const base = usePresetStore().agents[0];
+    const roster = [
+      { ...base, id: 'ep-9001', name: '甲', attribute: '玄墨' },
+      { ...base, id: 'ep-9002', name: '乙', attribute: '玄墨' },
+      { ...base, id: 'ep-9003', name: '丙', attribute: '全新属性' },
+    ];
+
+    expect([...specialAgentAttributes(roster)]).toEqual(['全新属性']);
+  });
+
   it('选项文案为「名称 / 职业」，职业与模式同字时只出现一次', () => {
     const panel = usePanelStore();
     const agents = usePresetStore().agents;
     const grouped = panel.agentPresetGroups.flatMap((group) => group.children ?? []);
 
-    // 通用模式的中文名被 panelModeTagLabel 隐去，故只剩两段
+    // 通用模式的中文名被 panelModeTagLabel 隐去，故只剩「职业 / 属性 / 评级」三段
     const standard = agents.find((agent) => agent.panelMode === 'standard');
     expect(grouped.find((option) => option.value === standard?.id)?.label).toBe(
-      `${standard?.name} / ${standard?.roleTag}`,
+      `${standard?.name} / ${standard?.roleTag} / ${standard?.attribute} / ${standard?.grade}级`,
     );
 
-    // 命破代理人的 roleTag 与模式名同字，去重后同样只剩 2 段而不是 4 段
+    // 命破代理人的 roleTag 与模式名同字，去重后仍是 4 段而不是 5 段
     const rupture = agents.find((agent) => agent.panelMode === 'rupture');
     const ruptureLabel = grouped.find((option) => option.value === rupture?.id)?.label;
-    expect(ruptureLabel).toBe(`${rupture?.name} / 命破`);
-    expect(ruptureLabel?.split(' / ')).toHaveLength(2);
+    expect(ruptureLabel).toBe(
+      `${rupture?.name} / 命破 / ${rupture?.attribute} / ${rupture?.grade}级`,
+    );
+    expect(ruptureLabel?.split(' / ')).toHaveLength(4);
     expect(ruptureLabel).not.toContain('命破 / 命破');
+
+    // 每个选项都带属性与评级，且用的是官方写法「电」而不是「雷」
+    for (const agent of agents) {
+      const label = grouped.find((option) => option.value === agent.id)?.label ?? '';
+      expect(label).toContain(` / ${agent.attribute} / `);
+      expect(label).toContain(` / ${agent.grade}级`);
+      expect(AGENT_ATTRIBUTES).toContain(agent.attribute);
+    }
 
     // 三个模式都不出现「通用」二字
     for (const option of grouped) {
       expect(option.label).not.toContain('通用');
+    }
+  });
+
+  it('折叠框只显示叶子文案，职业标签不重复（show-path 已关）', () => {
+    const wrapper = mountView();
+    const panel = usePanelStore();
+    const agents = usePresetStore().agents;
+
+    // naive-ui 的 showPath 默认为 true，此时折叠框显示的是「整条路径的 label 拼接」
+    // （Cascader.mjs 的 selectedOptionRef → getPathLabel）。一级项正是职业标签，
+    // 叶子文案里又带着同一个职业标签，于是会显示成
+    // 「强攻 / 伊芙琳·舒瓦利耶 / 强攻 / 火 / S级」——职业标签出现两次。
+    expect(agentCascader(wrapper).props('showPath')).toBe(false);
+
+    // 关掉后折叠框只显示叶子文案，故叶子文案自身不得重复职业标签
+    for (const agent of agents) {
+      const label = panel.agentPresetGroups
+        .flatMap((group) => group.children ?? [])
+        .find((option) => option.value === agent.id)?.label;
+      expect(label?.split(' / ')).toHaveLength(4);
+      expect(label?.split(agent.roleTag)).toHaveLength(2);
+    }
+  });
+
+  it('音擎折叠框同样只显示叶子文案（show-path 已关）', () => {
+    const wrapper = mountView();
+    const weapons = allWeapons();
+
+    expect(weaponCascader(wrapper).props('showPath')).toBe(false);
+
+    const grouped = usePanelStore().weaponPresetGroups.flatMap((group) => group.children ?? []);
+    for (const weapon of weapons) {
+      const label = grouped.find((option) => option.value === weapon.id)?.label;
+      expect(label?.split(' / ')).toHaveLength(3);
+      expect(label?.split(weapon.roleTag)).toHaveLength(2);
     }
   });
 
@@ -452,14 +543,19 @@ describe('代理人 cascader 分组与载入', () => {
     const leaf = group.children?.[0];
     const agent = usePresetStore().agents.find((item) => item.id === leaf?.value);
 
-    // 一级仍是职业标签；二级只有名称，不含 roletag 与模式名
+    // 一级仍是职业标签；二级只有名称，不含 roletag、属性与评级
     expect(renderLabel(group)).toBe(group.label);
     expect(renderLabel(leaf)).toBe(agent?.name);
     expect(renderLabel(leaf)).not.toContain(agent?.roleTag);
+    expect(renderLabel(leaf)).not.toContain(agent?.attribute);
 
     // 完整文案必须留在 label 上：naive-ui 渲染折叠框时直接读 rawNode.label，
-    // 不经过 renderLabel，所以选中后仍显示「名称 / 职业」（模式与角色同字时合成一段）
-    expect(leaf?.label.split(' / ')).toHaveLength(2);
+    // 不经过 renderLabel，所以选中后仍显示「名称 / 职业 / 属性 / 评级」
+    // （模式与角色同字时合成一段，故恒为 4 段）
+    expect(leaf?.label.split(' / ')).toHaveLength(4);
+    expect(leaf?.label).toBe(
+      `${agent?.name} / ${agent?.roleTag} / ${agent?.attribute} / ${agent?.grade}级`,
+    );
 
     // 未知 id 退回原 label，不渲染空白项
     expect(renderLabel({ label: '未知项', value: 'ep-does-not-exist' })).toBe('未知项');
@@ -513,8 +609,10 @@ describe('代理人 cascader 分组与载入', () => {
 
     const card = wrapper.get('.agent-card');
     expect(card.get('.agent-card-name').text()).toBe(agent?.name);
-    // 通用模式的中文名被隐去，副信息只剩职业一段
-    expect(card.get('.agent-card-meta').text()).toBe(agent?.roleTag);
+    // 通用模式的中文名被隐去，副信息为「职业 / 属性 / 评级」
+    expect(card.get('.agent-card-meta').text()).toBe(
+      `${agent?.roleTag} / ${agent?.attribute} / ${agent?.grade}级`,
+    );
     // public/ 原样拷贝到 dist 根，故按 URL 取而非 import
     expect(card.get('.agent-card-avatar').attributes('src')).toBe(`/images/agents/${agent?.id}.png`);
   });
@@ -533,9 +631,11 @@ describe('代理人 cascader 分组与载入', () => {
       useAgentPreset().applyAgentPreset(agent.id);
       await nextTick();
 
-      // 三种模式的副信息都只剩职业一段：通用是因为模式名被隐去，
+      // 三种模式的副信息都是「职业 / 属性 / 评级」三段：通用是因为模式名被隐去，
       // 命破/锋御是因为角色与模式同字被去重
-      expect(wrapper.get('.agent-card-meta').text()).toBe(agent.roleTag);
+      expect(wrapper.get('.agent-card-meta').text()).toBe(
+        `${agent.roleTag} / ${agent.attribute} / ${agent.grade}级`,
+      );
       // 面板模式本身不受影响，仍照常驱动计算
       expect(panel.panelMode).toBe(mode);
       // 整个页面（选项文案 + 卡片 + 载入提示）都看不到「通用」

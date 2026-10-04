@@ -2,6 +2,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1109',
     name: '耀嘉音',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1109/detail?mhy_presentation_style=fullscreen',
@@ -39,6 +41,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1158',
     name: '伊芙琳·舒瓦利耶',
+    attribute: '火',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1158/detail?mhy_presentation_style=fullscreen',
@@ -76,6 +80,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1190',
     name: '零号·安比',
+    attribute: '电',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1190/detail?mhy_presentation_style=fullscreen',
@@ -113,6 +119,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1230',
     name: '「扳机」',
+    attribute: '电',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1230/detail?mhy_presentation_style=fullscreen',
@@ -150,6 +158,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1276',
     name: '薇薇安·班希',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1276/detail?mhy_presentation_style=fullscreen',
@@ -187,6 +197,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1290',
     name: '雨果·维拉德',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1290/detail?mhy_presentation_style=fullscreen',
@@ -224,6 +236,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1299',
     name: '仪玄',
+    attribute: '玄墨',
+    grade: 'S',
     roleTag: '命破',
     panelMode: 'rupture',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1299/detail?mhy_presentation_style=fullscreen',
@@ -264,6 +278,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1301',
     name: '橘福福',
+    attribute: '火',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1301/detail?mhy_presentation_style=fullscreen',
@@ -301,6 +317,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1385',
     name: '爱丽丝·泰姆菲尔德',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1385/detail?mhy_presentation_style=fullscreen',
@@ -338,6 +356,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1386',
     name: '浮波 柚叶',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1386/detail?mhy_presentation_style=fullscreen',
@@ -375,6 +395,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1499',
     name: '「席德」',
+    attribute: '电',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1499/detail?mhy_presentation_style=fullscreen',
@@ -412,6 +434,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-150',
     name: '格莉丝·霍华德',
+    attribute: '电',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/150/detail?mhy_presentation_style=fullscreen',
@@ -449,6 +473,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1501',
     name: '奥菲丝&「鬼火」',
+    attribute: '火',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1501/detail?mhy_presentation_style=fullscreen',
@@ -486,6 +512,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1533',
     name: '卢西娅·艾洛温',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1533/detail?mhy_presentation_style=fullscreen',
@@ -523,6 +551,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1538',
     name: '伊德海莉·墨菲',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '命破',
     panelMode: 'rupture',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1538/detail?mhy_presentation_style=fullscreen',
@@ -563,6 +593,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1624',
     name: '琉音',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1624/detail?mhy_presentation_style=fullscreen',
@@ -600,6 +632,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1626',
     name: '般岳',
+    attribute: '火',
+    grade: 'S',
     roleTag: '命破',
     panelMode: 'rupture',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1626/detail?mhy_presentation_style=fullscreen',
@@ -640,6 +674,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1686',
     name: '照',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '防护',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1686/detail?mhy_presentation_style=fullscreen',
@@ -677,6 +713,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1687',
     name: '叶瞬光',
+    attribute: '凛刃',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1687/detail?mhy_presentation_style=fullscreen',
@@ -714,6 +752,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1791',
     name: '千夏',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1791/detail?mhy_presentation_style=fullscreen',
@@ -751,6 +791,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1793',
     name: '爱芮',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1793/detail?mhy_presentation_style=fullscreen',
@@ -788,6 +830,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1852',
     name: '南宫羽',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1852/detail?mhy_presentation_style=fullscreen',
@@ -825,6 +869,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1861',
     name: '希希芙',
+    attribute: '电',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1861/detail?mhy_presentation_style=fullscreen',
@@ -862,6 +908,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1926',
     name: '普罗米娅',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1926/detail?mhy_presentation_style=fullscreen',
@@ -899,6 +947,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1927',
     name: '星徽·比利·奇德',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '命破',
     panelMode: 'rupture',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1927/detail?mhy_presentation_style=fullscreen',
@@ -939,6 +989,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1958',
     name: '佩洛伊斯',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1958/detail?mhy_presentation_style=fullscreen',
@@ -976,6 +1028,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1960',
     name: '维琳娜·艾嘉德',
+    attribute: '风',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1960/detail?mhy_presentation_style=fullscreen',
@@ -1013,6 +1067,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1962',
     name: '诺姆·霍洛维尔',
+    attribute: '火',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1962/detail?mhy_presentation_style=fullscreen',
@@ -1050,6 +1106,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-2076',
     name: '蕾米埃尔·丹',
+    attribute: '流明',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/2076/detail?mhy_presentation_style=fullscreen',
@@ -1087,6 +1145,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-2079',
     name: '希格莉德·德拉叙尔',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/2079/detail?mhy_presentation_style=fullscreen',
@@ -1124,6 +1184,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-2145',
     name: '克拉蕾·弗林特',
+    attribute: '电',
+    grade: 'S',
     roleTag: '锋御',
     panelMode: 'fengyu',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/2145/detail?mhy_presentation_style=fullscreen',
@@ -1157,6 +1219,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-2152',
     name: '洛克茜·伊芙莉塔·普莱斯',
+    attribute: '风',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/2152/detail?mhy_presentation_style=fullscreen',
@@ -1194,6 +1258,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-316',
     name: '亚历山德丽娜·莎芭丝缇安',
+    attribute: '电',
+    grade: 'S',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/316/detail?mhy_presentation_style=fullscreen',
@@ -1231,6 +1297,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-317',
     name: '艾莲·乔',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/317/detail?mhy_presentation_style=fullscreen',
@@ -1268,6 +1336,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-318',
     name: '珂蕾妲·贝洛伯格',
+    attribute: '火',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/318/detail?mhy_presentation_style=fullscreen',
@@ -1305,6 +1375,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-378',
     name: '猫宫 又奈',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/378/detail?mhy_presentation_style=fullscreen',
@@ -1342,6 +1414,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-634',
     name: '朱鸢',
+    attribute: '以太',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/634/detail?mhy_presentation_style=fullscreen',
@@ -1379,6 +1453,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-65',
     name: '冯·莱卡恩',
+    attribute: '冰',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/65/detail?mhy_presentation_style=fullscreen',
@@ -1416,6 +1492,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-680',
     name: '青衣',
+    attribute: '电',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/680/detail?mhy_presentation_style=fullscreen',
@@ -1453,6 +1531,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-73',
     name: '「11号」',
+    attribute: '火',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/73/detail?mhy_presentation_style=fullscreen',
@@ -1490,6 +1570,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-759',
     name: '简·杜',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/759/detail?mhy_presentation_style=fullscreen',
@@ -1527,6 +1609,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-801',
     name: '凯撒·金',
+    attribute: '物理',
+    grade: 'S',
     roleTag: '防护',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/801/detail?mhy_presentation_style=fullscreen',
@@ -1564,6 +1648,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-840',
     name: '柏妮思·怀特',
+    attribute: '火',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/840/detail?mhy_presentation_style=fullscreen',
@@ -1601,6 +1687,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-916',
     name: '月城柳',
+    attribute: '电',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/916/detail?mhy_presentation_style=fullscreen',
@@ -1638,6 +1726,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-950',
     name: '莱特',
+    attribute: '火',
+    grade: 'S',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/950/detail?mhy_presentation_style=fullscreen',
@@ -1675,6 +1765,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-996',
     name: '星见 雅',
+    attribute: '烈霜',
+    grade: 'S',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/996/detail?mhy_presentation_style=fullscreen',
@@ -1712,6 +1804,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-997',
     name: '浅羽 悠真',
+    attribute: '电',
+    grade: 'S',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/997/detail?mhy_presentation_style=fullscreen',
@@ -1749,6 +1843,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1191',
     name: '波可娜·费雷尼',
+    attribute: '物理',
+    grade: 'A',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1191/detail?mhy_presentation_style=fullscreen',
@@ -1786,6 +1882,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1300',
     name: '潘引壶',
+    attribute: '物理',
+    grade: 'A',
     roleTag: '防护',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1300/detail?mhy_presentation_style=fullscreen',
@@ -1823,6 +1921,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-147',
     name: '安东·伊万诺夫',
+    attribute: '电',
+    grade: 'A',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/147/detail?mhy_presentation_style=fullscreen',
@@ -1860,6 +1960,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-1536',
     name: '狛野 真斗',
+    attribute: '火',
+    grade: 'A',
     roleTag: '命破',
     panelMode: 'rupture',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/1536/detail?mhy_presentation_style=fullscreen',
@@ -1900,6 +2002,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-158',
     name: '本·比格',
+    attribute: '火',
+    grade: 'A',
     roleTag: '防护',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/158/detail?mhy_presentation_style=fullscreen',
@@ -1937,6 +2041,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-179',
     name: '可琳·威克斯',
+    attribute: '物理',
+    grade: 'A',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/179/detail?mhy_presentation_style=fullscreen',
@@ -1974,6 +2080,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-227',
     name: '苍角',
+    attribute: '冰',
+    grade: 'A',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/227/detail?mhy_presentation_style=fullscreen',
@@ -2011,6 +2119,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-371',
     name: '比利·奇德',
+    attribute: '物理',
+    grade: 'A',
     roleTag: '强攻',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/371/detail?mhy_presentation_style=fullscreen',
@@ -2048,6 +2158,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-379',
     name: '安比·德玛拉',
+    attribute: '电',
+    grade: 'A',
     roleTag: '击破',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/379/detail?mhy_presentation_style=fullscreen',
@@ -2085,6 +2197,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-485',
     name: '派派·韦尔',
+    attribute: '物理',
+    grade: 'A',
     roleTag: '异常',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/485/detail?mhy_presentation_style=fullscreen',
@@ -2122,6 +2236,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-493',
     name: '露西亚娜·德·蒙特夫',
+    attribute: '火',
+    grade: 'A',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/493/detail?mhy_presentation_style=fullscreen',
@@ -2159,6 +2275,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-758',
     name: '赛斯·洛威尔',
+    attribute: '电',
+    grade: 'A',
     roleTag: '防护',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/758/detail?mhy_presentation_style=fullscreen',
@@ -2196,6 +2314,8 @@ window.AGENT_PRESETS = [
   {
     id: 'ep-80',
     name: '妮可·德玛拉',
+    attribute: '以太',
+    grade: 'A',
     roleTag: '支援',
     panelMode: 'standard',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/80/detail?mhy_presentation_style=fullscreen',

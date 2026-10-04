@@ -22,6 +22,11 @@ from fastapi.testclient import TestClient
 
 from zzz_panel.api.app import app
 from zzz_panel.presets import loader
+from zzz_panel.presets.attributes import (
+    attribute_counts,
+    is_special_attribute,
+    special_agent_attributes,
+)
 from zzz_panel.schemas.presets import AgentPreset
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -48,6 +53,8 @@ def valid_agent(**overrides: object) -> dict:
     agent = {
         "id": "ep-0001",
         "name": "示例代理人",
+        "attribute": "火",
+        "grade": "S",
         "roleTag": "强攻",
         "panelMode": "standard",
         "source": "https://example.invalid/1",
@@ -247,6 +254,85 @@ def test_unknown_panel_mode_is_rejected(data_dir: Path) -> None:
     write(data_dir, "agent-presets.json", [valid_agent(panelMode="mystery")])
     with pytest.raises(loader.PresetLoadError, match="校验失败"):
         loader.load_agents()
+
+
+def test_unknown_attribute_is_rejected(data_dir: Path) -> None:
+    write(data_dir, "agent-presets.json", [valid_agent(attribute="雷")])
+    with pytest.raises(loader.PresetLoadError, match="attribute"):
+        loader.load_agents()
+
+
+def test_unknown_grade_is_rejected(data_dir: Path) -> None:
+    write(data_dir, "agent-presets.json", [valid_agent(grade="SS")])
+    with pytest.raises(loader.PresetLoadError, match="grade"):
+        loader.load_agents()
+
+
+def test_missing_attribute_is_rejected(data_dir: Path) -> None:
+    agent = valid_agent()
+    del agent["attribute"]
+    write(data_dir, "agent-presets.json", [agent])
+    with pytest.raises(loader.PresetLoadError, match="校验失败"):
+        loader.load_agents()
+
+
+# ------------------------------------------------------------- 特殊属性判定
+
+
+def test_real_data_special_attributes_follow_the_count_rule() -> None:
+    """真实数据：特殊属性恰为「当前只有一名代理人持有」的那些属性。
+
+    同时反证硬编码名单：风 有两名持有人，按规则**不是**特殊属性，
+    即便它同样是官方新出的属性。
+    """
+    agents = loader.load_agents()
+    counts = attribute_counts(agents)
+
+    assert special_agent_attributes(agents) == {
+        attribute for attribute, count in counts.items() if count == 1
+    }
+    assert counts["风"] == 2
+    assert "风" not in special_agent_attributes(agents)
+    assert is_special_attribute("烈霜", agents)
+    assert not is_special_attribute("火", agents)
+    assert not is_special_attribute("风", agents)
+
+
+def test_special_attribute_needs_exactly_one_holder() -> None:
+    """规则只看人数：2 人及以上（含恰好 2 人）都不是特殊属性。"""
+    agents = [
+        AgentPreset.model_validate(valid_agent(name="甲", attribute="玄墨")),
+        AgentPreset.model_validate(valid_agent(name="乙", attribute="玄墨")),
+        AgentPreset.model_validate(valid_agent(name="丙", attribute="流明")),
+    ]
+
+    assert attribute_counts(agents) == {"玄墨": 2, "流明": 1}
+    assert special_agent_attributes(agents) == frozenset({"流明"})
+    assert is_special_attribute("流明", agents)
+    assert not is_special_attribute("玄墨", agents)
+
+
+def test_special_attributes_are_not_hardcoded() -> None:
+    """换一个只有一人的新属性，它同样是特殊属性——证明规则与属性名无关。"""
+    agents = [
+        AgentPreset.model_validate(valid_agent(name="甲", attribute="玄墨")),
+        AgentPreset.model_validate(valid_agent(name="乙", attribute="玄墨")),
+        AgentPreset.model_validate(valid_agent(name="丙", attribute="全新属性")),
+    ]
+    # 正常数据里「全新属性」会被白名单拦下，这里直接检验判定函数本身：
+    # 它既不在 AGENT_ATTRIBUTES 里，也不是任何硬编码名单的一员，
+    # 却依然按人数被判成特殊属性。
+    assert special_agent_attributes(agents) == frozenset({"全新属性"})
+
+
+def test_attribute_counts_and_special_set_ignore_order() -> None:
+    """判定只看人数，不看代理人在列表中的位置。"""
+    agents = [
+        AgentPreset.model_validate(valid_agent(name="甲", attribute="风")),
+        AgentPreset.model_validate(valid_agent(name="乙", attribute="风")),
+    ]
+    assert attribute_counts(agents) == {"风": 2}
+    assert special_agent_attributes(agents) == frozenset()
 
 
 def test_unrepresentable_core_bonus_is_rejected(data_dir: Path) -> None:

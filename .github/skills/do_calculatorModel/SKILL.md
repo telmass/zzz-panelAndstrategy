@@ -51,7 +51,7 @@ Each `roleTag` must be the agent's specific official profession label. Do not us
 
 Agent presets use a single searchable, clearable `n-cascader`, structurally identical to the W-Engine picker: level 1 is a `roleTag` group, level 2 is the agent itself. There is **no separate tag dropdown and no "choose a tag first" gate** — the user picks the tag and the agent in one action, and picking the agent determines `agent.roleTag`. Do not reintroduce a disabled-until-tag-chosen second dropdown, and do not add a direct "all agents" shortcut.
 
-Option labels are built by `agentOptionLabel` in `frontend/src/stores/panelStore.ts` as 「名称 / 职业」 plus the panel-mode name, deduplicated. Because 命破/锋御 agents' `roleTag` already equals their mode name, their label collapses to two segments (「仪玄 / 命破」), and 通用 agents also collapse to two segments because the standard mode name is hidden (see below). While browsing, a leaf shows only the agent's name via the shared `renderLabel` in `composables/useCascaderIcons.ts`; the full label stays on the option so the collapsed box and `filterable` search still show it after selection.
+Option labels are built by `agentOptionLabel` in `frontend/src/stores/panelStore.ts` as 「名称 / 职业 / 属性 / 评级」. The shared segments come from `agentTagSegments` in `frontend/src/constants/calculatorOptions.ts`, which is also what the agent card's sub-line and the load-success note render, so the three surfaces cannot drift apart. The panel-mode name is folded into the same segments: 命破/锋御 agents' `roleTag` already equals their mode name, so it is deduplicated, and the 通用 mode name is hidden entirely (see below) — either way the label is always four segments. While browsing, a leaf shows only the agent's name via the shared `renderLabel` in `composables/useCascaderIcons.ts`; the full label stays on the option so the collapsed box and `filterable` search still show it after selection, and typing an attribute (「玄墨」) or a grade (「S」) matches.
 
 Selecting the agent must:
 
@@ -82,7 +82,7 @@ Selecting an agent must not auto-fill equipment or disturb the blank build defau
 
 Use the browser or an equivalent DOM test to verify in the requested calculator that:
 
-- The new agent appears in the preset selector under its profession/tag group, with a two-segment label 「名称 / 职业」 (or 「名称 / 命破」-style collapsed form) that contains no `通用`.
+- The new agent appears in the preset selector under its profession/tag group, with the four-segment label 「名称 / 职业 / 属性 / 评级」 (e.g. 「仪玄 / 命破 / 玄墨 / S级」) that contains no `通用`. The attribute and grade shown must be the ones read from the official page for that agent.
 - Selecting it fills every base stat and applies each core aggregate to the correct field exactly once.
 - Selecting it activates the requested panel mode: standard, 命破, or 锋御. The two special formulas must be mutually exclusive and hidden for standard agents.
 - The final panel recalculates and the source link points to the official Wiki page.

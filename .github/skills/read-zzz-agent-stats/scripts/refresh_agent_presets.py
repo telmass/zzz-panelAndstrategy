@@ -7,6 +7,8 @@ writes one preset per agent with:
   * level-60 (0 突破) base panel, merged field by field from the 初始数据 and
     满级数据 rows of the 晋升需求 slider;
   * fully upgraded core skill, grouped per attribute from ranks A-F;
+  * the official 评级 (S/A) and 属性 (火/冰/电/以太/物理/烈霜/玄墨/凛刃/风/流明),
+    both read straight off the same ``role_base_info`` component;
   * the official 特性 tag and the matching calculator panel mode.
 
 ``data/agent-presets.json`` 是全仓库唯一真实源；参照实现夹具所需的
@@ -44,6 +46,26 @@ PROFESSION_TAGS = {
     "guard": ("防护", "standard"),
     "rupture": ("命破", "rupture"),
     "armero": ("锋御", "fengyu"),
+}
+
+#: ``role_base_info.role_attribute`` 的 slug -> 页面实际显示的中文属性名。
+#:
+#: 取值不是猜的：官网页面正文与 WIKI 前端自身的属性词典
+#: （``_nuxt/*`` 里的 ``{"电","以太","火","冰","物理","烈霜","玄墨","凛刃","风","流明"}``）
+#: 一致。特别注意 ``electric`` 的官方写法是**电**而不是通行的「雷」，照抄页面即可。
+#: 新增代理人若带来表里没有的 slug，``build()`` 会抛错并在末尾 SKIPPED 报告里
+#: 点名——宁可少写一条，也不要把特殊属性猜成常规属性。
+ATTRIBUTE_LABELS = {
+    "electric": "电",
+    "ether": "以太",
+    "fire": "火",
+    "ice": "冰",
+    "physical": "物理",
+    "frost": "烈霜",
+    "auricink": "玄墨",
+    "honed_edge": "凛刃",
+    "wind": "风",
+    "Lumiflux": "流明",
 }
 
 # Wiki label variants (older agent pages abbreviate) -> calculator base field.
@@ -86,6 +108,9 @@ CORE_EFFECT_TO_OPTION = {
     ("异常精通", 30.0): "am_90",
     ("攻击力百分比", 7.0): "atk_pct_21",
 }
+#: 官方评级。只用于排序（S 在前），不用于过滤：
+#: ``build()`` 原样写入 Wiki 给的评级，出现新评级时由后端校验拦下，
+#: 而不是在这里悄悄丢掉这一条。
 GRADE_ORDER = {"S": 0, "A": 1}
 
 
@@ -232,6 +257,13 @@ def load_sync_presets():
 
 def build(agent, core_options):
     tag, mode = PROFESSION_TAGS.get(agent["profession"], ("", "standard"))
+    grade = agent.get("grade")
+    if not grade:
+        raise ValueError("官方页面未给出评级")
+    slug = agent.get("attribute")
+    attribute = ATTRIBUTE_LABELS.get(slug)
+    if attribute is None:
+        raise ValueError("未登记的属性 slug：{}".format(slug))
     merged = agent["base"]
     base, additional, unmodeled, unavailable = {}, {}, [], []
     for label, value in merged.items():
@@ -248,6 +280,8 @@ def build(agent, core_options):
     preset = {
         "id": "ep-{}".format(agent["id"]),
         "name": agent["name"],
+        "attribute": attribute,
+        "grade": grade,
         "roleTag": tag,
         "panelMode": mode,
         "source": agent["source"],
@@ -260,8 +294,6 @@ def build(agent, core_options):
     if unmodeled:
         preset["unmodeledBaseStats"] = unmodeled
     preset["coreBonuses"] = core_bonuses(agent["core"], core_options)
-    if agent.get("grade") in GRADE_ORDER:
-        preset["grade"] = agent["grade"]
     return preset
 
 
@@ -284,6 +316,7 @@ def scan(max_id):
                 "id": int(page.get("id")),
                 "name": base_info.get("name"),
                 "grade": base_info.get("grade"),
+                "attribute": base_info.get("role_attribute"),
                 "profession": base_info.get("role_profession"),
                 "base": base_panel(page),
                 "core": core_ranks(page),

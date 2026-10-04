@@ -17,6 +17,7 @@ from typing import NoReturn
 
 from ..core.options import CORE_OPTIONS, find_option
 from ..schemas.presets import AgentCoreBonus, AgentPreset, WeaponPreset
+from .attributes import AGENT_ATTRIBUTES, AGENT_GRADES
 
 #: 代理人标签全集，用于校验 ``roleTag``。与前端 ``AGENT_ROLE_TAGS`` 同源。
 AGENT_ROLE_TAGS = frozenset({"强攻", "击破", "异常", "支援", "防护", "命破", "锋御"})
@@ -80,6 +81,16 @@ def _check_agent(agent: AgentPreset) -> None:
         _fail(name, "缺少 roleTag")
     if agent.role_tag not in AGENT_ROLE_TAGS:
         _fail(name, f"roleTag“{agent.role_tag}”不属于 {sorted(AGENT_ROLE_TAGS)}")
+
+    # attribute / grade：只校验取值，特殊属性的判定是另一回事，见 presets.attributes。
+    if not agent.attribute:
+        _fail(name, "缺少 attribute")
+    if agent.attribute not in AGENT_ATTRIBUTES:
+        _fail(name, f"attribute“{agent.attribute}”不属于 {sorted(AGENT_ATTRIBUTES)}")
+    if not agent.grade:
+        _fail(name, "缺少 grade")
+    if agent.grade not in AGENT_GRADES:
+        _fail(name, f"grade“{agent.grade}”不属于 {sorted(AGENT_GRADES)}")
 
     # 基础面板：官方未提供的键必须显式列进 unavailableBaseStats，否则前端会
     # 把 None 当 0 写进面板，且用户看不到任何提示。

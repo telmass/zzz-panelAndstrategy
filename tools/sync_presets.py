@@ -56,10 +56,13 @@ OPTIONS_NOTICE = (
     "规则表的唯一真实源是 core/options.py 与 core/constants.py。"
 )
 
+#: ``attribute`` / ``grade`` 是「这是谁」的分类信息，紧跟 name，
+#: 与 ``WEAPON_KEY_ORDER`` 把 ``grade`` 放在 name 之后的约定一致；
+#: ``roleTag`` / ``panelMode`` 随后才是分组与计算维度。
 AGENT_KEY_ORDER = (
-    "id", "name", "roleTag", "panelMode", "source", "base",
+    "id", "name", "attribute", "grade", "roleTag", "panelMode", "source", "base",
     "unavailableBaseStats", "additionalBaseStats", "unmodeledBaseStats",
-    "coreBonuses", "grade",
+    "coreBonuses",
 )
 BASE_KEY_ORDER = ("hp", "atk", "def", "impact", "cr", "cd", "ac", "am", "pr", "er")
 ADDITIONAL_KEY_ORDER = ("penforce", "energyAccumulation")

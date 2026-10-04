@@ -1,8 +1,10 @@
 import {
+  AGENT_ATTRIBUTES,
+  AGENT_GRADES,
   CORE_OPTIONS,
   MODELED_BASE_STAT_LABELS,
   PANEL_MODE_LABELS,
-  panelModeTagLabel,
+  agentTagSegments,
 } from '@/constants/calculatorOptions';
 import { AGENT_ROLE_TAGS } from '@/constants/calculatorOptions';
 import { displayEnergyAttributeLabel, isPanelMode } from '@/composables/usePanelMode';
@@ -22,6 +24,31 @@ const EXTRA_BASE_KEYS = ['penforce', 'energyAccumulation'] as const;
 const EPSILON = 0.0000001;
 
 /**
+ * 特殊属性判定：**该属性当前只有一名代理人持有**（人数为 1）。
+ *
+ * 规则只有这一条，不再叠加「属性名不在常规五项内」之类的条件，也不写成
+ * 「烈霜/玄墨/凛刃/流明」这样的硬编码名单——名单会随官方新代理人过时，
+ * 而规则与具体是哪些属性无关。
+ *
+ * 结论随数据变化：某属性一旦被第二名代理人持有，它就不再是特殊属性。
+ * 因此**不要缓存**返回值，每次按当前 `agents` 重算。
+ *
+ * 与后端 `zzz_panel.presets.attributes.special_agent_attributes` 同源。
+ */
+export function specialAgentAttributes(agents: AgentPreset[]): Set<string> {
+  const counts = new Map<string, number>();
+  for (const agent of agents) {
+    counts.set(agent.attribute, (counts.get(agent.attribute) ?? 0) + 1);
+  }
+  return new Set([...counts].filter(([, count]) => count === 1).map(([key]) => key));
+}
+
+/** 单个属性是否为特殊属性。语义与 {@link specialAgentAttributes} 一致。 */
+export function isSpecialAttribute(attribute: string, agents: AgentPreset[]): boolean {
+  return agents.filter((agent) => agent.attribute === attribute).length === 1;
+}
+
+/**
  * 预设数据自身的完整性校验。对应 legacy 脚本顶部对
  * `invalidAgentPresets` 与 `duplicateAgentIds` 的两次检查。
  *
@@ -35,7 +62,12 @@ const EPSILON = 0.0000001;
 export function validateAgentPresetData(): void {
   const { agents } = usePresetStore();
   const invalid = agents.filter(
-    (agent) => !agent.id || !agent.name || !AGENT_ROLE_TAGS.includes(agent.roleTag as never),
+    (agent) =>
+      !agent.id ||
+      !agent.name ||
+      !AGENT_ROLE_TAGS.includes(agent.roleTag as never) ||
+      !AGENT_ATTRIBUTES.includes(agent.attribute as never) ||
+      !AGENT_GRADES.includes(agent.grade as never),
   );
   if (invalid.length) {
     throw new Error(
@@ -133,14 +165,13 @@ function resolveCoreIndexes(agent: AgentPreset): string[] {
 }
 
 /**
- * 代理人的展示标签：`角色标签 / 模式名`，去重后拼接。
+ * 代理人的展示标签：`职业 / 属性 / 评级`，模式名按需插在职业之后。
  *
- * 模式名经 `panelModeTagLabel` 取，通用模式为空串因而不出现在文案里；
- * 角色标签与模式名同字（命破/锋御）时由 `Set` 收成一段。
+ * 分段由 `agentTagSegments` 单一定义，与 cascader 折叠框的选项文案同源，
+ * 因此模式名隐去（通用）与同字去重（命破 / 锋御）的行为三处一致。
  */
 export function agentTagLabel(agent: AgentPreset): string {
-  const tags = [agent.roleTag, panelModeTagLabel(agent.panelMode)].filter(Boolean);
-  return [...new Set(tags)].join(' / ');
+  return agentTagSegments(agent).join(' / ');
 }
 
 /** 载入预设后的提示文案。对应 legacy 的 `note.replaceChildren(...)` 部分。 */

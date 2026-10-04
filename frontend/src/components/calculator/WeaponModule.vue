@@ -15,6 +15,10 @@ import { NumberField, PanelModule, TextField } from '@/components/common';
  * 等级写进选项文案（不再单列筛选轴），可选中后用头像卡片展示「名称 / 职业 / 等级」。
  * 固定属性回填由 store 的 `selectWeaponPreset` 承担，语义与 legacy 的
  * `updateWeaponSelection` 一致：未命中预设时清空并重置只读回填区。
+ *
+ * `show-path` 关掉，与代理人选择器同理：naive-ui 默认把整条路径的 label 拼起来
+ * 显示，一级项的职业标签会与叶子文案里的同一段重复两次。关掉后折叠框只显示
+ * `名称 / 职业 / 等级`。
  */
 const panel = usePanelStore();
 const presets = usePresetStore();
@@ -70,6 +74,7 @@ const { renderOptionPrefix, renderOptionLabel } = createCascaderRenderers({
           :value="cascaderValue"
           :render-prefix="renderOptionPrefix"
           :render-label="renderOptionLabel"
+          :show-path="false"
           filterable
           clearable
           placeholder="选择音擎"

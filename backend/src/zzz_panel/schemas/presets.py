@@ -78,6 +78,10 @@ class AgentCoreBonus(CamelModel):
 class AgentPreset(CamelModel):
     id: str
     name: str
+    #: 官方属性类型，如「火」「烈霜」。取值校验见 ``presets.attributes``。
+    attribute: str
+    #: 官方评级，代理人口前只有 S / A。
+    grade: str
     role_tag: str
     panel_mode: PanelMode
     source: str
@@ -86,7 +90,6 @@ class AgentPreset(CamelModel):
     additional_base_stats: Optional[AgentAdditionalBaseStats] = None
     unavailable_base_stats: Optional[List[str]] = None
     unmodeled_base_stats: Optional[List[UnmodeledBaseStat]] = None
-    grade: Optional[str] = None
 
 
 class WeaponSubstat(CamelModel):

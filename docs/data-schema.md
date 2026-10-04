@@ -23,6 +23,8 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 {
   "id": "ep-1109",                 // 稳定 id，前端按它查表
   "name": "示例代理人",
+  "attribute": "火",               // 10 个合法值之一，见 2.3
+  "grade": "S",                    // S | A
   "roleTag": "强攻",// 7 个合法值之一
   "panelMode": "standard",        // standard | rupture | fengyu
   "source": "https://baike.mihoyo.com/zzz/wiki/content/1109/detail",
@@ -52,11 +54,40 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
       "totalValue": 28.8,         // 合计，须等于 perRankValue × ranks.length
       "unit": "%"
     }
-  ],
-
-  "grade": "S"                    // 可选
+  ]
 }
 ```
+
+### 2.3 属性与评级
+
+`attribute` 与 `grade` 都直接来自官方 WIKI 页面 `role_base_info` 组件，
+抓取脚本自动写入，无需人工填写。
+
+**`attribute` 的 10 个合法值**（前端 `AGENT_ATTRIBUTES` / 后端 `AGENT_ATTRIBUTES`）：
+
+| | | | | |
+| --- | --- | --- | --- | --- |
+| 火 | 冰 | 电 | 以太 | 物理 |
+| 烈霜 | 玄墨 | 凛刃 | 风 | 流明 |
+
+官方对 `electric` 的写法是**电**（社区口语常作「雷」），照抄页面。
+`凛刃` 也不并入 `物理`——尽管页面自己称它是「更高阶的物理属性」。
+
+**`grade`** 代理人口前只有 `S` 与 `A`（后端 `AGENT_GRADES`）。
+
+### 2.4 特殊属性的判定规则
+
+> **某个属性当前只有一名代理人持有（人数 == 1），即为特殊属性。**
+
+规则只有这一条，不附加任何其他条件。后端实现
+`backend/src/zzz_panel/presets/attributes.py` 的 `special_agent_attributes()`，
+前端镜像 `frontend/src/composables/useAgentPreset.ts` 的 `specialAgentAttributes()`。
+
+按当前 60 名代理人，特殊属性是 `烈霜`、`玄墨`、`凛刃`、`流明`（各 1 人）；
+`风` 有 2 人，**不是**特殊属性——这正说明规则与「属性名新不新」无关。
+
+结论随数据变化，因此**每次使用都按当前 `agents` 重算，不要缓存**。
+代码里也不得写死上面这份名单：新属性登场时它会立刻过时。
 
 ### 2.2 关键点
 
@@ -74,6 +105,9 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 
 **`coreBonuses[].optionCount`** 用一个已有选项重复 `N` 次来表达，
 只在 `option.value × optionCount` **恰好等于** `totalValue` 时使用。
+
+**`attribute` 与 `roleTag` 也是两个独立字段。** 属性类型不参与计算，
+只用于展示与「特殊属性」判定（见 2.4）。
 
 ## 3. 音擎预设
 
@@ -195,6 +229,8 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 | 规则 | 说明 |
 | --- | --- |
 | `name` 非空 | |
+| `attribute` 非空且属于 10 个合法值 | 火 / 冰 / 电 / 以太 / 物理 / 烈霜 / 玄墨 / 凛刃 / 风 / 流明 |
+| `grade` 非空且属于 2 个合法值 | `S` / `A` |
 | `roleTag` 非空且属于 7 个合法值 | 强攻 / 击破 / 异常 / 支援 / 防护 / 命破 / 锋御 |
 | `base` 中缺失的键必须列入 `unavailableBaseStats` | 否则前端会把缺值当 0 且无提示 |
 | `unavailableBaseStats` 的每项必须是合法基础键名 | 防止拼写错误静默通过 |

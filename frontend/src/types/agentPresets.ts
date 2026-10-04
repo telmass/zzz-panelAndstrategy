@@ -58,6 +58,10 @@ export interface AgentCoreBonus {
 export interface AgentPreset {
   id: string;
   name: string;
+  /** 官方属性类型，如「火」「烈霜」。取值白名单见 `AGENT_ATTRIBUTES`。 */
+  attribute: string;
+  /** 官方评级，代理人口前只有 `S` / `A`。 */
+  grade: string;
   roleTag: string;
   panelMode: PanelMode;
   /** 米游社官方 WIKI 出处，载入预设时以链接形式展示。 */
@@ -77,9 +81,11 @@ export interface AgentPreset {
  * 二级项是具体代理人（叶子）。`label` 是浏览态看不到、但选中后可见的文案——
  * naive-ui 渲染折叠框与 `filterable` 匹配用的都是它，`renderLabel` 只管浏览菜单。
  *
- * 实际段数恒为 2（「名称 / 职业」）：`panelMode` 不作独立筛选轴，只写进文案，
- * 且命破/锋御因 `roleTag` 与模式名同字被去重、通用模式名被 `HIDE_STANDARD_MODE_LABEL`
- * 隐去。拼接逻辑见 `panelStore` 的 `agentOptionLabel`。
+ * 实际段数恒为 4（「名称 / 职业 / 属性 / 评级」）：`panelMode` 不作独立筛选轴，
+ * 只写进文案，且命破/锋御因 `roleTag` 与模式名同字被去重、通用模式名被
+ * `HIDE_STANDARD_MODE_LABEL` 隐去，两种情况都不改变段数。
+ * 分段由 `constants/calculatorOptions` 的 `agentTagSegments` 单一定义，
+ * `panelStore` 的 `agentOptionLabel` 只在其前面拼上名称。
  *
  * 索引签名是 naive-ui 的 `CascaderOption` 所必需，去掉就无法传给 `n-cascader`。
  */
