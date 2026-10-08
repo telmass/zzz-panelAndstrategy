@@ -102,6 +102,88 @@ export const DISC_FIXED_STATS: DiscFixedStat[] = (
   to: stat.target,
 }));
 
+/** 主词条 to 值 → 对应被排除的副词条 id（主副不重复规则） */
+export const MAIN_STAT_TO_EXCLUDED_SUB_STAT: Record<ModifierKey, string | null> = {
+  // 固定主词条
+  hp_flat: 'hp_flat',     // 1号固定生命 → 排除小生命
+  atk_flat: 'atk_flat',   // 2号固定攻击 → 排除小攻击
+  def_flat: 'def_flat',   // 3号固定防御 → 排除小防御
+  // 4/5/6号可选主词条
+  atk_pct: 'atk_pct',     // 攻击% → 排除大攻击%
+  hp_pct: 'hp_pct',       // 生命% → 排除大生命%
+  def_pct: 'def_pct',     // 防御% → 排除大防御%
+  cr: 'cr',               // 暴击率 → 排除暴击率
+  cd: 'cd',               // 暴击伤害 → 排除暴击伤害
+  am: 'am',               // 异常精通 → 排除异常精通
+  pr: null,               // 穿透率 → 无对应副词条（穿透值不同属性）
+  dmg: null,              // 增伤 → 无对应副词条
+  impact_pct: null,       // 冲击力% → 无对应副词条
+  ac_pct: null,           // 异常掌控% → 无对应副词条
+  er_pct: null,           // 能量回复% → 无对应副词条
+  // 其余 ModifierKey 不作为主词条
+  hp_base: null,
+  atk_base: null,
+  def_base: null,
+  pen_val: null,
+  ac_flat: null,
+  impact_flat: null,
+  er_flat: null,
+};
+
+/** 固定主词条排除的副词条（1/2/3号位恒定生效） */
+export const FIXED_MAIN_STAT_EXCLUDED_SUB_STATS = new Set<string>([
+  'hp_flat',  // 1号固定生命
+  'atk_flat', // 2号固定攻击
+  'def_flat', // 3号固定防御
+]);
+
+/** 每盘理论词条数（1基础 + 5强化），用于折算理论上限 */
+const SUB_STAT_PER_SLOT_THEORETICAL = 6;
+
+/** 计算单个副词条的动态上限
+ * 公式：(6 - 被排除盘位数) × 6
+ * - 固定排除：1/2/3号位对应的副词条各被排除1个盘位
+ * - 可选排除：4/5/6号位选中的主词条对应的副词条各被排除1个盘位
+ */
+export function calculateSubStatLimit(
+  subStatId: string,
+  disc4MainStat: string,
+  disc5MainStat: string,
+  disc6MainStat: string,
+): number {
+  let excludedSlots = 0;
+
+  // 固定排除（1/2/3号位）
+  if (FIXED_MAIN_STAT_EXCLUDED_SUB_STATS.has(subStatId)) {
+    excludedSlots += 1;
+  }
+
+  // 可选排除（4/5/6号位）
+  const disc4Excluded = MAIN_STAT_TO_EXCLUDED_SUB_STAT[disc4MainStat as ModifierKey];
+  const disc5Excluded = MAIN_STAT_TO_EXCLUDED_SUB_STAT[disc5MainStat as ModifierKey];
+  const disc6Excluded = MAIN_STAT_TO_EXCLUDED_SUB_STAT[disc6MainStat as ModifierKey];
+
+  if (disc4Excluded === subStatId) excludedSlots += 1;
+  if (disc5Excluded === subStatId) excludedSlots += 1;
+  if (disc6Excluded === subStatId) excludedSlots += 1;
+
+  const availableSlots = 6 - excludedSlots;
+  return availableSlots * SUB_STAT_PER_SLOT_THEORETICAL;
+}
+
+/** 计算所有副词条的动态上限映射 */
+export function calculateAllSubStatLimits(
+  disc4MainStat: string,
+  disc5MainStat: string,
+  disc6MainStat: string,
+): Record<string, number> {
+  const limits: Record<string, number> = {};
+  for (const stat of SUB_STATS) {
+    limits[stat.id] = calculateSubStatLimit(stat.id, disc4MainStat, disc5MainStat, disc6MainStat);
+  }
+  return limits;
+}
+
 /** 副词条上限：单项 36 条，6 盘合计 54 条。后端只做向下取整，不设上限，故无对应表。 */
 export const SUB_STAT_LIMIT_PER_KEY = 36;
 export const SUB_STAT_TOTAL_LIMIT = 54;

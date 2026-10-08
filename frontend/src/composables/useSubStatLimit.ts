@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { SUB_STATS, SUB_STAT_LIMIT_PER_KEY, SUB_STAT_TOTAL_LIMIT } from '@/constants/calculatorOptions';
+import { SUB_STATS, SUB_STAT_TOTAL_LIMIT, calculateAllSubStatLimits } from '@/constants/calculatorOptions';
 import { normalizeCount } from '@/utils/clamp';
 import { fmt } from '@/utils/fmt';
 import { usePanelStore } from '@/stores/panelStore';
@@ -14,13 +14,15 @@ export interface SubStatEntry {
   total: string;
   canDecrease: boolean;
   canIncrease: boolean;
+  /** 该副词条的动态上限 */
+  limit: number;
 }
 
 /**
  * 副词条条数钳制。对应 legacy 的 `handleSubInput` 与 `adjustSubInput`。
  *
  * 规则有两层：
- * - 单项上限 36 条（每盘 9 条 × 6 盘中同一属性的理论上限）；
+ * - 单项动态上限：基于主词条出现频率计算 (6 - 被排除盘位数) × 6
  * - 合计上限 54 条（6 盘 × 9 条）。
  *
  * legacy 的做法是「先改当前项，再看总数是否超标，超标就从当前项里扣掉超出量」，
@@ -37,20 +39,28 @@ export function useSubStatLimit() {
   /** 合计是否已达上限，用于把合计读数标红。 */
   const isTotalExceeded = computed(() => totalCount.value > SUB_STAT_TOTAL_LIMIT);
 
+  /** 基于当前主词条选择计算的单项动态上限映射 */
+  const subStatLimits = computed(() =>
+    calculateAllSubStatLimits(panel.discMain.disc4, panel.discMain.disc5, panel.discMain.disc6),
+  );
+
   /** 每项副词条的展示状态，按 `SUB_STATS` 顺序。 */
   const entries = computed<SubStatEntry[]>(() => {
     const total = totalCount.value;
+    const limits = subStatLimits.value;
     return SUB_STATS.map((def) => {
       const count = panel.subStats[def.id] ?? 0;
+      const limit = limits[def.id] ?? SUB_STAT_TOTAL_LIMIT;
       // 单条值里的 4.8 / 2.4 在二进制浮点下不精确，4.8*3 === 14.399999999999999，
       // 直接 String() 会把误差原样显示。走 fmt 与 legacy calculator.js:524 一致。
       const value = fmt(count * def.value);
       return {
         def,
         count,
+        limit,
         total: count === 0 ? '0' : def.kind === 'pct' ? `${value}%` : value,
         canDecrease: count > 0,
-        canIncrease: count < SUB_STAT_LIMIT_PER_KEY && total < SUB_STAT_TOTAL_LIMIT,
+        canIncrease: count < limit && total < SUB_STAT_TOTAL_LIMIT,
       };
     });
   });
@@ -68,7 +78,9 @@ export function useSubStatLimit() {
    * 用于数字输入框的 input 事件与预设重置。
    */
   function setCount(id: string, raw: unknown): void {
-    const next = normalizeCount(raw, SUB_STAT_LIMIT_PER_KEY);
+    const limits = subStatLimits.value;
+    const limit = limits[id] ?? SUB_STAT_TOTAL_LIMIT;
+    const next = normalizeCount(raw, limit);
     const others = totalCount.value - (panel.subStats[id] ?? 0);
     // 合计超限时从本项回填，宁可减少也不允许总数越界。
     const room = Math.max(0, SUB_STAT_TOTAL_LIMIT - others);

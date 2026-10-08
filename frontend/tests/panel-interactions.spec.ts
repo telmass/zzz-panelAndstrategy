@@ -266,19 +266,20 @@ describe('音 cascader 分组与回填', () => {
 describe('副词条钳制', () => {
   it('合计不超过 54：超出时从最后修改项回填', () => {
     const { setCount, totalCount } = useSubStatLimit();
-    setCount('hp_flat', 36);
-    setCount('cr', 18);
+    // hp_flat (小生命) 动态上限 30，cr (暴击率) 动态上限 36
+    setCount('hp_flat', 30);
+    setCount('cr', 24);
     expect(totalCount.value).toBe(54);
 
     // 再加 1 条时，本项被压回可用余量 0
-    setCount('cr', 19);
+    setCount('cr', 25);
     expect(totalCount.value).toBe(54);
   });
 
-  it('单项上限 36 条', () => {
+  it('单项动态上限：小攻击 30 条（受 2号固定攻击排除）', () => {
     const { setCount } = useSubStatLimit();
     setCount('atk_flat', 99);
-    expect(usePanelStore().subStats.atk_flat).toBe(36);
+    expect(usePanelStore().subStats.atk_flat).toBe(30);
   });
 
   it('负数与小数被归一化', () => {
@@ -297,8 +298,8 @@ describe('副词条钳制', () => {
 
   it('合计达 54 时加号禁用，减号仍可用', async () => {
     const wrapper = mountView();
-    useSubStatLimit().setCount('hp_flat', 36);
-    useSubStatLimit().setCount('cr', 18);
+    useSubStatLimit().setCount('hp_flat', 30);
+    useSubStatLimit().setCount('cr', 24);
     await nextTick();
 
     const rows = wrapper.findAll('.sub-count');
@@ -340,10 +341,11 @@ describe('副词条钳制', () => {
 
   it('固定值累加显示千分位', () => {
     const { setCount } = useSubStatLimit();
-    setCount('hp_flat', 36);
+    // hp_flat 动态上限 30
+    setCount('hp_flat', 30);
     const { entries } = useSubStatLimit();
     const entry = entries.value.find((item) => item.def.id === 'hp_flat');
-    expect(entry?.total).toBe('4,032');
+    expect(entry?.total).toBe('3,360');
   });
 });
 
