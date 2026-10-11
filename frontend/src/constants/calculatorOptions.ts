@@ -102,32 +102,22 @@ export const DISC_FIXED_STATS: DiscFixedStat[] = (
   to: stat.target,
 }));
 
-/** 主词条 to 值 → 对应被排除的副词条 id（主副不重复规则） */
-export const MAIN_STAT_TO_EXCLUDED_SUB_STAT: Record<ModifierKey, string | null> = {
-  // 固定主词条
-  hp_flat: 'hp_flat',     // 1号固定生命 → 排除小生命
-  atk_flat: 'atk_flat',   // 2号固定攻击 → 排除小攻击
-  def_flat: 'def_flat',   // 3号固定防御 → 排除小防御
-  // 4/5/6号可选主词条
-  atk_pct: 'atk_pct',     // 攻击% → 排除大攻击%
-  hp_pct: 'hp_pct',       // 生命% → 排除大生命%
-  def_pct: 'def_pct',     // 防御% → 排除大防御%
-  cr: 'cr',               // 暴击率 → 排除暴击率
-  cd: 'cd',               // 暴击伤害 → 排除暴击伤害
-  am: 'am',               // 异常精通 → 排除异常精通
-  pr: null,               // 穿透率 → 无对应副词条（穿透值不同属性）
-  dmg: null,              // 增伤 → 无对应副词条
-  impact_pct: null,       // 冲击力% → 无对应副词条
-  ac_pct: null,           // 异常掌控% → 无对应副词条
-  er_pct: null,           // 能量回复% → 无对应副词条
-  // 其余 ModifierKey 不作为主词条
-  hp_base: null,
-  atk_base: null,
-  def_base: null,
-  pen_val: null,
-  ac_flat: null,
-  impact_flat: null,
-  er_flat: null,
+/** 主词条选项 ID → 对应被排除的副词条 id（主副不重复规则） */
+export const MAIN_STAT_OPTION_ID_TO_EXCLUDED_SUB_STAT: Record<string, string | null> = {
+  // 4号位选项
+  atk_pct_30: 'atk_pct',   // 攻击 30% → 排除大攻击%
+  hp_pct_30: 'hp_pct',     // 生命 30% → 排除大生命%
+  def_pct_48: 'def_pct',   // 防御 48% → 排除大防御%
+  cr_24: 'cr',             // 暴击率 24% → 排除暴击率
+  cd_48: 'cd',             // 暴击伤害 48% → 排除暴击伤害
+  am_92: 'am',             // 异常精通 92 → 排除异常精通
+  // 5号位选项
+  pr_24: null,             // 穿透率 24% → 无对应副词条
+  dmg_30: null,            // 增伤 30% → 无对应副词条
+  // 6号位选项
+  impact_pct_24: null,     // 冲击力 24% → 无对应副词条
+  ac_pct_30: null,         // 异常掌控 30% → 无对应副词条
+  er_pct_60: null,         // 能量回复 60% → 无对应副词条
 };
 
 /** 固定主词条排除的副词条（1/2/3号位恒定生效） */
@@ -158,10 +148,10 @@ export function calculateSubStatLimit(
     excludedSlots += 1;
   }
 
-  // 可选排除（4/5/6号位）
-  const disc4Excluded = MAIN_STAT_TO_EXCLUDED_SUB_STAT[disc4MainStat as ModifierKey];
-  const disc5Excluded = MAIN_STAT_TO_EXCLUDED_SUB_STAT[disc5MainStat as ModifierKey];
-  const disc6Excluded = MAIN_STAT_TO_EXCLUDED_SUB_STAT[disc6MainStat as ModifierKey];
+  // 可选排除（4/5/6号位）- 使用选项 ID 查找
+  const disc4Excluded = MAIN_STAT_OPTION_ID_TO_EXCLUDED_SUB_STAT[disc4MainStat];
+  const disc5Excluded = MAIN_STAT_OPTION_ID_TO_EXCLUDED_SUB_STAT[disc5MainStat];
+  const disc6Excluded = MAIN_STAT_OPTION_ID_TO_EXCLUDED_SUB_STAT[disc6MainStat];
 
   if (disc4Excluded === subStatId) excludedSlots += 1;
   if (disc5Excluded === subStatId) excludedSlots += 1;
