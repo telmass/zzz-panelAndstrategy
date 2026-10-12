@@ -5,13 +5,14 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 
 ## 1. 数据文件总览
 
-`data/` 下三个 JSON **全部是生成物**，不存在手写副本。
+`data/` 下四个 JSON **全部是生成物**，不存在手写副本。
 
 | 文件 | 内容 | 规模 | 源头 | 生成命令 |
 | --- | --- | --- | --- | --- |
 | `agent-presets.json` | 代理人预设 | 60 条 | Skill 抓取脚本（联网读官方 Wiki） | 抓取脚本直接写 |
 | `weapon-presets.json` | 音擎预设 | 100 条 | 同上 | 同上 |
 | `options.json` | 配装规则表（7 张表） | 378 行 | `backend/src/zzz_panel/core/options.py` + `core/constants.py` | `sync_presets.py --options` |
+| `drive-disc-presets.json` | 驱动盘套装效果（2/4 件套） | 30 条 | Skill 抓取脚本（联网读官方 Wiki） | 抓取脚本直接写（另下载套装图标） |
 
 各文件的字段级说明见下文。数据管线与刷新流程见 [development.md](development.md) 第 6 节。
 
@@ -266,7 +267,43 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 
 结构校验仍覆盖全部条目，过滤只作用于提示文案。
 
-## 6. 对拍夹具的 JS 包装
+## 6. 驱动盘套装效果（`drive-disc-presets.json`）
+
+只回答「这套驱动盘的 2 件套与 4 件套效果是什么」。主词条、副词条、
+获取途径等栏目一概不收录。
+
+```jsonc
+[
+  {
+    "id": "ep-104",                // ep-<entry_page_id>，与 Wiki 详情页一一对应
+    "name": "獠牙重金属",
+    "source": "https://baike.mihoyo.com/zzz/wiki/content/104/detail?mhy_presentation_style=fullscreen",
+    "setEffect2": "物理伤害+10%。",  // 二件套效果，Wiki 原文
+    "setEffect4": "队伍中任意角色对敌人施加[强击]效果时，装备者对目标造成的伤害提升35%，持续12秒。",
+    "image": "/images/discs/ep-104.png"    // 套装图标，/images/… URL（文件落 frontend/public/images/discs/）
+   }
+ ]
+ ```
+
+ 几个要点：
+
+ - **效果文本保持 Wiki 原文**。抓取脚本只剥 HTML 标签、折叠空白，
+   不做任何数值化；Wiki 自身的全角「＋」（混沌爵士的「异常精通＋30点。」）
+   也照抄，不静默改写。
+ - **一页是不是驱动盘页**，看它是否带 `driver_disk` 组件；2/4 件套文本
+   取自**第一个表头含「二件套」的 `double_col_table`**（同一页还有一张
+   「推荐角色」表，表头不同，不会误取）。
+ - `image` 是 **`/images/…` URL**（唯一图片根约定，见
+   [directory-layout.md](directory-layout.md) 第 2.2 节），文件本体落在
+   `frontend/public/images/discs/ep-<entry_page_id>.png`，命名与 `images/agents`、
+   `images/weapons` 的 `ep-<id>` 一致。
+ - **没有校验层，计算器也未消费**：该文件不进 `presets/loader.py`、
+   不进接口、不进 `_bundled_data.py`、不生成 JS 包装。图标当前的消费者是
+   攻略页（`strategy/<slug>/` 的驱动盘卡按 `/images/discs/<id>.png` 取图）；
+   接入计算器 UI 属待做（见 [requirements.md](requirements.md) 第 7 节）。
+   重跑幂等——JSON 字节不变，图片仅在内容变化时才重写。
+
+## 7. 对拍夹具的 JS 包装
 
 `frontend/tests/fixtures/legacy-calculator/data/*.js` 定义
 `window.AGENT_PRESETS` 与 `window.WEAPON_PRESETS`，由
@@ -275,7 +312,7 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 保留原因：参照实现在顶层直接读取这两个全局量，删掉它三方对拍就跑不起来。
 详见 [completeds/legacy-pages.md](completeds/legacy-pages.md)。
 
-## 7. 相关文档
+## 8. 相关文档
 
 - [api-reference.md](api-reference.md) —— HTTP 接口与响应结构
 - [calculation-rules.md](calculation-rules.md) —— 各 `to` 键名的含义与公式

@@ -4,10 +4,10 @@
  * tokens.css 的浅色令牌，与计算器页共用同一套视觉（第 5 步）。
  *
  * 命破与锋御两张卡在 legacy 中已被统一计算器取代（`redirect-*.html`
- * 已改为跳转桩），因此这里只保留「统一计算器」与「学习指南」两个入口。
- * 两张卡片共用 `.card` 样式，不加区分色，保证视觉一致。
+ * 已改为跳转桩）。这里只放**板块入口**，每张点进去各自是一个子页面；
+ * 三张卡片共用 `.card` 样式，不加区分色，保证视觉一致。
  *
- * 曾短暂存在过第三个入口「标准版示例」（/example，吸收自
+ * 曾短暂存在过第四个入口「标准版示例」（/example，吸收自
  * legacy/pages/example-template.html），已按要求整体移除：
  * 路由、视图文件与本页卡片均不复存在。
  */
@@ -40,6 +40,13 @@
         <h2>面板计算方式学习指南</h2>
         <p>说明各字段的取值口径、计算顺序，以及命破与锋御专属面板的差异。</p>
         <span class="launch">打开指南 <span class="arrow" aria-hidden="true">→</span></span>
+      </RouterLink>
+
+      <RouterLink class="card" to="/strategy">
+        <span class="badge">代理人攻略</span>
+        <h2>代理人攻略</h2>
+        <p>从官方 WIKI 数据整理的单页攻略：技能、影画、加点、音擎与驱动盘推荐、毕业面板与队伍推荐。先选择代理人。</p>
+        <span class="launch">选择代理人 <span class="arrow" aria-hidden="true">→</span></span>
       </RouterLink>
     </section>
 

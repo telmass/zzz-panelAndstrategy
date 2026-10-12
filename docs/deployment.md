@@ -461,7 +461,7 @@ uv run --group worker pywrangler deploy
 | 容器编排 / K8s | 单进程个人工具，用不上 |
 | 水平扩缩容 | 计算是纯函数、无状态、耗时在毫秒级 |
 | 分布式缓存 / 消息队列 | 唯一的缓存是进程内按 mtime 判定的一层 |
-| 数据库与迁移 | 无持久化，唯一的「状态」是 `data/` 下的三个 JSON |
+| 数据库与迁移 | 无持久化，唯一的「状态」是 `data/` 下的四个 JSON |
 | 认证授权 | 全站刻意公开、无鉴权，见 [5.9](#59-访问控制当前是公开的) |
 | 监控告警 / 日志聚合 | `/api/health` 足够；Wrangler 自带 `observability`（见 `wrangler.jsonc`） |
 | CI/CD 流水线 | 仓库内没有 CI 配置。需要时按 [development.md](development.md) 第 10 节的检查项组装 |

@@ -38,6 +38,7 @@
 | F7 | 计算全部在后端完成，前端只做输入与渲染 | `api-reference.md` |
 | F8 | 长文学习指南页（`/guide`） | `views/GuideView.vue` |
 | F9 | 预设数据更新流程可重复执行且字节幂等 | `tools/sync_presets.py --check` |
+| F10 | 启动页「代理人攻略」入口卡 → `/strategy` 代理人选择页（封面卡网格）→ `/strategy/<slug>` 攻略单页（iframe 挂载 `strategy/<slug>/`，目录即路由） | `views/LauncherView.vue`、`views/StrategyPickerView.vue`、`views/StrategyView.vue`、`constants/strategyGuides.ts`、`vite.config.ts` |
 
 ### 3.2 明确不做
 
@@ -95,7 +96,7 @@
 | 后端测试 | `uv run pytest` 全绿，**且无 skip**（skip 会让检查变成假绿灯） |
 | 数据同步门禁 | `sync_presets.py --to-legacy --check`、`--options --check`、`bundle_worker_data.py --check` 均退出 0 |
 | 部署门禁 | `wrangler.jsonc` 为纯 ASCII；带代理执行 `pywrangler deploy` 成功 |
-| 手工验收 | `/`、`/calculator`、`/guide` 三页在 dev server 下均可打开且无控制台报错 |
+| 手工验收 | `/`、`/calculator`、`/guide`、`/strategy`、`/strategy/ye-shun-guang` 在 dev server 下均可打开且无控制台报错 |
 
 ## 7. 已知限制
 
@@ -115,6 +116,8 @@
 | 二件套模块绕过通用件 | `SetEffectModule.vue` | 直接用原生 `<select>`，未走 `common/SelectField` |
 | 核心加成条目数口径不一 | UI 文案说 8 项 / 9 选 2 | 实际 12 项；沿袭旧实现，UI 文案未同步 |
 | 测试只覆盖本地，不覆盖线上 Worker | — | Cloudflare 的运行时、配额、域名绑定都不在测试范围内。部署后按 [deployment.md](deployment.md) 第 7 节人工自检 |
+| 属性图标只有 `honed_edge` / `fire` 两张 | `frontend/public/images/attributes/` | WIKI 不公开属性图标，需人工放置；其余 9 个属性（电/以太/冰/物理/烈霜/玄墨/风/流明）的图标未补，攻略页对应位置以属性色牌降级 |
+| `discs/` 图标只有攻略页在消费 | `frontend/public/images/discs/` | 30 张驱动盘套装图标已随 `data/drive-disc-presets.json` 的 `image`（URL）与 `strategy/<slug>/` 攻略页落地，但计算器 UI 没有接入入口，属待做 |
 
 > 上述限制**均不影响计算正确性**，因此不阻塞使用。清理它们属于重构范畴，
 > 需配套对拍验证，改动前请先读[testing.md](testing.md)。

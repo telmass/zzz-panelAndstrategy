@@ -1074,9 +1074,11 @@
   text-transform: uppercase;
 }
 
+/* 三张入口卡：宽屏一行铺开（容器 1180px 下每张约 369px），窄屏自动折行；
+   不再写死两列，加第四张卡时无需改这里。 */
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--layout-gap);
 }
 
@@ -1155,7 +1157,9 @@
 }
 
 .card:hover .arrow,
-.card:focus-visible .arrow {
+.card:focus-visible .arrow,
+.strategy-card:hover .arrow,
+.strategy-card:focus-visible .arrow {
   transform: translateX(4px);
 }
 
@@ -1170,4 +1174,93 @@
   .cards {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+/* ====== 攻略板块选择页（/strategy，代理人选择） =====
+ * 版式对齐米游社 WIKI 频道页：一行 5 个头像卡，每卡只有头像 + 名字，
+ * 卡片信息尽量薄——职业/属性/评级与攻略内容都在攻略页内。
+ *
+ * 类名用 `.strategy-card` 而不是 `.agent-card`：后者是计算器模块
+ * 「选中代理人卡片」的既有类（带 `grid-column: 1 / -1`），重名会让每张卡
+ * 横跨整行、头像被拉满——看似「一行一个且图巨大」的根因就是它。
+ *
+ * 新增代理人只需追加登记条目，不必碰这里的样式。
+ */
+
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--layout-gap);
+}
+
+@media (width <= 960px) {
+  .agent-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width <= 560px) {
+  .agent-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.strategy-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--module-padding-block) var(--module-padding-inline);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-module);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-module);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform var(--duration-base) var(--ease-base),
+    box-shadow var(--duration-base) var(--ease-base);
+}
+
+.strategy-card:hover,
+.strategy-card:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-result);
+  outline: none;
+}
+
+/* 立绘是 public/images/agents 下的方形图，1:1 裁切；
+   底色用 .badge 同源的浅靛，图未就位时不露白。
+   头像封顶 128px：5 列时每列约 213px，不封顶头像会偏大。 */
+.strategy-card__avatar {
+  display: block;
+  width: min(100%, 128px);
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-module);
+  background: var(--tag-base-bg);
+  object-fit: cover;
+}
+
+.strategy-card__name {
+  margin-top: var(--space-3);
+  color: var(--color-text-strong);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ====== 攻略页舞台（/strategy/:slug） =====
+ * 攻略本体是 strategy/<slug>/ 的静态页，整屏 iframe 嵌入。
+ * fixed + inset:0 绕过 body 的通用内边距直接贴边；返回按钮
+ * .back-link 的 z-index 更高，浮在攻略页之上。
+ */
+
+.strategy-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }

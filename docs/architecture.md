@@ -85,15 +85,17 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 | 代理人预设（60 条）<br>音擎预设（100 条） | `data/*.json` → `GET /api/presets/*` | 后端 `presets/loader.py`、前端经 HTTP | 数据量大、更新频率高（跟随游戏版本），走接口便于统一缓存与失效 |
 | 同上，**Worker 上的形态** | `data/*.json` → 编译进 `zzz_panel/_bundled_data.py` | Worker 里的 `presets/loader.py` | Worker 没有仓库目录，`data/` 上不去（pywrangler 只传 `.py`）。磁盘上有 `data/` 时优先读磁盘，编译产物只作兜底 |
 | 配装规则表（7 张表） | `data/options.json` → `@data` 别名直接 import | 前端 `constants/calculatorOptions.ts` | 下拉框要瞬时可用，不能等一次 HTTP 往返，也不能因接口不可用就瘫掉。**不编译进后端包** |
+| 驱动盘套装效果（30 套） | `data/drive-disc-presets.json` + `frontend/public/images/discs/` | 攻略页（`strategy/<slug>/` 静态页按 `/images/discs/<id>.png` 取图）；计算器 UI 仍未接入（待做，见 [requirements.md](requirements.md) 第 7 节） | 与预设同为 Wiki 抓取物，但当前不进计算器：没有规则表条目、没有接口、不编译进 Worker。`image` 字段是 `/images/…` URL（唯一图片根约定，见 [directory-layout.md](directory-layout.md) 第 2.2 节），不是仓库相对路径 |
 | 对拍夹具的 JS 包装 | `tests/fixtures/legacy-calculator/data/*.js` | 仅三方对拍 | 参照实现在顶层直接读 `window.AGENT_PRESETS`，删了它对拍就跑不起来 |
 
-`data/` 下三个 JSON **全部是生成物**，改源头必须重新生成，且有测试守卫漂移：
+`data/` 下四个 JSON **全部是生成物**，改源头必须重新生成，且有测试守卫漂移：
 
 | 生成物 | 源头 | 生成命令 | 漂移守卫 |
 | --- | --- | --- | --- |
 | `agent-presets.json`<br>`weapon-presets.json` | `.github/skills/*/scripts/refresh_*_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | `test_presets.py` 断言数据规范化 |
 | 夹具 `data/*.js` | `data/*.json` | `sync_presets.py --to-legacy` | `sync_presets.py --to-legacy --check` |
 | `options.json` | `core/options.py` + `core/constants.py` | `sync_presets.py --options` | `backend/tests/test_options_json.py` |
+| `drive-disc-presets.json` | `.github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | **无自动守卫**：不在 `--to-legacy` / `bundle` 覆盖范围内，靠重跑幂等（JSON 字节不变）与人工核对 |
 | `_bundled_data.py`（gitignored） | `data/agent-presets.json`<br>`data/weapon-presets.json` | `tools/bundle_worker_data.py` | `bundle_worker_data.py --check`<br>`backend/tests/test_worker_bundle.py` |
 
 ### 面板计算的往返

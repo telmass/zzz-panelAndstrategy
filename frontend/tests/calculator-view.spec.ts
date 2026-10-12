@@ -8,6 +8,8 @@ import router from '@/router';
 import CalculatorView from '@/views/CalculatorView.vue';
 import GuideView from '@/views/GuideView.vue';
 import LauncherView from '@/views/LauncherView.vue';
+import StrategyPickerView from '@/views/StrategyPickerView.vue';
+import { strategyGuides } from '@/constants/strategyGuides';
 import { usePanelStore } from '@/stores/panelStore';
 import { loadPresets, mockApi } from './support/api';
 import { flushCalc } from './support/flush';
@@ -278,24 +280,42 @@ describe('LauncherView 静态骨架', () => {
     expect(wrapper.find('h1').text()).toBe('代理人面板计算器');
   });
 
-  it('提供计算器与指南两个入口，共用同一套卡片样式', () => {
+  it('提供计算器、指南、攻略三个入口，共用同一套卡片样式', () => {
     const wrapper = mountLauncher();
     const cards = wrapper.findAll('.card');
-    expect(cards).toHaveLength(2);
-    // 两个入口同源，不加区分色，视觉必然一致
+    expect(cards).toHaveLength(3);
+    // 三个入口同源，不加区分色，视觉必然一致
     expect(cards[0].classes()).toEqual(cards[1].classes());
+    expect(cards[1].classes()).toEqual(cards[2].classes());
     expect(wrapper.findAll('.badge').map((node) => node.text())).toEqual([
       '统一计算器',
       '学习指南',
+      '代理人攻略',
     ]);
   });
 
-  it('两张卡片分别指向 /calculator 与 /guide', () => {
+  it('三张入口卡分别指向 /calculator、/guide、/strategy', () => {
     const wrapper = mountLauncher();
-    expect(wrapper.findAll('a').map((node) => node.attributes('href'))).toEqual([
+    expect(wrapper.findAll('.card').map((node) => node.attributes('href'))).toEqual([
       '/calculator',
       '/guide',
+      '/strategy',
     ]);
+  });
+
+  it('代理人选择页按登记表渲染卡片并指向 /strategy/<slug>', () => {
+    const wrapper = mount(StrategyPickerView);
+    const cards = wrapper.findAll('.strategy-card');
+    expect(cards.map((node) => node.attributes('href'))).toEqual(
+      strategyGuides.map((guide) => `/strategy/${guide.slug}`),
+    );
+    expect(cards.map((node) => node.text())).toEqual(strategyGuides.map((guide) => guide.name));
+    // 每张卡只放头像 + 名字：头像按 agents/<agentId>.png 约定路径取
+    for (const [index, guide] of strategyGuides.entries()) {
+      expect(cards[index].find('.strategy-card__avatar').attributes('src')).toBe(
+        `/images/agents/${guide.agentId}.png`,
+      );
+    }
   });
 
   it('计算器卡片保留两条公式说明', () => {
@@ -338,12 +358,64 @@ describe('子页面返回导航', () => {
     }
   });
 
-  it('三条路由均有对应视图', () => {
+  it('五条路由均有对应视图', () => {
     expect(router.getRoutes().map((route) => route.path).sort()).toEqual([
       '/',
       '/calculator',
       '/guide',
+      '/strategy',
+      '/strategy/:slug',
     ]);
+  });
+});
+
+/**
+ * 攻略 iframe 舞台的**路由级**验证。
+ *
+ * 直接 mount(StrategyView, { props }) 查不出「路由没配 props: true、params
+ * 根本没传进组件」这类接线错误——那种情况下直接挂载照样通过，只有真实导航
+ * 才会露出 undefined slug。故这里用真实 router + <router-view /> 走一遍。
+ */
+describe('攻略页路由透传', () => {
+  const RouterHost = { template: '<router-view />' };
+
+  async function flushPromises() {
+    await Promise.resolve();
+    await nextTick();
+  }
+
+  async function navigate(path: string) {
+    await router.push(path);
+    await router.isReady();
+    const host = mount(RouterHost, { global: { plugins: [router] } });
+    await flushPromises();
+    return host;
+  }
+
+  afterEach(async () => {
+    await router.push('/');
+    await router.isReady();
+  });
+
+  it('导航到 /strategy/ye-shun-guang 时 iframe 指向该攻略静态页', async () => {
+    const host = await navigate('/strategy/ye-shun-guang');
+    const frame = host.find('iframe.strategy-frame');
+    expect(frame.exists()).toBe(true);
+    expect(frame.attributes('src')).toBe('/strategy/ye-shun-guang/index.html');
+    expect(frame.attributes('title')).toContain('叶瞬光');
+  });
+
+  it('攻略详情页的返回按钮回代理人选择页 /strategy，而非启动页', async () => {
+    const host = await navigate('/strategy/ye-shun-guang');
+    const back = host.get('.back-link');
+    expect(back.attributes('href')).toBe('/strategy');
+    expect(back.text()).toContain('返回代理人选择');
+  });
+
+  it('未登记 slug 被守卫重定向回启动页，不渲染 iframe', async () => {
+    const host = await navigate('/strategy/not-registered');
+    expect(router.currentRoute.value.name).toBe('launcher');
+    expect(host.find('iframe').exists()).toBe(false);
   });
 });
 

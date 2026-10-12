@@ -17,7 +17,7 @@
 | [development.md](development.md) | 环境搭建、运行命令、测试、数据管线、**8 个已知坑** |
 | [testing.md](testing.md) | 测试策略、三方对拍机制、为什么护栏失效必须是红灯 |
 | [api-reference.md](api-reference.md) | HTTP 接口、请求/响应结构、状态码 |
-| [data-schema.md](data-schema.md) | 预设 JSON 与规则表的字段定义、校验规则 |
+| [data-schema.md](data-schema.md) | 预设 JSON、规则表与驱动盘套装效果的字段定义、校验规则 |
 | [calculation-rules.md](calculation-rules.md) | 计算公式、副词条数值、模式差异、明细呈现 |
 
 ## 部署与运维
@@ -91,3 +91,4 @@
 | `.github/skills/do_calculatorModel/SKILL.md` | 新增一名代理人预设的完整流程 |
 | `.github/skills/read-zzz-agent-stats/SKILL.md` | 代理人预设的抓取与刷新 |
 | `.github/skills/read-zzz-engine-stats/SKILL.md` | 音擎预设的抓取与刷新 |
+| `.github/skills/read-zzz-drive-disc/SKILL.md` | 驱动盘套装效果（2/4 件套）与图标的抓取刷新 |

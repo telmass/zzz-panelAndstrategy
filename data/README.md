@@ -1,18 +1,20 @@
 # 预设与规则表数据（唯一真实源）
 
-本目录的 JSON 是**代理人/音擎预设与配装规则表的唯一真实源**。
+本目录的 JSON 是**代理人/音擎预设、配装规则表与驱动盘套装效果数据的唯一真实源**。
 
-## 三份文件，两个方向
+## 四份文件与各自流向
 
 | 文件 | 来源 | 方向 |
 | --- | --- | --- |
 | `agent-presets.json` / `weapon-presets.json` | Skill 抓取脚本 | 抓取脚本写 JSON，`sync_presets.py --to-legacy` 反向生成对拍夹具的 JS 包装 |
 | `options.json` | `backend/src/zzz_panel/core/*.py` | 单向生成，`sync_presets.py --options` |
+| `drive-disc-presets.json` | Skill 抓取脚本 | 抓取脚本写 JSON 与套装图标；**不进计算器、不生成 JS 包装** |
 
 ```powershell
 python tools/sync_presets.py --options                # core/*.py → options.json
 python tools/sync_presets.py --options --check        # 只报漂移
 python tools/sync_presets.py --to-legacy --check      # 预设两侧是否同步
+python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py   # 驱动盘套装 → drive-disc-presets.json
 ```
 
 `options.json` 带 `_generated` 字段声明勿手改（JSON 没有注释语法）。
@@ -72,3 +74,21 @@ python tools/bundle_worker_data.py --check  # 漂移闸，退出码非 0 即产�
 `window.WEAPON_PRESETS`，删了它三方对拍就跑不起来。
 
 字段结构见 [../docs/data-schema.md](../docs/data-schema.md)。
+
+## 驱动盘套装效果（drive-disc-presets.json）
+
+由 `.github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py` 从官方
+HoYoLAB Wiki 抓取生成，**不可手工编辑**。扫描 `entry_page_id=1..2600`，
+以页面是否带 `driver_disk` 组件判定驱动盘页，只收录 2 件套与 4 件套效果文本
+（`setEffect2` / `setEffect4`，保留 Wiki 原文），按 `entry_page_id` 排序。
+
+套装图标随抓取落到 `frontend/public/images/discs/ep-<entry_page_id>.png`
+（与 `images/agents`、`images/weapons` 的 `ep-<id>` 命名一致），
+JSON 的 `image` 字段记录该图标的 **`/images/…` URL**（`/images/discs/ep-<entry_page_id>.png`，
+唯一图片根约定，见 [docs/directory-layout.md](../docs/directory-layout.md) 第 2.2 节），
+不是仓库相对路径。重跑幂等：JSON 字节不变、图片仅在内容变化时才重写。
+
+该文件**不进计算器、不生成 JS 包装**，因此 `sync_presets.py --to-legacy --check`
+与 `bundle_worker_data.py --check` 都不涉及它。图标的当前消费者是攻略页
+（`strategy/<slug>/` 的驱动盘卡）；计算器 UI 接入图标属待做
+（见 [docs/requirements.md](../docs/requirements.md) 第 7 节）。

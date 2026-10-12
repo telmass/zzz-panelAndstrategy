@@ -1,0 +1,330 @@
+{
+  "_meta": {
+    "agentId": "ep-1626",
+    "name": "般岳",
+    "note": "本文件为般岳的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 ban-yue.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/ban-yue/data/ban-yue.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：社区攻略（zzz.gg）整理，经需求方确认"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1626/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "怒目金刚",
+          "stats": "S 级 · 基础攻击 713 · 生命值 30%",
+          "icon": "/images/weapons/ep-1721.png"
+        }
+      ],
+      "note": "专武：暴击率 +20%，发动[强化特殊技]时火属性贯穿伤害 +9%（最多 2 层），与般岳高频强化特殊技的循环完全契合。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "青溟笼舍",
+          "stats": "S 级 · 基础攻击 743 · 生命值 30%",
+          "icon": "/images/weapons/ep-1342.png"
+        },
+        {
+          "name": "海妖摇篮",
+          "stats": "S 级 · 基础攻击 713 · 生命值 30%",
+          "icon": "/images/weapons/ep-1664.png"
+        }
+      ],
+      "note": "无专武时的 S 级替代：青溟笼舍白值最高；海妖摇篮需把生命值压在 50% 以下才能吃满额外暴击率，配回血辅助时注意压血时机。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "青漪灵鼎",
+          "stats": "A 级 · 基础攻击 594 · 生命值 25%",
+          "icon": "/images/weapons/ep-1774.png"
+        }
+      ],
+      "note": "A 级里词条与循环兼顾的一档，生命值加成同样抬贯穿力。"
+    },
+    {
+      "tier": "四星",
+      "items": [
+        {
+          "name": "燔火胧夜",
+          "stats": "A 级 · 基础攻击 624 · 生命值 25%",
+          "icon": "/images/weapons/ep-1612.png"
+        },
+        {
+          "name": "幻变魔方",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-1343.png"
+        },
+        {
+          "name": "电波漫步",
+          "stats": "A 级 · 基础攻击 594 · 生命值 25%",
+          "icon": "/images/weapons/ep-1340.png"
+        }
+      ],
+      "note": "零成本获取：燔火胧夜基础攻击最高，幻变魔方加攻击、电波漫步加生命，都能抬贯穿力；幻变魔方的强化特殊技增伤需目标半血以下，覆盖率一般。"
+    }
+  ],
+  "drives": {
+    "set4": {
+      "name": "云岿如我",
+      "label": "生命值 +10%",
+      "effect4": "发动[强化特殊技]、[连携技]、[终结技]时，暴击率提升4%，最多叠加3层，持续15秒，重复触发时刷新持续时间，拥有3层效果时，造成的贯穿伤害提升10%。",
+      "icon": "/images/discs/ep-1347.png"
+    },
+    "set2": {
+      "main": {
+        "name": "折枝剑歌",
+        "label": "暴击伤害 +16%",
+        "icon": "/images/discs/ep-1000.png"
+      },
+      "alt": {
+        "name": "啄木鸟电音",
+        "label": "暴击率 +8%",
+        "icon": "/images/discs/ep-232.png"
+      }
+    },
+    "mainStats": [
+      {
+        "slot": "4 号位",
+        "main": "暴击伤害 +48%",
+        "alt": "暴击率 +24%"
+      },
+      {
+        "slot": "5 号位",
+        "main": "伤害加成 +30%",
+        "alt": "生命值 +30% / 攻击力 +30%"
+      },
+      {
+        "slot": "6 号位",
+        "main": "生命值 +30%",
+        "alt": "攻击力 +30%"
+      }
+    ],
+    "subPriority": [
+      {
+        "label": "暴击率",
+        "next": ">"
+      },
+      {
+        "label": "暴击伤害",
+        "next": ">"
+      },
+      {
+        "label": "生命值%",
+        "next": ">"
+      },
+      {
+        "label": "攻击力%",
+        "next": ">"
+      },
+      {
+        "label": "生命值",
+        "next": ""
+      }
+    ]
+  },
+  "teams": [
+    {
+      "name": "般琉卢",
+      "members": [
+        {
+          "agentId": "ep-1626",
+          "name": "般岳",
+          "role": "命破",
+          "avatar": "/images/agents/ep-1626.png",
+          "note": "火属性命破驻场输出，[怒相]期间靠强化特殊技与[普通攻击：倾山]/[摧岳]打贯穿伤害。",
+          "set4": [
+            {
+              "name": "云岿如我",
+              "icon": "/images/discs/ep-1347.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1624",
+          "name": "琉音",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1624.png",
+          "note": "物理击破，快速积累失衡、削韧破防，为般岳创造输出窗口；其[击破]身份触发般岳额外能力[绝巅]。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1533",
+          "name": "卢西娅",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1533.png",
+          "note": "以太支援，提供增益与回能；[支援]身份同样触发[绝巅]，靠[明王]层数抬火伤。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "般橘卢",
+      "members": [
+        {
+          "agentId": "ep-1626",
+          "name": "般岳",
+          "role": "命破",
+          "avatar": "/images/agents/ep-1626.png",
+          "note": "火属性命破驻场输出，[怒相]期间靠强化特殊技与[普通攻击：倾山]/[摧岳]打贯穿伤害。",
+          "set4": [
+            {
+              "name": "云岿如我",
+              "icon": "/images/discs/ep-1347.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1301",
+          "name": "橘福福",
+          "role": "防护",
+          "avatar": "/images/agents/ep-1301.png",
+          "note": "火属性防护，聚怪与积蓄失衡，兼顾生存，弥补场外失衡队的控场缺口。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1533",
+          "name": "卢西娅",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1533.png",
+          "note": "以太支援，提供增益与回能；此队中由其[支援]身份触发般岳额外能力[绝巅]。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表（驻场循环）",
+      "lines": [
+        "① 非接战且生命值充足时[普通攻击：引火]消耗生命值回满[嗔火]并进入[怒相]；入场自带一次机会，勘域模式 180 秒内最多触发一次。",
+        "② [怒相]拥有 4 点[山威]：长按可按固定顺序自动打出四种[强化特殊技]再接[普通攻击：倾山]；消耗[山威]发动强化特殊技不耗闪能，每层还回复 10 点闪能。",
+        "③ [怒相]内打出两次不同的[强化特殊技]后长按发动[普通攻击：摧岳]，收招自动衔接[普通攻击：倾山]后退出[怒相]。",
+        "④ [强化特殊技]与[支援突击]会刷新贯穿力 +150 / 火属性伤害 +18% / 暴击伤害 +18%（30 秒），循环里保持刷新即可。",
+        "⑤ [闪避：叫阵]可取消强化特殊技并在其间继续派生，衔接在强化特殊技后释放还能获得[明王]。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "般岳的火属性伤害均为贯穿伤害，无视防御，以贯穿力作为招式伤害倍率；贯穿力 = 0.3 × 攻击力 + 0.1 × 生命值，因此生命值%词条同样有效。",
+        "额外能力[绝巅]需要队伍中存在[支援]或[击破]角色，配队时注意保留其中一个。",
+        "[怒相]状态下无法再获得[嗔火]：[嗔火]不足先用[普通攻击：引火]、[招架支援]或极限闪避回复，再进状态。",
+        "[闪避：不动如山]可招架积攒失衡，完美格挡额外回复[嗔火]；部分音擎特效（如幻变魔方）需目标半血以下，Boss 战覆盖率会下降。",
+        "云岿如我四件套靠发动强化特殊技/连携技/终结技叠暴击率，满三层才吃满贯穿伤害加成。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "般岳",
+      "weapon": "怒目金刚",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "云岿如我",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位伤害加成 +30%，6 号位生命值 +30%",
+      "subStats": "54 条满配：暴击率 ×20、暴击伤害 ×14、生命值% ×12、攻击力% ×8"
+    },
+    "totals": [
+      {
+        "label": "生命值",
+        "value": 19703.8,
+        "unit": ""
+      },
+      {
+        "label": "贯穿力",
+        "value": 2650.0,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 67.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 181.2,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-12T17:47:03+00:00"
+  }
+}

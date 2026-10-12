@@ -81,10 +81,11 @@ python tools/sync_presets.py --options --check      # 规则表是否已重新�
 因此**纯 stdlib 的 `python` 即可运行**，不必 `uv run`。
 `backend/tests/test_options_json.py` 断言该 JSON 与 Python 当前值一致。
 
-两个抓取脚本 `refresh_*_presets.py` 也**复用本模块的序列化**（`load_sync_presets()`），
-不各写一套——否则重新抓取后 `--check` 会一直报漂移且原因极难定位。
-`backend/tests/test_presets.py` 断言 `data/*.json` 已是规范形式，
-且两个脚本的 `render()` 喂入已提交数据后能原样重现该文件。
+三个抓取脚本（两个 `refresh_*_presets.py` 加驱动盘的 `refresh_disc_presets.py`）
+也**复用本模块的序列化**（`load_sync_presets()`），不各写一套——否则重新抓取后
+`--check` 会一直报漂移且原因极难定位。`backend/tests/test_presets.py` 断言
+`data/*.json` 已是规范形式，且两个预设脚本的 `render()` 喂入已提交数据后能原样
+重现该文件。驱动盘脚本复用同一序列化，但产物不在 `--to-legacy` 覆盖范围内。
 
 脚本内置一个 JS 字面量解析器，只支持抓取脚本产出的子集：单引号字符串、
 **无转义序列**、键名不引号。遇到反斜杠会显式报错而非猜测。两个易踩的点：
@@ -146,10 +147,16 @@ python tools/bundle_worker_data.py --data-dir <目录> --dest <目标.py>   # �
 | --- | --- |
 | `.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py` | 从官方 WIKI 抓取代理人 60 级面板与满级核心加成 |
 | `.github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py` | 从官方 WIKI 抓取音擎满级基础值与固定副词条 |
+| `.github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py` | 从官方 WIKI 抓取驱动盘 2/4 件套效果，并下载套装图标到 `frontend/public/images/discs/` |
 
-两者默认路径均相对**仓库根目录**，需在根目录执行：
+三个脚本默认路径均相对**仓库根目录**，需在根目录执行：
 
 ```powershell
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
+python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
 ```
+
+驱动盘脚本与另两个的区别：抓完**不需要**再跑 `sync_presets.py --to-legacy`，
+也不进 `_bundled_data.py`——计算器不消费它（当前消费者是攻略页按
+`/images/discs/…` 取图，见 data/README.md）。

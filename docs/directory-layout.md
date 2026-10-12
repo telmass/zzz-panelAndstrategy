@@ -29,7 +29,7 @@
 | `vite.config.ts` | dev 代理 `/api` → `http://127.0.0.1:8000`（避免 CORS）；别名 `@` → `src`、`@data` → `../data`；**Vitest 配置也在此文件的 `test` 块中**（无独立 `vitest.config.ts`） |
 | `tsconfig.json` | `strict` + `noUnusedLocals` + `noUnusedParameters`；别名 `@/*`、`@data/*`；`exclude` 含 `tests/fixtures` |
 | `package.json` | 6 个脚本：`dev` / `build` / `preview` / `typecheck` / `test` / `test:watch` |
-| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 167 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标（见下方说明） |
+| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 209 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标 + 30 驱动盘套装图标 + 6 技能 + 1 属性（凛刃）+ 1 等级（S）+ 4 攻略独有（叶瞬光），完整清单见第 2.2 节 |
 | `tools/` | 两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中 |
 | `tests/` | Vitest 测试 + 夹具，见第 4 节 |
 
@@ -39,17 +39,17 @@
 | --- | --- |
 | `main.ts` | 引导：建 app + Pinia，**`mount` 之前 `await loadAll()`** 装载预设 |
 | `App.vue` | `<n-config-provider>` 包 `<router-view />`；主题映射见 `composables/useNaiveTheme.ts` |
-| `views/` | 路由级页面，3 个：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`） |
+| `views/` | 路由级页面，5 个：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`）、`StrategyPickerView`（`/strategy`）、`StrategyView`（`/strategy/:slug`） |
 | `components/layout/` | `BackToLauncher.vue` —— 子页左上角的「返回主页」。**与业务无关** |
 | `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput`。代理人与音擎改用 naive-ui 的 `n-cascader`，故**无** `GroupedSelectField`；`SelectField` 仍被核心与驱动盘主词条使用 |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页的六块UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
-| `router/` | 3 条路由表。**无导航守卫** |
+| `router/` | 5 条路由表：`/`、`/calculator`、`/guide`、`/strategy`、`/strategy/:slug`。唯一的导航守卫在 `/strategy/:slug`：slug 不在 `constants/strategyGuides.ts` 登记表里就重定向回 `/`（避免 iframe 加载不存在的静态页） |
 | `stores/` | Pinia 两个 store：`panelStore`（输入唯一真源）、`presetStore`（预设拉取）。**均不持久化** |
 | `composables/` | `usePanelCalc`（防抖调用后端 + 明细渲染）、`useAgentPreset`（预设校验与套用）、`usePanelMode`（模式派生显隐与文案）、`useSubStatLimit`（副词条钳制）、`useCascaderIcons`（代理人与音擎共用的 cascader 选项图标与文案）、`useNaiveTheme`（CSS 变量 → `themeOverrides`） |
 | `api/` | **唯一**网络出口。`panel.ts`（计算）、`presets.ts`（预设）、`errors.ts`（`ApiError` 及两个子类） |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
-| `constants/` | **只有一个文件** `calculatorOptions.ts`：`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量，以及 `HIDE_STANDARD_MODE_LABEL` + `panelModeTagLabel()`（隐藏「通用」模式名的唯一开关，两者都是**模块私有**，只在本文件内生效） |
+| `constants/` | 两个文件：`calculatorOptions.ts`（`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量，以及 `HIDE_STANDARD_MODE_LABEL` + `panelModeTagLabel()`——隐藏「通用」模式名的唯一开关，两者都是**模块私有**，只在本文件内生效）与 `strategyGuides.ts`（攻略板块登记表：一条 = `strategy/<slug>/` 一页，决定 `/strategy` 选择页卡片与 `/strategy/<slug>` 可达性） |
 | `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（只导出 `normalizeCount`；`clamp` 为模块私有） |
 | `assets/styles/` | 4 个文件，**顺序由 `index.css` 固定**：tokens → base → components |
 | `README.md` | 本目录的使用约定，见 [frontend/src/README.md](../frontend/src/README.md) |
@@ -61,7 +61,7 @@
 | `assets/styles/index.css` | 仅用 `@import` 按序引入下列三个，**自身不写任何规则** |
 | `assets/styles/tokens.css` | 75 个设计变量（颜色、间距、圆角、阴影、布局、模块强调色、结果区渐变）。**无字号令牌**，也**无暗色模式** |
 | `assets/styles/base.css` | reset + 排版 + 页面骨架 + 各类栅格；3 个响应式断点（960 / 560 / 480px） |
-| `assets/styles/components.css` | 10 个区块：模块卡片、表单字段、提示文字、固定词条徽标、副词条步进器、代理人与音擎选择器及头像卡片、结果区、按钮、指南页、启动界面 |
+| `assets/styles/components.css` | 12 个区块：模块卡片、表单字段、音擎与代理人选择器及头像卡片、提示文字、固定词条徽标、副词条步进器、结果区、按钮、指南页、启动界面、攻略板块选择页（`/strategy`）、攻略页舞台（`/strategy/:slug`） |
 | `../README.md` | 本目录的使用约定，见 [frontend/src/README.md](../frontend/src/README.md) |
 
 ### 2.2 资源放置规则（易错）
@@ -71,16 +71,41 @@
 | `frontend/public/` | 运行时按 URL 取的资源。**不能被 `import`** |
 | `frontend/src/assets/` | 会被 `import`、生成带 hash 的 URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
-> ⚠️ `public/images/` 下 167 张 PNG **已全部接入**：
+> 📌 **唯一图片根 = `frontend/public/images/`。** 所有引用——应用代码、`data/*.json`、
+> `strategy/` 攻略 JSON、文档命令——一律写 **`/images/…` URL**。
+> **禁止**再出现页相对 `assets/…` 与仓库相对 `frontend/public/images/…` 两种形态；
+> 攻略目录（`strategy/<slug>/`）本身不放任何图片。
+
+```
+frontend/public/images/
+├── agents/<agentId>.png        # 60，计算器 cascader、攻略立绘/队伍头像、选择页封面
+├── weapons/<engineId>.png      # 100，计算器、攻略音擎卡
+├── discs/<setId>.png           # 30，攻略驱动盘卡（计算器 UI 接入待做）
+├── icons/<profession>.png      # 7，计算器一级选项、攻略/选择页职业标签
+├── skills/<key>.png            # 6，全代理人共享：basic/dodge/assist/special/chain/core
+├── attributes/<slug>.png       # 1，属性图标（仅 honed_edge，其余属性待补）
+├── grades/<grade>.png          # 1，等级图标（s/a/b，当前仅 s）
+└── strategy/<slug>/            # 每代理人独有：title/tachie/cinema-2/cinema-3（当前仅叶瞬光 4 张）
+```
+
+已接入的取图位置：
+
 > **`weapons/`（100 张）**——音擎 `n-cascader` 的头像卡片与二级选项前缀按
 > `/images/weapons/{id}.png` 取图（`WeaponModule.vue`）。
 > **`agents/`（60 张）**——代理人 `n-cascader` 同构，按
-> `/images/agents/{id}.png` 取图（`AgentBaseModule.vue`）。
+> `/images/agents/{id}.png` 取图（`AgentBaseModule.vue`）；`/strategy` 选择页封面与
+> 攻略页 hero/队伍卡同样按此路径。
 > **`icons/`（7 张）**——两个 `n-cascader` 共用的一级选项前缀按
 > `/images/icons/{slug}.png` 取图，roletag → slug 映射见
 > `composables/useCascaderIcons.ts` 的 `ROLE_ICON`（slug 取自官方 Wiki profession key）。
->
 > `icons/` 曾用中文文件名（`强攻.png`），已重命名为小写 ASCII slug。
+>
+> **`skills/`（6 张）/ `grades/` / `attributes/` / `strategy/<slug>/`**——只被攻略页
+> （`strategy/<slug>/` 静态页，见第 6.1 节）按 `/images/…` URL 消费，不参与计算器。
+>
+> `discs/`（30 张驱动盘套装图标）由抓取脚本写入、`data/drive-disc-presets.json` 的
+> `image` 字段（URL 形态）与攻略页驱动盘卡引用；**计算器 UI 仍未接入**（待做，
+> 见 [requirements.md](requirements.md) 第 7 节）。
 
 ## 3. backend/ — Python 计算服务
 
@@ -142,7 +167,7 @@ src-layout，包名 `zzz_panel`。
 
 | 路径 | 说明 |
 | --- | --- |
-| `calculator-view.spec.ts` | 31 项渲染断言（计算器骨架、启动页、返回导航、指南页） |
+| `calculator-view.spec.ts` | 34 项渲染断言（计算器骨架、启动页、返回导航、指南页、攻略选择页与 `/strategy/:slug` 路由守卫/iframe 指向） |
 | `panel-interactions.spec.ts` | 51 项交互与后端对接 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
 | `support/` | 夹具层：`setup.ts`、`router.ts`、`api.ts`（假后端）、`backend.ts`（拉起真实 uvicorn）、`flush.ts` |
@@ -187,7 +212,7 @@ src-layout，包名 `zzz_panel`。
 
 | 目录 | 职责 |
 | --- | --- |
-| `data/` | **唯一真实数据源**，三个 JSON 全部是生成物。见 [data-schema.md](data-schema.md) |
+| `data/` | **唯一真实数据源**，四个 JSON 全部是生成物。见 [data-schema.md](data-schema.md) |
 | `docs/` | 长期技术文档。见 [docs/README.md](README.md) |
 | `docs/completeds/` | 已完成事项的归档（迁移记录、旧页面删除记录）。**不是当前状态的描述** |
 | `tools/` | 开发辅助脚本。**数据抓取脚本刻意不放这里**——它们是 Skill 契约的一部分，必须留在 `.github/skills/*/scripts/` |
@@ -195,6 +220,28 @@ src-layout，包名 `zzz_panel`。
 | `tools/sync_presets.py` | 生成 `data/*.json`（从 legacy 夹具或 `core/options.py`），并校验往返无损 |
 | `tools/bundle_worker_data.py` | 把 `data/*.json` 编译进 `backend/src/zzz_panel/_bundled_data.py`，供 Worker 使用。`--check` 只比对不写 |
 | `.github/skills/` | Skill 定义与抓取脚本，位置固定 |
+
+### 6.1 strategy/ — 攻略板块
+
+| 路径 | 职责 |
+| --- | --- |
+| `strategy/<slug>/` | 一名代理人的攻略静态页，**一个目录一个代理人**（当前仅 `ye-shun-guang/`）。目录名即主应用路由 slug |
+| `strategy/<slug>/index.html` · `styles.css` · `app.js` | 零依赖静态页模板（从参考实例复制，改数据不改前端） |
+| `strategy/<slug>/data/<slug>.json` | 抓取产物（基础信息 / 基础面板 / 技能 / 影画 / 背景图），由 `.github/skills/agent-strategy/scripts/scrape_agent_guide.py` 生成 |
+| `strategy/<slug>/data/<slug>.strategy.json` | 攻略编辑内容（加点链 / 武器 / 驱动盘 / 队伍 / 文字攻略，手写；`graduationPanel` 由 `calc_graduation_panel.py` 写入） |
+
+挂载与路由：`frontend/vite.config.ts` 的 `strategyPagesPlugin` 把每个含 `index.html` 的
+`strategy/<slug>/` 映射到 `/strategy/<slug>/`（开发期中间件直读、构建期拷入
+`dist/strategy/<slug>/`，只收 `.html/.css/.js/.json`）；视图侧是
+`/strategy`（`StrategyPickerView`，卡片来自 `frontend/src/constants/strategyGuides.ts`
+登记表）与 `/strategy/:slug`（`StrategyView`，iframe 嵌入）。新增代理人 =
+`strategy/<slug>/` 目录 + 登记表追加一条，前端无其他改动。
+
+**图片不放在这里**：攻略 JSON 一律写 `/images/…` URL，文件本体落在
+`frontend/public/images/`（共享图标进 `skills/ icons/ grades/ attributes/`，
+每代理人独有的立绘 / 称号 / 影画背景进 `strategy/<slug>/`）——见第 2.2 节。
+抓取脚本的位置约束：「抓取脚本必须留在 `.github/skills/*/scripts/`」，
+`strategy/` 根下不放脚本。
 
 ## 7. 相关文档
 

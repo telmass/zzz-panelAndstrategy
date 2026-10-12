@@ -5,6 +5,50 @@
 
 版本号见 `pyproject.toml` 与 `frontend/package.json`，当前均为 `0.1.0`。
 
+## 2026-10-13 · 般岳攻略页（`strategy/ban-yue/`）+ 计算脚本配装参数化
+
+按 agent-strategy skill 流程产出第二个代理人攻略，并把「换代理人要改 BUILD 常量」这个
+坑改成 CLI flag。
+
+| 变更 | 说明 |
+| --- | --- |
+| 新增 `strategy/ban-yue/` | 般岳（`ep-1626`，火属性命破 S 级）：抓取产物 + 编辑攻略 + 页面模板；火属性图标从 BWIKI 人工放置到 `images/attributes/fire.png` |
+| 登记表 | `constants/strategyGuides.ts` 追加一条，`/strategy` 选择页出现第二张卡 |
+| 毕业面板 | 攻击力 2,359.6 / 暴击率 50.6% / 暴击伤害 190.8% / 穿透值 0，由仓库计算器实算 |
+| `calc_graduation_panel.py` 配装参数化 | 新增 `--disc4/--disc5/--disc6/--set4-effect/--set2-effect/--sub-stats/--main-spec/--sub-spec`，不再需要改脚本常量；`--sub-stats` 另支持免引号紧凑格式 `cr:13,cd:16,…`（Windows shell 会吃掉 JSON 引号） |
+| `calc_graduation_panel.py` 兼容命破预设 | 命破 / 锋御代理人的预设没有 `pr`/`er` 行（改由贯穿力、闪能自动累积替代），base 缺字段按 0 处理 |
+| 测试 | 选择页卡片断言改为按登记表驱动（两张卡），90 项全绿 |
+| 文档 | SKILL.md Step 4 改为 flag 说明并新增「般岳实例」；`strategy/ye-shun-guang/README.md` §8 同步；requirements §7 属性图标已知限制更新为「已补 honed_edge / fire」 |
+
+### 同日修正（般岳页四处）
+
+| 问题 | 修正 |
+| --- | --- |
+| 毕业面板展示行 | 般岳（命破）改为 `--rows hp,penforce,cr,cd`：生命值 / 贯穿力 / 双爆；贯穿力取命破模式专属行（`mode_stats`），模式默认按预设 `panelMode` 推导，新增 `--mode` 可覆盖 |
+| 爆率口径 | 暴击率副词条 13 → 20 条，面板 5% + 核心 14.4% + 20 × 2.4% = **67.4%**。注意：社区工具常见的 67.8% 对应 base 5.4% 或 2.42%/条，与官方 WIKI（base 5%）及仓库 `options.json`（2.4/条）不符，故按仓库计算器取 67.4% |
+| 队伍套装 | 卢西娅·艾洛温 4 件套改月光骑士颂；橘福福 4 件套改山大王 |
+| 武器档位 | 备选收窄为青漪灵鼎；燔火胧夜下放到四星档 |
+| 选择页「一行一个且图巨大」 | 根因是类名撞车：`.agent-card` 是计算器模块「选中代理人卡片」的既有类（含 `grid-column: 1 / -1`），选择页卡片重名后每张横跨整行。选择页类名改为 `.strategy-card` 家族，头像封顶 `min(100%, 128px)`，5 列布局不再被拽成整行 |
+
+## 2026-10-12 · 图片路径统一为 `/images/…` + 攻略板块结构校准
+
+此前图片引用有三套互不相容的约定：前端组件用 `/images/…` URL、
+`data/drive-disc-presets.json` 用仓库相对路径 `frontend/public/images/…`、
+`strategy/ye-shun-guang/` 的 JSON 用页相对 `assets/…`；且攻略目录 `assets/` 里有
+21 个文件与 `frontend/public/images/` 逐字节重复。
+
+| 变更 | 说明 |
+| --- | --- |
+| **唯一图片根 = `frontend/public/images/`** | 应用代码、`data/*.json`、攻略 JSON、文档命令一律写 `/images/…` URL；页相对 `assets/…` 与仓库相对路径两种形态被彻底移除 |
+| 攻略独有图片归位 | 技能图标 ×6 → `images/skills/`（全代理人共享）、属性图标 ×1 → `images/attributes/`、等级图标 ×1 → `images/grades/`、立绘/称号/影画背景 ×4 → `images/strategy/ye-shun-guang/`（每代理人独有）。删除前逐文件 sha256 比对确认与 canonical 位置一致 |
+| 引用改写 | 两份攻略 JSON 55 处、`data/drive-disc-presets.json` 30 处 `image` 改为 URL |
+| 抓取脚本 | 删除仓库根副本 `strategy/scrape_agent_guide.py`（正典留在 `.github/skills/agent-strategy/scripts/`，符合「抓取脚本不放仓库根」的约定）；技能/等级图标落共享目录、已存在则跳过下载，头像不再下载（直接引用 `images/agents/<id>.png`），职业图标不再逐代理人复制；`refresh_disc_presets.py` 的下载落盘路径与 JSON URL 分离 |
+| `vite.config.ts` | `strategyPagesPlugin` 的构建拷贝收窄为 `.html/.css/.js/.json`——目录规范化后攻略目录不再有图 |
+| 文档校准 | `directory-layout.md` 新增 strategy/ 板块小节与「唯一图片根」约定；architecture / data-schema / data README 的驱动盘行改为「攻略页已消费图标，`image` 为 URL，计算器 UI 未接入（待做）」；requirements §7 追加两条已知限制；根 README 补 strategy/ 与 `/strategy` 回落路径 |
+
+攻略页因此不再是「自包含」静态页，依赖主应用的 `public/`——唯一入口即主应用
+（`/strategy` 选择页 → `/strategy/<slug>` iframe）。
+
 ## 2026-10-04 · 补齐二件套「穿透率 +8%」
 
 二件套候选池此前只有 10 条，**缺「穿透率 +8%」**（游戏内四件套效果实际存在）。

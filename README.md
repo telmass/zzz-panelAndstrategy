@@ -26,6 +26,7 @@
 | 副词条上限 | 单条 36 条、总计 54 条（游戏内上限），超出自动回退 |
 | 逐项计算明细 | 每行结果都附来源追溯，能看出「这个数从哪来」 |
 | 长文学习指南 | 应用内 `/guide`，讲清各字段口径与计算顺序 |
+| 代理人攻略 | 应用内 `/strategy`：按代理人收录加点优先级、音擎 / 驱动盘推荐、满配毕业面板、队伍搭配与文字攻略（数据驱动，新增代理人只加数据） |
 
 **不做的**：伤害计算 / DPS 模拟、账号与云存档、养成建议、多语言。
 理由见 [docs/requirements.md](docs/requirements.md) 第 3 节。
@@ -90,7 +91,7 @@ uv run zzz-panel-and-strategy  # 固定跑一组示例输入，打印 12 行结�
 
 ```powershell
 uv run pytest                           # 后端 121 项
-cd frontend; npm run test               # 前端 86 项
+cd frontend; npm run test               # 前端 89 项
 ```
 
 > **pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行。
@@ -128,7 +129,7 @@ uv run --group worker pywrangler deploy
 ├── .python-version            Python 版本锁定（3.13）
 ├── frontend/                前端工程（Vite root）
 │   ├── src/
-│   │   ├── views/           3 个路由页：启动 / 计算器 / 指南
+│   │   ├── views/           5 个路由页：启动 / 计算器 / 指南 / 攻略选择 / 攻略详情
 │   │   ├── components/      layout · common · calculator · guide
 │   │   ├── stores/          Pinia：panelStore（输入真源）· presetStore
 │   │   ├── composables/     usePanelCalc · useAgentPreset · usePanelMode · useSubStatLimit · useCascaderIcons · useNaiveTheme
@@ -139,7 +140,7 @@ uv run --group worker pywrangler deploy
 │   │   ├── fixtures/legacy-calculator/   只读参照实现，供三方对拍
 │   │   └── support/                      测试夹具层
 │   ├── tools/               两个 Node 诊断脚本
-│   └── public/images/       代理人/音擎 PNG（Vite 原样拷贝）
+│   └── public/images/       代理人 / 音擎 / 驱动盘 / 职业 / 技能 / 属性 / 等级 / 攻略独有 PNG（Vite 原样拷贝，唯一图片根）
 │
 ├── backend/                 Python 计算服务
 │   ├── src/
@@ -153,7 +154,8 @@ uv run --group worker pywrangler deploy
 │   │       └── cli.py           命令行入口
 │   └── tests/               pytest
 │
-├── data/                    唯一真实数据源（3 个 JSON，全部是生成物）
+├── data/                    唯一真实数据源（4 个 JSON，全部是生成物）
+├── strategy/                代理人攻略静态页（一目录一代理人，图片走 frontend/public/images/）
 ├── docs/                    技术文档（见下）
 ├── tools/                   开发脚本：dev.ps1 · sync_presets.py · bundle_worker_data.py · dump_backend_responses.py
 └── .github/skills/          数据抓取 Skill（脚本位置固定，勿移动）
@@ -163,7 +165,7 @@ uv run --group worker pywrangler deploy
 
 ## 数据来源
 
-代理人与音擎预设由 `.github/skills/` 下的脚本从官方 HoYoLAB Wiki 抓取生成。
+代理人、音擎与驱动盘套装数据由 `.github/skills/` 下的脚本从官方 HoYoLAB Wiki 抓取生成。
 **唯一真实源是 [`data/*.json`](data/README.md)，不要手工编辑**——每次运行抓取脚本都会被整体覆盖。
 
 ```powershell
@@ -171,6 +173,9 @@ python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
 python tools/sync_presets.py --to-legacy      # 抓取后必须再跑
 python tools/bundle_worker_data.py             # 部署到 Cloudflare 前必须再跑
+
+python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
+# 驱动盘 2/4 件套效果与图标；不经 to-legacy / bundle，见 data/README.md
 ```
 
 配装规则表的真源是 `backend/src/zzz_panel/core/options.py`，改了它要重新生成
@@ -198,7 +203,7 @@ python tools/bundle_worker_data.py --check
 | [docs/requirements.md](docs/requirements.md) | 项目范围、非目标、已知限制 |
 | [docs/architecture.md](docs/architecture.md) | 架构分层与设计决策 |
 | [docs/api-reference.md](docs/api-reference.md) | HTTP 接口契约 |
-| [docs/data-schema.md](docs/data-schema.md) | 预设与规则表结构、校验规则 |
+| [docs/data-schema.md](docs/data-schema.md) | 预设、规则表与驱动盘套装效果结构、校验规则 |
 | [docs/calculation-rules.md](docs/calculation-rules.md) | 计算公式与规则细节 |
 | [docs/directory-layout.md](docs/directory-layout.md) | 目录职责详解 |
 | [docs/development.md](docs/development.md) | 开发流程、数据管线、已知坑 |

@@ -134,6 +134,15 @@ backend/src/zzz_panel/_bundled_data.py（gitignored）
         │  pywrangler 只上传 .py，.json 会被静默丢弃
         ▼
 Cloudflare Worker → GET /api/presets/*
+
+        （另有一条独立分支，不走上面任何一条链路：）
+        │  .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
+        ▼
+data/drive-disc-presets.json（30 套 2/4 件套效果）
+frontend/public/images/discs/ep-<id>.png（套装图标）
+        │
+        └─ 不进 to-legacy、不进 bundle；消费者是攻略页（/images/discs/…），
+           计算器 UI 接入图标属待做
 ```
 
 ### 刷新预设数据
@@ -144,7 +153,19 @@ python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
 python tools/sync_presets.py --to-legacy        # 必须再跑，否则夹具漂移
 ```
 
-抓取脚本的输出是**整体覆盖**，不是增量。它会打印 `next: python tools/sync_presets.py --to-legacy`。
+抓取脚本的输出是**整体覆盖**，不是增量。前两个脚本会打印
+`next: python tools/sync_presets.py --to-legacy`。
+
+### 刷新驱动盘套装效果
+
+```powershell
+python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
+```
+
+只收录 2 件套与 4 件套效果（`setEffect2` / `setEffect4`），并把 30 张套装图标
+写到 `frontend/public/images/discs/ep-<entry_page_id>.png`。**不触发**
+`sync_presets.py --to-legacy`，也不进 `_bundled_data.py`——计算器不消费它
+（当前消费者是攻略页的驱动盘卡）。重跑幂等：JSON 字节不变，图片仅在内容变化时才重写。
 
 ### 改了预设数据、且要部署到 Cloudflare
 
