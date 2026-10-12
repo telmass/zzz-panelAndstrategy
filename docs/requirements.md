@@ -96,7 +96,7 @@
 | 后端测试 | `uv run pytest` 全绿，**且无 skip**（skip 会让检查变成假绿灯） |
 | 数据同步门禁 | `sync_presets.py --to-legacy --check`、`--options --check`、`bundle_worker_data.py --check` 均退出 0 |
 | 部署门禁 | `wrangler.jsonc` 为纯 ASCII；带代理执行 `pywrangler deploy` 成功 |
-| 手工验收 | `/`、`/calculator`、`/guide`、`/strategy`、`/strategy/ye-shun-guang` 在 dev server 下均可打开且无控制台报错 |
+| 手工验收 | `/`、`/calculator`、`/guide`、`/strategy`、`/strategy/ye-shun-guang`、`/strategy/ban-yue` 在 dev server 下均可打开且无控制台报错 |
 
 ## 7. 已知限制
 

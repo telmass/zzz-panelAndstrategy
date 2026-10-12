@@ -29,7 +29,7 @@
 | `vite.config.ts` | dev 代理 `/api` → `http://127.0.0.1:8000`（避免 CORS）；别名 `@` → `src`、`@data` → `../data`；**Vitest 配置也在此文件的 `test` 块中**（无独立 `vitest.config.ts`） |
 | `tsconfig.json` | `strict` + `noUnusedLocals` + `noUnusedParameters`；别名 `@/*`、`@data/*`；`exclude` 含 `tests/fixtures` |
 | `package.json` | 6 个脚本：`dev` / `build` / `preview` / `typecheck` / `test` / `test:watch` |
-| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 209 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标 + 30 驱动盘套装图标 + 6 技能 + 1 属性（凛刃）+ 1 等级（S）+ 4 攻略独有（叶瞬光），完整清单见第 2.2 节 |
+| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 213 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标 + 30 驱动盘套装图标 + 6 技能 + 2 属性（凛刃 honed_edge / 火 fire）+ 1 等级（S）+ 7 攻略独有（叶瞬光 4 + 般岳 3），完整清单见第 2.2 节 |
 | `tools/` | 两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中 |
 | `tests/` | Vitest 测试 + 夹具，见第 4 节 |
 
@@ -83,9 +83,9 @@ frontend/public/images/
 ├── discs/<setId>.png           # 30，攻略驱动盘卡（计算器 UI 接入待做）
 ├── icons/<profession>.png      # 7，计算器一级选项、攻略/选择页职业标签
 ├── skills/<key>.png            # 6，全代理人共享：basic/dodge/assist/special/chain/core
-├── attributes/<slug>.png       # 1，属性图标（仅 honed_edge，其余属性待补）
+├── attributes/<slug>.png       # 2，属性图标（honed_edge 凛刃 / fire 火，其余属性待补）
 ├── grades/<grade>.png          # 1，等级图标（s/a/b，当前仅 s）
-└── strategy/<slug>/            # 每代理人独有：title/tachie/cinema-2/cinema-3（当前仅叶瞬光 4 张）
+└── strategy/<slug>/            # 每代理人独有：title/tachie/cinema-2/cinema-3（叶瞬光 4 + 般岳 3）
 ```
 
 已接入的取图位置：
@@ -167,7 +167,7 @@ src-layout，包名 `zzz_panel`。
 
 | 路径 | 说明 |
 | --- | --- |
-| `calculator-view.spec.ts` | 34 项渲染断言（计算器骨架、启动页、返回导航、指南页、攻略选择页与 `/strategy/:slug` 路由守卫/iframe 指向） |
+| `calculator-view.spec.ts` | 35 项渲染断言（计算器骨架、启动页、返回导航、指南页、攻略选择页与 `/strategy/:slug` 路由守卫/iframe 指向） |
 | `panel-interactions.spec.ts` | 51 项交互与后端对接 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
 | `support/` | 夹具层：`setup.ts`、`router.ts`、`api.ts`（假后端）、`backend.ts`（拉起真实 uvicorn）、`flush.ts` |
@@ -225,7 +225,7 @@ src-layout，包名 `zzz_panel`。
 
 | 路径 | 职责 |
 | --- | --- |
-| `strategy/<slug>/` | 一名代理人的攻略静态页，**一个目录一个代理人**（当前仅 `ye-shun-guang/`）。目录名即主应用路由 slug |
+| `strategy/<slug>/` | 一名代理人的攻略静态页，**一个目录一个代理人**（当前 `ye-shun-guang/` 叶瞬光、`ban-yue/` 般岳）。目录名即主应用路由 slug |
 | `strategy/<slug>/index.html` · `styles.css` · `app.js` | 零依赖静态页模板（从参考实例复制，改数据不改前端） |
 | `strategy/<slug>/data/<slug>.json` | 抓取产物（基础信息 / 基础面板 / 技能 / 影画 / 背景图），由 `.github/skills/agent-strategy/scripts/scrape_agent_guide.py` 生成 |
 | `strategy/<slug>/data/<slug>.strategy.json` | 攻略编辑内容（加点链 / 武器 / 驱动盘 / 队伍 / 文字攻略，手写；`graduationPanel` 由 `calc_graduation_panel.py` 写入） |

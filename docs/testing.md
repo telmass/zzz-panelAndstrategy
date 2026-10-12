@@ -8,9 +8,9 @@
 | 套件 | 命令 | 用例数 | 覆盖 |
 | --- | --- | --- | --- |
 | 后端 | `uv run pytest` | 121 | 计算、格式化、预设校验、Worker 数据打包、HTTP 契约 |
-| 前端 | `npm run test` | 86 | 渲染、交互、请求构造、**三方对拍** |
+| 前端 | `npm run test` | 90 | 渲染、交互、请求构造、**三方对拍** |
 
-测试状态以这两个命令的输出为准，共 207 项。仓库内没有 CI 配置
+测试状态以这两个命令的输出为准，共 211 项。仓库内没有 CI 配置
 （无 `.github/workflows/`），这两个命令目前靠人跑。
 
 ## 2. 核心资产：三方对拍
@@ -114,14 +114,14 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
   测试明确记录这个行为，避免有人误加约束导致对拍失败。
 - **空body `{}` 是合法请求**：所有字段都有默认值。
 
-## 5. 前端测试（86 项）
+## 5. 前端测试（90 项）
 
 Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 `vitest.config.ts`**，容易找错）。
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
-| `calculator-view.spec.ts` | 31 | 计算器骨架、启动页、子页返回导航、指南页 |
+| `calculator-view.spec.ts` | 35 | 计算器骨架、启动页、子页返回导航、指南页、攻略选择页卡片与 `/strategy/:slug` 路由守卫及 iframe 指向 |
 | `panel-interactions.spec.ts` | 51 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `legacy-parity.spec.ts` | 4 | 三方对拍 |
 
@@ -181,7 +181,7 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 
 | 未覆盖 | 风险 | 建议 |
 | --- | --- | --- |
-| 前端**视觉回归** | 改 CSS 不会变红 | 手工核对三个页面；引入截图对比需先解决 jsdom 无法渲染的问题 |
+| 前端**视觉回归** | 改 CSS 不会变红 | 手工核对启动页、计算器、指南与攻略页；引入截图对比需先解决 jsdom 无法渲染的问题 |
 | 后端**并发与性能** | 个人工具，160 条预设 + 纯函数计算，实测无压力 | 暂不需要 |
 | **`refresh_*_presets.py` 的端到端** | 需要联网抓 Wiki，CI 不跑 | 由 `test_presets.py` 间接保证 `render()` 与已提交文件一致 |
 | **线上 Worker 本身** | 本地测试不覆盖 Cloudflare 的运行时、配额与域名绑定 | 部署后按 [deployment.md](deployment.md) 第 7 节自检清单人工过一遍 |

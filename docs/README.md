@@ -14,7 +14,7 @@
 
 | 文档 | 内容 |
 | --- | --- |
-| [development.md](development.md) | 环境搭建、运行命令、测试、数据管线、**8 个已知坑** |
+| [development.md](development.md) | 环境搭建、运行命令、测试、数据管线、**10 个已知坑** |
 | [testing.md](testing.md) | 测试策略、三方对拍机制、为什么护栏失效必须是红灯 |
 | [api-reference.md](api-reference.md) | HTTP 接口、请求/响应结构、状态码 |
 | [data-schema.md](data-schema.md) | 预设 JSON、规则表与驱动盘套装效果的字段定义、校验规则 |
@@ -48,6 +48,15 @@
 → [development.md](development.md) 第 6 节
 
 ⚠️ 走 `.github/skills/do_calculatorModel` 这个 Skill，它封装了完整流程。
+
+### 我要产出一个代理人攻略页
+
+`.github/skills/agent-strategy/SKILL.md`（封装完整流程）
+→ [directory-layout.md](directory-layout.md) 第 6.1 节
+→ [changelog.md](changelog.md) 的攻略页记录
+
+⚠️ 新增代理人 = `strategy/<slug>/` 目录 + `constants/strategyGuides.ts` 登记表追加一条，
+前端无其他改动；图片一律写 `/images/…` URL，落 `frontend/public/images/`。
 
 ### 我要改前端界面
 
@@ -89,6 +98,7 @@
 | [../frontend/tests/README.md](../frontend/tests/README.md) | 前端测试结构 |
 | [../backend/tests/README.md](../backend/tests/README.md) | 后端测试清单 |
 | `.github/skills/do_calculatorModel/SKILL.md` | 新增一名代理人预设的完整流程 |
+| `.github/skills/agent-strategy/SKILL.md` | 代理人攻略页的完整产出流程（抓取 → 编辑 → 毕业面板 → 渲染） |
 | `.github/skills/read-zzz-agent-stats/SKILL.md` | 代理人预设的抓取与刷新 |
 | `.github/skills/read-zzz-engine-stats/SKILL.md` | 音擎预设的抓取与刷新 |
 | `.github/skills/read-zzz-drive-disc/SKILL.md` | 驱动盘套装效果（2/4 件套）与图标的抓取刷新 |

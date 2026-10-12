@@ -91,7 +91,7 @@ uv run zzz-panel-and-strategy  # 固定跑一组示例输入，打印 12 行结�
 
 ```powershell
 uv run pytest                           # 后端 121 项
-cd frontend; npm run test               # 前端 89 项
+cd frontend; npm run test               # 前端 90 项
 ```
 
 > **pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行。

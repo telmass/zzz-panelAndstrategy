@@ -105,8 +105,8 @@ server {
 ```
 
 **`try_files ... /index.html` 不能省。** 前端用 history 模式路由，
-直接访问 `/calculator` 或 `/guide` 时服务器上并不存在对应文件，
-不回落到 `index.html` 会得到 404。
+直接访问 `/calculator`、`/guide`、`/strategy` 或 `/strategy/<slug>` 时服务器上并不存在
+对应文件，不回落到 `index.html` 会得到 404。
 
 前端代码里全部使用相对路径 `/api`，因此**不需要重新构建**即可在这种部署下工作。
 
@@ -172,7 +172,7 @@ Wrangler 的 assets 路由。
 | `/api/*` | Worker 里的 FastAPI |
 | `/docs`、`/openapi.json` | 同上，FastAPI 自带的接口文档 |
 | `/`、`/assets/*` | Workers 静态资源层，不进 Worker（不计 CPU） |
-| `/calculator`、`/guide` | 静态资源层未命中 → 按 `not_found_handling` 回落 `index.html` |
+| `/calculator`、`/guide`、`/strategy`、`/strategy/:slug` | 静态资源层未命中 → 按 `not_found_handling` 回落 `index.html` |
 
 最后一行就是第 3 节 `try_files $uri $uri/ /index.html` 的等价物。
 
@@ -415,9 +415,10 @@ Invoke-RestMethod http://127.0.0.1:8000/api/health          # 期望 {"status":"
 
 浏览器侧逐项确认：
 
-- [ ] `/` 打开，显示两张入口卡片
+- [ ] `/` 打开，显示三张入口卡片
 - [ ] `/calculator` 直接访问（**刷新 F5**）能正常渲染——验证 history fallback
 - [ ] `/guide` 直接访问能正常渲染
+- [ ] `/strategy` 选择页按 `constants/strategyGuides.ts` 渲染卡片；`/strategy/ye-shun-guang` 与 `/strategy/ban-yue` 的 iframe 攻略页均可打开、图片正常
 - [ ] 计算器在「一、基础面板」里选一名**命破**代理人 → 载入预设 → 结果区出现贯穿力与闪能自动累积行
 - [ ] 换选一名**通用**代理人 → 上述两行消失、回到 12 行（模式由预设的 `panelMode` 决定，界面没有独立的模式切换器）
 - [ ] 浏览器控制台无报错
