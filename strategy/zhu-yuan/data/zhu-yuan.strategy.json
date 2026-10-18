@@ -1,0 +1,349 @@
+{
+  "_meta": {
+    "agentId": "ep-634",
+    "name": "朱鸢",
+    "note": "本文件为朱鸢的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 zhu-yuan.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/zhu-yuan/data/zhu-yuan.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——朱鸢无专武预设，首选 防暴者Ⅵ型 / 残心青囊",
+      "推荐档位与队伍：按 BWIKI/17173/Ludens 配装攻略整理（强攻口径，折枝剑歌4+啄木鸟电音2），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/634/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/634/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "防暴者Ⅵ型",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-211.png"
+        }
+      ],
+      "note": "朱鸢专武（WIKI 音擎页 double_col_table 推荐代理人表列朱鸢）：S 级强攻音擎，基础攻击 713、副词条暴击伤害 48%，朱鸢高频强化特殊技/终结技爆发直接吃满暴击伤害收益。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "残心青囊",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-991.png"
+        },
+        {
+          "name": "硫磺石",
+          "stats": "S 级 · 基础攻击 684 · 攻击力 30%",
+          "icon": "/images/weapons/ep-223.png"
+        }
+      ],
+      "note": "强攻音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "牺牲洁纯",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-1197.png"
+        },
+        {
+          "name": "心弦夜响",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1159.png"
+        }
+      ],
+      "note": "备选强攻音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "折枝剑歌 4 件套 + 啄木鸟电音 2 件套",
+      "set4": {
+        "name": "折枝剑歌",
+        "label": "暴击伤害 +16%",
+        "effect4": "异常掌控大于等于115点时，装备者的暴击伤害提升30%；队伍中任意角色对敌人施加[冻结]或触发[碎冰]效果时，装备者的暴击率提升12%，持续15秒，重复触发时刷新持续时间。",
+        "icon": "/images/discs/ep-1000.png"
+      },
+      "set2": {
+        "main": {
+          "name": "啄木鸟电音",
+          "label": "暴击率 +8%",
+          "icon": "/images/discs/ep-232.png"
+        },
+        "alt": {
+          "name": "混沌爵士",
+          "label": "异常精通 +30",
+          "icon": "/images/discs/ep-800.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击伤害 +48%",
+          "alt": "暴击率 +24%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "以太属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "攻击力 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": "="
+        },
+        {
+          "label": "暴击伤害",
+          "next": "="
+        },
+        {
+          "label": "攻击力%",
+          "next": "="
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "朱青耀",
+      "members": [
+        {
+          "agentId": "ep-634",
+          "name": "朱鸢",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-634.png",
+          "note": "以太强攻速切主 C，强化特殊技/终结技短时高频爆发，额外能力需队内支援/同阵营，耀嘉音与青衣均满足条件。",
+          "set4": [
+            {
+              "name": "折枝剑歌",
+              "icon": "/images/discs/ep-1000.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-680",
+          "name": "青衣",
+          "role": "击破",
+          "avatar": "/images/agents/ep-680.png",
+          "note": "电击破后场辅助，提供失衡与易伤，为朱鸢的强化特殊技/终结技创造失衡窗口。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太支援，[咏叹华彩]全队增益与快速支援脱手伤害，满足朱鸢额外能力的支援条件。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "朱伊耀",
+      "members": [
+        {
+          "agentId": "ep-634",
+          "name": "朱鸢",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-634.png",
+          "note": "以太强攻速切主 C，与伊芙琳的火强攻形成双属性爆发轴，耀嘉音补能增伤。",
+          "set4": [
+            {
+              "name": "折枝剑歌",
+              "icon": "/images/discs/ep-1000.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1158",
+          "name": "伊芙琳",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1158.png",
+          "note": "火强攻站场主 C，与朱鸢的以太强攻形成双属性输出，耀嘉音补能与增伤。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太支援，[咏叹华彩]全队增益，满足朱鸢额外能力的支援条件。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：入场立即获得 6 枚[强化霰弹]；强化特殊技/终结技消耗[强化霰弹]造成高额以太伤害；喧响达[极]时发动[终结技：终幕演出]回满[强化霰弹]。",
+        "核心增伤：核心被动[特种弹药]压制模式下招式伤害 +20%，攻击失衡敌人额外 +20%；额外能力[武装协同]需队内有支援或同阵营角色，强化特殊技/连携技/终结技时暴击率 +30%（10 秒）。",
+        "爆发循环：进场 → 强化特殊技/终结技爆发 → 长按普攻[压制模式]消耗[强化霰弹] → 切回队友补 Buff → 下一轮强化特殊技。",
+        "配队要点：朱鸢额外能力需队内有支援或同阵营（刑侦特勤组）角色；主推 朱青耀（朱鸢+青衣+耀嘉音），青衣击破+耀嘉音支援均满足条件。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "暴击率是朱鸢的核心：专武防暴者Ⅵ型副词条暴击伤害 48%（非暴击率），面板暴击率需靠副词条与饰品堆叠，额外能力 +30% 局内可弥补部分压力。",
+        "折枝剑歌四件套的暴击伤害 +30% 需异常掌控 ≥115 局内触发，不计入面板；如影相随/啄木鸟电音等局内攻击力+暴击同理。",
+        "朱鸢为速切强攻，不宜长时间场上，强化特殊技/终结技打完即切，避免浪费[强化霰弹]。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（暴击伤害+基础攻击力）与特殊技（爆发核心）。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "朱鸢",
+      "weapon": "防暴者Ⅵ型",
+      "core": "暴击伤害 +28.8%、基础攻击力 +75",
+      "set4": "折枝剑歌",
+      "set2": "啄木鸟电音",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位以太属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "54 条满配：暴击率 ×13、暴击伤害 ×16、攻击力% ×15、穿透值 ×6、小攻击 ×4"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3248,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 44.2,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 267.6,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T11:05:17+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "朱鸢",
+      "weapon": "防暴者Ⅵ型",
+      "core": "暴击伤害 +28.8%、基础攻击力 +75",
+      "set4": "折枝剑歌",
+      "set2": "啄木鸟电音",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位以太属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "低词条参考：暴击率 ×6、暴击伤害 ×13、攻击力% ×8、小攻击 ×3"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2886.3,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 27.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 253.2,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T11:05:17+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

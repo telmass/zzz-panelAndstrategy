@@ -43,9 +43,11 @@ npm run build           # = vue-tsc --noEmit && vite build
 ```
 dist/
 ├── index.html
-└── assets/
-    ├── index-<hash>.js
-    └── index-<hash>.css
+├── assets/
+│   ├── index-<hash>.js
+│   └── index-<hash>.css
+├── images/                  # public/images/ 原样拷贝（当前 395 张 PNG）
+└── strategy/<slug>/data/    # 每页仅两份 JSON（<slug>.json / <slug>.strategy.json）
 ```
 
 `emptyOutDir: true`，每次构建前会清空，不会残留旧hash 文件。
@@ -418,7 +420,7 @@ Invoke-RestMethod http://127.0.0.1:8000/api/health          # 期望 {"status":"
 - [ ] `/` 打开，显示三张入口卡片
 - [ ] `/calculator` 直接访问（**刷新 F5**）能正常渲染——验证 history fallback
 - [ ] `/guide` 直接访问能正常渲染
-- [ ] `/strategy` 选择页按 `constants/strategyGuides.ts` 渲染卡片；`/strategy/ye-shun-guang` 与 `/strategy/ban-yue` 的 iframe 攻略页均可打开、图片正常
+- [ ] `/strategy` 选择页按生成的 `constants/strategyGuides.ts` 渲染卡片；抽查 `/strategy/ye-shunguang`、`/strategy/banyue`、`/strategy/roxy` 等详情页均可打开、图片正常（无 iframe）
 - [ ] 计算器在「一、基础面板」里选一名**命破**代理人 → 载入预设 → 结果区出现贯穿力与闪能自动累积行
 - [ ] 换选一名**通用**代理人 → 上述两行消失、回到 12 行（模式由预设的 `panelMode` 决定，界面没有独立的模式切换器）
 - [ ] 浏览器控制台无报错
@@ -462,7 +464,7 @@ uv run --group worker pywrangler deploy
 | 容器编排 / K8s | 单进程个人工具，用不上 |
 | 水平扩缩容 | 计算是纯函数、无状态、耗时在毫秒级 |
 | 分布式缓存 / 消息队列 | 唯一的缓存是进程内按 mtime 判定的一层 |
-| 数据库与迁移 | 无持久化，唯一的「状态」是 `data/` 下的四个 JSON |
+| 数据库与迁移 | 无持久化，唯一的「状态」是 `data/` 下的五个 JSON |
 | 认证授权 | 全站刻意公开、无鉴权，见 [5.9](#59-访问控制当前是公开的) |
 | 监控告警 / 日志聚合 | `/api/health` 足够；Wrangler 自带 `observability`（见 `wrangler.jsonc`） |
 | CI/CD 流水线 | 仓库内没有 CI 配置。需要时按 [development.md](development.md) 第 10 节的检查项组装 |

@@ -50,8 +50,10 @@
   --tag-disc-text: #db2777;
   --tag-sub-bg: #f5f3ff;
   --tag-sub-text: #7c3aed;
-  --tag-set-bg: #fff7ed;
-  --tag-set-text: #ea580c;
+--tag-set-bg: #fff7ed;
+--tag-set-text: #ea580c;
+--tag-armorer-bg: #ecfeff;
+--tag-armorer-text: #0891b2;
 
   /* ====== 固定词条徽标 ====== */
   --color-fixed-stat-bg: #f3f4f6;
@@ -80,13 +82,16 @@
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
-  --module-padding-block: 16px;
-  --module-padding-inline: 18px;
+  --module-padding-block: 18px;
+  --module-padding-inline: 24px;
   --module-margin-bottom: 14px;
 
-  /* ====== 布局 ====== */
-  --container-max-width: 1180px;
-  --layout-result-width: 400px;
+  /* ====== 布局 ======
+   * 容器宽度与攻略页（strategy 下各 slug 的 styles.css）对齐取 1440px：
+   * 两个板块并排打开时内容同宽，不会一宽一窄。
+   * 注意：注释里不能出现「星号 + 斜杠」，否则会提前闭合注释。 */
+  --container-max-width: 1440px;
+  --layout-result-width: 440px;
   --layout-gap: 20px;
   --layout-result-offset: 20px;
 

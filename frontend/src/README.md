@@ -11,17 +11,18 @@
 
 | 目录 | 内容 |
 | --- | --- |
-| `views/` | 5 个路由页：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`）、`StrategyPickerView`（`/strategy`，代理人选择）、`StrategyView`（`/strategy/:slug`，iframe 嵌入 `strategy/<slug>/` 攻略页） |
-| `components/layout/` | `BackToLauncher.vue` —— 子页返回主页，与业务无关 |
-| `components/common/` | 表单原语：`PanelModule`、`SelectField`、`NumberField`、`TextField`、`StepperInput`。代理人与音擎都用 naive-ui 的 `n-cascader`，不走这里；`SelectField` 仍被核心与驱动盘主词条使用 |
+| `views/` | 5 个路由页：`LauncherView`（`/`）、`CalculatorView`（`/calculator`）、`GuideView`（`/guide`）、`StrategyPickerView`（`/strategy`，代理人选择）、`StrategyView`（`/strategy/:slug`，Vue 共享渲染器） |
+| `components/layout/` | 跨页面布局组件：`BackToLauncher.vue`（子页返回主页）、`BackToTop.vue`（右下角回到顶部） |
+| `components/common/` | 表单原语：`PanelModule`、`SelectField`、`NumberField`、`TextField`、`StepperInput`；另有 `SideNav.vue` —— 左侧编号目录（一级编号链接 + 二级子链接 + 窄屏折叠为顶部目录条），版式复刻攻略页 `.sidebar`，**目前只有指南页在用**（计算器是边填边看结果的工具页，一屏内滚完，不放目录）。代理人与音擎都用 naive-ui 的 `n-cascader`，不走这里；`SelectField` 仍被核心与驱动盘主词条使用 |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页六块 UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
 | `router/` | 5 条路由；`/strategy/:slug` 带 `beforeEnter` 守卫（未登记 slug 回启动页） |
 | `stores/` | Pinia：`panelStore`（输入唯一真源）、`presetStore`。均不持久化 |
-| `composables/` | `usePanelCalc`、`useAgentPreset`、`usePanelMode`、`useSubStatLimit`、`useCascaderIcons`（两个 cascader 共用的选项图标与文案）、`useNaiveTheme` |
+| `composables/` | `usePanelCalc`、`useAgentPreset`、`usePanelMode`、`useSubStatLimit`、`useCascaderIcons`（两个 cascader 共用的选项图标与文案）、`useScrollSpy`（侧边目录滚动高亮：观察 `data-spy-region` 区域容器而非锚点小标题，空窗保留上一个高亮，触底兜底最后一个目标）、`useNaiveTheme` |
 | `api/` | **唯一**网络出口：`panel.ts`、`presets.ts`、`errors.ts` |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
-| `constants/` | `calculatorOptions.ts`（`@data/options.json` → 7 张 `RuleOption[]`）+ `strategyGuides.ts`（攻略板块登记表：一条 = `strategy/<slug>/` 一页，决定 `/strategy` 选择页卡片与 `/strategy/<slug>` 可达性） |
+| `constants/` | `calculatorOptions.ts`（`@data/options.json` → 7 张 `RuleOption[]`）+ `strategyGuides.ts`（攻略登记表，**由 `tools/gen_strategy_guides.py` 生成**，决定 `/strategy` 卡片与详情可达性） |
+| `strategy/` | 攻略页共享层：`renderStrategy.ts`（唯一渲染器，从 legacy 静态模板迁移）+ `strategy.css`（唯一一份攻略样式，收窄在 `.strategy-detail`）。`strategy/<slug>/` 只放数据 |
 | `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（仅导出 `normalizeCount`，`clamp` 为模块私有） |
 | `assets/styles/` | 4 个文件，顺序由 `index.css` 固定：tokens → base → components |
 
@@ -52,13 +53,13 @@
 | `frontend/src/assets/` | 会被 `import`、生成带 hash URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
 > `public/images/` 是**唯一图片根**，所有引用一律写 `/images/…` URL（禁止页相对
-> `assets/…` 与仓库相对 `frontend/public/images/…`）。当前 213 张 PNG：
+> `assets/…` 与仓库相对 `frontend/public/images/…`）。当前 395 张 PNG：
 > `weapons/`（100 张）由音擎 `n-cascader`、`agents/`（60 张）由代理人 `n-cascader`，
 > 各自的选中卡片按 `/images/{weapons,agents}/{id}.png` 引用，选项前缀同理；
 > `icons/`（7 张）为两个选择器共用的一级 roletag 图标；`discs/`（30 张驱动盘套装图标）
 > 由 `data/drive-disc-presets.json` 的 `image` 字段与攻略页引用（计算器 UI 接入待做）；
-> `skills/`（6 张，全代理人共享）、`attributes/`（2 张：honed_edge / fire）、`grades/`（1 张）与
-> `strategy/<slug>/`（每代理人独有的立绘 / 称号 / 影画背景，叶瞬光 4 张 + 般岳 3 张）只被攻略页消费。
+> `skills/`（6 张，全代理人共享）、`attributes/`（10 张）、`grades/`（2 张）与
+> `strategy/<slug>/`（180 张，每代理人独有的立绘 / 称号 / 影画背景 / 背景图）只被攻略页消费。
 > 完整目录树见 [docs/directory-layout.md](../../docs/directory-layout.md) 第 2.2 节。
 
 ### 样式
@@ -76,11 +77,12 @@
 `?mode=standard|rupture|fengyu` 由 `CalculatorView.vue` 手动读取
 （`new URLSearchParams(...)`），经 `useAgentPreset.initFromQueryParam` 校验，
 非法值回落 `standard`。目前唯一的路由守卫在 `/strategy/:slug`：
-`strategyGuides.ts` 未登记的 slug 会被重定向回 `/`，避免 iframe 加载不存在的静态页。
+`strategyGuides.ts` 未登记的 slug 会被重定向回 `/`，避免请求不存在的攻略数据。
 
-另外 `/strategy/<slug>/…` 由 `vite.config.ts` 的 `strategyPagesPlugin` 提供
-（开发期中间件直读 `strategy/<slug>/`，构建期拷入 `dist/strategy/<slug>/`），
-不属于 `public/`，也不能被 `import`——它只在浏览器按 URL 访问。
+攻略数据 `/strategy/<slug>/data/*.json` 由 `vite.config.ts` 的 `strategyDataPlugin` 提供
+（开发期中间件直读仓库 `strategy/<slug>/data/`，构建期只把两份 JSON 拷入
+`dist/strategy/<slug>/data/`）。页面本体由 `strategy/renderStrategy.ts` 渲染，不再有
+iframe 或每页 `index.html/app.js/styles.css`。
 
 ## 相关文档
 

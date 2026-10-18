@@ -1,0 +1,170 @@
+[
+  {
+    "file": "anby\\data\\an-bi.json",
+    "pos": 94,
+    "replacements": 496,
+    "bytes": "b'-379\",\\r\\n    \"entryPageId\": 379,\\r\\n    \"name\": \"\\xe5\\xae\\x89\\xe6\\xaf\\x94\\xc2\\xb7\\xe5\\xbe\\xb7\\xe7\\x8e\\x9b\\xe6\\x8b?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "-379\",\r\n    \"entryPageId\": 379,\r\n    \"name\": \"安比·德玛�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/379/detai",
+    "size": 95450
+  },
+  {
+    "file": "anton\\data\\an-dong.json",
+    "pos": 298,
+    "replacements": 730,
+    "bytes": "b': {\\r\\n    \"name\": \"\\xe5\\xae\\x89\\xe4\\xb8\\x9c\\xc2\\xb7\\xe4\\xbc\\x8a\\xe4\\xb8\\x87\\xe8\\xaf\\xba\\xe5\\xa4\\xab\",\\r\\n    \"attribute\": \"\\xe7\\x94?,\\r\\n    \"roleTag\": \"\\xe5\\xbc\\xba\\xe6\\x94\\xbb\",\\r\\n    \"grade\": \"A\",\\r\\n    \"factio'",
+    "text": "e\": \"安东·伊万诺夫\",\r\n    \"attribute\": \"�?,\r\n    \"roleTag\": \"强攻\",\r\n    \"grade\": \"A\",\r\n    \"factionTitle\": \"白祇重工\",\r\n    \"customFi",
+    "size": 120989
+  },
+  {
+    "file": "billy\\data\\bi-li.json",
+    "pos": 368,
+    "replacements": 620,
+    "bytes": "b'\": \"\\xe5\\xbc\\xba\\xe6\\x94\\xbb\",\\r\\n    \"grade\": \"A\",\\r\\n    \"factionTitle\": \"\\xe7\\x8b\\xa1\\xe5\\x85\\x94\\xe5\\xb1?,\\r\\n    \"customFields\": [\\r\\n      {\\r\\n        \"key\": \"\\xe5\\x87\\xba\\xe7\\x94\\x9f\\xe6\\x97'",
+    "text": " \"A\",\r\n    \"factionTitle\": \"狡兔�?,\r\n    \"customFields\": [\r\n      {\r\n        \"key\": \"出生日期\",\r\n        \"value\": \"11/25\"\r\n     ",
+    "size": 88739
+  },
+  {
+    "file": "burnice\\data\\berise.json",
+    "pos": 94,
+    "replacements": 831,
+    "bytes": "b'-840\",\\r\\n    \"entryPageId\": 840,\\r\\n    \"name\": \"\\xe6\\x9f\\x8f\\xe5\\xa6\\xae\\xe6\\x80\\x9d\\xc2\\xb7\\xe6\\x80\\x80\\xe7\\x89?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "-840\",\r\n    \"entryPageId\": 840,\r\n    \"name\": \"柏妮思·怀�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/840/detai",
+    "size": 115121
+  },
+  {
+    "file": "corin\\data\\ke-lin.json",
+    "pos": 94,
+    "replacements": 665,
+    "bytes": "b'-179\",\\r\\n    \"entryPageId\": 179,\\r\\n    \"name\": \"\\xe5\\x8f\\xaf\\xe7\\x90\\xb3\\xc2\\xb7\\xe5\\xa8\\x81\\xe5\\x85\\x8b\\xe6\\x96?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "-179\",\r\n    \"entryPageId\": 179,\r\n    \"name\": \"可琳·威克�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/179/detai",
+    "size": 95995
+  },
+  {
+    "file": "ellen\\data\\ai-lian.json",
+    "pos": 88,
+    "replacements": 775,
+    "bytes": "b'\": \"ep-317\",\\r\\n    \"entryPageId\": 317,\\r\\n    \"name\": \"\\xe8\\x89\\xbe\\xe8\\x8e\\xb2\\xc2\\xb7\\xe4\\xb9?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "\": \"ep-317\",\r\n    \"entryPageId\": 317,\r\n    \"name\": \"艾莲·�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/317/d",
+    "size": 124123
+  },
+  {
+    "file": "evelyn\\data\\yi-a-lin.json",
+    "pos": 102,
+    "replacements": 749,
+    "bytes": "b'\\n    \"entryPageId\": 1158,\\r\\n    \"name\": \"\\xe4\\xbc\\x8a\\xe8\\x8a\\x99\\xe7\\x90\\xb3\\xc2\\xb7\\xe8\\x88\\x92\\xe7\\x93\\xa6\\xe5\\x88\\xa9\\xe8\\x80?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "\n    \"entryPageId\": 1158,\r\n    \"name\": \"伊芙琳·舒瓦利�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/1158/detail\",",
+    "size": 124760
+  },
+  {
+    "file": "grace\\data\\ge-li-si.json",
+    "pos": 298,
+    "replacements": 495,
+    "bytes": "b': {\\r\\n    \"name\": \"\\xe6\\xa0\\xbc\\xe8\\x8e\\x89\\xe4\\xb8\\x9d\\xc2\\xb7\\xe9\\x9c\\x8d\\xe5\\x8d\\x8e\\xe5\\xbe\\xb7\",\\r\\n    \"attribute\": \"\\xe7\\x94?,\\r\\n    \"roleTag\": \"\\xe5\\xbc\\x82\\xe5\\xb8\\xb8\",\\r\\n    \"grade\": \"S\",\\r\\n    \"factio'",
+    "text": "e\": \"格莉丝·霍华德\",\r\n    \"attribute\": \"�?,\r\n    \"roleTag\": \"异常\",\r\n    \"grade\": \"S\",\r\n    \"factionTitle\": \"白祇重工\",\r\n    \"customFi",
+    "size": 83972
+  },
+  {
+    "file": "harumasa\\data\\you-zhen.json",
+    "pos": 284,
+    "replacements": 728,
+    "bytes": "b'rofile\": {\\r\\n    \"name\": \"\\xe6\\xb5\\x85\\xe7\\xbe\\xbd \\xe6\\x82\\xa0\\xe7\\x9c\\x9f\",\\r\\n    \"attribute\": \"\\xe7\\x94?,\\r\\n    \"roleTag\": \"\\xe5\\xbc\\xba\\xe6\\x94\\xbb\",\\r\\n    \"grade\": \"S\",\\r\\n    \"factio'",
+    "text": " {\r\n    \"name\": \"浅羽 悠真\",\r\n    \"attribute\": \"�?,\r\n    \"roleTag\": \"强攻\",\r\n    \"grade\": \"S\",\r\n    \"factionTitle\": \"对空六课\",\r\n   ",
+    "size": 119573
+  },
+  {
+    "file": "jane\\data\\jane-doe.json",
+    "pos": 85,
+    "replacements": 811,
+    "bytes": "b'tId\": \"ep-759\",\\r\\n    \"entryPageId\": 759,\\r\\n    \"name\": \"\\xe7\\xae\\x80\\xc2\\xb7\\xe6\\x9d?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "tId\": \"ep-759\",\r\n    \"entryPageId\": 759,\r\n    \"name\": \"简·�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/759",
+    "size": 125755
+  },
+  {
+    "file": "koleda\\data\\ke-lei-da.json",
+    "pos": 100,
+    "replacements": 801,
+    "bytes": "b'\\r\\n    \"entryPageId\": 318,\\r\\n    \"name\": \"\\xe7\\x8f\\x82\\xe8\\x95\\xbe\\xe5\\xa6\\xb2\\xc2\\xb7\\xe8\\xb4\\x9d\\xe6\\xb4\\x9b\\xe4\\xbc\\xaf\\xe6\\xa0?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "\r\n    \"entryPageId\": 318,\r\n    \"name\": \"珂蕾妲·贝洛伯�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/318/detail\",\r",
+    "size": 146722
+  },
+  {
+    "file": "lighter\\data\\laite.json",
+    "pos": 270,
+    "replacements": 947,
+    "bytes": "b',\\r\\n  \"profile\": {\\r\\n    \"name\": \"\\xe8\\x8e\\xb1\\xe7\\x89\\xb9\",\\r\\n    \"attribute\": \"\\xe7\\x81?,\\r\\n    \"roleTag\": \"\\xe5\\x87\\xbb\\xe7\\xa0\\xb4\",\\r\\n    \"grade\": \"S\",\\r\\n    \"factio'",
+    "text": " \"profile\": {\r\n    \"name\": \"莱特\",\r\n    \"attribute\": \"�?,\r\n    \"roleTag\": \"击破\",\r\n    \"grade\": \"S\",\r\n    \"factionTitle\": \"卡吕冬",
+    "size": 109498
+  },
+  {
+    "file": "lycaon\\data\\le-ka-en.json",
+    "pos": 283,
+    "replacements": 765,
+    "bytes": "b'ofile\": {\\r\\n    \"name\": \"\\xe5\\x86\\xaf\\xc2\\xb7\\xe8\\x8e\\xb1\\xe5\\x8d\\xa1\\xe6\\x81\\xa9\",\\r\\n    \"attribute\": \"\\xe5\\x86?,\\r\\n    \"roleTag\": \"\\xe5\\x87\\xbb\\xe7\\xa0\\xb4\",\\r\\n    \"grade\": \"S\",\\r\\n    \"factio'",
+    "text": "\r\n    \"name\": \"冯·莱卡恩\",\r\n    \"attribute\": \"�?,\r\n    \"roleTag\": \"击破\",\r\n    \"grade\": \"S\",\r\n    \"factionTitle\": \"维多利亚家政\",\r\n   ",
+    "size": 97850
+  },
+  {
+    "file": "miyabi\\data\\xing-ji-ya.json",
+    "pos": 87,
+    "replacements": 689,
+    "bytes": "b'd\": \"ep-996\",\\r\\n    \"entryPageId\": 996,\\r\\n    \"name\": \"\\xe6\\x98\\x9f\\xe8\\xa7\\x81 \\xe9\\x9b?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "d\": \"ep-996\",\r\n    \"entryPageId\": 996,\r\n    \"name\": \"星见 �?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/996/",
+    "size": 102742
+  },
+  {
+    "file": "nekomata\\data\\mao-you.json",
+    "pos": 366,
+    "replacements": 576,
+    "bytes": "b'\": \"\\xe5\\xbc\\xba\\xe6\\x94\\xbb\",\\r\\n    \"grade\": \"S\",\\r\\n    \"factionTitle\": \"\\xe7\\x8b\\xa1\\xe5\\x85\\x94\\xe5\\xb1?,\\r\\n    \"customFields\": [\\r\\n      {\\r\\n        \"key\": \"\\xe5\\x87\\xba\\xe7\\x94\\x9f\\xe6\\x97'",
+    "text": "\": \"S\",\r\n    \"factionTitle\": \"狡兔�?,\r\n    \"customFields\": [\r\n      {\r\n        \"key\": \"出生日期\",\r\n        \"value\": \"07/30\"\r\n   ",
+    "size": 96325
+  },
+  {
+    "file": "pan-yinhu\\data\\pan-yin-hu.json",
+    "pos": 88,
+    "replacements": 608,
+    "bytes": "b'\": \"ep-1300\",\\r\\n    \"entryPageId\": 1300,\\r\\n    \"name\": \"\\xe6\\xbd\\x98\\xe5\\xbc\\x95\\xe5\\xa3?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "\": \"ep-1300\",\r\n    \"entryPageId\": 1300,\r\n    \"name\": \"潘引�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/1300",
+    "size": 99484
+  },
+  {
+    "file": "piper\\data\\pai-pai.json",
+    "pos": 374,
+    "replacements": 677,
+    "bytes": "b'\\x82\\xe5\\xb8\\xb8\",\\r\\n    \"grade\": \"A\",\\r\\n    \"factionTitle\": \"\\xe5\\x8d\\xa1\\xe5\\x90\\x95\\xe5\\x86\\xac\\xe4\\xb9\\x8b\\xe5\\xad?,\\r\\n    \"customFields\": [\\r\\n      {\\r\\n        \"key\": \"\\xe5\\x87\\xba\\xe7\\x94\\x9f\\xe6\\x97'",
+    "text": "\n    \"factionTitle\": \"卡吕冬之�?,\r\n    \"customFields\": [\r\n      {\r\n        \"key\": \"出生日期\",\r\n        \"value\": \"10/21\"\r\n      },\r",
+    "size": 107281
+  },
+  {
+    "file": "pulchra\\data\\bo-ke-na.json",
+    "pos": 389,
+    "replacements": 529,
+    "bytes": "b'\\xbb\\xe7\\xa0\\xb4\",\\r\\n    \"grade\": \"A\",\\r\\n    \"factionTitle\": \"\\xe5\\x8d\\xa1\\xe5\\x90\\x95\\xe5\\x86\\xac\\xe4\\xb9\\x8b\\xe5\\xad?,\\r\\n    \"customFields\": [\\r\\n      {\\r\\n        \"key\": \"\\xe5\\x87\\xba\\xe7\\x94\\x9f\\xe6\\x97'",
+    "text": "ctionTitle\": \"卡吕冬之�?,\r\n    \"customFields\": [\r\n      {\r\n        \"key\": \"出生日期\",\r\n        \"value\": \"6/19\"\r\n      },\r\n      {\r",
+    "size": 99483
+  },
+  {
+    "file": "seth\\data\\sai-si.json",
+    "pos": 94,
+    "replacements": 609,
+    "bytes": "b'-758\",\\r\\n    \"entryPageId\": 758,\\r\\n    \"name\": \"\\xe8\\xb5\\x9b\\xe6\\x96\\xaf\\xc2\\xb7\\xe6\\xb4\\x9b\\xe5\\xa8\\x81\\xe5\\xb0?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "-758\",\r\n    \"entryPageId\": 758,\r\n    \"name\": \"赛斯·洛威�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/758/detai",
+    "size": 99804
+  },
+  {
+    "file": "soldier-11\\data\\shi-yi-hao.json",
+    "pos": 78,
+    "replacements": 687,
+    "bytes": "b'  \"agentId\": \"ep-73\",\\r\\n    \"entryPageId\": 73,\\r\\n    \"name\": \"\\xe3\\x80?1\\xe5\\x8f\\xb7\\xe3\\x80?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/'",
+    "text": "  \"agentId\": \"ep-73\",\r\n    \"entryPageId\": 73,\r\n    \"name\": \"�?1号�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/cont",
+    "size": 105761
+  },
+  {
+    "file": "yanagi\\data\\yue-cheng-liu.json",
+    "pos": 86,
+    "replacements": 758,
+    "bytes": "b'Id\": \"ep-916\",\\r\\n    \"entryPageId\": 916,\\r\\n    \"name\": \"\\xe6\\x9c\\x88\\xe5\\x9f\\x8e\\xe6\\x9f?,\\r\\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content'",
+    "text": "Id\": \"ep-916\",\r\n    \"entryPageId\": 916,\r\n    \"name\": \"月城�?,\r\n    \"source\": \"https://baike.mihoyo.com/zzz/wiki/content/916/",
+    "size": 104375
+  }
+]

@@ -7,6 +7,8 @@
 | `dev.ps1` | 一键启停本地开发服务（uvicorn :8000 + vite :5173） |
 | `sync_presets.py` | 预设 `data/*.json` ↔ 对拍夹具 `data/*.js`；规则表 `core/*.py` → `data/options.json` |
 | `bundle_worker_data.py` | 预设 `data/*.json` → `backend/src/zzz_panel/_bundled_data.py`，供 Cloudflare Worker 使用 |
+| `normalize_strategy.py` | 攻略页目录 / 数据文件名 / 图片引用归一，校验并可选重新抓取坏 JSON |
+| `gen_strategy_guides.py` | 从 mapping + 攻略数据生成 `frontend/src/constants/strategyGuides.ts`（`--check` 供 CI） |
 | `dump_backend_responses.py` | 把 `legacy_cases.json` 的每条用例 POST 给后端并落盘，用于排查对拍差异 |
 
 前端另有两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中：
@@ -54,6 +56,33 @@ PowerShell 变量大小写不敏感：`Start-Service` 里 `foreach ($file in ...
 
 残留清理用**多个片段同时命中**（如 `zzz_panel` + `uvicorn`、`vite` + `frontend`）
 而不是单一关键词，避免误杀同机其它项目的同名进程。
+
+## 攻略数据归一
+
+`normalize_strategy.py` 把历史攻略页的旧拼音 / 旧 slug 数据文件、图片引用与 `app.js`
+数据 URL 统一到 `data/agent-name-mapping.json` 的规范 slug：
+
+```powershell
+python tools/normalize_strategy.py --check                 # 只报告，有漂移退出码 1
+python tools/normalize_strategy.py --rescrape-invalid      # 重新抓取非 UTF-8 的抓取产物
+python tools/normalize_strategy.py --remove-legacy         # 删除不在 mapping 中的目录
+```
+
+日常只需 `--check`；它会检查目录名、数据文件名、JSON 内的图片路径与 Skill 文档里的
+`strategy/<slug>/` 示例。修复流程见
+[docs/structure-review.md](../docs/structure-review.md) P0-1 / P0-2。
+
+## 攻略登记表生成
+
+`gen_strategy_guides.py` 从 `data/agent-name-mapping.json` 与
+`strategy/<slug>/data/<slug>.json` 生成 `frontend/src/constants/strategyGuides.ts`：
+
+```powershell
+python tools/gen_strategy_guides.py          # 重新生成
+python tools/gen_strategy_guides.py --check  # 与数据不一致时退出码 1
+```
+
+新增 / 改名代理人后运行生成器，不要手改 TS 数组。
 
 ## 双向同步脚本
 

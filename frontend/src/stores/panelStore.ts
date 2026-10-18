@@ -284,5 +284,35 @@ export const usePanelStore = defineStore('panel', {
     setAgentNote(note: AgentNote): void {
       this.agentNote = note;
     },
+
+    /* ====== 一键清空 ====== */
+
+    /**
+     * 还原全部输入到默认态。对应结果面板的「重置」按钮。
+     *
+     * 与 `clearAgentPresetFields`（只还原预设写入的字段）不同：这里是整页重置，
+     * 覆盖代理人选择、音擎、核心、驱动盘、副词条、二件套与面板模式。
+     * 面板模式回落到 URL 请求的 `requestedMode`，与切换代理人标签时的语义一致。
+     */
+    resetAll(): void {
+      this.agent = { roleTag: '', presetId: '' };
+      this.agentNote = { ...NEUTRAL_NOTE };
+      this.base = defaultBase();
+      this.weapon = {
+        grade: '',
+        roleTag: '',
+        preset: '',
+        baseLabel: '基础攻击力',
+        baseValue: 0,
+        subType: '—',
+        subValue: 0,
+      };
+      this.core = { core1: '', core2: '' };
+      this.discMain = { disc4: '', disc5: '', disc6: '' };
+      this.subStats = emptySubStats();
+      this.setEffects = { set0: '', set1: '', set2: '' };
+      this.panelMode = this.requestedMode;
+      this.appliedAgentPresetId = '';
+    },
   },
 });

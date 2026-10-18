@@ -1,0 +1,370 @@
+{
+  "_meta": {
+    "agentId": "ep-2079",
+    "name": "希格莉德",
+    "note": "本文件为希格莉德·德拉叙尔的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 sigrid.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/sigrid/data/sigrid.json）",
+      "音擎特效：抓取自米游社 WIKI 各音擎详情页（骁骑礼赞 / 牺牲洁纯 / 硫磺石 / 残心青囊 / 星徽引擎 / 鎏金花信）",
+      "配装口径：仓库计算器选项表（data/options.json）与音擎预设（data/weapon-presets.json）、驱动盘预设（data/drive-disc-presets.json）"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/2079/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "骁骑礼赞",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-2162.png"
+        }
+      ],
+      "note": "专武（骑士仪典）：普通攻击与强化特殊技的重击命中获得[兵锋]，每层提升暴击伤害；叠满 2 层获得[彻骨]，造成的伤害无视目标冰属性伤害抗性，把她的爆发上限再抬一档。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "牺牲洁纯",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-1197.png"
+        }
+      ],
+      "note": "同为 713 白值 + 暴击伤害 48%：发动普通攻击、特殊技或追加攻击命中分别叠一层暴伤，与她高频普攻的出手方式吻合。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "硫磺石",
+          "stats": "S 级 · 基础攻击 684 · 攻击力 30%",
+          "icon": "/images/weapons/ep-223.png"
+        },
+        {
+          "name": "残心青囊",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-991.png"
+        }
+      ],
+      "note": "硫磺石靠普通攻击 / 冲刺攻击 / 闪避反击叠攻击力；残心青囊给暴击率、队友施加异常或造成失衡时再叠一层，队伍有异常位时更值。"
+    },
+    {
+      "tier": "四星",
+      "items": [
+        {
+          "name": "星徽引擎",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-156.png"
+        },
+        {
+          "name": "鎏金花信",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-744.png"
+        }
+      ],
+      "note": "星徽引擎在闪避反击 / 快速支援后加攻击力，鎏金花信额外抬一手强化特殊技伤害；四星里攻击模组最顺的两个，前期过渡够用。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "拂晓生花 4 件套 + 折枝剑歌 2 件套",
+      "set4": {
+        "name": "拂晓生花",
+        "label": "普通攻击伤害 +15%",
+        "effect4": "[普通攻击]造成的伤害提升20%，装备者为[强攻]角色时，发动[强化特殊技]或[终结技]会使[普通攻击]造成的伤害额外提升20%，持续25秒，重复触发时刷新持续时间。",
+        "icon": "/images/discs/ep-1552.png"
+      },
+      "set2": {
+        "main": {
+          "name": "折枝剑歌",
+          "label": "暴击伤害 +16%",
+          "icon": "/images/discs/ep-1000.png"
+        },
+        "alt": [
+          {
+            "name": "河豚电音",
+            "label": "穿透率 +8%",
+            "icon": "/images/discs/ep-193.png"
+          },
+          {
+            "name": "激素朋克",
+            "label": "攻击力 +10%",
+            "icon": "/images/discs/ep-151.png"
+          }
+        ]
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击伤害 +48%",
+          "alt": "暴击率 +24%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "冰属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "攻击力 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击伤害",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": "≈"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "希诺耀",
+      "members": [
+        {
+          "agentId": "ep-2079",
+          "name": "希格莉德",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-2079.png",
+          "note": "冰属性驻场主C，[巡空枪势]期间暴击率大幅自给，靠[敛枪式]三段收尾打爆发。",
+          "set4": [
+            {
+              "name": "拂晓生花",
+              "icon": "/images/discs/ep-1552.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1962",
+          "name": "诺姆",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1962.png",
+          "note": "火属性击破，负责快速打进失衡窗口；击破身份满足希格莉德额外能力的触发条件。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太属性支援，提供异常与增伤增益，同时补上额外能力所需的支援位。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "希洛耀",
+      "members": [
+        {
+          "agentId": "ep-2079",
+          "name": "希格莉德",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-2079.png",
+          "note": "冰属性驻场主C，[巡空枪势]期间暴击率大幅自给，靠[敛枪式]三段收尾打爆发。",
+          "set4": [
+            {
+              "name": "拂晓生花",
+              "icon": "/images/discs/ep-1552.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-2152",
+          "name": "洛克茜",
+          "role": "击破",
+          "avatar": "/images/agents/ep-2152.png",
+          "note": "风属性击破，用净化反复重置[浸染]并提供全队暴击伤害；击破身份满足额外能力条件。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太属性支援，提供异常与增伤增益，同时补上额外能力所需的支援位。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表（驻场循环）",
+      "lines": [
+        "① 用[普通攻击：凛冽枪尖]打到第四段（视为[出枪式]），或用[支援突击：冰饕]、[闪避反击：回马枪]等出枪式命中敌人，进入[巡空枪势]并攒下一次[敛枪式]机会。",
+        "② 长按普攻发动[普通攻击：敛枪式]：一、二段可用盾牌格挡敌人攻击（格挡成功使下次失衡值提升 100% 并刷新[巡空枪势]），第三段发动期间拥有无敌。",
+        "③ 命中失衡敌人时[巡空枪势]内失衡易伤提升；[连携技：冰凌卷地]首次命中失衡的精英或首领会进入[破阵]，可连续把三段[敛枪式]打完。",
+        "④ 普通攻击与强化特殊技的重击命中可为专武叠[兵锋]，攒满 2 层再进爆发段，兼顾[彻骨]的无视冰抗。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "核心被动[天空骑士]在激活或刷新[巡空枪势]时暴击率提升 66%（持续 8 秒，重复触发可延长至 40 秒）——面板暴击率只需 34% 左右即可与增益叠满 100%，再多暴击率副词条在增益期属于浪费。",
+        "[巡空枪势]的持续时间随[敛枪式]段数提高而缩短（8 / 7 / 6 秒），把段数压在低段才能延长状态。",
+        "额外能力[天际联军]需要队伍里有[支援]或[击破]角色；提供攻击力提升，并对[浸染]状态下的敌人造成更高伤害。",
+        "[普通攻击：敛枪式]第三段发动期间拥有无敌，可用来硬抗首领大招。",
+        "[强化特殊技：碎玉]只在[巡空枪势]状态可用，不在状态时释放的是[强化特殊技：乱琼]，两者都视为[出枪式]。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "希格莉德·德拉叙尔",
+      "weapon": "骁骑礼赞",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "拂晓生花",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位冰属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "54 条满配：暴击率 ×6、暴击伤害 ×26、攻击力% ×14、攻击力 ×5、穿透值 ×3"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3250.7,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 33.8,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 286.8,
+        "unit": "%"
+      },
+      {
+        "label": "冰属性伤害",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T06:17:39+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "希格莉德·德拉叙尔",
+      "weapon": "骁骑礼赞",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "拂晓生花",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位冰属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "35 条：暴击率 ×6、暴击伤害 ×16、攻击力% ×13"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3106.2,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 33.8,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 238.8,
+        "unit": "%"
+      },
+      {
+        "label": "冰属性伤害",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T06:17:39+00:00",
+    "title": "非满配毕业面板（35 词条）"
+  }
+}

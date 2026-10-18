@@ -9,7 +9,7 @@ import { usePresetStore } from '@/stores/presetStore';
 import { NumberField, PanelModule, TextField } from '@/components/common';
 
 /**
- * 二、音擎。对应 legacy 的 `.module.weapon`。
+ * 模块 02 · 音擎。对应 legacy 的 `.module.weapon`。
  *
  * 与目标站 `zzzcaculator.top` 对齐：单个 cascader，一级为职业标签、二级为音擎，
  * 等级写进选项文案（不再单列筛选轴），可选中后用头像卡片展示「名称 / 职业 / 等级」。
@@ -64,7 +64,7 @@ const { renderOptionPrefix, renderOptionLabel } = createCascaderRenderers({
 </script>
 
 <template>
-  <PanelModule title="二、音擎" tag="选择音擎以自动载入固定属性" variant="weapon">
+  <PanelModule title="音擎" tag="选择音擎以自动载入固定属性" variant="weapon" index="02">
     <div class="weapon-grid">
       <div class="field weapon-picker">
         <span class="weapon-picker-label">音擎</span>

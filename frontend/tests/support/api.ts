@@ -153,6 +153,19 @@ async function handle(url: string, init?: RequestInit): Promise<Response> {
     return errorResponse(failure.status, failure.message);
   }
 
+  const strategyMatch = /^\/strategy\/([a-z0-9-]+)\/data\/([a-z0-9][a-z0-9.-]*\.json)$/.exec(path);
+  if (strategyMatch) {
+    const [, slug, file] = strategyMatch;
+    try {
+      const body = JSON.parse(
+        readFileSync(resolve(REPO_ROOT, 'strategy', slug, 'data', file), 'utf-8'),
+      );
+      return jsonResponse(body);
+    } catch {
+      return errorResponse(404, `missing strategy data ${slug}/${file}`);
+    }
+  }
+
   if (path === '/presets/agents') {
     return jsonResponse({ items: AGENT_PRESETS });
   }

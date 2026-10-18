@@ -7,7 +7,7 @@ import { usePanelStore } from '@/stores/panelStore';
 import { PanelModule, SelectField } from '@/components/common';
 
 /**
- * 四、驱动盘主词条。对应 legacy 的 `.module.disc`。
+ * 模块 04 · 驱动盘主词条。对应 legacy 的 `.module.disc`。
  *
  * 1/2/3 号固定主词条为常量，第 3 步下沉到 `core/constants.py` 后改为后端下发。
  */
@@ -35,7 +35,7 @@ const slotOptions = computed(() =>
 </script>
 
 <template>
-  <PanelModule title="四、驱动盘主词条" tag="1~3固定 · 4/5/6可选" variant="disc">
+  <PanelModule title="驱动盘主词条" tag="1~3固定 · 4/5/6可选" variant="disc" index="04">
     <div class="disc-main-grid" style="margin-bottom: 10px">
       <div v-for="stat in DISC_FIXED_STATS" :key="stat.slot" class="fixed-stat">
         {{ stat.slot }}号 {{ stat.label }} <span class="v">+{{ stat.value }}</span>

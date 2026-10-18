@@ -15,18 +15,20 @@ type RoleTag = (typeof AGENT_ROLE_TAGS)[number] | (typeof WEAPON_ROLE_TAGS)[numb
 /**
  * 职业标签 → roletag 图标文件名（不含扩展名）。
  *
- * 取值是官方 Wiki 的 profession key，与既有抓取脚本
- * `.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py:39-47`
- * 同源，不另造一套拼音或意译——`armero`（锋御）看着费解，但改了就与脚本脱节。
+ * 取值与 `public/images/icons/` 下实际文件名一致（小写连字符）：
+ * 强攻 attack、击破 stun、异常 anomaly、支援 support、防护 defense、
+ * 命破 rupture、锋御 armorer。与抓取脚本
+ * `.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py`
+ * 同源，不另造一套拼音或意译——`armorer`（锋御）看着费解，但改了就与脚本脱节。
  */
 const ROLE_ICON: Record<RoleTag, string> = {
-  强攻: 'strike',
-  击破: 'pierce',
-  异常: 'abnormal',
+  强攻: 'attack',
+  击破: 'stun',
+  异常: 'anomaly',
   支援: 'support',
-  防护: 'guard',
+  防护: 'defense',
   命破: 'rupture',
-  锋御: 'armero',
+  锋御: 'armorer',
 };
 
 /** cascader 的 `value` 可能是 `string | number`，取不到字符串时按空处理。 */

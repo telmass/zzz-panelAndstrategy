@@ -1,0 +1,407 @@
+{
+  "_meta": {
+    "agentId": "ep-1158",
+    "name": "伊芙琳·舒瓦利耶",
+    "note": "本文件为伊芙琳·舒瓦利耶的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 evelyn.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/evelyn/data/evelyn.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——伊芙琳无专武预设，首选强攻音擎云霓孤光",
+      "推荐档位与队伍：需求方确认（2026-10-16），驱动盘按追加攻击主 C 口径（如影相随 4 件 + 折枝剑歌 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/1158/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1158/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "云霓孤光",
+          "stats": "S 级 · 基础攻击 743 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-1751.png"
+        }
+      ],
+      "note": "强攻 S 级音擎（叶瞬光专武）：基础攻击 743、副词条暴击伤害 48%。伊芙琳高频爆发主 C，暴击伤害直接提升爆发循环输出。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "骁骑礼赞",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-2162.png"
+        },
+        {
+          "name": "防暴者Ⅵ型",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-211.png"
+        }
+      ],
+      "note": "强攻音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "心弦夜响",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1159.png"
+        },
+        {
+          "name": "千面日陨",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1305.png"
+        },
+        {
+          "name": "硫磺石",
+          "stats": "S 级 · 基础攻击 684 · 攻击力 30%",
+          "icon": "/images/weapons/ep-223.png"
+        }
+      ],
+      "note": "备选强攻音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "如影相随 4 件套 + 折枝剑歌 2 件套",
+      "set4": {
+        "name": "如影相随",
+        "label": "追加攻击伤害 +15%",
+        "effect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每层增益效果使装备者的攻击力提升4%和暴击率提升4%，最多叠加3层，持续8秒，重复触发时刷新持续时间。",
+        "icon": "/images/discs/ep-1193.png"
+      },
+      "set2": {
+        "main": {
+          "name": "折枝剑歌",
+          "label": "暴击伤害 +16%",
+          "icon": "/images/discs/ep-1000.png"
+        },
+        "alt": {
+          "name": "啄木鸟电音",
+          "label": "暴击率 +8%",
+          "icon": "/images/discs/ep-232.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击伤害 +48%",
+          "alt": "暴击率 +24%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "火属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "攻击力 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "爆伤",
+          "next": "="
+        },
+        {
+          "label": "攻击力%",
+          "next": "="
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "伊萊耀",
+      "members": [
+        {
+          "agentId": "ep-1158",
+          "name": "伊芙琳",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1158.png",
+          "note": "火强攻站场主 C，高频爆发与连携技体系，额外能力需队内击破/支援。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-950",
+          "name": "莱特",
+          "role": "击破",
+          "avatar": "/images/agents/ep-950.png",
+          "note": "火击破副 C，减冰抗+延长失衡，为伊芙琳的爆发窗口创造失衡条件。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            },
+            {
+              "name": "摇摆爵士",
+              "icon": "/images/discs/ep-231.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "支援回能与全队攻击增益，满足伊芙琳额外能力的支援条件，补齐爆发轴真空期。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "伊扳耀",
+      "members": [
+        {
+          "agentId": "ep-1158",
+          "name": "伊芙琳",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1158.png",
+          "note": "火强攻站场主 C，与扳机的后台击破与追加攻击形成双输出轴。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1230",
+          "name": "「扳机」",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1230.png",
+          "note": "后台击破，[绝意]值追加攻击，失衡易伤+35%，额外能力需队内击破/支援，耀嘉音为支援满足条件。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "支援回能与全队攻击增益，满足伊芙琳额外能力的支援条件。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "伊耀卡",
+      "members": [
+        {
+          "agentId": "ep-1158",
+          "name": "伊芙琳",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1158.png",
+          "note": "火强攻站场主 C，耀嘉音补能增伤，莱卡恩击破提供失衡与减抗。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "支援回能与全队攻击增益，满足伊芙琳额外能力的支援条件。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-65",
+          "name": "莱卡恩",
+          "role": "击破",
+          "avatar": "/images/agents/ep-65.png",
+          "note": "冰击破副 C，冻结/碎冰配合伊芙琳的火伤爆发，提供失衡窗口。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            },
+            {
+              "name": "震星迪斯科",
+              "icon": "/images/discs/ep-152.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "层数循环：攻击或特殊技累积[燎火]（上限 100%），[燎火]≥50% 时长按普攻发动[绞勒式]消耗 50% 并累积 1 点[燎索点]；[燎索点]满 3 点后，下一次[绞勒式]替换为[连携技：月辉丝·绊]，消耗所有层数触发高倍率连携。",
+        "核心增伤：进入[牵缠禁制]时暴击率+25%（持续 10 秒，退出后仍保留）；[追加攻击]暴击伤害额外+暴击伤害的 15%；额外能力需队内击破/支援，暴击率+10%。",
+        "爆发循环：进场 → 普攻/特殊技积[燎火]与[燎索点] → 终结技[月辉丝·弦音]进入[焰舞觉醒]（消耗[燎索点]发动连携技时保留 1 点） → 高频连携技爆发 → 切回队友衔接下一轮。",
+        "聚怪与衔接：特殊技[锁系控位]/[束裂式]可聚怪并引爆，配合击破队友的失衡窗口打出爆发。",
+        "配队要点：伊芙琳额外能力需队内有击破或支援角色；主推 伊萊耀（伊芙琳+莱特+耀嘉音），莱特提供失衡与减冰抗，耀嘉音补能增伤。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "暴击率是安比... 不，伊芙琳的核心：核心 +14.4%、[牵缠禁制] +25%、额外能力 +10%（队内击破/支援），毕业面板暴击率约 50%+ 即可叠满 100%+ 局内。",
+        "如影相随 4 件的攻击+暴击为局内增益，不计入面板；如影 2pc「追加攻击+15%」选项表无对应项，--set4-effect none 显式不建模。",
+        "[追加攻击]暴击伤害额外+暴击伤害的 15% 为局内，不进面板暴伤行。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（暴击率+基础攻击）与普攻（输出核心）。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "伊芙琳·舒瓦利耶",
+      "weapon": "云霓孤光",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "如影相随",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位火属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "54 条满配：暴击率 ×13、暴击伤害 ×16、攻击力% ×15、穿透值 ×6、小攻击 ×4"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3318,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 50.6,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 238.8,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T08:48:23+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "伊芙琳·舒瓦利耶",
+      "weapon": "云霓孤光",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "如影相随",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位火属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "低词条参考：暴击率 ×6、暴击伤害 ×13、攻击力% ×8、小攻击 ×3"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2947.9,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 33.8,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 224.4,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T08:48:23+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

@@ -4,3 +4,4 @@
  */
 
 export { default as BackToLauncher } from './BackToLauncher.vue';
+export { default as BackToTop } from './BackToTop.vue';

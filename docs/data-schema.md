@@ -5,16 +5,39 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 
 ## 1. 数据文件总览
 
-`data/` 下四个 JSON **全部是生成物**，不存在手写副本。
+`data/` 下五个 JSON 中，四个是生成物，`agent-name-mapping.json` 是手工维护的规范 slug 表。
 
 | 文件 | 内容 | 规模 | 源头 | 生成命令 |
 | --- | --- | --- | --- | --- |
 | `agent-presets.json` | 代理人预设 | 60 条 | Skill 抓取脚本（联网读官方 Wiki） | 抓取脚本直接写 |
-| `weapon-presets.json` | 音擎预设 | 100 条 | 同上 | 同上 |
-| `options.json` | 配装规则表（7 张表） | 378 行 | `backend/src/zzz_panel/core/options.py` + `core/constants.py` | `sync_presets.py --options` |
+| `weapon-presets.json` | 音擎预设 | 101 条 | 同上 | 同上 |
+| `options.json` | 配装规则表（7 张表） | 392 行 / 54 个条目 | `backend/src/zzz_panel/core/options.py` + `core/constants.py` | `sync_presets.py --options` |
 | `drive-disc-presets.json` | 驱动盘套装效果（2/4 件套） | 30 条 | Skill 抓取脚本（联网读官方 Wiki） | 抓取脚本直接写（另下载套装图标） |
+| `agent-name-mapping.json` | 中文名 / 英文名 → 规范 slug | 62 条（含 2 条未上线） | 手工维护 | 无 |
 
 各文件的字段级说明见下文。数据管线与刷新流程见 [development.md](development.md) 第 6 节。
+
+### 1.1 命名映射（`agent-name-mapping.json`）
+
+```jsonc
+[
+  {
+    "slug": "ye-shunguang",   // 唯一规范 slug：目录名、数据文件名、路由参数都用它
+    "en": "Ye Shunguang",
+    "cn_short": "叶瞬光",
+    "cn_full": "叶瞬光"
+  }
+]
+```
+
+用途：
+
+- `fix-agent` Skill 以它为准修正攻略页的 slug、数据文件名、`DATA_URL` 与图标路径；
+- 攻略页目录名与 `strategyGuides.ts` 的 `slug` 必须与它一致；
+- 新增代理人时先补映射，再建 `strategy/<slug>/`。
+
+它不是抓取产物，**不要用 `refresh_*_presets.py` 覆盖**。当前没有自动守卫，
+一致性检查方案见 [structure-review.md](structure-review.md) P1-1。
 
 ## 2. 代理人预设
 
@@ -149,7 +172,7 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 | `disc5Options` | 5 | 5 号主词条 |
 | `disc6Options` | 6 | 6 号主词条 |
 | `subStats` | 10 | 副词条，按条数换算 |
-| `setOptions` | 11 | 二件套效果，三组各选一个 |
+| `setOptions` | 12 | 二件套效果，三组各选一个（含荆棘玫瑰的「防御力 +16%」） |
 | `discFixedStats` | 3 | 1/2/3 号固定主词条（**恒定生效，不可选**） |
 
 ### 4.2 条目结构

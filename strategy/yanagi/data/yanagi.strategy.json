@@ -1,0 +1,353 @@
+{
+  "_meta": {
+    "agentId": "ep-916",
+    "name": "月城柳",
+    "note": "本文件为月城柳的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 yanagi.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/yanagi/data/yanagi.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：按 BWIKI/17173/233乐园/Ludens 配装攻略整理（异常精通/掌控流，谶羽之誓 4 件 + 法厄同之歌 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/916/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/916/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "专武（名称待确认）",
+          "stats": "S 级 · 异常专属音擎",
+          "icon": ""
+        }
+      ],
+      "note": "月城柳无专武预设（weapon-presets.json 无 agentId=ep-916），首选异常音擎，下位嵌合编译器/淬锋钳刺/灼心摇壶，备选时流贤者/飞鸟星梦/十方锻星。需按 WIKI 音擎页 double_col_table「推荐代理人」表补充专武名字。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "嵌合编译器",
+          "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
+          "icon": "/images/weapons/ep-214.png"
+        },
+        {
+          "name": "淬锋钳刺",
+          "stats": "S 级 · 基础攻击 713 · 异常精通 90",
+          "icon": "/images/weapons/ep-760.png"
+        },
+        {
+          "name": "灼心摇壶",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-841.png"
+        }
+      ],
+      "note": "异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "时流贤者",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-915.png"
+        },
+        {
+          "name": "飞鸟星梦",
+          "stats": "S 级 · 基础攻击 713 · 异常精通 90",
+          "icon": "/images/weapons/ep-1277.png"
+        },
+        {
+          "name": "十方锻星",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-1503.png"
+        }
+      ],
+      "note": "备选异常音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "谶羽之誓 4 件套 + 法厄同之歌 2 件套",
+      "set4": {
+        "name": "谶羽之誓",
+        "label": "异常精通 +92",
+        "effect4": "队伍中任意角色对敌人施加[强化特殊技]时，装备者的异常精通提升92点，持续8秒，重复触发时刷新持续时间。",
+        "icon": "/images/discs/ep-2116.png"
+      },
+      "set2": {
+        "main": {
+          "name": "法厄同之歌",
+          "label": "异常掌控 +8%",
+          "icon": "/images/discs/ep-1194.png"
+        },
+        "alt": {
+          "name": "混沌爵士",
+          "label": "异常精通 +30",
+          "icon": "/images/discs/ep-800.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "异常精通 +92",
+          "alt": "无"
+        },
+        {
+          "slot": "5 号位",
+          "main": "攻击力 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "异常掌控 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "异常精通",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "星南柚",
+      "members": [
+        {
+          "agentId": "ep-996",
+          "name": "星见 雅",
+          "role": "异常",
+          "avatar": "/images/agents/ep-996.png",
+          "note": "烈霜异常主 C，满层[落霜]后满蓄力重击是主要爆发，月城柳的电异常与冰异常组成双异常紊乱。",
+          "set4": [
+            {
+              "name": "折枝剑歌",
+              "icon": "/images/discs/ep-1000.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1852",
+          "name": "南宫羽",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1852.png",
+          "note": "以太击破副 C，优质以太异常给紊乱基底，三段蓄力精准起手。",
+          "set4": [
+            {
+              "name": "云岿如我",
+              "icon": "/images/discs/ep-1347.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-916",
+          "name": "月城柳",
+          "role": "异常",
+          "avatar": "/images/agents/ep-916.png",
+          "note": "电异常后台耀变引擎，[漂流]持续异常积蓄与[归零]异放；谶羽之誓 4 件 + 法厄同之歌 2 件。",
+          "set4": [
+            {
+              "name": "谶羽之誓",
+              "icon": "/images/discs/ep-2116.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "艾柚薇",
+      "members": [
+        {
+          "agentId": "ep-1385",
+          "name": "爱丽丝",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1385.png",
+          "note": "物理异常主 C，极性强击自紊乱；月城柳的电异常与物理异常互相结算紊乱。",
+          "set4": [
+            {
+              "name": "獠牙重金属",
+              "icon": "/images/discs/ep-104.png"
+            },
+            {
+              "name": "法厄同之歌",
+              "icon": "/images/discs/ep-1194.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1386",
+          "name": "柚叶",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1386.png",
+          "note": "彩糖花火染以太，加速以太积蓄，满足月城柳额外能力的队内异常条件。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-916",
+          "name": "月城柳",
+          "role": "异常",
+          "avatar": "/images/agents/ep-916.png",
+          "note": "电异常后台耀变引擎，与爱丽丝的物理异常互相结算紊乱。",
+          "set4": [
+            {
+              "name": "谶羽之誓",
+              "icon": "/images/discs/ep-2116.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：[上弦]架势提高电伤 10%、[下弦]架势提高穿透率 10%，切换架势后增益保留 8 秒；[特殊技：流转]切换架势并可衔接第三段普攻；[强化特殊技：月华流转]进入[森罗万象] 15 秒，下落攻击命中异常敌人触发[极性紊乱]。",
+        "核心爆发：[强化特殊技]后队伍触发[紊乱]时紊乱倍率×250%（15 秒），月城柳电伤+20%（15 秒）；[终结技：雷影天华]落雷命中异常敌人也触发[极性紊乱]。",
+        "爆发循环：进场 → 特殊技/普攻切换架势 → 强化特殊技积[森罗万象] → 终结技极性紊乱 → 衔接队友紊乱收割 → 重复。",
+        "配队要点：月城柳额外能力需队内有强攻/异常/命破；主推 星南柚（星见雅+南宫羽+月城柳，双异常紊乱）或 艾柚薇（爱丽丝+柚叶+月城柳，物理+电双异常）。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "异常精通是月城柳的核心倍率：[漂流]持续异常积蓄与[归零]异放均吃精通，毕业面板优先堆异常精通；谶羽之誓 4 件的精通+92（强化特殊技触发）为局内、不进面板。",
+        "法厄同之歌 2 件的掌控+8% 选项表无对应项，--set2-effect none 显式不建模。",
+        "[上弦]/[下弦]架势切换可在脱手后保留 8 秒增益，配合队友快支衔接最大化利用。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（异常掌控+基础攻击）与特殊技（输出核心）。",
+        "属性为电，仓库电属性图标已存在，正常显示。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "月城柳",
+      "weapon": "嵌合编译器",
+      "core": "异常精通 +90、基础攻击力 +75",
+      "set4": "谶羽之誓",
+      "set2": "法厄同之歌",
+      "mainStats": "4 号位异常精通 +92，5 号位攻击力 +30%，6 号位异常掌控 +30%",
+      "subStats": "54 条满配：异常精通 ×28、攻击力% ×11、小攻击 ×5、穿透值 ×6、小生命 ×4（填充）"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2947.3,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 512,
+        "unit": ""
+      },
+      {
+        "label": "异常掌控",
+        "value": 154.6,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T10:01:00+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "月城柳",
+      "weapon": "嵌合编译器",
+      "core": "异常精通 +90、基础攻击力 +75",
+      "set4": "谶羽之誓",
+      "set2": "法厄同之歌",
+      "mainStats": "4 号位异常精通 +92，5 号位攻击力 +30%，6 号位异常掌控 +30%",
+      "subStats": "低词条参考：异常精通 ×10、攻击力% ×8、小攻击 ×4、穿透值 ×3"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2788.2,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 350,
+        "unit": ""
+      },
+      {
+        "label": "异常掌控",
+        "value": 154.6,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T10:01:00+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

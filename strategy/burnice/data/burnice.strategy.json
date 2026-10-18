@@ -1,0 +1,348 @@
+{
+  "_meta": {
+    "agentId": "ep-840",
+    "name": "柏妮思·怀特",
+    "note": "本文件为柏妮思·怀特的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 burnice.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/burnice/data/burnice.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：按 BWIKI/17173/Ludens 配装攻略整理（异常精通/掌控流，混沌爵士 4 件 + 自由蓝调 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/840/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/840/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "专武（名称待确认）",
+          "stats": "S 级 · 异常专属音擎",
+          "icon": ""
+        }
+      ],
+      "note": "柏妮思无专武预设（weapon-presets.json 无 agentId=ep-840），首选异常音擎：嵌合编译器 (`ep-214`，穿透率 24%) / 灼心摇壶 (`ep-841`，攻击力 30%) / 轰鸣座驾 (`ep-494`，攻击力 25%)；备选 触电唇彩 (`ep-210`，异常精通 75) / 双生泣星 (`ep-212`，攻击力 25%)。需按 WIKI 音擎页 double_col_table「推荐代理人」表补充专武名字。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "嵌合编译器",
+          "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
+          "icon": "/images/weapons/ep-214.png"
+        },
+        {
+          "name": "灼心摇壶",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-841.png"
+        },
+        {
+          "name": "轰鸣座驾",
+          "stats": "S 级 · 基础攻击 624 · 攻击力 25%",
+          "icon": "/images/weapons/ep-494.png"
+        }
+      ],
+      "note": "异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "触电唇彩",
+          "stats": "A 级 · 基础攻击 594 · 异常精通 75",
+          "icon": "/images/weapons/ep-210.png"
+        },
+        {
+          "name": "双生泣星",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-212.png"
+        }
+      ],
+      "note": "备选异常音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "混沌爵士 4 件套 + 自由蓝调 2 件套",
+      "set4": {
+        "name": "混沌爵士",
+        "label": "异常精通 +30",
+        "effect4": "火属性伤害和电属性伤害提升15%；位于后场时，[强化特殊技]和[支援攻击]造成的伤害提升20%。",
+        "icon": "/images/discs/ep-800.png"
+      },
+      "set2": {
+        "main": {
+          "name": "自由蓝调",
+          "label": "异常精通 +30",
+          "icon": "/images/discs/ep-191.png"
+        },
+        "alt": {
+          "name": "炎狱重金属",
+          "label": "火属性伤害 +10%",
+          "icon": "/images/discs/ep-104.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "异常精通 +92",
+          "alt": "无"
+        },
+        {
+          "slot": "5 号位",
+          "main": "火属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "异常掌控 +30%",
+          "alt": "能量回复 +60%"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "异常精通",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": "="
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "蕾维柏",
+      "members": [
+        {
+          "agentId": "ep-2076",
+          "name": "蕾米埃尔",
+          "role": "异常",
+          "avatar": "/images/agents/ep-2076.png",
+          "note": "流明异常后台耀变引擎，与柏妮思同为三异常队底座，维琳娜为风异常。",
+          "set4": [
+            {
+              "name": "谶羽之誓",
+              "icon": "/images/discs/ep-2116.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1960",
+          "name": "维琳娜",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1960.png",
+          "note": "风异常后场副 C，风暴眼触发快支并染色减抗，三异常队让柏妮思的灼烧频繁结算紊乱。",
+          "set4": [
+            {
+              "name": "呼啸沙龙",
+              "icon": "/images/discs/ep-2038.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-840",
+          "name": "柏妮思",
+          "role": "异常",
+          "avatar": "/images/agents/ep-840.png",
+          "note": "火异常后台耀变引擎，[漂流]持续灼烧与[余烬]协同攻击；混沌爵士 4 件 + 自由蓝调 2 件。",
+          "set4": [
+            {
+              "name": "混沌爵士",
+              "icon": "/images/discs/ep-800.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "简柏耀",
+      "members": [
+        {
+          "agentId": "ep-759",
+          "name": "简·杜",
+          "role": "异常",
+          "avatar": "/images/agents/ep-759.png",
+          "note": "物理异常主 C，极性强击自紊乱；柏妮思的后台灼烧与物理异常互相结算紊乱，双异常体系。",
+          "set4": [
+            {
+              "name": "獠牙重金属",
+              "icon": "/images/discs/ep-104.png"
+            },
+            {
+              "name": "法厄同之歌",
+              "icon": "/images/discs/ep-1194.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "支援回能与全队攻击增益，满足柏妮思额外能力的支援条件，补齐爆发轴真空期。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-840",
+          "name": "柏妮思",
+          "role": "异常",
+          "avatar": "/images/agents/ep-840.png",
+          "note": "火异常后台耀变引擎，与爱丽丝的物理异常互相结算紊乱；混沌爵士 4 件 + 自由蓝调 2 件。",
+          "set4": [
+            {
+              "name": "混沌爵士",
+              "icon": "/images/discs/ep-800.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：消耗能量值累积[燃点]（上限 100），[燃点]≥50 进入[燃油特调]；[燃油特调]下普攻/强化特殊技/连携技/终结技命中会为敌人挂[灼伤]，切后台后队友攻击[灼伤]敌人造成额外火伤与异常积蓄。",
+        "核心爆发：[强化特殊技：灼热摇荡法]持续喷射火焰并命中后造成[灼热摇荡法·双份]伤害；[终结技：纵享盛焰]回复 50 点[燃点]并可延长喷射持续时间。",
+        "紊乱手法：[灼伤]属于火属性异常，与队友的其他属性异常互相结算[紊乱]；柏妮思后台持续灼烧，主 C 在紊乱窗口期爆发。",
+        "配队要点：柏妮思额外能力需队内有强攻/异常/命破；主推 蕾维柏（蕾米埃尔+维琳娜+柏妮思，三异常队）或 简柏耀（简·杜+柏妮思+耀嘉音，物理+火双异常）。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "异常精通是柏妮思的核心倍率：[漂流]持续灼烧与[余烬]协同攻击均吃精通，毕业面板优先堆异常精通；谶羽之誓 4 件的精通+92（强化特殊技触发）为局内、不进面板。",
+        "法厄同之歌 2 件的掌控+8% 选项表无对应项，--set2-effect none 显式不建模。",
+        "[燃点]循环与[灼伤]挂附时机：尽量在队友输出窗口期前挂满[灼伤]，让队友攻击时触发额外火伤与异常积蓄。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（异常掌控+基础攻击）与特殊技（输出核心）。",
+        "属性为火，仓库火属性图标已存在，正常显示。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "柏妮思·怀特",
+      "weapon": "灼心摇壶",
+      "core": "基础能量自动回复 +0.36、基础攻击力 +75",
+      "set4": "混沌爵士",
+      "set2": "自由蓝调",
+      "mainStats": "4 号位异常精通 +92，5 号位火属性伤害 +30%，6 号位异常掌控 +30%",
+      "subStats": "54 条满配：异常精通 ×28、攻击力% ×11、小攻击 ×5、穿透值 ×6、小生命 ×4（填充）"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2979.9,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 464,
+        "unit": ""
+      },
+      {
+        "label": "异常掌控",
+        "value": 153.4,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T10:23:55+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "柏妮思·怀特",
+      "weapon": "灼心摇壶",
+      "core": "基础能量自动回复 +0.36、基础攻击力 +75",
+      "set4": "混沌爵士",
+      "set2": "自由蓝调",
+      "mainStats": "4 号位异常精通 +92，5 号位火属性伤害 +30%，6 号位异常掌控 +30%",
+      "subStats": "低词条参考：异常精通 ×10、攻击力% ×8、小攻击 ×4、穿透值 ×3"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2819.0,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 302,
+        "unit": ""
+      },
+      {
+        "label": "异常掌控",
+        "value": 153.4,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T10:23:55+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

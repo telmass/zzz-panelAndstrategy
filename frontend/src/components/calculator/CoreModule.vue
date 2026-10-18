@@ -8,7 +8,7 @@ import { usePanelStore } from '@/stores/panelStore';
 import { PanelModule, SelectField } from '@/components/common';
 
 /**
- * 三、核心加成。对应 legacy 的 `.module.core`。
+ * 模块 03 · 核心加成。对应 legacy 的 `.module.core`。
  *
  * 选项文案需按面板模式替换：锋御模式下「基础能量自动回复」显示为
  * 「基础锐能自动累积」，与 legacy 的 `updateEnergyAttributeLabels` 一致。
@@ -25,7 +25,7 @@ const coreOptions = computed(() =>
 </script>
 
 <template>
-  <PanelModule title="三、核心加成" tag="9选2 · 可重复选" variant="core">
+  <PanelModule title="核心加成" tag="9选2 · 可重复选" variant="core" index="03">
     <p class="note note--lead">
       从8项中选2项，可重复（如两次暴击率=28.8%）。<br />核心互斥：同一属性不会同时给基础值与百分比。
     </p>

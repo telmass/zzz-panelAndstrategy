@@ -10,7 +10,7 @@ import { usePresetStore } from '@/stores/presetStore';
 import { NumberField, PanelModule } from '@/components/common';
 
 /**
- * 一、基础面板。对应 legacy 的 `.module.base`。
+ * 模块 01 · 基础面板。对应 legacy 的 `.module.base`。
  *
  * 面板模式相关的显隐与锋御文案替换由 `usePanelMode` 驱动；
  * 代理人的载入由 `useAgentPreset` 承担。
@@ -123,7 +123,7 @@ function numberModel(key: (typeof NUMERIC_FIELDS)[number]['key']) {
 </script>
 
 <template>
-  <PanelModule title="一、基础面板" tag="角色本体" variant="base">
+  <PanelModule title="基础面板" tag="角色本体" variant="base" index="01">
     <p class="note note--lead">
       填写角色纯基础面板（不含核心）。若游戏内显示已含核心基础值，请先减去再填。
     </p>

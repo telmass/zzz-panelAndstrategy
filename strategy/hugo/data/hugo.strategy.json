@@ -1,0 +1,314 @@
+{
+  "_meta": {
+    "agentId": "ep-1290",
+    "name": "雨果·维拉德",
+    "note": "本文件为雨果·维拉德的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 hugo.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/hugo/data/hugo.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——千面日陨为雨果专武",
+      "推荐档位与队伍：需求方确认（2026-10-16），驱动盘自行按 WIKI 学习（冰强攻毕业口径，参考希格莉德拂晓生花 4 件 + 折枝剑歌 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/1290/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1290/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "千面日陨",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1305.png"
+        }
+      ],
+      "note": "雨果专武（WIKI 音擎页 double_col_table 推荐代理人表列雨果）：S 级强攻音擎，基础攻击 713、副词条暴击率 24%。雨果失衡时自身暴击率+12%、爆伤+25%（暗渊回响），专武暴击率副词条可显著降低面板暴击率压力。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "骁骑礼赞",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-2162.png"
+        },
+        {
+          "name": "防暴者Ⅵ型",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-211.png"
+        }
+      ],
+      "note": "强攻音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "牺牲洁纯",
+          "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
+          "icon": "/images/weapons/ep-1197.png"
+        },
+        {
+          "name": "硫磺石",
+          "stats": "S 级 · 基础攻击 684 · 攻击力 30%",
+          "icon": "/images/weapons/ep-223.png"
+        }
+      ],
+      "note": "备选强攻音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "拂晓生花 4 件套 + 折枝剑歌 2 件套",
+      "set4": {
+        "name": "拂晓生花",
+        "label": "普通攻击伤害 +15%",
+        "effect4": "[普通攻击]造成的伤害提升20%，装备者为[强攻]角色时，发动[强化特殊技]或[终结技]会使全队角色造成的伤害提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
+        "icon": "/images/discs/ep-1552.png"
+      },
+      "set2": {
+        "main": {
+          "name": "折枝剑歌",
+          "label": "暴击伤害 +16%",
+          "icon": "/images/discs/ep-1000.png"
+        },
+        "alt": {
+          "name": "啄木鸟电音",
+          "label": "暴击率 +8%",
+          "icon": "/images/discs/ep-232.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击伤害 +48%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "冰属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "攻击力 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "雨萊卡",
+      "members": [
+        {
+          "agentId": "ep-1290",
+          "name": "雨果",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1290.png",
+          "note": "冰强攻爆发型速切主C，失衡时暗渊回响给暴击率+12%/爆伤+25%，强特/终结终结一击对剩余失衡时间结算（决算×500%）。",
+          "set4": [
+            {
+              "name": "拂晓生花",
+              "icon": "/images/discs/ep-1552.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-950",
+          "name": "莱特",
+          "role": "击破",
+          "avatar": "/images/agents/ep-950.png",
+          "note": "火击破副C，减冰抗+延长失衡，为雨果的冰伤爆发创造失衡窗口。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            },
+            {
+              "name": "摇摆爵士",
+              "icon": "/images/discs/ep-231.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-65",
+          "name": "莱卡恩",
+          "role": "击破",
+          "avatar": "/images/agents/ep-65.png",
+          "note": "冰击破副C，冻结/碎冰配合雨果的冰伤，大招爆发与雨果强特/终结衔接。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            },
+            {
+              "name": "震星迪斯科",
+              "icon": "/images/discs/ep-152.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "失衡启动：由莱特/莱卡恩的击破招式使敌人进入失衡，雨果立刻切入上场。",
+        "核心增伤：失衡时雨果获得[暗渊回响]（持续 6 秒、可刷新），暴击率 +12%、暴击伤害 +25%；额外能力按队伍击破角色数量给攻击力 +27/+75 点。",
+        "爆发结算：敌人处于失衡状态时，[强化特殊技：魂狩·惩戒]或[终结技：渎神者]的终结一击触发[决算]，终结一击伤害倍率 +500%，并按剩余失衡时间进一步提升（≤5 秒每秒 +140%、5~15 秒每秒 +100%）——尽量在失衡时间尚剩较多时打出终结一击。",
+        "衔接循环：强特/终结技终结一击后，直接衔接[普通攻击：暗渊四重奏]第四段，再切回击破队友积累下一次失衡。",
+        "招架支援：[招架支援：死期未至]累积大量失衡值，可配合击破队友快速触发失衡窗口。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "面板暴击率可低于 50%：专武千面日陨副词条暴击率 24% + 核心 +14.4%，失衡时再 +12%（暗渊回响，状态增益、不进面板），毕业面板暴击率约 58% 即可（失衡时约 70%）。",
+        "拂晓生花四件套在强攻角色发动强化特殊技/终结技时给全队 +15% 伤害，二件套「普攻伤害+15%」选项表无对应项，--set4-effect none 显式不建模。",
+        "决算伤害随剩余失衡时间递增，不要在失衡即将结束时才打终结一击；优先在失衡窗口早期打出强特/终结。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（暴击率+基础攻击）与特殊技（爆发核心）。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "雨果·维拉德",
+      "weapon": "千面日陨",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "拂晓生花",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位冰属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "54 条满配：暴击率 ×6、暴击伤害 ×26、攻击力% ×22"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3514.7,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 57.8,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 238.8,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T07:22:52+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "雨果·维拉德",
+      "weapon": "千面日陨",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "拂晓生花",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位冰属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "低词条参考：暴击率 ×6、暴击伤害 ×16、攻击力% ×13"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3074.1,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 57.8,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 190.8,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T07:22:52+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

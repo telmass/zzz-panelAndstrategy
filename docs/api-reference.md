@@ -41,7 +41,7 @@
 | --- | --- | --- |
 | GET | `/api/health` | 探活 |
 | GET | `/api/presets/agents` | 代理人预设列表（60 条） |
-| GET | `/api/presets/weapons` | 音擎预设列表（100 条） |
+| GET | `/api/presets/weapons` | 音擎预设列表（101 条） |
 | POST | `/api/panel/calc` | 面板计算 |
 
 ---

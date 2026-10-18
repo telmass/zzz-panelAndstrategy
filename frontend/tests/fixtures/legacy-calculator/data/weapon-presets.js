@@ -752,6 +752,22 @@ window.WEAPON_PRESETS = [
     },
   },
   {
+    id: 'ep-2259',
+    name: '涅槃初翎',
+    grade: 'S',
+    roleTag: '异常',
+    source: 'https://baike.mihoyo.com/zzz/wiki/content/2259/detail?mhy_presentation_style=fullscreen',
+    baseKind: 'atk',
+    baseAttack: 713,
+    baseDefense: 0,
+    substat: {
+      label: '异常掌控',
+      value: 30,
+      kind: 'pct',
+      to: 'ac_pct',
+    },
+  },
+  {
     id: 'ep-98',
     name: '德玛拉电池Ⅱ型',
     grade: 'A',

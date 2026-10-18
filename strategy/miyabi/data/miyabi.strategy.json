@@ -1,0 +1,350 @@
+{
+  "_meta": {
+    "agentId": "ep-996",
+    "name": "星见 雅",
+    "note": "本文件为星见 雅的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 miyabi.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/miyabi/data/miyabi.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——霰落星殿为星见雅专武",
+      "推荐档位与队伍：按 BWIKI/17173/233乐园/Ludens 配装攻略整理（霰落星殿专武，折枝剑歌 4 件 + 啄木鸟电音 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/996/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/996/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "霰落星殿",
+          "stats": "S 级 · 基础攻击 743 · 暴击率 24%",
+          "icon": "/images/weapons/ep-992.png"
+        }
+      ],
+      "note": "星见雅专武（WIKI 音擎页 double_col_table 推荐代理人表列星见雅）：S 级异常音擎，基础攻击 743、副词条暴击率 24%；特效「霜染寒星」暴击伤害+80% 并给全队冰伤+32%，是唯一带暴击率副词条的异常音擎，毕业首选。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "嵌合编译器",
+          "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
+          "icon": "/images/weapons/ep-214.png"
+        },
+        {
+          "name": "轰鸣座驾",
+          "stats": "S 级 · 基础攻击 624 · 攻击力 25%",
+          "icon": "/images/weapons/ep-494.png"
+        }
+      ],
+      "note": "异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "触电唇彩",
+          "stats": "A 级 · 基础攻击 594 · 异常精通 75",
+          "icon": "/images/weapons/ep-210.png"
+        },
+        {
+          "name": "双生泣星",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-212.png"
+        }
+      ],
+      "note": "备选异常音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "折枝剑歌 4 件套 + 啄木鸟电音 2 件套",
+      "set4": {
+        "name": "折枝剑歌",
+        "label": "暴击伤害 +16%",
+        "effect4": "异常掌控大于等于115点时，装备者的暴击伤害提升30%；队伍中任意角色对敌人施加「冻结」或触发「碎冰」效果时，装备者的暴击率提升12%，持续15秒，重复触发时刷新持续时间。",
+        "icon": "/images/discs/ep-1000.png"
+      },
+      "set2": {
+        "main": {
+          "name": "啄木鸟电音",
+          "label": "暴击率 +8%",
+          "icon": "/images/discs/ep-232.png"
+        },
+        "alt": {
+          "name": "极地重金属",
+          "label": "冰属性伤害 +10%",
+          "icon": "/images/discs/ep-104.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击率 +24%",
+          "alt": "暴击伤害 +48%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "冰属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "攻击力 +30%",
+          "alt": "异常掌控 +30%"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": "="
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "星南柚",
+      "members": [
+        {
+          "agentId": "ep-996",
+          "name": "星见 雅",
+          "role": "异常",
+          "avatar": "/images/agents/ep-996.png",
+          "note": "烈霜异常主 C，满层[落霜]后满蓄力重击是主要爆发；额外能力需队内击破/异常，南宫羽/柚叶均满足条件。",
+          "set4": [
+            {
+              "name": "折枝剑歌",
+              "icon": "/images/discs/ep-1000.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1852",
+          "name": "南宫羽",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1852.png",
+          "note": "以太击破副 C，优质以太异常给紊乱基底，三段蓄力精准起手，与星见雅的冰异常组成双异常紊乱。",
+          "set4": [
+            {
+              "name": "云岿如我",
+              "icon": "/images/discs/ep-1347.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1386",
+          "name": "柚叶",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1386.png",
+          "note": "彩糖花火染以太，加速以太积蓄，为星见雅积[落霜]创造条件；置于南宫羽之前染以太。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "雅柚苍",
+      "members": [
+        {
+          "agentId": "ep-996",
+          "name": "星见 雅",
+          "role": "异常",
+          "avatar": "/images/agents/ep-996.png",
+          "note": "烈霜异常主 C，耀嘉音/苍角补能，高频[落霜]积累与重击爆发。",
+          "set4": [
+            {
+              "name": "折枝剑歌",
+              "icon": "/images/discs/ep-1000.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1386",
+          "name": "柚叶",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1386.png",
+          "note": "染以太加速积蓄，双支援体系下星见雅可高频触发重击。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-227",
+          "name": "苍角",
+          "role": "支援",
+          "avatar": "/images/agents/ep-227.png",
+          "note": "冰支援回能与减抗，与星见雅同属冰异常，双冰积蓄更快。",
+          "set4": [
+            {
+              "name": "自由蓝调",
+              "icon": "/images/discs/ep-191.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：攻击命中、[特殊技：霜冻]、[强化特殊技：极寒]、[连携技：冰晶]均生成[电壶]（上限 6 枚）；[落羽]命中激活电壶发射[甲乙矢]，为目标施加[电囚]（最多 8 层）。",
+        "核心爆发：[电囚]≥2 层时进入[醒觉]，[冲刺攻击：飞弦·斩]替换为近战斩击，暴击率+10.6%，暴击叠[锋芒]（最多 6 层，每层斩击暴伤+6%）；层数耗尽后切回远程模式。",
+        "落霜积累：队伍中任意角色打出紊乱后为星见雅积攒[落霜]，满层[落霜] + 满蓄力长按普攻[落羽]是主要爆发；期间依赖队友快速为雅积层。",
+        "核心增益：[冲刺攻击：飞弦·斩]暴击率 1:1 转化为烈霜积蓄效率（最高 80%），面板暴击率约 70%+ 即可叠满局内积蓄效率上限。",
+        "配队要点：星见雅额外能力需队内击破/异常；主推 星南柚（星见雅+南宫羽+柚叶，双异常紊乱）或 雅柚苍（星见雅+柚叶+苍角，双冰支援回能）。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "暴击率是星见雅的核心：核心暴击率+14.4%、专武残心青囊副词条暴击率+24%、四号位暴击率+24%，面板暴击率约 70%+ 即可（局内配合专武/如影叠满 80%+，对应积蓄效率上限）。",
+        "折枝剑歌 4 件的异常掌控≥115 时暴伤+30%、冻结/碎冰后暴击率+12% 为局内，不计入面板；如影相随/啄木鸟电音局内攻击力+暴击同理不进面板。",
+        "[锋芒]最多 6 层，持续 5 秒，尽量在[醒觉]斩击窗口内吃满层数再切出。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（异常精通+基础攻击）与普攻（输出核心）。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "星见 雅",
+      "weapon": "霰落星殿",
+      "core": "异常精通 +90、基础攻击力 +75",
+      "set4": "折枝剑歌",
+      "set2": "啄木鸟电音",
+      "mainStats": "4 号位暴击率 +24%，5 号位冰属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "54 条满配：暴击率 ×8、爆伤 ×31、攻击力% ×5、小攻击 ×4、穿透值 ×6"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2745.3,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 80.2,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 214.8,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T09:53:21+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "星见 雅",
+      "weapon": "霰落星殿",
+      "core": "异常精通 +90、基础攻击力 +75",
+      "set4": "折枝剑歌",
+      "set2": "啄木鸟电音",
+      "mainStats": "4 号位暴击率 +24%，5 号位冰属性伤害 +30%，6 号位攻击力 +30%",
+      "subStats": "低词条参考：暴击率 ×4、爆伤 ×16、攻击力% ×3、小攻击 ×2、穿透值 ×5"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2610.0,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 70.6,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 142.8,
+        "unit": "%"
+      },
+      {
+        "label": "增伤",
+        "value": 30,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T09:53:21+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

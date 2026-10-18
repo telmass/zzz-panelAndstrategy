@@ -7,12 +7,12 @@
 ``zzz_panel.services.panel_service`` 实算，再把 ``totals`` 与配装说明写回攻略 JSON 的
 ``graduationPanel`` 字段——与攻略页里展示的计算器同一份代码，保证口径一致。
 
-用法（仓库根；默认值即叶瞬光参考实例，位于 strategy/ye-shun-guang/）::
+用法（仓库根；默认值即叶瞬光参考实例，位于 strategy/ye-shunguang/）::
 
     uv run python .github/skills/agent-strategy/scripts/calc_graduation_panel.py \
         --agent-id ep-1687 --weapon-id ep-1751 --set4-id ep-1754 --set2-id ep-1000 \
         --core1 cr --core2 atk_base \
-        --strategy strategy/ye-shun-guang/data/ye-shun-guang.strategy.json
+        --strategy strategy/ye-shunguang/data/ye-shunguang.strategy.json
 
 换代理人只需换 id 与配装 flag，不必改脚本里的 BUILD 常量（不传 flag 时 BUILD 即默认值）::
 
@@ -24,10 +24,24 @@
         --rows hp,penforce,cr,cd \
         --main-spec "4 号位暴击伤害 +48%，5 号位伤害加成 +30%，6 号位生命值 +30%" \
         --sub-spec "54 条满配：暴击率 ×20、暴击伤害 ×14、生命值% ×12、攻击力% ×8" \
-        --strategy strategy/ban-yue/data/ban-yue.strategy.json
+        --strategy strategy/banyue/data/banyue.strategy.json
 
     # 只比对不写回（漂移检测，退出码非 0 即不一致）
     … 追加 --check
+
+非满配面板（可选）：同一音擎 / 核心 / 套装，主词条与副词条都可另给（``--alt-disc4/5/6``
+与 ``--alt-main-spec``，缺省沿用满配），实算后写入 ``graduationPanelAlt``
+（页面渲染在满配面板下方，``--check`` 同时校验两份）::
+
+    uv run python .github/skills/agent-strategy/scripts/calc_graduation_panel.py \
+        --agent-id ep-1386 --weapon-id ep-1463 --set4-id ep-1551 --set2-id ep-1194 \
+        --core1 ac --core2 atk_base --sub-stats atk_pct:24,am:16,atk_flat:5,hp_flat:4,def_flat:5 --rows atk,am,ac \
+        --alt-sub-stats atk_pct:8 \
+        --alt-disc4 atk_pct_30 --alt-disc5 atk_pct_30 --alt-disc6 ac_pct_30 \
+        --alt-label "非满配毕业面板（8 词条）" \
+        --alt-main-spec "4 号位攻击力 +30%，5 号位攻击力 +30%，6 号位异常掌控 +30%" \
+        --alt-spec "8 条：攻击力% ×8" \
+        --strategy strategy/yuye/data/yuye.strategy.json
 
 换代理人必须同步调整（详见 SKILL.md Step 4）：
 * ``--agent-id / --weapon-id / --set4-id / --set2-id / --core1 / --core2`` 指向新代理人的
@@ -79,25 +93,34 @@ SPEC_MAIN_STATS = "4 号位暴击伤害 +48%，5 / 6 号位攻击力 +30%"
 SPEC_SUB_STATS = "54 条满配：暴击率 ×13、暴击伤害 ×21、攻击力% ×20"
 
 #: totals / mode_stats 键 -> 展示文案（与计算器 ResultPanel 的行一致）。
-#: 毕业面板展示哪些行由 ``--rows`` 决定：叶瞬光（强攻，标准模式）默认
-#: 攻击 / 双爆 / 穿透值；般岳（命破）用 hp,penforce,cr,cd——
-#: 生命值 / 贯穿力 / 双爆，贯穿力来自命破模式专属行（ rupture mode_stats ）。
+#: 毕业面板展示哪些行由 ``--rows`` 决定，没有通用标准：
+#: 叶瞬光（强攻，标准模式）默认 atk,cr,cd,pv；
+#: 般岳（命破）用 hp,penforce,cr,cd——命破的伤害口径是贯穿力；
+#: 克拉蕾（锋御）应含 actual_cr,blast_dmg——锋御看实际暴击率与锐暴伤害。
 TOTAL_LABELS = {
     "hp": "生命值",
     "atk": "攻击力",
+    "def": "防御力",
     "cr": "暴击率",
     "cd": "暴击伤害",
+    "dmg": "增伤",
+    "imp": "冲击力",
+    "am": "异常精通",
+    "ac": "异常掌控",
+    "pr": "穿透率",
     "pv": "穿透值",
     "penforce": "贯穿力",
+    "actual_cr": "实际暴击率",
+    "blast_dmg": "锐暴伤害",
 }
 
 #: 默认展示行（可被 --rows 覆盖）。
 DEFAULT_ROWS = ("atk", "cr", "cd", "pv")
 
-#: 百分比行（与计算器渲染一致）。
-PCT_ROWS = {"cr", "cd", "dmg", "pr"}
+#: 百分比行（与计算器渲染一致；锐暴伤害在主界面也带 % 后缀）。
+PCT_ROWS = {"cr", "cd", "dmg", "pr", "actual_cr", "blast_dmg"}
 
-DEFAULT_STRATEGY = REPO_ROOT / "strategy" / "ye-shun-guang" / "data" / "ye-shun-guang.strategy.json"
+DEFAULT_STRATEGY = REPO_ROOT / "strategy" / "ye-shunguang" / "data" / "ye-shunguang.strategy.json"
 
 
 def load_preset(path: Path, preset_id: str) -> dict:
@@ -110,6 +133,27 @@ def load_preset(path: Path, preset_id: str) -> dict:
 
 def load_all(path: Path) -> dict:
     return {item["id"]: item for item in json.loads(path.read_text(encoding="utf-8"))}
+
+
+def parse_sub_stats(text: str) -> dict:
+    """解析副词条分配：紧凑格式 ``cr:13,cd:16,...`` 或 JSON 字符串。
+
+    紧凑格式优先：Windows shell 传参时 JSON 的双引号会被吃掉。
+    """
+    text = text.strip()
+    try:
+        if text.startswith("{"):
+            return {str(k): int(v) for k, v in json.loads(text).items()}
+        sub_stats = {}
+        for pair in text.split(","):
+            key, _, value = pair.partition(":")
+            sub_stats[key.strip()] = int(value)
+        return sub_stats
+    except (ValueError, AttributeError) as error:
+        raise SystemExit(
+            f"--sub-stats 无法解析：{error}；"
+            "支持 '{\"cr\":13}' 或紧凑格式 cr:13,cd:16"
+        )
 
 
 def resolve_build(args) -> dict:
@@ -125,34 +169,29 @@ def resolve_build(args) -> dict:
             disc_main[slot] = override
 
     sets = dict(BUILD["sets"])
-    if args.set4_effect:
+    # 套装效果不存在可用选项时（如山大王的「失衡值+6%」选项表没有对应项）传 none 占位
+    if args.set4_effect and args.set4_effect != "none":
         sets["set0"] = args.set4_effect
+    elif args.set4_effect == "none":
+        sets["set0"] = ""
     if args.set2_effect:
         sets["set2"] = args.set2_effect
 
-    sub_stats = dict(BUILD["sub_stats"])
-    if args.sub_stats:
-        text = args.sub_stats.strip()
-        try:
-            if text.startswith("{"):
-                sub_stats = {str(k): int(v) for k, v in json.loads(text).items()}
-            else:
-                # 紧凑格式 cr:13,cd:16,hp_pct:15,atk_pct:10——避免 Windows  shell
-                # 传参时 JSON 的双引号被吃掉。
-                sub_stats = {}
-                for pair in text.split(","):
-                    key, _, value = pair.partition(":")
-                    sub_stats[key.strip()] = int(value)
-        except (ValueError, AttributeError) as error:
-            raise SystemExit(
-                f"--sub-stats 无法解析：{error}；"
-                "支持 '{\"cr\":13}' 或紧凑格式 cr:13,cd:16"
-            )
+    sub_stats = parse_sub_stats(args.sub_stats) if args.sub_stats else dict(BUILD["sub_stats"])
 
     spec_main = args.main_spec or SPEC_MAIN_STATS
     spec_sub = args.sub_spec or SPEC_SUB_STATS
     if sum(sub_stats.values()) != 54:
         print(f"注意：副词条合计 {sum(sub_stats.values())} 条，标准满配为 54 条。", file=sys.stderr)
+
+    # 非满配面板：同一配装，副词条数由 --alt-sub-stats 人为界定（不要求 54 条）
+    alt_sub_stats = parse_sub_stats(args.alt_sub_stats) if args.alt_sub_stats else None
+    if alt_sub_stats is not None:
+        alt_spec = args.alt_spec or f"{sum(alt_sub_stats.values())} 条：" + "、".join(
+            f"{key}×{value}" for key, value in alt_sub_stats.items()
+        )
+    else:
+        alt_spec = args.alt_spec
 
     return {
         "disc_main": disc_main,
@@ -160,10 +199,18 @@ def resolve_build(args) -> dict:
         "sub_stats": sub_stats,
         "main_spec": spec_main,
         "sub_spec": spec_sub,
+        "alt_sub_stats": alt_sub_stats,
+        "alt_spec": alt_spec,
     }
 
 
-def build_request(args) -> tuple[PanelRequest, dict]:
+def build_request(
+    args,
+    sub_stats: dict | None = None,
+    sub_spec: str | None = None,
+    disc_main: dict | None = None,
+    main_spec: str | None = None,
+) -> tuple[PanelRequest, dict]:
     agent = load_preset(REPO_ROOT / "data" / "agent-presets.json", args.agent_id)
     weapon = load_preset(REPO_ROOT / "data" / "weapon-presets.json", args.weapon_id)
     discs = load_all(REPO_ROOT / "data" / "drive-disc-presets.json")
@@ -187,8 +234,9 @@ def build_request(args) -> tuple[PanelRequest, dict]:
             "pr": base.get("pr", 0), "er": base.get("er", 0),
         },
         weapon={
-            "baseKind": weapon["baseKind"],
-            "baseValue": weapon["baseAttack"],
+            # 锋御音擎的基础属性是防御力（baseKind=def），不能一律取 baseAttack
+            "baseKind": weapon.get("baseKind") or "atk",
+            "baseValue": weapon["baseDefense"] if weapon.get("baseKind") == "def" else weapon["baseAttack"],
             "substat": {
                 "target": weapon["substat"]["to"],
                 "value": weapon["substat"]["value"],
@@ -196,10 +244,14 @@ def build_request(args) -> tuple[PanelRequest, dict]:
                 "label": weapon["substat"]["label"],
             },
         },
-        # 满级核心加成：两个核心选项（叶瞬光/般岳 = 暴击率 cr + 基础攻击力 atk_base）
-        core={"core1": args.core1, "core2": args.core2},
-        disc_main=build["disc_main"],
-        sub_stats=build["sub_stats"],
+        # 满级核心加成：两个核心选项（叶瞬光/般岳 = 暴击率 cr + 基础攻击力 atk_base；
+        # 克拉蕾 = 只有暴击率 cr，第二个用 none 占位——PowerShell 传不了空参数）。
+        core={
+            "core1": "" if args.core1 in ("", "none") else args.core1,
+            "core2": "" if args.core2 in ("", "none") else args.core2,
+        },
+        disc_main=build["disc_main"] if disc_main is None else disc_main,
+        sub_stats=build["sub_stats"] if sub_stats is None else sub_stats,
         sets=build["sets"],
     )
     spec = {
@@ -208,29 +260,30 @@ def build_request(args) -> tuple[PanelRequest, dict]:
         "core": args.core_spec,
         "set4": set4["name"],
         "set2": set2["name"],
-        "mainStats": build["main_spec"],
-        "subStats": build["sub_spec"],
+        "mainStats": build["main_spec"] if main_spec is None else main_spec,
+        "subStats": build["sub_spec"] if sub_spec is None else sub_spec,
     }
     return request, spec
 
 
-def compute(args) -> dict:
-    request, spec = build_request(args)
+def compute_panel(args, request: PanelRequest, spec: dict) -> dict:
     response = calculate(request)
     rows = [key.strip() for key in (args.rows or ",".join(DEFAULT_ROWS)).split(",") if key.strip()]
     unknown = [key for key in rows if key not in TOTAL_LABELS]
     if unknown:
         raise SystemExit(f"--rows 含未知键 {unknown}；可用：{sorted(TOTAL_LABELS)}")
-    # penforce 等模式专属行在 mode_stats 里，其余在 totals 里
+    # penforce / actual_cr 在 mode_stats 里；blast_dmg 是顶层字段（锋御固有属性）
     values = dict(response.totals)
     values.update(response.mode_stats or {})
+    if getattr(response, "blast_dmg", None) is not None:
+        values["blast_dmg"] = response.blast_dmg
     totals = []
     for key in rows:
         if key not in values:
             continue
+        # 不截断：锋御的多重暴击让面板暴击率可以（也应该）超过 100%，
+        # 与主界面 ResultPanel 的展示口径保持一致。
         value = values[key]
-        if key in PCT_ROWS:
-            value = min(value, 100.0) if key in {"cr"} else value
         totals.append(
             {
                 "label": TOTAL_LABELS[key],
@@ -244,6 +297,34 @@ def compute(args) -> dict:
         "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
         "computedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
     }
+
+
+def compute(args) -> tuple[dict, dict | None]:
+    """返回 (满配面板, 非满配面板 or None)。"""
+    request, spec = build_request(args)
+    panel = compute_panel(args, request, spec)
+
+    build = resolve_build(args)
+    if build["alt_sub_stats"] is None:
+        return panel, None
+    # 非满配：音擎 / 核心 / 套装与满配一致；主词条可另给（--alt-disc4/5/6，
+    # 缺省沿用满配），副词条换成人为界定的条数
+    alt_disc_main = dict(build["disc_main"])
+    for slot in ("disc4", "disc5", "disc6"):
+        override = getattr(args, f"alt_{slot}", None)
+        if override:
+            alt_disc_main[slot] = override
+    alt_request, alt_spec_base = build_request(
+        args,
+        sub_stats=build["alt_sub_stats"],
+        sub_spec=build["alt_spec"],
+        disc_main=alt_disc_main,
+        main_spec=args.alt_main_spec or build["main_spec"],
+    )
+    alt_spec = dict(alt_spec_base)
+    alt = compute_panel(args, alt_request, alt_spec)
+    alt["title"] = args.alt_label or "非满配毕业面板"
+    return panel, alt
 
 
 def strip_timestamp(panel: dict | None) -> dict | None:
@@ -270,6 +351,17 @@ def main() -> int:
     parser.add_argument("--main-spec", default="", help=f"配装说明主词条文案，默认 {SPEC_MAIN_STATS}")
     parser.add_argument("--sub-spec", default="", help=f"配装说明副词条文案，默认 {SPEC_SUB_STATS}")
     parser.add_argument(
+        "--alt-sub-stats",
+        default="",
+        help="非满配面板的副词条分配（紧凑格式 atk_pct:6,am:4,atk_flat:2）；不传则不生成非满配面板",
+    )
+    parser.add_argument("--alt-label", default="", help="非满配面板标题文案，默认「非满配毕业面板」")
+    parser.add_argument("--alt-spec", default="", help="非满配面板的副词条文案，缺省按条数自动生成")
+    parser.add_argument("--alt-disc4", default="", help="非满配面板 4 号位主词条选项 id，缺省沿用满配")
+    parser.add_argument("--alt-disc5", default="", help="非满配面板 5 号位主词条选项 id，缺省沿用满配")
+    parser.add_argument("--alt-disc6", default="", help="非满配面板 6 号位主词条选项 id，缺省沿用满配")
+    parser.add_argument("--alt-main-spec", default="", help="非满配面板的主词条文案，缺省沿用满配")
+    parser.add_argument(
         "--mode",
         default="",
         help="面板模式（standard/rupture/fengyu），默认取预设的 panelMode；般岳=rupture 才会算贯穿力",
@@ -278,13 +370,13 @@ def main() -> int:
         "--rows",
         default="",
         help=f"毕业面板展示行（逗号分隔，可用键 {sorted(TOTAL_LABELS)}），默认 {','.join(DEFAULT_ROWS)}；"
-        "般岳传 hp,penforce,cr,cd（生命值/贯穿力/双爆）",
+        "般岳（命破）传 hp,penforce,cr,cd；克拉蕾（锋御）传 def,actual_cr,blast_dmg,cr,cd",
     )
     parser.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY, help=f"攻略 JSON 路径，默认 {DEFAULT_STRATEGY}")
     parser.add_argument("--check", action="store_true", help="只比对，不写回")
     args = parser.parse_args()
 
-    panel = compute(args)
+    panel, alt = compute(args)
 
     if not args.strategy.is_file():
         print(f"攻略文件不存在：{args.strategy}", file=sys.stderr)
@@ -292,7 +384,11 @@ def main() -> int:
         return 1
 
     strategy = json.loads(args.strategy.read_text(encoding="utf-8"))
-    if strip_timestamp(strategy.get("graduationPanel")) == strip_timestamp(panel):
+    stored_alt = strategy.get("graduationPanelAlt")
+    if (
+        strip_timestamp(strategy.get("graduationPanel")) == strip_timestamp(panel)
+        and strip_timestamp(stored_alt) == strip_timestamp(alt)
+    ):
         print("毕业面板已是最新。")
         return 0
 
@@ -301,10 +397,18 @@ def main() -> int:
         return 1
 
     strategy["graduationPanel"] = panel
+    if alt is not None:
+        strategy["graduationPanelAlt"] = alt
+    elif "graduationPanelAlt" in strategy:
+        del strategy["graduationPanelAlt"]
     args.strategy.write_text(json.dumps(strategy, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"已写入 {args.strategy}")
     for item in panel["totals"]:
         print(f"  {item['label']}: {item['value']}{item['unit']}")
+    if alt is not None:
+        print(f"  [{alt['title']}]")
+        for item in alt["totals"]:
+            print(f"  {item['label']}: {item['value']}{item['unit']}")
     return 0
 
 

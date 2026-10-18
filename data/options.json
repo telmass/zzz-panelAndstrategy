@@ -234,6 +234,13 @@
       "to": "def_pct"
     },
     {
+      "id": "def_pct_16",
+      "label": "防御力 +16%",
+      "value": 16,
+      "kind": "pct",
+      "to": "def_pct"
+    },
+    {
       "id": "cr_8",
       "label": "暴击率 +8%",
       "value": 8,

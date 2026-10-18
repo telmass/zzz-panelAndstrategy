@@ -4,7 +4,7 @@ import { useSubStatLimit } from '@/composables/useSubStatLimit';
 import { PanelModule, StepperInput } from '@/components/common';
 
 /**
- * 五、驱动盘副词条。对应 legacy 的 `.module.sub`。
+ * 模块 05 · 驱动盘副词条。对应 legacy 的 `.module.sub`。
  *
  * legacy 由 JS 以模板字符串注入 `#sub_grid`，并直接操作 DOM 写合计读数、
  * 按钮 disabled 与输入框钳制；此处改为 `useSubStatLimit` 计算后经 props 下传，
@@ -14,7 +14,7 @@ const { entries, totalCount, isTotalExceeded, step, setCount } = useSubStatLimit
 </script>
 
 <template>
-  <PanelModule title="五、驱动盘副词条" tag="每盘9条 · 6盘共54条" variant="sub">
+  <PanelModule title="驱动盘副词条" tag="每盘9条 · 6盘共54条" variant="sub" index="05">
     <p class="note note--lead">
       填写6盘合计副词条条数（每盘4初始+5强化=9条）。单条数值见标签，自动按条数折算。
     </p>

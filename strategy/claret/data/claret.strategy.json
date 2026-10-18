@@ -1,0 +1,347 @@
+{
+  "_meta": {
+    "agentId": "ep-2145",
+    "name": "克拉蕾·弗林特",
+    "note": "本文件为克拉蕾·弗林特的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 claret.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/claret/data/claret.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：社区攻略整理，经需求方确认"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/2145/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "猩红渴望",
+          "stats": "S 级 · 基础防御 431 · 防御力 48%",
+          "icon": "/images/weapons/ep-2188.png"
+        }
+      ],
+      "note": "专武：高基础防御与防御力词条，另有暴击率、电属性与锐化伤害加成，大幅降低堆暴击率的压力，是锋御体系里唯一的 S 级。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "血髓秘匣",
+          "stats": "A 级 · 基础防御 356 · 暴击率 20%",
+          "icon": "/images/weapons/ep-2189.png"
+        },
+        {
+          "name": "喵运当头",
+          "stats": "A 级 · 基础防御 356 · 防御力 40%",
+          "icon": "/images/weapons/ep-2200.png"
+        }
+      ],
+      "note": "锋御音擎的基础属性是防御力，下位只能在锋御音擎里选：血髓秘匣补暴击率（成长计划），喵运当头补防御（玩具店兑换）。"
+    },
+    {
+      "tier": "过渡",
+      "items": [
+        {
+          "name": "月相·弦",
+          "stats": "B 级 · 基础防御 282 · 防御力 32%",
+          "icon": "/images/weapons/ep-2190.png"
+        }
+      ],
+      "note": "B 级锋御音擎，抽卡副产物或玩具店购买，仅供前期过渡、不建议强化过 40 级。注意锋御不能用其他职业音擎替代——基础属性不是攻击力。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "荆棘玫瑰 4 件套 + 河豚电音 2 件套",
+      "set4": {
+        "name": "荆棘玫瑰",
+        "label": "防御力 +16%",
+        "effect4": "装备者造成的伤害提升15%，装备者初始防御力大于等于1000/1800点时，暴击率提升8/16%",
+        "icon": "/images/discs/ep-2121.png"
+      },
+      "set2": {
+        "main": {
+          "name": "河豚电音",
+          "label": "穿透率 +8%",
+          "icon": "/images/discs/ep-193.png"
+        },
+        "alt": {
+          "name": "啄木鸟电音",
+          "label": "暴击率 +8%",
+          "icon": "/images/discs/ep-232.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击率 +24%",
+          "alt": "防御力 +48%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "穿透率 +24%",
+          "alt": "电属性伤害 +30% / 防御力 +48%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "防御力 +48%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "防御力%",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": ">"
+        },
+        {
+          "label": "防御力",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "锋御体系",
+      "members": [
+        {
+          "agentId": "ep-2145",
+          "name": "克拉蕾",
+          "role": "锋御",
+          "avatar": "/images/agents/ep-2145.png",
+          "note": "电属性锋御驻场主C，以防御力为招式倍率，围绕[猩红铭刻]打残痕与毁伤。",
+          "set4": [
+            {
+              "name": "荆棘玫瑰",
+              "icon": "/images/discs/ep-2121.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-316",
+          "name": "丽娜",
+          "role": "支援",
+          "avatar": "/images/agents/ep-316.png",
+          "note": "防御向支援，提供穿透与防御增益，把克拉蕾的锐暴与毁伤进一步放大。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-2152",
+          "name": "洛克茜",
+          "role": "击破",
+          "avatar": "/images/agents/ep-2152.png",
+          "note": "风属性击破，快速打进失衡并提供锋御联动与锐暴伤害加成，与克拉蕾高度适配。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "均衡过渡",
+      "members": [
+        {
+          "agentId": "ep-2145",
+          "name": "克拉蕾",
+          "role": "锋御",
+          "avatar": "/images/agents/ep-2145.png",
+          "note": "电属性锋御驻场主C，以防御力为招式倍率，围绕[猩红铭刻]打残痕与毁伤。",
+          "set4": [
+            {
+              "name": "荆棘玫瑰",
+              "icon": "/images/discs/ep-2121.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-316",
+          "name": "丽娜",
+          "role": "支援",
+          "avatar": "/images/agents/ep-316.png",
+          "note": "防御向支援，提供穿透与防御增益，弥补过渡队缺少锋御联动的缺口。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-318",
+          "name": "珂蕾妲",
+          "role": "击破",
+          "avatar": "/images/agents/ep-318.png",
+          "note": "A 级击破，快速打迸失衡，让克拉蕾把残痕与毁伤集中塞进爆发窗口。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表（驻场循环）",
+      "lines": [
+        "① 强化特殊技进入[猩红铭刻]，切换为强化输出模组；处于该状态时抗打断等级提升，发动[连携技]可再延长 2 秒持续时间。",
+        "② [猩红铭刻]期间持续普攻积累残痕值，残痕满 3 层后尽量在失衡爆发窗口集中消耗。",
+        "③ 用[特殊技：血华誓·斩金断铁]/[特殊技：血华誓·葬血强袭]命中带[残痕]的敌人会消耗一层残痕并触发[毁伤]，打出范围爆发；不必每次硬等 3 层，避免残痕溢出。",
+        "④ 反制支援/角力可处理 BOSS 控制招式，既保生存也减少输出空档。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "克拉蕾的招式伤害以防御力为倍率，养成不要再照强攻思路堆攻击力与暴击伤害。",
+        "触发暴击时锐化伤害不吃暴击伤害加成、改算锐暴伤害；暴击率超过 100% 后，超出部分还能多打一次锐暴判定，因此暴击率可以远超 100%。",
+        "每拥有 1% 初始暴击伤害，初始暴击率提升 0.35%（实际暴击率 = 暴击伤害 × 35% + 暴击率），所以面板同时给暴击率与暴击伤害两行。",
+        "克拉蕾的能量是[锐能]，不吃能量自动回复词条；入场即回 60 点锐能。",
+        "荆棘玫瑰四件套要求初始防御力 1000/1800 点才有 8%/16% 暴击率，配装时先确认防御力达标。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "克拉蕾·弗林特",
+      "weapon": "猩红渴望",
+      "core": "暴击率 +28.8%（A-F 六段核心均为暴击率，按两个 14.4% 选项计入）",
+      "set4": "荆棘玫瑰",
+      "set2": "河豚电音",
+      "mainStats": "4 号位暴击率 +24%，5 号位穿透率 +24%，6 号位防御力 +48%",
+      "subStats": "54 条满配：暴击率 ×19、防御力% ×15、穿透值 ×12、防御力 ×5、暴击伤害 ×3"
+    },
+    "totals": [
+      {
+        "label": "防御力",
+        "value": 2735.5,
+        "unit": ""
+      },
+      {
+        "label": "实际暴击率",
+        "value": 143.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 64.4,
+        "unit": "%"
+      },
+      {
+        "label": "穿透值",
+        "value": 108,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T04:40:15+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "克拉蕾·弗林特",
+      "weapon": "猩红渴望",
+      "core": "暴击率 +28.8%（A-F 六段核心均为暴击率，按两个 14.4% 选项计入）",
+      "set4": "荆棘玫瑰",
+      "set2": "河豚电音",
+      "mainStats": "4 号位暴击率 +24%，5 号位穿透率 +24%，6 号位防御力 +48%",
+      "subStats": "31 条：暴击率 ×13、暴击伤害 ×4、防御力% ×12、防御力 ×2"
+    },
+    "totals": [
+      {
+        "label": "防御力",
+        "value": 2564.9,
+        "unit": ""
+      },
+      {
+        "label": "实际暴击率",
+        "value": 130.7,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 69.2,
+        "unit": "%"
+      },
+      {
+        "label": "穿透值",
+        "value": 0,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T04:40:15+00:00",
+    "title": "非满配毕业面板（31 词条）"
+  }
+}

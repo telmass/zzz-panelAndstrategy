@@ -79,8 +79,8 @@ uv run --group worker pywrangler dev
 ## 4. 测试
 
 ```powershell
-uv run pytest                          # 后端 121 项
-cd frontend; npm run test              # 前端 90 项
+uv run pytest                          # 后端 306 项
+cd frontend; npm run test              # 前端 112 项
 ```
 
 前端另外两个脚本：
@@ -93,6 +93,10 @@ npm run test:watch     # vitest 监听模式
 **要求：pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行——
 尤其 `test_fmt_parity.py`，它会因「node 不可用」以外的原因跳过，
 详见 [testing.md](testing.md)。看到 skip 要查原因，不要忽略。
+
+> ✅ **后端测试当前全绿（306 项）。** 此前 60 项失败集中在攻略数据命名 / UTF-8 编码
+> （`test_strategy_data.py`）与音擎数量从 100 变 101 后的硬编码断言，已分别通过
+> 数据归一 / 重新抓取与动态读取修复。回归守卫见 [structure-review.md](structure-review.md) P0-1 ～ P0-3。
 
 > ⚠️ **不要并行跑 `uv run pytest` 与 `npm run test`。** 后者会拉起真实 uvicorn，
 > 两者同时触发 `uv` 重装本包时 uvicorn 20 秒内报不出端口，表现为 4 个对拍用例
@@ -112,7 +116,8 @@ npm run test:watch     # vitest 监听模式
 
 ## 6. 数据管线
 
-`data/` 下的 JSON 是**唯一真实源**，但它们都是生成物，改了源头要重新生成。
+`data/` 下的 JSON 是**唯一真实源**，但其中四个是生成物，改了源头要重新生成；
+`data/agent-name-mapping.json` 是手工维护的规范 slug 表，不是生成物，不要用抓取脚本覆盖。
 
 ```
 Skill 抓取脚本                  core/options.py
@@ -166,6 +171,22 @@ python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
 写到 `frontend/public/images/discs/ep-<entry_page_id>.png`。**不触发**
 `sync_presets.py --to-legacy`，也不进 `_bundled_data.py`——计算器不消费它
 （当前消费者是攻略页的驱动盘卡）。重跑幂等：JSON 字节不变，图片仅在内容变化时才重写。
+
+### 归一攻略页数据
+
+攻略页目录、数据文件名与图片引用必须统一到 `data/agent-name-mapping.json` 的 slug：
+
+```powershell
+python tools/normalize_strategy.py --check          # 只报告漂移，退出码 1
+python tools/normalize_strategy.py                  # 重命名文件并改写引用
+python tools/normalize_strategy.py --rescrape-invalid  # 重新抓取非 UTF-8 的抓取产物
+python tools/gen_strategy_guides.py                 # 从数据重新生成攻略登记表
+python tools/gen_strategy_guides.py --check
+```
+
+`--check` 覆盖目录名、`<slug>.json` / `<slug>.strategy.json`、JSON 内的图片路径与
+Skill 文档里的示例路径。页面模板已统一迁入 Vue，新增代理人不再产生
+`index.html/app.js/styles.css`；登记表由生成器维护，不再手改。
 
 ### 改了预设数据、且要部署到 Cloudflare
 
@@ -324,14 +345,16 @@ pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该�
 ## 10. 提交前检查
 
 ```powershell
-uv run pytest                      # 后端 121 项，0 skip
+uv run pytest                      # 后端 306 项，0 skip
 cd frontend
 npm run typecheck                  # 类型
-npm run test                       # 90 项，含三方对拍（与 pytest 串行跑）
+npm run test                       # 112 项，含三方对拍（与 pytest 串行跑）
 cd ..
 python tools/sync_presets.py --to-legacy --check
 python tools/sync_presets.py --options --check
 python tools/bundle_worker_data.py --check
+python tools/normalize_strategy.py --check
+python tools/gen_strategy_guides.py --check
 git diff --check
 ```
 

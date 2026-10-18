@@ -1,0 +1,321 @@
+{
+  "_meta": {
+    "agentId": "ep-1962",
+    "name": "诺姆",
+    "note": "本文件为诺姆·霍洛维尔的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 norma.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/norma/data/norma.json）",
+      "音擎特效：抓取自米游社 WIKI 各音擎详情页（首席跟班 / 福虓炉炉 / 昨夜来电 / 索魂影眸 / 人为刀俎）",
+      "配装口径：仓库计算器选项表（data/options.json）与音擎预设（data/weapon-presets.json）、驱动盘预设（data/drive-disc-presets.json）"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1962/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "首席跟班",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-2088.png"
+        }
+      ],
+      "note": "专武（天才的扈从）：冲击力 +42 点、造成的伤害无视目标火属性伤害抗性；位于后场持续回能，发动强化特殊技造成火属性伤害时为全队叠增伤——与炮塔流后场打法完全咬合。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "福虓炉炉",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-1427.png"
+        }
+      ],
+      "note": "强化特殊技 / 连携技 / 终结技造成的失衡值大幅提升，火属性连携或终结时再给全队增伤，失衡向最直接的替代。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "昨夜来电",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1689.png"
+        },
+        {
+          "name": "索魂影眸",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1243.png"
+        }
+      ],
+      "note": "昨夜来电位于后场回能、强化特殊技叠失衡值并在叠满后给全队暴击伤害；索魂影眸给暴击率与冲击力并削目标防御。两者都补她最缺的暴击率基数。"
+    },
+    {
+      "tier": "四星",
+      "items": [
+        {
+          "name": "人为刀俎",
+          "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
+          "icon": "/images/weapons/ep-157.png"
+        }
+      ],
+      "note": "按持有能量换冲击力、附带能量自动回复，A 级里与她能量运转最合拍的一张，前期过渡够用。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "山大王 4 件套 + 摇摆爵士 2 件套",
+      "set4": {
+        "name": "山大王",
+        "label": "失衡值 +6%",
+        "effect4": "装备者为[击破]角色时，发动[强化特殊技]或[连携技]会使全队角色暴击伤害提升15%，装备者的暴击率大于等于50%时暴击伤害额外提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
+        "icon": "/images/discs/ep-1346.png"
+      },
+      "set2": {
+        "main": {
+          "name": "摇摆爵士",
+          "label": "能量自动回复 +20%",
+          "icon": "/images/discs/ep-231.png"
+        },
+        "alt": [
+          {
+            "name": "震星迪斯科",
+            "label": "冲击力 +6%",
+            "icon": "/images/discs/ep-152.png"
+          },
+          {
+            "name": "激素朋克",
+            "label": "攻击力 +10%",
+            "icon": "/images/discs/ep-151.png"
+          }
+        ]
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击率 +24%",
+          "alt": "暴击伤害 +48%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "火属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "冲击力 +24%",
+          "alt": "攻击力 +30%"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": "≈"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "希诺耀",
+      "members": [
+        {
+          "agentId": "ep-2079",
+          "name": "希格莉德",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-2079.png",
+          "note": "冰属性驻场主C，强攻身份满足诺姆额外能力的触发条件；失衡窗口正好接她的敛枪式爆发。",
+          "set4": [
+            {
+              "name": "拂晓生花",
+              "icon": "/images/discs/ep-1552.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1962",
+          "name": "诺姆",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1962.png",
+          "note": "火属性击破，炮塔后场持续输出，主动触发希格莉德的连携技并延长失衡时间。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太属性支援，提供异常与增伤增益，补上队伍的续航与增伤区。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表（炮台循环）",
+      "lines": [
+        "① 进场自带 60%[预热膛温]。在场上前台接战时每秒积 1.5%[预热膛温]，长按普攻[帽子把戏]扔出[随行礼帽]后由礼帽代替积攒，诺姆可退回后场。",
+        "② 能量足够时打[强化特殊技：嗯呢弹幕]，放下两座[嗯呢炮塔]并直接获得 16%[预热膛温]；长按可继续消耗能量延长炮击并额外积攒膛温。",
+        "③ [预热膛温]达到 80% 后，下次[帽子把戏]消耗 80% 膛温并替换为队友的[连携技]——先在后台攒满再切前场触发，是她的核心节奏。",
+        "④ 队友把敌人打进失衡后，[强化特殊技：火力实验]会让炮塔展开导弹舱 8 秒，攻击间隔缩短并对失衡目标换高爆弹头。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "核心被动[精准制导]要求**面板暴击率超过 50%**：超过部分每 1% 换 0.86% 暴击伤害（上限 +43%）与 0.44% 失衡值（上限 +22%），所以她的暴击率是越高越好的主属性。",
+        "核心被动还按**自身贯穿力**换算攻击力（每 1 点 +1.25 攻击，上限 +1200）——WIKI 基础面板里贯穿力一行无数值（基础为 0），仓库计算器的标准模式也不建模这一段，面板攻击力不含该加成。",
+        "额外能力[集群优势]需要队伍里有[强攻]、[命破]或同阵营（外务筹策局）角色；命中叠加[技术鸿沟]提升失衡易伤，并把失衡时间延长 2 秒。",
+        "[嗯呢弹幕]持续 32 秒，期间两座炮塔常驻，切人后炮塔仍在——她的定位是后场输出 + 主动连携触发器，不要一直驻场。",
+        "山大王四件套与她的核心都看面板暴击率 ≥50%：暴击率不到位，套装与核心两段加成都吃不到。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "诺姆·霍洛维尔",
+      "weapon": "首席跟班",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "山大王",
+      "set2": "摇摆爵士",
+      "mainStats": "4 号位暴击率 +24%，5 号位火属性伤害 +30%，6 号位冲击力 +24%",
+      "subStats": "54 条满配：暴击率 ×13、暴击伤害 ×26、攻击力% ×8、攻击力 ×5、穿透值 ×2"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 131.4,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 98.6,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 174.8,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2240.0,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T07:28:16+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "诺姆·霍洛维尔",
+      "weapon": "首席跟班",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "山大王",
+      "set2": "摇摆爵士",
+      "mainStats": "4 号位暴击率 +24%，5 号位火属性伤害 +30%，6 号位冲击力 +24%",
+      "subStats": "30 条：暴击率 ×7、暴击伤害 ×13、攻击力% ×10"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 131.4,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 84.2,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 112.4,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2233.5,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T07:28:16+00:00",
+    "title": "非满配毕业面板（30 词条）"
+  }
+}

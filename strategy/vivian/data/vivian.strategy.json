@@ -1,0 +1,334 @@
+{
+  "_meta": {
+    "agentId": "ep-1276",
+    "name": "薇薇安·班希",
+    "note": "本文件为薇薇安·班希的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 vivian.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/vivian/data/vivian.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——飞鸟星梦为薇薇安专武",
+      "推荐档位与队伍：需求方确认（2026-10-16），驱动盘按 以太异常 sub-C 口径（法厄同之歌 4 件 + 自由蓝调 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/1276/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1276/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "飞鸟星梦",
+          "stats": "S 级 · 基础攻击 713 · 异常精通 90",
+          "icon": "/images/weapons/ep-1277.png"
+        }
+      ],
+      "note": "薇薇安专武（WIKI 音擎页 double_col_table 推荐代理人表列薇薇安）：S 级异常音擎，基础攻击 713、副词条异常精通 90。薇薇安的 [落羽生花] 异放按异常精通结算，专武精通直接提升异放倍率。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "淬锋钳刺",
+          "stats": "S 级 · 基础攻击 713 · 异常精通 90",
+          "icon": "/images/weapons/ep-760.png"
+        },
+        {
+          "name": "嵌合编译器",
+          "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
+          "icon": "/images/weapons/ep-214.png"
+        }
+      ],
+      "note": "异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "双生泣星",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-212.png"
+        },
+        {
+          "name": "触电唇彩",
+          "stats": "A 级 · 基础攻击 594 · 异常精通 75",
+          "icon": "/images/weapons/ep-210.png"
+        }
+      ],
+      "note": "备选异常音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "法厄同之歌 4 件套 + 自由蓝调 2 件套",
+      "set4": {
+        "name": "法厄同之歌",
+        "label": "异常掌控 +8%",
+        "effect4": "队伍中任意角色发动[强化特殊技]时，装备者的异常精通提升45点，持续8秒；如果发动[强化特殊技]的角色为薇薇安，则额外提升15点，持续8秒，同名被动效果之间不可叠加。",
+        "icon": "/images/discs/ep-1194.png"
+      },
+      "set2": {
+        "main": {
+          "name": "自由蓝调",
+          "label": "异常精通 +30",
+          "icon": "/images/discs/ep-191.png"
+        },
+        "alt": {
+          "name": "谶羽之誓",
+          "label": "异常精通 +30",
+          "icon": "/images/discs/ep-2116.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "异常精通 +92",
+          "alt": "无"
+        },
+        {
+          "slot": "5 号位",
+          "main": "攻击力 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "异常掌控 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "异常精通",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "艾柚薇",
+      "members": [
+        {
+          "agentId": "ep-1385",
+          "name": "爱丽丝",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1385.png",
+          "note": "物理异常主 C，极性强击自紊乱；薇薇安的以太异常与物理异常互相结算紊乱，双异常体系。",
+          "set4": [
+            {
+              "name": "獠牙重金属",
+              "icon": "/images/discs/ep-104.png"
+            },
+            {
+              "name": "法厄同之歌",
+              "icon": "/images/discs/ep-1194.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1386",
+          "name": "柚叶",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1386.png",
+          "note": "彩糖花火染以太，加速以太积蓄，满足薇薇安额外能力的队内异常条件；置于薇薇安之前染以太。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1276",
+          "name": "薇薇安",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1276.png",
+          "note": "以太异常后台耀变引擎，[落羽生花] 异放与 [裙裾浮游] 异常积蓄；法厄同之歌 4 件 + 自由蓝调 2 件。",
+          "set4": [
+            {
+              "name": "法厄同之歌",
+              "icon": "/images/discs/ep-1194.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "普柚薇",
+      "members": [
+        {
+          "agentId": "ep-1926",
+          "name": "普罗米娅",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1926.png",
+          "note": "冰异常副 C，南宫羽蓄力破韧开失衡窗口，薇薇安后台异放配合双异常紊乱。",
+          "set4": [
+            {
+              "name": "谶羽之誓",
+              "icon": "/images/discs/ep-2116.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1386",
+          "name": "柚叶",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1386.png",
+          "note": "染以太加速积蓄，两队共用（攻击加成 + 补伤害）。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1276",
+          "name": "薇薇安",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1276.png",
+          "note": "以太异常后台耀变引擎，与普罗米娅同为异常底座，双异常紊乱。",
+          "set4": [
+            {
+              "name": "法厄同之歌",
+              "icon": "/images/discs/ep-1194.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：普通攻击第四段后进入[淑女礼仪]，持按可进入[裙裾浮游]；[裙裾浮游]下消耗[飞羽]转为[护羽]（上限 5 点），切出时自动释放[悬落]。",
+        "后台异放：[落羽生花]命中处于任意属性异常的目标时触发[异放]，倍率按异常精通递增（每 10 点精通对应属性不同，以太异常 6.15%/10 点）；[薇薇安的预言]每 0.55 秒造成 55% 攻击力的以太伤。",
+        "爆发循环：进场 → 强化特殊技[堇花悼亡]（+3 飞羽）或连携技[星羽和声]（+2 飞羽）/终结技[飞鸟鸣颂]（+5 飞羽）积攒飞羽 → 切入[裙裾浮游]消耗飞羽转护羽 → 切出自动[悬落]。",
+        "配队要点：薇薇安额外能力需队内有异常或支援角色；主推 艾柚薇（爱丽丝物理异常 + 柚叶染以太），柚叶置于薇薇安之前染以太、加速以太积蓄。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "异常精通是薇薇安的核心倍率：[落羽生花] 异放倍率按精通递增，毕业面板优先堆异常精通；专武飞鸟星梦副词条异常精通 90 直接提升异放。",
+        "法厄同之歌 4 件的精通+45（强化特殊技触发）为局内、不进面板；自由蓝调 2 件的精通+30 选项表无对应项，--set2-effect none 显式不建模。",
+        "[护羽]最多持 5 点，[落羽生花]同一目标最多触发一次，控制好切换时机避免护羽浪费。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（异常掌控+基础攻击）与特殊技（爆发核心）。",
+        "属性为以太，仓库暂无以太属性图标，页面 hero 处显示属性色牌兜底，不影响数值与机制展示。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "薇薇安·班希",
+      "weapon": "飞鸟星梦",
+      "core": "异常掌控 +36、基础攻击力 +75",
+      "set4": "法厄同之歌",
+      "set2": "自由蓝调",
+      "mainStats": "4 号位异常精通 +92，5 号位攻击力 +30%，6 号位异常掌控 +30%",
+      "subStats": "54 条满配：异常精通 ×28、攻击力% ×11、小攻击 ×5、穿透值 ×6、小生命 ×4（填充）"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3007.6,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 552,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T07:53:25+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "薇薇安·班希",
+      "weapon": "飞鸟星梦",
+      "core": "异常掌控 +36、基础攻击力 +75",
+      "set4": "法厄同之歌",
+      "set2": "自由蓝调",
+      "mainStats": "4 号位异常精通 +92，5 号位攻击力 +30%，6 号位异常掌控 +30%",
+      "subStats": "低词条参考：异常精通 ×10、攻击力% ×8、小攻击 ×4、穿透值 ×3、填充 5 条"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2845.2,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 390,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T07:53:25+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

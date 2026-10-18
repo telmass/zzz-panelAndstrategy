@@ -7,7 +7,7 @@ import { usePanelStore } from '@/stores/panelStore';
 import { PanelModule } from '@/components/common';
 
 /**
- * 六、二件套效果。对应 legacy 的 `.module.set`。
+ * 模块 06 · 二件套效果。对应 legacy 的 `.module.set`。
  *
  * 组数语义（2+2+2=3 组、4+2=2 组、2+散件=1 组、全散件=0 组）
  * 由三组下拉的留空数量隐含表达——留空即未组成一组。
@@ -32,7 +32,7 @@ function onChange(key: 'set0' | 'set1' | 'set2', event: Event): void {
 </script>
 
 <template>
-  <PanelModule title="六、二件套效果" tag="0~3组" variant="set">
+  <PanelModule title="二件套效果" tag="0~3组" variant="set" index="06">
     <p class="note note--lead">
       2+2+2=3组 · 4+2=2组 · 2+散件=1组 · 全散件=0组。每组选一种属性。
     </p>

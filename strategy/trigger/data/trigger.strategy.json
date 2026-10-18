@@ -1,0 +1,394 @@
+{
+  "_meta": {
+    "agentId": "ep-1230",
+    "name": "「扳机」",
+    "note": "本文件为「扳机」的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 trigger.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/trigger/data/trigger.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——索魂影眸为扳机专武",
+      "推荐档位与队伍：需求方确认（2026-10-16），驱动盘按社区击破口径（如影相随 4 件 + 震星迪斯科/啄木鸟电音 2 件），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/1230/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1230/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "索魂影眸",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-1243.png"
+        }
+      ],
+      "note": "扳机专武（WIKI 音擎页 double_col_table 推荐代理人表列扳机）：击破音擎中唯一提供暴击率的音擎，副词条暴击率 24% 显著降低面板暴击率压力；特效给敌人减防，等同常驻减防乘区，提升全队伤害。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "拘缚者",
+          "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
+          "icon": "/images/weapons/ep-219.png"
+        },
+        {
+          "name": "玉壶青冰",
+          "stats": "S 级 · 基础攻击 713 · 冲击力 18%",
+          "icon": "/images/weapons/ep-678.png"
+        }
+      ],
+      "note": "击破音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "燃狱齿轮",
+          "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
+          "icon": "/images/weapons/ep-220.png"
+        },
+        {
+          "name": "贵重骨核",
+          "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
+          "icon": "/images/weapons/ep-141.png"
+        }
+      ],
+      "note": "备选击破音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "如影相随 4 件套 + 震星迪斯科 2 件套",
+      "set4": {
+        "name": "如影相随",
+        "label": "追加攻击伤害 +15%",
+        "effect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每层增益效果使装备者的攻击力提升4%和暴击率提升4%，最多叠加3层，持续8秒，重复触发时刷新持续时间。",
+        "icon": "/images/discs/ep-1193.png"
+      },
+      "set2": {
+        "main": {
+          "name": "震星迪斯科",
+          "label": "冲击力 +6%",
+          "icon": "/images/discs/ep-152.png"
+        },
+        "alt": {
+          "name": "啄木鸟电音",
+          "label": "暴击率 +8%",
+          "icon": "/images/discs/ep-232.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击率 +24%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "电属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "冲击力 +24%",
+          "alt": "攻击力 +30%"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": "="
+        },
+        {
+          "label": "攻击力%",
+          "next": "="
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "安扳奥",
+      "members": [
+        {
+          "agentId": "ep-1190",
+          "name": "零号·安比",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1190.png",
+          "note": "站场强攻主 C，追击队核心，与扳机的追加攻击形成完整追击轴。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1230",
+          "name": "「扳机」",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1230.png",
+          "note": "后台击破，[绝意]值追加攻击，核心被动追加攻击命中时目标失衡易伤+35%，额外能力暴击转失衡值。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1501",
+          "name": "奥菲丝&「鬼火」",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1501.png",
+          "note": "站场强攻，[准星聚焦]下追加攻击无视 25% 防御，与扳机的减防易伤形成双强攻输出窗口。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            },
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "伊扳耀",
+      "members": [
+        {
+          "agentId": "ep-1158",
+          "name": "伊芙琳",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1158.png",
+          "note": "火强攻站场主 C，与扳机的电伤追击形成双属性输出，耀嘉音补能与增伤。",
+          "set4": [
+            {
+              "name": "河豚电音",
+              "icon": "/images/discs/ep-193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1230",
+          "name": "「扳机」",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1230.png",
+          "note": "后台击破，提供失衡与追加攻击，额外能力需队内击破/支援，伊芙琳为强攻身份不直接满足，耀嘉音为支援满足条件。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "支援回能与全队攻击增益，满足扳机额外能力的支援条件，补齐爆发轴真空期。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "零扳波",
+      "members": [
+        {
+          "agentId": "ep-1190",
+          "name": "零号·安比",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1190.png",
+          "note": "站场强攻主 C，扳机后台击破辅助，波可娜补喧响与减防。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1230",
+          "name": "「扳机」",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1230.png",
+          "note": "后台击破，[绝意]值追加攻击，失衡易伤+35%，额外能力暴击转失衡值。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-2074",
+          "name": "波可娜",
+          "role": "支援",
+          "avatar": "",
+          "note": "支援回能与减防，补齐扳机额外能力条件，提升队伍整体输出。",
+          "set4": []
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：连续射击或蓄力反击命中获得[绝意]值（上限 100）；[绝意]值≥3 时，队友普通攻击/冲刺攻击/闪避反击/特殊技/快速支援命中触发[协奏狙杀]（消耗 3 绝意）；[绝意]值≥5 时，队友强化特殊技/支援突击/终结技重击命中触发[协奏狙杀·冥狱]（消耗 5 绝意）。",
+        "核心增伤：[追加攻击]命中敌人时，目标失衡易伤+35%（持续 5 秒，可刷新，未失衡时亦生效）；额外能力按暴击率转失衡值，暴击率达 90% 时吃满 +75% 失衡值上限。",
+        "协战状态：[强化特殊技：幽闪花葬]或[终结技：冥府挽歌]命中后进入[协战状态]（8/12 秒），期间队友任意攻击命中均触发免费[协奏狙杀]，无 CD 限制，最高 10 次。",
+        "爆发循环：进场 → 强化特殊技/终结技进协战 → 队友输出触发免费追击 → 扳机后台持续追加攻击积累失衡 → 切回主 C 收割。",
+        "配队要点：扳机额外能力需队内有击破或支援角色；主推 安扳奥（安比+扳机+奥菲丝，全员追击使加攻 Buff 全程覆盖）。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "暴击率是扳机的核心：额外能力按暴击率转失衡值，90% 暴击吃满 +75% 失衡上限。如影相随 4 件局内叠满 3 层 +12% 暴击，故面板暴击率约 73% 即可（局内约 85%+，接近 90%）。",
+        "索魂影眸是击破音擎中唯一暴击率副词条音擎，显著降低面板暴击率压力，毕业首选。",
+        "如影相随 4 件的攻击+暴击为局内增益，不计入面板；如影 2pc「追加攻击+15%」选项表无对应项，--set4-effect none 显式不建模。",
+        "6 号位在击破阈值已达成时可改攻击力+30% 提升自身输出，与冲击力+24% 二选一，按失衡次数阈值灵活调整。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（基础冲击力+基础攻击力）与普攻（追加攻击核心）。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "「扳机」",
+      "weapon": "索魂影眸",
+      "core": "基础冲击力 +18、基础攻击力 +75",
+      "set4": "如影相随",
+      "set2": "震星迪斯科",
+      "mainStats": "4 号位暴击率 +24%，5 号位电属性伤害 +30%，6 号位冲击力 +24%",
+      "subStats": "54 条满配：暴击率 ×10、暴击伤害 ×22、攻击力% ×14、穿透值 ×6、小攻击 ×2"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 170.3,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 77,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 155.6,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2431.5,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T08:13:40+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "「扳机」",
+      "weapon": "索魂影眸",
+      "core": "基础冲击力 +18、基础攻击力 +75",
+      "set4": "如影相随",
+      "set2": "震星迪斯科",
+      "mainStats": "4 号位暴击率 +24%，5 号位电属性伤害 +30%，6 号位冲击力 +24%",
+      "subStats": "低词条参考：暴击率 ×6、暴击伤害 ×13、攻击力% ×8、穿透值 ×3"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 170.3,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 67.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 112.4,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2130.1,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T08:13:40+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

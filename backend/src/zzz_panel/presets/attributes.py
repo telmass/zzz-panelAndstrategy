@@ -29,6 +29,9 @@ from ..schemas.presets import AgentPreset
 
 #: 属性类型全集，用于校验 ``attribute``。与前端 ``AGENT_ATTRIBUTES`` 同源。
 #:
+#: 中英对照：流明Lumiflux、玄墨Auric Ink、凛刃Honed Edge、烈霜Frost、
+#: 风Wind、火Fire、冰Ice、以太Ether、物理Physical、电Electric。
+#:
 #: 官方对 ``electric`` 的写法是**电**（社区口语常作「雷」），照抄页面。
 AGENT_ATTRIBUTES = frozenset(
     {"火", "冰", "电", "以太", "物理", "烈霜", "玄墨", "凛刃", "风", "流明"}

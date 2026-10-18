@@ -1,0 +1,353 @@
+{
+  "_meta": {
+    "agentId": "ep-680",
+    "name": "青衣",
+    "note": "本文件为青衣的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 qingyi.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/qingyi/data/qingyi.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "音擎特效：米游社 WIKI 音擎详情页（entry_page_v2 的 multi_table 组件）——青衣无专武预设，下位击破音擎首选 首席跟班 / 福虓炉炉",
+      "推荐档位与队伍：按 BWIKI/17173/Ludens 配装攻略整理（击破口径，山大王4+震星迪斯科2），社区攻略作为参考",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/680/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/680/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "首席跟班",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-2088.png"
+        }
+      ],
+      "note": "击破音擎下位（青衣无专武预设，weapon-presets.json 无 agentId=ep-680）：暴击率 24% 显著降低面板暴击率压力，击破角色暴击率直接关联失衡易伤收益。需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "福虓炉炉",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-1427.png"
+        },
+        {
+          "name": "拘缚者",
+          "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
+          "icon": "/images/weapons/ep-219.png"
+        }
+      ],
+      "note": "击破音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "燃狱齿轮",
+          "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
+          "icon": "/images/weapons/ep-220.png"
+        },
+        {
+          "name": "玉壶青冰",
+          "stats": "S 级 · 基础攻击 713 · 冲击力 18%",
+          "icon": "/images/weapons/ep-678.png"
+        }
+      ],
+      "note": "备选击破音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "山大王 4 件套 + 震星迪斯科 2 件套",
+      "set4": {
+        "name": "山大王",
+        "label": "失衡值 +6%",
+        "effect4": "装备者为[击破]角色时，发动[强化特殊技]或[连携技]会使全队角色暴击伤害提升15%，装备者的暴击率大于等于50%时暴击伤害额外提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
+        "icon": "/images/discs/ep-1346.png"
+      },
+      "set2": {
+        "main": {
+          "name": "震星迪斯科",
+          "label": "冲击力 +6%",
+          "icon": "/images/discs/ep-152.png"
+        },
+        "alt": {
+          "name": "摇摆爵士",
+          "label": "能量自动回复 +20%",
+          "icon": "/images/discs/ep-231.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击率 +24%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "电属性伤害 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "冲击力 +24%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": "="
+        },
+        {
+          "label": "攻击力%",
+          "next": "="
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "青橙耀",
+      "members": [
+        {
+          "agentId": "ep-680",
+          "name": "青衣",
+          "role": "击破",
+          "avatar": "/images/agents/ep-680.png",
+          "note": "电击破后场辅助，闪络条机制打失衡易伤，额外能力需队内强攻/刑侦特勤组，零号安比与耀嘉音均满足条件。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1190",
+          "name": "零号·安比",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1190.png",
+          "note": "电强攻站场主 C，追加攻击体系，与青衣的失衡易伤形成爆发窗口。",
+          "set4": [
+            {
+              "name": "如影相随",
+              "icon": "/images/discs/ep-1193.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太支援，[咏叹华彩]全队伤害+9%/暴伤+8.5%，满足青衣额外能力的强攻条件，补齐爆发轴真空期。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "简青耀",
+      "members": [
+        {
+          "agentId": "ep-759",
+          "name": "简·杜",
+          "role": "异常",
+          "avatar": "/images/agents/ep-759.png",
+          "note": "物理异常站场主 C，[啮咬]+[畏缩]触发[强击]暴击，与青衣的失衡易伤形成物理爆发窗口。",
+          "set4": [
+            {
+              "name": "獠牙重金属",
+              "icon": "/images/discs/ep-104.png"
+            },
+            {
+              "name": "法厄同之歌",
+              "icon": "/images/discs/ep-1194.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-680",
+          "name": "青衣",
+          "role": "击破",
+          "avatar": "/images/agents/ep-680.png",
+          "note": "电击破后场辅助，提供失衡与易伤，简·杜的物理异常与青衣的电异常互相结算紊乱。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太支援，[咏叹华彩]全队增益与快速支援脱手伤害，补齐爆发轴真空期。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：普攻命中、强化特殊技、闪避反击积累[闪络条]（上限 100%）；[闪络条]≥75% 时长按普攻发动蓄力攻击，造成更多伤害与失衡，并附加[失衡易伤] debuff。",
+        "核心爆发：长按普攻蓄力攻击是失衡与易伤的主要来源，配合队友强攻的[强击]打出高额失衡伤害。",
+        "失衡手法：青衣持续输出电属性伤害积累失衡值，配合击破队友的招架支援/终结技快速触发失衡，蓄力普攻在失衡窗口期打出最大收益。",
+        "配队要点：青衣额外能力需队内有强攻或刑侦特勤组角色；主推 青橙耀（青衣+零号安比+耀嘉音），零号安比强攻+耀嘉音支援均满足条件。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "暴击率是青衣的关键：失衡易伤触发需要暴击，面板暴击率建议压线过 50%（山大王四件套额外暴伤触发条件），首席跟班副词条暴击率 24% 显著降低堆叠压力。",
+        "山大王四件套的暴击率 ≥50% 时额外暴击伤害为局内，不计入面板；如影相随/啄木鸟电音等局内攻击力+暴击同理不进面板。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（基础冲击力+基础攻击力）与普攻（蓄力攻击核心）。",
+        "青衣作为击破，核心给基础冲击力+基础攻击力，不给暴击率，暴击率完全依赖音擎副词条与副词条堆叠。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "青衣",
+      "weapon": "首席跟班",
+      "core": "基础冲击力 +18、基础攻击力 +75",
+      "set4": "山大王",
+      "set2": "震星迪斯科",
+      "mainStats": "4 号位暴击率 +24%，5 号位电属性伤害 +30%，6 号位冲击力 +24%",
+      "subStats": "54 条满配：暴击率 ×9、暴击伤害 ×23、攻击力% ×15、穿透值 ×6、小攻击 ×1"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 176.8,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 74.6,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 160.4,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2467.9,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T11:05:13+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "青衣",
+      "weapon": "首席跟班",
+      "core": "基础冲击力 +18、基础攻击力 +75",
+      "set4": "山大王",
+      "set2": "震星迪斯科",
+      "mainStats": "4 号位暴击率 +24%，5 号位电属性伤害 +30%，6 号位冲击力 +24%",
+      "subStats": "低词条参考：暴击率 ×6、暴击伤害 ×13、攻击力% ×8、穿透值 ×3"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 176.8,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 67.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 112.4,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2140.0,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T11:05:13+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

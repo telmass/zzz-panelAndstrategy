@@ -1,0 +1,388 @@
+{
+  "background": "/images/strategy/roxy/background.png",
+  "_meta": {
+    "agentId": "ep-2152",
+    "name": "洛克茜",
+    "note": "本文件为洛克茜·伊芙莉塔·普莱斯的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 roxy.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/roxy/data/roxy.json）",
+      "音擎特效：抓取自米游社 WIKI 各音擎详情页（绯月银棺 / 福虓炉炉 / 首席跟班 / 燃狱齿轮 / 玉壶青冰 / 人为刀俎）",
+      "配装口径：仓库计算器选项表（data/options.json）与音擎预设（data/weapon-presets.json）、驱动盘预设（data/drive-disc-presets.json）"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/2152/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 7,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 7,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "绯月银棺",
+          "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
+          "icon": "/images/weapons/ep-2234.png"
+        }
+      ],
+      "note": "专武（永夜辗眠）：装备者暴击率提升24%；造成的伤害无视目标15%风属性伤害抗性；装备者发动[强化特殊技]造成风属性伤害时，造成的失衡值提升16%，全队其他角色造成的伤害提升20%，持续50秒，重复触发时刷新持续时间，伤害提升效果全队唯一。"
+    },
+    {
+      "tier": "限定下位",
+      "items": [
+        {
+          "name": "福虓炉炉",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-1427.png"
+        },
+        {
+          "name": "首席跟班",
+          "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
+          "icon": "/images/weapons/ep-2088.png"
+        }
+      ],
+      "note": [
+        "福虓炉炉：装备者的[强化特殊技]、[连携技]和[终结技]造成的失衡值提升28%；可以更快的进入失衡，不俗的限定下位替代但毕业难度会被大幅拉高；",
+        "首席跟班：直接加冲击力并无视部分抗性，走面板失衡向，且副词条为暴击率，一定程度上降低了毕业压力。"
+      ]
+    },
+    {
+      "tier": "非限定下位",
+      "items": [
+        {
+          "name": "人为刀俎",
+          "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
+          "icon": "/images/weapons/ep-157.png"
+        },
+        {
+          "name": "燃狱齿轮",
+          "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
+          "icon": "/images/weapons/ep-220.png"
+        },
+        {
+          "name": "贵重骨核",
+          "stats": "A 级 · 基础攻击 594 · 攻击力",
+          "icon": "/images/weapons/ep-141.png"
+        }
+      ],
+      "note": [
+        "燃狱齿轮位于后场持续回能、发动强化特殊技再叠冲击力，和她速切强循环的节奏吻合；",
+        "两件A级音擎则为非限定下位的替代选择，追失衡选贵重骨核，为核心被动与整体循环则为人为刀俎，一般最佳的下位替代为人为刀俎。"
+      ]
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "4 山大王/静听嘉音 + 2 回能",
+      "set4": [
+        {
+          "name": "山大王",
+          "label": "失衡值 +6%",
+          "effect4": "装备者为[击破]角色时，发动[强化特殊技]或[连携技]会使全队角色暴击伤害提升15%，装备者的暴击率大于等于50%时暴击伤害额外提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
+          "scene": "在辅助非锋御角色时可以让全队完整吃到 30% 爆伤增益。",
+          "icon": "/images/discs/ep-1346.png"
+        },
+        {
+          "name": "静听嘉音",
+          "label": "攻击力 +10%",
+          "effect4": "队伍中任意角色通过[快速支援]入场时，全队角色获得1层[嘉音]，最多叠加3层，持续15秒，重复触发时刷新持续时间，每拥有1层[嘉音]，通过[快速支援]入场的角色造成的伤害提升8%，该效果全队唯一。",
+          "scene": "队伍中有其余能触发快支的角色可以使用这一套。",
+          "icon": "/images/discs/ep-1001.png"
+        }
+      ],
+      "set2": {
+        "main": [
+          {
+            "name": "摇摆爵士",
+            "label": "能量自动回复 +20%",
+            "icon": "/images/discs/ep-231.png"
+          },
+          {
+            "name": "月光骑士颂",
+            "label": "能量自动回复 +20%",
+            "icon": "/images/discs/ep-1551.png"
+          }
+        ],
+        "alt": [
+          {
+            "name": "啄木鸟电音",
+            "label": "暴击率 +8%",
+            "icon": "/images/discs/ep-232.png"
+          }
+        ]
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击率 +24%",
+          "alt": "无"
+        },
+        {
+          "slot": "5 号位",
+          "main": "风属性伤害 +30%",
+          "alt": "穿透率 +24%/ 攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "能量回复 +60%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": "≈"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "克洛丽",
+      "members": [
+        {
+          "agentId": "ep-2145",
+          "name": "克拉蕾",
+          "role": "锋御",
+          "avatar": "/images/agents/ep-2145.png",
+          "note": "电属性锋御驻场主C，锋御角色可直接吃到洛克茜核心被动的锐暴伤害加成。",
+          "set4": [
+            {
+              "name": "荆棘玫瑰",
+              "icon": "/images/discs/ep-2121.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-2152",
+          "name": "洛克茜",
+          "role": "击破",
+          "avatar": "/images/agents/ep-2152.png",
+          "note": "风属性击破，用净化反复重置[浸染]，提供一定的独立增伤乘区，且能提供不俗的拐力。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-316",
+          "name": "丽娜",
+          "role": "支援",
+          "avatar": "/images/agents/ep-316.png",
+          "note": "电属性支援，提供穿透与防御增益，把克拉蕾的锐暴与毁伤进一步放大。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "佩洛耀",
+      "members": [
+        {
+          "agentId": "ep-1958",
+          "name": "佩洛伊斯",
+          "role": "强攻",
+          "avatar": "/images/agents/ep-1958.png",
+          "note": "以太属性强攻主C，满足洛克茜额外能力的强攻条件；终结技对[浸染]状态敌人有额外伤害，正好吃到净化反复重置浸染的窗口。",
+          "set4": [
+            {
+              "name": "拂晓行纪",
+              "icon": "/images/discs/ep-2029.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-2152",
+          "name": "洛克茜",
+          "role": "击破",
+          "avatar": "/images/agents/ep-2152.png",
+          "note": "风属性击破，用净化反复重置[浸染]，提供一定的独立增伤乘区，且能提供不俗的拐力。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1109",
+          "name": "耀嘉音",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1109.png",
+          "note": "以太属性支援，提供攻击与爆击伤害加成。",
+          "set4": [
+            {
+              "name": "静听嘉音",
+              "icon": "/images/discs/ep-1001.png"
+            },
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "① 进场即回复 40 点能量（额外能力），先用[支援技：为您分忧]招架或[快速支援]进场，累积失衡值。",
+        "② 能量足够时上场[终结技：葬夜安魂曲]或长按[强化特殊技：小心风寒]进入[自旋]（拖曳摇杆可以控制龙卷风移动），积攒3个[风能]并打出[风化]异常状态后直接脱手切人，自动结束衔接[强化特殊技：敬请安息]消耗全部[风能]并生成[风眼]。",
+        "③ 敌人身上有队友施加的[风化]时，用[特殊技：恕不远送]引爆[风眼]并触发[净化]，重置[浸染]让异常重新积蓄，同时为全队换来暴击伤害加成。",
+        "④ 增益上完切回后场，等[风能]回满（每消耗 25 点能量获得 1 点，上限 3 点）再进场循环。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "核心被动[热夜初拥]按能量自动回复转化：初始能量自动回复超过 1.2 的部分，每 0.01 提供攻击力与冲击力加成，初始能量回复理论需要到达3.12才能吃满。",
+        "而核心被动[热夜初拥]提供的全队角色增益则需要她的局外暴击率达到 100% 才能吃满。",
+        "[额外能力：辉金心脏]需要队伍里有[强攻]、[命破]或[锋御]角色；同时提供失衡易伤与失衡时间延长，她的价值一半在失衡窗口。",
+        "[风眼]最多同时存在 9 个，超出上限后最早生成的自动引爆；一次同时引爆 3 个会改为生成 1 阵巨型风旋。",
+        "[强化特殊技：敬请安息]消耗全部[风能]，每点风能多造成一次风属性伤害并留下 1 个[风眼]，尽量满[风能]再放。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "洛克茜·伊芙莉塔·普莱斯",
+      "weapon": "绯月银棺",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "山大王",
+      "set2": "摇摆爵士",
+      "mainStats": "4 号位暴击率 +24%，5 号位风属性伤害 +30%，6 号位能量回复 +60%",
+      "subStats": "54 条满配：暴击率 ×24、攻击力% ×12、暴击伤害 ×11、攻击力 ×5、穿透值 ×2（受初始4词条约束，无填充）"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 100,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 101,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 102.8,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2293.4,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-17T19:04:15+00:00",
+    "title": "满配毕业面板（54 词条，100%暴率档）"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "洛克茜·伊芙莉塔·普莱斯",
+      "weapon": "绯月银棺",
+      "core": "暴击率 +14.4%、基础攻击力 +75",
+      "set4": "山大王",
+      "set2": "摇摆爵士",
+      "mainStats": "4 号位暴击率 +24%，5 号位风属性伤害 +30%，6 号位能量回复 +60%",
+      "subStats": "30 条：暴击率 ×15、攻击力% ×8、暴击伤害 ×7（80%暴率档）"
+    },
+    "totals": [
+      {
+        "label": "冲击力",
+        "value": 100,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 79.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 83.6,
+        "unit": "%"
+      },
+      {
+        "label": "攻击力",
+        "value": 2119.0,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-17T19:04:15+00:00",
+    "title": "非满配毕业面板（30 词条，80%暴率档）"
+  }
+}

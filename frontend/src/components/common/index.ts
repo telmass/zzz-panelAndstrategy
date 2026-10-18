@@ -5,5 +5,6 @@
 export { default as NumberField } from './NumberField.vue';
 export { default as PanelModule } from './PanelModule.vue';
 export { default as SelectField } from './SelectField.vue';
+export { default as SideNav, type SideNavGroup } from './SideNav.vue';
 export { default as StepperInput } from './StepperInput.vue';
 export { default as TextField } from './TextField.vue';

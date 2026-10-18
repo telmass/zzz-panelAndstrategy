@@ -1,0 +1,374 @@
+[
+  {
+    "slug": "anby",
+    "en": "Anby",
+    "cn_short": "安比",
+    "cn_full": "安比·德玛拉"
+  },
+  {
+    "slug": "nekomata",
+    "en": "Nekomata",
+    "cn_short": "猫又",
+    "cn_full": "猫宫 又奈"
+  },
+  {
+    "slug": "nicole",
+    "en": "Nicole",
+    "cn_short": "妮可",
+    "cn_full": "妮可·德玛拉"
+  },
+  {
+    "slug": "soldier-11",
+    "en": "Soldier 11",
+    "cn_short": "「11号」",
+    "cn_full": "「11号」"
+  },
+  {
+    "slug": "yidhari",
+    "en": "Yidhari",
+    "cn_short": "伊德海莉",
+    "cn_full": "伊德海莉·墨菲"
+  },
+  {
+    "slug": "corin",
+    "en": "Corin",
+    "cn_short": "可琳",
+    "cn_full": "可琳·威克斯"
+  },
+  {
+    "slug": "caesar",
+    "en": "Caesar",
+    "cn_short": "凯撒",
+    "cn_full": "凯撒·金"
+  },
+  {
+    "slug": "billy",
+    "en": "Billy",
+    "cn_short": "比利",
+    "cn_full": "比利·奇德"
+  },
+  {
+    "slug": "miyabi",
+    "en": "Miyabi",
+    "cn_short": "雅",
+    "cn_full": "星见 雅"
+  },
+  {
+    "slug": "koleda",
+    "en": "Koleda",
+    "cn_short": "珂蕾妲",
+    "cn_full": "珂蕾妲·贝洛伯格"
+  },
+  {
+    "slug": "anton",
+    "en": "Anton",
+    "cn_short": "安东",
+    "cn_full": "安东·伊万诺夫"
+  },
+  {
+    "slug": "ben",
+    "en": "Ben",
+    "cn_short": "本",
+    "cn_full": "本·比格"
+  },
+  {
+    "slug": "soukaku",
+    "en": "Soukaku",
+    "cn_short": "苍角",
+    "cn_full": "苍角"
+  },
+  {
+    "slug": "lycaon",
+    "en": "Lycaon",
+    "cn_short": "莱卡恩",
+    "cn_full": "冯·莱卡恩"
+  },
+  {
+    "slug": "lucy",
+    "en": "Lucy",
+    "cn_short": "露西",
+    "cn_full": "露西亚娜·德·蒙特夫"
+  },
+  {
+    "slug": "lighter",
+    "en": "Lighter",
+    "cn_short": "莱特",
+    "cn_full": "莱特"
+  },
+  {
+    "slug": "burnice",
+    "en": "Burnice",
+    "cn_short": "柏妮思",
+    "cn_full": "柏妮思·怀特"
+  },
+  {
+    "slug": "grace",
+    "en": "Grace",
+    "cn_short": "格莉丝",
+    "cn_full": "格莉丝·霍华德"
+  },
+  {
+    "slug": "ellen",
+    "en": "Ellen",
+    "cn_short": "艾莲",
+    "cn_full": "艾莲·乔"
+  },
+  {
+    "slug": "harumasa",
+    "en": "Harumasa",
+    "cn_short": "悠真",
+    "cn_full": "浅羽 悠真"
+  },
+  {
+    "slug": "rina",
+    "en": "Rina",
+    "cn_short": "丽娜",
+    "cn_full": "亚历山德丽娜·莎芭丝缇安"
+  },
+  {
+    "slug": "yanagi",
+    "en": "Yanagi",
+    "cn_short": "柳",
+    "cn_full": "月城柳"
+  },
+  {
+    "slug": "zhu-yuan",
+    "en": "Zhu Yuan",
+    "cn_short": "朱鸢",
+    "cn_full": "朱鸢"
+  },
+  {
+    "slug": "qingyi",
+    "en": "Qingyi",
+    "cn_short": "青衣",
+    "cn_full": "青衣"
+  },
+  {
+    "slug": "jane",
+    "en": "Jane",
+    "cn_short": "简",
+    "cn_full": "简·杜"
+  },
+  {
+    "slug": "seth",
+    "en": "Seth",
+    "cn_short": "赛斯",
+    "cn_full": "赛斯·洛威尔"
+  },
+  {
+    "slug": "piper",
+    "en": "Piper",
+    "cn_short": "派派",
+    "cn_full": "派派·韦尔"
+  },
+  {
+    "slug": "hugo",
+    "en": "Hugo",
+    "cn_short": "雨果",
+    "cn_full": "雨果·维拉德"
+  },
+  {
+    "slug": "orphie-magus",
+    "en": "Orphie & Magus",
+    "cn_short": "奥菲丝&「鬼火」",
+    "cn_full": "奥菲丝&「鬼火」"
+  },
+  {
+    "slug": "astra-yao",
+    "en": "Astra Yao",
+    "cn_short": "耀嘉音",
+    "cn_full": "耀嘉音"
+  },
+  {
+    "slug": "evelyn",
+    "en": "Evelyn",
+    "cn_short": "伊芙琳",
+    "cn_full": "伊芙琳·舒瓦利耶"
+  },
+  {
+    "slug": "vivian",
+    "en": "Vivian",
+    "cn_short": "薇薇安",
+    "cn_full": "薇薇安·班希"
+  },
+  {
+    "slug": "zhao",
+    "en": "Zhao",
+    "cn_short": "照",
+    "cn_full": "照"
+  },
+  {
+    "slug": "pulchra",
+    "en": "Pulchra",
+    "cn_short": "波可娜",
+    "cn_full": "波可娜·费雷尼"
+  },
+  {
+    "slug": "trigger",
+    "en": "Trigger",
+    "cn_short": "「扳机」",
+    "cn_full": "「扳机」"
+  },
+  {
+    "slug": "yixuan",
+    "en": "Yixuan",
+    "cn_short": "仪玄",
+    "cn_full": "仪玄"
+  },
+  {
+    "slug": "soldier-0-anby",
+    "en": "Soldier 0 - Anby",
+    "cn_short": "零号·安比",
+    "cn_full": "零号·安比"
+  },
+  {
+    "slug": "ju-fufu",
+    "en": "Ju Fufu",
+    "cn_short": "橘福福",
+    "cn_full": "橘福福"
+  },
+  {
+    "slug": "alice",
+    "en": "Alice",
+    "cn_short": "爱丽丝",
+    "cn_full": "爱丽丝·泰姆菲尔德"
+  },
+  {
+    "slug": "yuzuha",
+    "en": "Yuzuha",
+    "cn_short": "柚叶",
+    "cn_full": "浮波 柚叶"
+  },
+  {
+    "slug": "pan-yinhu",
+    "en": "Pan Yinhu",
+    "cn_short": "潘引壶",
+    "cn_full": "潘引壶"
+  },
+  {
+    "slug": "ye-shunguang",
+    "en": "Ye Shunguang",
+    "cn_short": "叶瞬光",
+    "cn_full": "叶瞬光"
+  },
+  {
+    "slug": "manato",
+    "en": "Manato",
+    "cn_short": "真斗",
+    "cn_full": "狛野 真斗"
+  },
+  {
+    "slug": "lucia",
+    "en": "Lucia",
+    "cn_short": "卢西娅",
+    "cn_full": "卢西娅·艾洛温"
+  },
+  {
+    "slug": "seed",
+    "en": "Seed",
+    "cn_short": "「席德」",
+    "cn_full": "「席德」"
+  },
+  {
+    "slug": "banyue",
+    "en": "Banyue",
+    "cn_short": "般岳",
+    "cn_full": "般岳"
+  },
+  {
+    "slug": "dialyn",
+    "en": "Dialyn",
+    "cn_short": "琉音",
+    "cn_full": "琉音"
+  },
+  {
+    "slug": "sunna",
+    "en": "Sunna",
+    "cn_short": "千夏",
+    "cn_full": "千夏"
+  },
+  {
+    "slug": "aria",
+    "en": "Aria",
+    "cn_short": "爱芮",
+    "cn_full": "爱芮"
+  },
+  {
+    "slug": "nangong-yu",
+    "en": "Nangong Yu",
+    "cn_short": "南宫羽",
+    "cn_full": "南宫羽"
+  },
+  {
+    "slug": "cissia",
+    "en": "Cissia",
+    "cn_short": "希希芙",
+    "cn_full": "希希芙"
+  },
+  {
+    "slug": "starlight-billy",
+    "en": "Starlight - Billy",
+    "cn_short": "星徽·比利",
+    "cn_full": "星徽·比利·奇德"
+  },
+  {
+    "slug": "promeia",
+    "en": "Promeia",
+    "cn_short": "普罗米娅",
+    "cn_full": "普罗米娅"
+  },
+  {
+    "slug": "pyrois",
+    "en": "Pyrois",
+    "cn_short": "佩洛伊斯",
+    "cn_full": "佩洛伊斯"
+  },
+  {
+    "slug": "velina",
+    "en": "Velina",
+    "cn_short": "维琳娜",
+    "cn_full": "维琳娜·艾嘉德"
+  },
+  {
+    "slug": "norma",
+    "en": "Norma",
+    "cn_short": "诺姆",
+    "cn_full": "诺姆·霍洛维尔"
+  },
+  {
+    "slug": "remielle",
+    "en": "Remielle",
+    "cn_short": "蕾米埃尔",
+    "cn_full": "蕾米埃尔·丹"
+  },
+  {
+    "slug": "sigrid",
+    "en": "Sigrid",
+    "cn_short": "希格莉德",
+    "cn_full": "希格莉德·德拉叙尔"
+  },
+  {
+    "slug": "claret",
+    "en": "Claret",
+    "cn_short": "克拉蕾",
+    "cn_full": "克拉蕾·弗林特"
+  },
+  {
+    "slug": "roxy",
+    "en": "Roxy",
+    "cn_short": "洛克茜",
+    "cn_full": "洛克茜·伊芙莉塔·普莱斯"
+  },
+  {
+    "slug": "severian",
+    "en": "Severian",
+    "cn_short": "赛维里安",
+    "cn_full": "赛维里安·洛威尔"
+  },
+  {
+    "slug": "phoenix",
+    "en": "Phoenix",
+    "cn_short": "菲欧妮",
+    "cn_full": "菲欧妮·蕾法爱菈"
+  }
+]

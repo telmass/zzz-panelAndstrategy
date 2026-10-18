@@ -1,0 +1,286 @@
+{
+  "_meta": {
+    "agentId": "ep-2076",
+    "name": "蕾米埃尔·丹",
+    "note": "本文件为蕾米埃尔·丹的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 remielle.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/remielle/data/remielle.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：社区攻略整理，经需求方确认"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/2076/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "空羽复归之诗",
+          "stats": "S 级 · 基础攻击 743 · 攻击力 36%",
+          "icon": "/images/weapons/ep-2109.png"
+        }
+      ],
+      "note": "专武：直接提供异常精通，触发异化反应后自身获得属性异常伤害提升、并为全队施加增伤；高基础攻击也更容易把局外攻击堆到 4000 点吃满额外能力。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "双生泣星",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-212.png"
+        },
+        {
+          "name": "时流贤者",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-915.png"
+        },
+        {
+          "name": "灼心摇壶",
+          "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
+          "icon": "/images/weapons/ep-841.png"
+        }
+      ],
+      "note": "双生泣星可免费兑换，队友施加属性异常即可叠层精通，是公认次选；两把 S 级则靠高基础攻击补攻击面板。"
+    },
+    {
+      "tier": "四星",
+      "items": [
+        {
+          "name": "触电唇彩",
+          "stats": "A 级 · 基础攻击 594 · 异常精通 75",
+          "icon": "/images/weapons/ep-210.png"
+        }
+      ],
+      "note": "自带精通副属性，对处于异常状态的目标还有攻击与增伤；仅在其他音擎都被占用时考虑。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "谶羽之誓 4 件套 + 自由蓝调 2 件套",
+      "set4": {
+        "name": "谶羽之誓",
+        "label": "异常精通 +30",
+        "effect4": "装备者进入战场时，或被切换为当前操作中角色时，获得增益效果：异常精通提升50点，若装备者为流明属性，造成的属性异常伤害提升15%，持续15秒；当装备者为非操作中角色时，则始终持有该增益效果。",
+        "icon": "/images/discs/ep-2116.png"
+      },
+      "set2": {
+        "main": [
+          {
+            "name": "自由蓝调",
+            "label": "异常精通 +30",
+            "icon": "/images/discs/ep-191.png"
+          },
+          {
+            "name": "混沌爵士",
+            "label": "异常精通 +30",
+            "icon": "/images/discs/ep-800.png"
+          }
+        ]
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "异常精通 +92",
+          "alt": "无"
+        },
+        {
+          "slot": "5 号位",
+          "main": "攻击力 +30%",
+          "alt": "无"
+        },
+        {
+          "slot": "6 号位",
+          "main": "攻击力 +30%",
+          "alt": "无"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "异常精通",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "蕾维柏",
+      "members": [
+        {
+          "agentId": "ep-2076",
+          "name": "蕾米埃尔",
+          "role": "异常",
+          "avatar": "/images/agents/ep-2076.png",
+          "note": "流明异常，[相变时流]后场积攒[虚曜]，切前场以强化普攻触发[耀变]；按异常角色数量为全队加攻。",
+          "set4": [
+            {
+              "name": "谶羽之誓",
+              "icon": "/images/discs/ep-2116.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1960",
+          "name": "维琳娜",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1960.png",
+          "note": "风异常底座：提供长时间风化状态与聚怪减抗，是蕾米埃尔攒[虚曜]的地基。",
+          "set4": [
+            {
+              "name": "呼啸沙龙",
+              "icon": "/images/discs/ep-2038.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-840",
+          "name": "柏妮思",
+          "role": "异常",
+          "avatar": "/images/agents/ep-840.png",
+          "note": "火异常，在火弱环境能快速打满灼烧，与蕾米埃尔的流变火属性互相成就。",
+          "set4": [
+            {
+              "name": "自由蓝调",
+              "icon": "/images/discs/ep-191.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表（循环）",
+      "lines": [
+        "① 前台普通攻击命中回复[浮晖]，攒满后释放特殊技进入[相变时流]，随后切至后场。",
+        "② 后场期间蕾米埃尔持续发动协同攻击、施加[流明积蓄点]并积攒[虚曜]（队友触发[异化]反应也会生成[虚曜]，最多储存 3 个）。",
+        "③ 切回前场，长按普攻发动[普通攻击：垂虹]/[惊鸿]，或等支援技 / 终结技 / 登场技命中目标，招式结束后触发[耀变]，按储存的[虚曜]打出多段属性异常伤害并清空[虚曜]。",
+        "④ 随后再进[相变时流]回到后场，形成「攒异化→切人打耀变」的循环；她主打后场，不要长时间站场。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "异化系数 = 自身异常精通 × 0.02%，队伍中[异常]角色为 3 名时额外提升 10%——精通同时转异化系数与耀变倍率，是她的第一属性。",
+        "额外能力按队伍中异常角色数（1 / 2 / 3）为全队提升等同于自身初始攻击力 6% / 12% / 40% 的攻击力，上限 1600 点；局外攻击约 4000 才能吃满，未达标前大攻击词条优先。",
+        "施加[流明积蓄点]时会附加[幻色]：全队攻击该目标异常积蓄效率 +15%（幻色消失后还会延续 8 秒）。",
+        "流明属性会复制队伍中位于她正右侧代理人的属性伤害类型，摆位时把想打的属性放她右边。",
+        "常规增伤与穿透对耀变伤害提升有限，5 / 6 号位优先攻击力%，不要选增伤盘。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "蕾米埃尔·丹",
+      "weapon": "空羽复归之诗",
+      "core": "异常精通 +54、基础攻击力 +75",
+      "set4": "谶羽之誓",
+      "set2": "自由蓝调",
+      "mainStats": "4 号位异常精通 +92，5 / 6 号位攻击力 +30%",
+      "subStats": "54 条满配：攻击力% ×11、异常精通 ×28、攻击力 ×5、穿透值 ×6、无效词条 ×4"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3997.1,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 574,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T04:40:35+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "蕾米埃尔·丹",
+      "weapon": "空羽复归之诗",
+      "core": "异常精通 +54、基础攻击力 +75",
+      "set4": "谶羽之誓",
+      "set2": "自由蓝调",
+      "mainStats": "4 号位异常精通 +92，5 / 6 号位攻击力 +30%",
+      "subStats": "29 条：攻击力% ×11、异常精通 ×14、攻击力 ×4"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 3978.1,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 448,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-14T04:40:35+00:00",
+    "title": "非满配毕业面板（29 词条）"
+  }
+}

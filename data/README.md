@@ -2,13 +2,14 @@
 
 本目录的 JSON 是**代理人/音擎预设、配装规则表与驱动盘套装效果数据的唯一真实源**。
 
-## 四份文件与各自流向
+## 五份文件与各自流向
 
 | 文件 | 来源 | 方向 |
 | --- | --- | --- |
 | `agent-presets.json` / `weapon-presets.json` | Skill 抓取脚本 | 抓取脚本写 JSON，`sync_presets.py --to-legacy` 反向生成对拍夹具的 JS 包装 |
 | `options.json` | `backend/src/zzz_panel/core/*.py` | 单向生成，`sync_presets.py --options` |
 | `drive-disc-presets.json` | Skill 抓取脚本 | 抓取脚本写 JSON 与套装图标；**不进计算器、不生成 JS 包装** |
+| `agent-name-mapping.json` | 手工维护 | 规范 slug / 中英文名映射；`fix-agent` Skill 与攻略页目录名以它为准，**不是生成物** |
 
 ```powershell
 python tools/sync_presets.py --options                # core/*.py → options.json

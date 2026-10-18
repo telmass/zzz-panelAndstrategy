@@ -73,13 +73,15 @@ describe('CalculatorView 静态骨架', () => {
     const wrapper = mountCalculator();
     const titles = wrapper.findAll('.module-title');
     expect(titles).toHaveLength(6);
-    expect(titles.map((node) => node.find('span').text())).toEqual([
-      '一、基础面板',
-      '二、音擎',
-      '三、核心加成',
-      '四、驱动盘主词条',
-      '五、驱动盘副词条',
-      '六、二件套效果',
+    // 序号改由徽标（.module-no）承载，标题不再写「一、二、三」——
+    // 版式对齐攻略页的编号方块，故这里按标题文本类断言
+    expect(titles.map((node) => node.find('.module-title__text').text())).toEqual([
+      '基础面板',
+      '音擎',
+      '核心加成',
+      '驱动盘主词条',
+      '驱动盘副词条',
+      '二件套效果',
     ]);
     expect(titles.map((node) => node.find('.tag').text())).toEqual([
       '角色本体',
@@ -89,6 +91,21 @@ describe('CalculatorView 静态骨架', () => {
       '每盘9条 · 6盘共54条',
       '0~3组',
     ]);
+  });
+
+  it('每个模块带序号徽标；计算器页不放侧边目录', () => {
+    const wrapper = mountCalculator();
+    expect(wrapper.findAll('.module').map((node) => node.find('.module-no').text())).toEqual([
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+    ]);
+    // 计算器是「边填边看结果」的工具页：目录帮不上忙还占一列宽度，故不渲染
+    expect(wrapper.find('.sidebar').exists()).toBe(false);
+    expect(wrapper.findAll('.module-title .tag')).toHaveLength(6);
   });
 
   it('每个模块带对应的左侧色条变体', () => {
@@ -211,12 +228,16 @@ describe('CalculatorView 静态骨架', () => {
   it('二件套渲染 3 组下拉', () => {
     const wrapper = mountCalculator();
     for (const id of ['set0', 'set1', 'set2']) {
-      // 1 项占位 + 11 种二件套
-      expect(wrapper.find(`#${id}`).findAll('option')).toHaveLength(12);
+      // 1 项占位 + 12 种二件套（含荆棘玫瑰的「防御力 +16%」）
+      expect(wrapper.find(`#${id}`).findAll('option')).toHaveLength(13);
     }
     // 「穿透率 +8%」曾经整条缺失，且缺失不会报错，只表现为下拉里选不到
     expect(wrapper.find('#set0').findAll('option').map((node) => node.text())).toContain(
       '穿透率 +8%',
+    );
+    // 「防御力 +16%」同样曾整条缺失：锋御毕业套荆棘玫瑰的二件套根本无从选
+    expect(wrapper.find('#set0').findAll('option').map((node) => node.text())).toContain(
+      '防御力 +16%',
     );
   });
 
@@ -310,11 +331,11 @@ describe('LauncherView 静态骨架', () => {
       strategyGuides.map((guide) => `/strategy/${guide.slug}`),
     );
     expect(cards.map((node) => node.text())).toEqual(strategyGuides.map((guide) => guide.name));
-    // 每张卡只放头像 + 名字：头像按 agents/<agentId>.png 约定路径取
+    // 每张卡走 tachie 背景格式：背景取 guide.tachie（优先）或 agents/<agentId>.png 约定路径，底部有名字胶囊
     for (const [index, guide] of strategyGuides.entries()) {
-      expect(cards[index].find('.strategy-card__avatar').attributes('src')).toBe(
-        `/images/agents/${guide.agentId}.png`,
-      );
+      const bg = cards[index].find('.strategy-card__tachie').attributes('style');
+      expect(bg).toContain(guide.tachie ?? `/images/agents/${guide.agentId}.png`);
+      expect(cards[index].find('.strategy-card__name-wrap').exists()).toBe(true);
     }
   });
 
@@ -352,9 +373,18 @@ describe('子页面返回导航', () => {
     expect(mountGuide().find('.page-with-back').exists()).toBe(true);
   });
 
-  it('两个子页面都只有返回主页这一个链接，不留死链', () => {
+  it('两个子页面的链接不留死链：返回主页 + 站内路由 + 可解析的页内锚点', () => {
     for (const wrapper of [mountCalculator(), mountGuide()]) {
-      expect(wrapper.findAll('a').map((node) => node.attributes('href'))).toEqual(['/']);
+      const hrefs = wrapper.findAll('a').map((node) => node.attributes('href') ?? '');
+      expect(hrefs).toContain('/');
+      for (const href of hrefs) {
+        if (href.startsWith('#')) {
+          // 页内锚点（侧边目录）必须指向真实存在的元素，否则点下去毫无反应
+          expect(wrapper.find(href).exists()).toBe(true);
+        } else {
+          expect(href).toMatch(/^\/(calculator|guide|strategy)?$/);
+        }
+      }
     }
   });
 
@@ -370,7 +400,7 @@ describe('子页面返回导航', () => {
 });
 
 /**
- * 攻略 iframe 舞台的**路由级**验证。
+ * 攻略详情页的**路由级**验证。
  *
  * 直接 mount(StrategyView, { props }) 查不出「路由没配 props: true、params
  * 根本没传进组件」这类接线错误——那种情况下直接挂载照样通过，只有真实导航
@@ -381,6 +411,8 @@ describe('攻略页路由透传', () => {
 
   async function flushPromises() {
     await Promise.resolve();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    await nextTick();
     await nextTick();
   }
 
@@ -397,25 +429,25 @@ describe('攻略页路由透传', () => {
     await router.isReady();
   });
 
-  it('导航到 /strategy/ye-shun-guang 时 iframe 指向该攻略静态页', async () => {
-    const host = await navigate('/strategy/ye-shun-guang');
-    const frame = host.find('iframe.strategy-frame');
-    expect(frame.exists()).toBe(true);
-    expect(frame.attributes('src')).toBe('/strategy/ye-shun-guang/index.html');
-    expect(frame.attributes('title')).toContain('叶瞬光');
+  it('导航到 /strategy/ye-shunguang 时用共享渲染器渲染攻略页', async () => {
+    const host = await navigate('/strategy/ye-shunguang');
+    expect(host.find('iframe').exists()).toBe(false);
+    expect(host.find('.strategy-detail .hero').exists()).toBe(true);
+    expect(host.get('.hero__name').text()).toContain('叶瞬光');
+    expect(host.find('.sidebar').exists()).toBe(true);
   });
 
   it('攻略详情页的返回按钮回代理人选择页 /strategy，而非启动页', async () => {
-    const host = await navigate('/strategy/ye-shun-guang');
+    const host = await navigate('/strategy/ye-shunguang');
     const back = host.get('.back-link');
     expect(back.attributes('href')).toBe('/strategy');
     expect(back.text()).toContain('返回代理人选择');
   });
 
-  it('未登记 slug 被守卫重定向回启动页，不渲染 iframe', async () => {
+  it('未登记 slug 被守卫重定向回启动页，不渲染攻略页', async () => {
     const host = await navigate('/strategy/not-registered');
     expect(router.currentRoute.value.name).toBe('launcher');
-    expect(host.find('iframe').exists()).toBe(false);
+    expect(host.find('.strategy-detail').exists()).toBe(false);
   });
 });
 

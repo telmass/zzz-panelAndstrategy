@@ -188,6 +188,10 @@ export const MODELED_BASE_STAT_LABELS: ReadonlySet<string> = new Set(['锐暴伤
 
 /**
  * 代理人标签全集，用于校验预设数据的 roleTag。
+ *
+ * 中英对照：强攻Attack、击破Stun、异常Anomaly、支援Support、防护Defense、
+ * 命破Rupture、锋御Armorer。取值保持中文（与后端 `AGENT_ROLE_TAGS` 同源），
+ * 英文仅用于图标文件名（`attack.png` 等，小写 slug）与展示转换。
  */
 export const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'] as const;
 
@@ -195,6 +199,8 @@ export const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护'
  * 代理人属性类型全集，用于校验预设数据的 attribute。
  *
  * 与后端 `AGENT_ATTRIBUTES` 同源，取值由抓取脚本从官方 WIKI 页面抄来。
+ * 中英对照：流明Lumiflux、玄墨Auric Ink、凛刃Honed Edge、烈霜Frost、
+ * 风Wind、火Fire、冰Ice、以太Ether、物理Physical、电Electric。
  * 官方对 `electric` 的写法是**电**（社区口语常作「雷」），此处照抄页面。
  */
 export const AGENT_ATTRIBUTES = [

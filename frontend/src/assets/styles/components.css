@@ -40,7 +40,7 @@
 }
 
 .module-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   margin-bottom: var(--space-3);
   display: flex;
@@ -50,7 +50,7 @@
 }
 
 .module-title .tag {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 600;
   padding: 2px 8px;
   border-radius: var(--radius-sm);
@@ -92,7 +92,7 @@
 }
 
 .field label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-muted);
   font-weight: 600;
 }
@@ -107,8 +107,8 @@
 .set-item select {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 6px 8px;
-  font-size: 14px;
+  padding: 8px 10px;
+  font-size: 14.5px;
   background: var(--color-input-bg);
   color: var(--color-text-strong);
   width: 100%;
@@ -134,7 +134,7 @@
 }
 
 .set-item label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-muted);
   font-weight: 600;
 }
@@ -154,16 +154,16 @@
    cascader 由 naive-ui 渲染，无法像原生控件那样用 for/id 关联。 */
 .weapon-picker-label,
 .agent-picker-label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-muted);
   font-weight: 600;
 }
 
-/* naive-ui 默认高度 34px，比项目其它输入框（6px 内边距 + 14px 字号 ≈ 32px）
-   略高；统一成 34px 会让同一行的只读输入框显得参差，故对齐到 32px。 */
+/* naive-ui 默认高度 34px，比项目其它输入框（8px 内边距 + 14.5px 字号 ≈ 36px）
+   略矮；统一成 36px 会让同一行的输入框显得参差，故对齐到 36px。 */
 .weapon-picker-input .n-base-selection,
 .agent-picker-input .n-base-selection {
-  height: 32px;
+  height: 36px;
 }
 
 .weapon-picker-input .n-base-selection-label,
@@ -231,7 +231,7 @@
 /* ====== 提示文字 ====== */
 
 .note {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-faint);
   margin-top: var(--space-2);
 }
@@ -241,8 +241,14 @@
   margin-bottom: 10px;
 }
 
+.weapon-card__note,
+.drive-group__note,
+.team-card__note {
+  white-space: pre-line;
+}
+
 .helper {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text-muted);
 }
 
@@ -375,7 +381,7 @@
 }
 
 .result-module h2 {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 700;
   margin-bottom: 14px;
 }
@@ -393,21 +399,21 @@
 }
 
 .r-label {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--result-label);
   flex: 0 0 auto;
   margin-right: var(--space-3);
 }
 
 .r-value {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--result-value);
   font-variant-numeric: tabular-nums;
 }
 
 .r-row--main .r-value {
-  font-size: 22px;
+  font-size: 24px;
   color: var(--result-value-main);
 }
 
@@ -420,7 +426,7 @@
 }
 
 .breakdown {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--result-breakdown);
   margin-top: 2px;
   max-width: 100%;
@@ -512,18 +518,50 @@
  * 排版规则挂在 `.guide` 下，避免影响计算器页与启动页。
  */
 
-.guide h2 {
-  margin: var(--space-6) 0 var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 2px solid var(--color-border);
-  font-size: 19px;
+/* 章节头：复刻攻略页一级板块的编号方块（01–06）+ 标题，
+   不再写「一、二、三」——序号由徽标承载，与左侧目录编号一致。
+   `id` 仍落在 h2 上，供目录锚点跳转。 */
+.guide h2.section__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 var(--space-4);
+  padding: 14px 16px;
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-soft);
+  font-size: 21px;
   color: var(--color-text-strong);
+}
+
+/* 章节序号方块：与攻略页 .section__no 同形同色 */
+.section__no {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
 .guide h3 {
   margin: var(--space-4) 0 var(--space-2);
   font-size: 15px;
   color: var(--color-text-strong);
+}
+
+/* 章节区域：仅供侧边目录的滚动侦测定位（见 useScrollSpy），
+   自身不引入视觉变化，但必须是块级容器才能被完整观察。 */
+.guide-section,
+.guide-module {
+  display: block;
 }
 
 .guide h4 {
@@ -538,7 +576,7 @@
 
 .guide-card {
   margin-bottom: var(--module-margin-bottom);
-  padding: 18px 20px;
+  padding: 20px 22px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
   background: var(--color-surface);
@@ -557,7 +595,7 @@
   border-radius: var(--radius-sm);
   background: var(--tag-base-bg);
   color: var(--tag-base-text);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 600;
 }
 
@@ -593,7 +631,7 @@
 .guide-callout__title {
   margin: 0 0 var(--space-1);
   color: var(--tag-weapon-text);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -647,7 +685,7 @@
   border-radius: var(--radius-md);
   background: var(--tag-base-bg);
   font-family: Consolas, Monaco, monospace;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.9;
   overflow-wrap: anywhere;
 }
@@ -656,7 +694,7 @@
   margin: 0 0 var(--space-1);
   color: var(--tag-base-text);
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -694,12 +732,12 @@
   border-left: 3px solid var(--color-text-muted);
   border-radius: var(--radius-md);
   background: var(--color-input-readonly-bg);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .guide-step__label {
   margin-bottom: 2px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -732,11 +770,11 @@
   width: 100%;
   margin: var(--space-3) 0;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .guide-table--compact {
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .guide-table th,
@@ -829,6 +867,10 @@
   color: var(--tag-core-text);
 }
 
+.guide-role--armorer {
+  color: var(--tag-armorer-text);
+}
+
 /* 「基础值 / 百分比 / 固定值」三类型列 */
 .guide-kind {
   font-weight: 600;
@@ -855,7 +897,7 @@
 }
 
 .guide-attrs__item {
-  padding: 8px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-input-readonly-bg);
@@ -863,14 +905,14 @@
 
 .guide-attrs__label {
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .guide-attrs__value {
   margin-top: 2px;
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* 概览流程图 */
@@ -1074,7 +1116,7 @@
   text-transform: uppercase;
 }
 
-/* 三张入口卡：宽屏一行铺开（容器 1180px 下每张约 369px），窄屏自动折行；
+/* 三张入口卡：宽屏一行铺开（容器 1440px 下每张约 460px），窄屏自动折行；
    不再写死两列，加第四张卡时无需改这里。 */
 .cards {
   display: grid;
@@ -1083,11 +1125,13 @@
 }
 
 /* 卡片刻意复用 .module 的表面色、圆角、左侧色条与内边距令牌，
-   与计算器六大模块同源；三张入口卡片因此必然视觉一致。 */
+   与计算器六大模块同源；三张入口卡片因此必然视觉一致。
+   `position: relative` 供右上角序号徽标（.card__no）定位。 */
 .card {
   display: flex;
   min-height: 200px;
   flex-direction: column;
+  position: relative;
   padding: var(--module-padding-block) var(--module-padding-inline);
   border: 1px solid var(--color-border);
   border-left: 4px solid var(--color-accent);
@@ -1110,14 +1154,14 @@
 
 .card h2 {
   margin: var(--space-3) 0 var(--space-2);
-  font-size: 18px;
+  font-size: 20px;
   color: var(--color-text-strong);
 }
 
 .card p {
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.75;
 }
 
@@ -1128,7 +1172,7 @@
   border-radius: var(--radius-sm);
   background: var(--tag-base-bg);
   color: var(--tag-base-text);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 600;
 }
 
@@ -1136,7 +1180,7 @@
   display: inline-block;
   margin-top: var(--space-3);
   color: var(--color-text-strong);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
 }
 
@@ -1147,7 +1191,7 @@
   margin-top: auto;
   padding-top: var(--space-4);
   color: var(--color-accent-text);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -1166,8 +1210,625 @@
 .launcher-footer {
   margin-top: var(--space-5);
   color: var(--color-text-faint);
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
+}
+
+.launcher-footer__meta {
+  margin-top: var(--space-1);
+}
+
+/* ====== 攻略同款排版：站点导航 / 页眉 / 侧边目录 / 回到顶部 / 序号徽标 =====
+ * 以下规则把代理人攻略页（strategy 下各 slug 的 styles.css）的标志性视觉
+ * 搬进主应用三页（/、/calculator、/guide）：顶部站点导航、页眉卡、回到
+ * 顶部、模块序号方块；侧边目录只服务指南这类长文，计算器不放（见上）。
+ *
+ * 配色一律取 tokens.css 既有令牌（攻略页按代理人属性色动态取色，这里固定
+ * 用靛蓝 --color-accent 一族），不引入只有本区块才用的颜色值。
+ */
+
+/* ---------- 顶部站点导航（启动页） ---------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgb(255 255 255 / 88%);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-nav__inner {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 10px var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.site-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.site-nav__badge {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.site-nav__brand-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-strong);
+  white-space: nowrap;
+}
+
+.site-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+}
+
+.site-nav__link {
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition:
+    color var(--duration-base) var(--ease-base),
+    background-color var(--duration-base) var(--ease-base);
+}
+
+.site-nav__link:hover {
+  color: var(--color-text-strong);
+  background: var(--color-input-readonly-bg);
+  text-decoration: none;
+}
+
+/* Vue Router 的默认高亮类；测试里的 RouterLink 桩不渲染它，只影响真实站点 */
+.site-nav__link.router-link-active {
+  color: var(--color-accent-text);
+  background: var(--color-accent-soft);
+}
+
+@media (width <= 560px) {
+  .site-nav__brand-text {
+    display: none;
+  }
+}
+
+/* ---------- 页眉卡（计算器 / 指南） ---------- */
+
+.page-hero {
+  margin-bottom: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-module);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-module);
+}
+
+/* .subtitle 自带底部 24px，页眉里不需要额外间距 */
+.page-hero .subtitle {
+  margin-bottom: 0;
+}
+
+/* 页眉信息片：站点覆盖面的速览 */
+.hero-chips {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 1px solid var(--color-accent-border);
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---------- 左侧编号目录（仅指南页） ---------- */
+
+/* 计算器页不放目录：它用 base.css 的 `.layout`（输入列 + 吸顶结果列）两列铺开。
+   只有指南这类长文才需要目录，故这里只定义指南的两列。 */
+.layout--guide {
+  grid-template-columns: 216px minmax(0, 1fr);
+}
+
+.sidebar {
+  position: sticky;
+  /* 吸顶位置让开左上角固定的返回按钮（16 + 44），否则滚动时按钮会被目录盖住 */
+  top: calc(var(--touch-target) + var(--space-4));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-height: calc(100vh - var(--touch-target) - var(--space-4) - var(--space-5));
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-module);
+  box-shadow: var(--shadow-module);
+  scrollbar-width: thin;
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sidebar__brand-badge {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.sidebar__brand-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.sidebar__brand-name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-text-strong);
+  line-height: 1.2;
+}
+
+.sidebar__brand-sub {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--color-text-faint);
+}
+
+/* 窄屏目录开关；桌面上隐藏 */
+.sidebar__toggle {
+  display: none;
+  appearance: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-input-readonly-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  transition:
+    color var(--duration-base) var(--ease-base),
+    background var(--duration-base) var(--ease-base),
+    border-color var(--duration-base) var(--ease-base);
+}
+
+.sidebar__link:hover {
+  color: var(--color-text-strong);
+  background: var(--color-input-readonly-bg);
+  text-decoration: none;
+}
+
+/* 当前章节；其子链接命中时父级保持浅色高亮（is-parent） */
+.sidebar__link.is-active,
+.sidebar__link.is-parent {
+  color: var(--color-accent-text);
+  background: var(--color-accent-soft);
+  border-left-color: var(--color-accent);
+}
+
+.sidebar__index {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.sidebar__link.is-active .sidebar__index,
+.sidebar__link.is-parent .sidebar__index {
+  color: var(--color-accent-text);
+}
+
+.sidebar__sublinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 2px 0 4px 12px;
+  padding-left: 10px;
+  border-left: 1px solid var(--color-border);
+}
+
+.sidebar__sublink {
+  padding: 5px 8px;
+  font-size: 14.5px;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid transparent;
+  text-decoration: none;
+  /* 过渡属性与一级链接（.sidebar__link）保持一致：高亮态会同时改
+     文字色、背景与左侧强调条，少一个属性就会出现「色块在渐换、
+     竖条瞬跳」的割裂感 */
+  transition:
+    color var(--duration-base) var(--ease-base),
+    background var(--duration-base) var(--ease-base),
+    border-color var(--duration-base) var(--ease-base);
+}
+
+.sidebar__sublink:hover {
+  color: var(--color-text-strong);
+  background: var(--color-input-readonly-bg);
+  text-decoration: none;
+}
+
+.sidebar__sublink.is-active {
+  color: var(--color-accent-text);
+  background: var(--color-accent-soft);
+  border-left-color: var(--color-accent);
+}
+
+.sidebar__foot {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: 13px;
+  color: var(--color-text-faint);
+}
+
+.sidebar__foot p {
+  margin: 0;
+}
+
+.sidebar__foot-source {
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+/* 目录收成顶部条的断点。容器已是 1440px（与攻略页同宽），两列至少需要
+   216 + 20 + 约 360 的正文宽；低于 1200px 视口时正文被压瘪，故收起目录。
+   目录条同样让开返回按钮，并加大锚点跳转的顶部留白（条高约 60px）。 */
+@media (width <= 1200px) {
+  html {
+    scroll-padding-top: 132px;
+  }
+
+  .layout--guide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: calc(var(--touch-target) + var(--space-4));
+    z-index: 40;
+    grid-column: 1 / -1;
+    max-height: none;
+    overflow: visible;
+    padding: var(--space-3);
+  }
+
+  .sidebar__toggle {
+    display: inline-flex;
+  }
+
+  .sidebar__nav {
+    display: none;
+    margin-top: var(--space-3);
+  }
+
+  .sidebar.is-open .sidebar__nav {
+    display: flex;
+    animation: sidebar-in 200ms ease;
+  }
+
+  .sidebar__foot {
+    display: none;
+  }
+}
+
+@keyframes sidebar-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (width <= 842px) {
+  .layout--guide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- 回到顶部 ---------- */
+
+.to-top {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 60;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 18px;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgb(16 19 24 / 12%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease,
+    color var(--duration-base) var(--ease-base),
+    border-color var(--duration-base) var(--ease-base);
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.to-top:hover {
+  color: var(--color-accent-text);
+  border-color: var(--color-accent-border);
+  transform: translateY(-2px);
+}
+
+.to-top:active {
+  transform: translateY(0);
+}
+
+/* ---------- 模块序号徽标（计算器六大模块） ---------- */
+
+.module-no {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--color-text-faint);
+  border-radius: var(--radius-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.module--base .module-no {
+  background: var(--module-base-accent);
+}
+
+.module--weapon .module-no {
+  background: var(--module-weapon-accent);
+}
+
+.module--core .module-no {
+  background: var(--module-core-accent);
+}
+
+.module--disc .module-no {
+  background: var(--module-disc-accent);
+}
+
+.module--sub .module-no {
+  background: var(--module-sub-accent);
+}
+
+.module--set .module-no {
+  background: var(--module-set-accent);
+}
+
+/* ---------- 实心按钮（指南结尾 CTA） ---------- */
+
+.btn--solid {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.btn--solid:hover {
+  background: var(--color-accent-hover-text);
+  border-color: var(--color-accent-hover-text);
+  color: #fff;
+}
+
+/* ---------- 结果区头部操作（复制 / 重置） ---------- */
+
+.result-module__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 14px;
+}
+
+.result-module__head h2 {
+  margin-bottom: 0;
+}
+
+.result-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.result-action {
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--result-label);
+  background: rgb(255 255 255 / 10%);
+  border: 1px solid var(--result-row-border);
+  border-radius: var(--radius-md);
+  padding: 4px 10px;
+  transition:
+    color var(--duration-base) var(--ease-base),
+    background-color var(--duration-base) var(--ease-base),
+    border-color var(--duration-base) var(--ease-base);
+}
+
+.result-action:hover {
+  color: var(--result-value);
+  background: rgb(255 255 255 / 18%);
+  border-color: rgb(255 255 255 / 24%);
+}
+
+.result-action:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus-strong);
+}
+
+.result-hint {
+  margin: 0 0 var(--space-2);
+  color: var(--result-value-main);
+  font-size: 12px;
+}
+
+/* ---------- 指南结尾 CTA ---------- */
+
+.guide-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-module);
+  background: var(--color-accent-soft);
+}
+
+.guide-cta__title {
+  margin: 0 0 2px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-strong);
+}
+
+.guide-cta__note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ---------- 启动页卡片：序号角标 + 特性列表 ---------- */
+
+/* 右上角淡色序号：与计算器模块的序号徽标呼应，但不抢徽标（.badge）的视觉 */
+.card__no {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-accent-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.card__features {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card__features li {
+  padding: 1px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-input-readonly-bg);
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* ---------- 动效降级 ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .sidebar.is-open .sidebar__nav {
+    animation: none;
+  }
+
+  .to-top,
+  .card,
+  .sidebar__link,
+  .sidebar__sublink,
+  .site-nav__link,
+  .result-action,
+  .btn {
+    transition: none;
+  }
 }
 
 @media (width <= 760px) {
@@ -1228,25 +1889,87 @@
   outline: none;
 }
 
-/* 立绘是 public/images/agents 下的方形图，1:1 裁切；
-   底色用 .badge 同源的浅靛，图未就位时不露白。
-   头像封顶 128px：5 列时每列约 213px，不封顶头像会偏大。 */
-.strategy-card__avatar {
-  display: block;
-  width: min(100%, 128px);
-  margin-inline: auto;
+/* 所有卡片：tachie/头像作为卡片框背景，暗底；悬停恢复正常亮度。
+   图标左上角垂直排列，底部名字胶囊。 */
+.strategy-card--tachie {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-module);
-  background: var(--tag-base-bg);
-  object-fit: cover;
 }
 
-.strategy-card__name {
-  margin-top: var(--space-3);
-  color: var(--color-text-strong);
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
+.strategy-card__tachie {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.75);
+  transition: filter var(--duration-base) var(--ease-base);
+}
+
+.strategy-card--tachie:hover .strategy-card__tachie,
+.strategy-card--tachie:focus-visible .strategy-card__tachie {
+  filter: brightness(1);
+}
+
+/* 左上角图标，从上到下垂直排列，每个黑底小框 */
+.strategy-card--tachie .strategy-card__badges {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.strategy-card--tachie .strategy-card__badge {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  background: #000;
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  box-sizing: border-box;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 45%));
+}
+
+/* 底部名字胶囊 */
+.strategy-card--tachie .strategy-card__name-wrap {
+  position: absolute;
+  bottom: var(--space-4);
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  padding: 4px 14px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 18%);
+}
+
+.strategy-card--tachie .strategy-card__name {
+  margin: 0;
+  color: #111;
+  font-size: 16px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.strategy-card--tachie:hover,
+.strategy-card--tachie:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-result);
+  outline: none;
 }
 
 /* ====== 攻略页舞台（/strategy/:slug） =====

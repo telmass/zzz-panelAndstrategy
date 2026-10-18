@@ -148,7 +148,7 @@ describe('音 cascader 分组与回填', () => {
     // 一级项带 children，value 即职业标签
     const group = usePanelStore().weaponPresetGroups[0];
     const groupIcon = renderPrefix({ option: group });
-    expect(groupIcon?.props.src).toBe('/images/icons/strike.png');
+    expect(groupIcon?.props.src).toBe('/images/icons/attack.png');
 
     // 二级项是叶子，value 即音擎 id
     const weapon = allWeapons()[0];
@@ -172,7 +172,7 @@ describe('音 cascader 分组与回填', () => {
     const leaf = group.children?.find((option) => option.value === weapon.id);
     expect(leaf).toBeDefined();
 
-    // 浏览过程中：一级仍是职业标签，二级只有武器名称，不含 roletag 与评级
+      // 浏览过程中：一级仍是职业标签，二级只有音擎名称，不含 roletag 与评级
     expect(renderLabel(group)).toBe('强攻');
     expect(renderLabel(leaf)).toBe(weapon.name);
     expect(renderLabel(leaf)).not.toContain(weapon.roleTag);
@@ -525,7 +525,7 @@ describe('代理人 cascader 分组与载入', () => {
     ) => { props: Record<string, unknown> } | null;
 
     const group = usePanelStore().agentPresetGroups[0];
-    expect(renderPrefix({ option: group })?.props.src).toBe('/images/icons/strike.png');
+    expect(renderPrefix({ option: group })?.props.src).toBe('/images/icons/attack.png');
 
     const agent = usePresetStore().agents.find((item) => item.roleTag === group.label);
     expect(renderPrefix({ option: group.children?.[0] })?.props.src).toBe(
@@ -640,8 +640,10 @@ describe('代理人 cascader 分组与载入', () => {
       );
       // 面板模式本身不受影响，仍照常驱动计算
       expect(panel.panelMode).toBe(mode);
-      // 整个页面（选项文案 + 卡片 + 载入提示）都看不到「通用」
-      expect(wrapper.text()).not.toContain('通用');
+      // 模式名「通用」不得出现在面向代理人的界面文案里（选项文案 + 选中卡片 + 载入提示）。
+      // 只断言基础面板模块：页眉有面向用户的模式说明句（与启动页副标题同源），
+      // 整页断言会把那句正常的解释也一并禁掉。
+      expect(wrapper.find('.module--base').text()).not.toContain('通用');
     }
   });
 

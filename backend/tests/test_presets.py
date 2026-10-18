@@ -103,14 +103,16 @@ def valid_weapon(**overrides: object) -> dict:
 
 def test_real_agent_data_passes_validation() -> None:
     agents = loader.load_agents()
-    assert len(agents) == 60
-    assert len({agent.id for agent in agents}) == 60
+    source = json.loads((REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8"))
+    assert len(agents) == len(source)
+    assert len({agent.id for agent in agents}) == len(agents)
 
 
 def test_real_weapon_data_passes_validation() -> None:
     weapons = loader.load_weapons()
-    assert len(weapons) == 100
-    assert len({weapon.id for weapon in weapons}) == 100
+    source = json.loads((REPO_ROOT / "data" / "weapon-presets.json").read_text(encoding="utf-8"))
+    assert len(weapons) == len(source)
+    assert len({weapon.id for weapon in weapons}) == len(weapons)
 
 
 def test_response_matches_source_json_byte_for_byte() -> None:

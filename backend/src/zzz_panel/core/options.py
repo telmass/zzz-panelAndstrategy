@@ -110,6 +110,8 @@ SET_OPTIONS: tuple[RuleOption, ...] = _with_ids(
         ("hp_pct_10", "生命 +10%", 10, "pct", "hp_pct"),
         ("atk_pct_10", "攻击力 +10%", 10, "pct", "atk_pct"),
         ("def_pct_10", "防御力 +10%", 10, "pct", "def_pct"),
+        # 荆棘玫瑰二件套（锋御毕业套）：没有这一条，锋御代理人的二件套根本无从选
+        ("def_pct_16", "防御力 +16%", 16, "pct", "def_pct"),
         ("cr_8", "暴击率 +8%", 8, "pct", "cr"),
         ("cd_16", "暴击伤害 +16%", 16, "pct", "cd"),
         ("impact_pct_6", "冲击力 +6%", 6, "pct", "impact_pct"),

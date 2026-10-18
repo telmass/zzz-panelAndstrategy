@@ -37,6 +37,10 @@ if (!window.matchMedia) {
   })) as unknown as typeof window.matchMedia;
 }
 
+// vue-router 的 scrollBehavior 在每次导航后调用 window.scrollTo；jsdom 未实现且会打印
+// "Not implemented"。测试不依赖滚动位置，直接替换成 noop。
+window.scrollTo = (() => {}) as typeof window.scrollTo;
+
 // 用宽松视图改写全局对象：`'ResizeObserver' in window` 会让 TS 把 window
 // 收窄成 `never`（DOM lib 里没有这两个声明），导致赋值处直接报错。
 const globals = globalThis as Record<string, unknown>;

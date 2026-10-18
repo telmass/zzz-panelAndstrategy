@@ -24,16 +24,24 @@ p {
   display: none !important;
 }
 
+/* 行高与攻略页一致（1.65），标题随容器一起放大，避免拉宽后字显得更小 */
 body {
   font-family: var(--font-sans);
   background: var(--color-page-bg);
   color: var(--color-text);
-  line-height: 1.6;
+  line-height: 1.65;
   padding: var(--space-5) var(--space-4) 80px;
 }
 
+/* 页内锚点跳转：平滑滚动 + 为左上角固定返回按钮留出空间。
+   与攻略页（strategy 下各 slug 的 styles.css）表现一致，目录点击不顶格。 */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 76px;
+}
+
 h1 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--color-text-strong);
   margin-bottom: var(--space-1);
@@ -41,7 +49,7 @@ h1 {
 
 .subtitle {
   color: var(--color-text-muted);
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: var(--space-6);
 }
 

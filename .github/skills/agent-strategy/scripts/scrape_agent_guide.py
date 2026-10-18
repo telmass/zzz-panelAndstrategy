@@ -27,7 +27,7 @@ BeautifulSoup 清洗为可读纯文本；六大类技能与影画文本写入 JS
 JSON 里一律写 `/images/…` URL（禁止页相对 `assets/…`），详见
 ``profile_icons`` / ``local_assets`` / ``cinema_backdrops`` 的注释。
 
-用法（仓库根；默认抓叶瞬光写入 strategy/ye-shun-guang/）::
+用法（仓库根；默认抓叶瞬光写入 strategy/ye-shunguang/）::
 
     python .github/skills/agent-strategy/scripts/scrape_agent_guide.py
     python .github/skills/agent-strategy/scripts/scrape_agent_guide.py --entry-page-id 1109 \
@@ -43,6 +43,7 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import html
 import json
 import re
 import sys
@@ -94,18 +95,45 @@ ATTRIBUTE_LABELS = {
 #: 因此 tab「终结技」整体映射为类别「连携技」，展示名保持「连携技」。
 SKILL_TABS: dict[str, tuple[str, str]] = {
     "普攻": ("basic", "普通攻击"),
+    "普通攻击": ("basic", "普通攻击"),
     "闪避": ("dodge", "闪避"),
     "支援技": ("assist", "支援技"),
     "特殊技": ("special", "特殊技"),
     "终结技": ("chain", "连携技"),
+    "连携技": ("chain", "连携技"),
     "核心技": ("core", "核心技"),
 }
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 #: 唯一图片根。所有引用（含 data/*.json 与攻略 JSON）一律写成 /images/… URL。
 IMAGES_ROOT = REPO_ROOT / "frontend" / "public" / "images"
-DEFAULT_SLUG = "ye-shun-guang"
+DEFAULT_SLUG = "ye-shunguang"
 DEFAULT_OUTPUT = REPO_ROOT / "strategy" / DEFAULT_SLUG / "data" / f"{DEFAULT_SLUG}.json"
+
+#: WIKI 职业 slug -> 仓库共享图标文件名（小写 ASCII slug，如 strike -> attack.png）
+PROFESSION_ICON_MAP = {
+    "strike": "attack",
+    "pierce": "stun",
+    "abnormal": "anomaly",
+    "support": "support",
+    "guard": "defense",
+    "rupture": "rupture",
+    "armero": "armorer",
+}
+
+#: WIKI 属性 slug -> 仓库共享图标文件名（小写 ASCII slug，如 physical -> physical.png）
+ATTRIBUTE_ICON_MAP = {
+    "electric": "electric",
+    "ether": "ether",
+    "fire": "fire",
+    "ice": "ice",
+    "physical": "physical",
+    "frost": "frost",
+    "auricink": "auric-ink",
+    "honed_edge": "honed-edge",
+    "wind": "wind",
+    "Lumiflux": "lumiflux",
+}
 
 #: WIKI 代理人页前端 bundle（/zzz/wiki/_nuxt/c987913.js）中渲染等级图标的
 #: vp 映射：{infinite, s, a, b} -> fastcdn.mihoyo.com 静态资源。
@@ -292,6 +320,43 @@ def core_max_text(text: str, growth: list[dict]) -> str:
     return f"{bumped}{sep.replace('初始数据', '满级数据')}{tail}"
 
 
+def core_detail_from_growth(growth: object) -> tuple[str, str]:
+    """从核心技的成长表里抽取招式描述与标题（WIKI 的另一种结构）。
+
+    部分代理人（如克拉蕾）的核心技 tab 子项只有成长表、没有 title/desc；
+    完整描述以 ``<span data-type="详情" data-name="<escaped html>">`` 的形式挂在
+    每一 rank 的行上。这里反转义为纯文本，并取**最后一段（F 级，满级）**的数值——
+    A-F 各段的加成数值是递增的（如暴击率 17.5% → 30%），取首段会展示成「只升了一级」。
+    标题取行内的「核心被动：XXX」。
+
+    返回 ``(title, text)``；取不到时两者均为空串，调用方按原逻辑跳过。
+    """
+    if not isinstance(growth, list) or not growth:
+        return "", ""
+    rows_html: list[str] = []
+    for level in growth:
+        if not isinstance(level, dict):
+            continue
+        for group in level.get("children") or []:
+            if not isinstance(group, dict):
+                continue
+            for row in group.get("row") or []:
+                if isinstance(row, list):
+                    rows_html.extend(cell for cell in row if isinstance(cell, str))
+    text = ""
+    title = ""
+    for cell_html in rows_html:
+        match = re.search(r'data-name="([^"]*)"', cell_html)
+        if not match:
+            continue
+        plain = html_to_text(html.unescape(match.group(1)))
+        if plain:
+            text = plain  # 后写覆盖先写：最终留下最后一段（满级）的数值
+            name = re.search(r"核心被动：([^\]\[，。；\s]+)", html_to_text(cell_html))
+            title = f"核心被动：{name.group(1)}" if name else title
+    return title, text
+
+
 def parse_skills(page: dict) -> list[dict]:
     """解析六大类技能。
 
@@ -300,19 +365,26 @@ def parse_skills(page: dict) -> list[dict]:
     避免官方改版后静默产出半份数据。
     """
     talents = [t for t in find_components(page, "role_talent") if t.get("list")]
-    skill_lists = [t["list"] for t in talents if any(item.get("tab_name") in SKILL_TABS for item in t["list"])]
+    # 官方偶尔在 tab 名里插空格（席德的「闪 避」），匹配前统一去掉空白。
+    normalized_tabs = {re.sub(r"\s+", "", tab): (key, name) for tab, (key, name) in SKILL_TABS.items()}
+    skill_lists = [t["list"] for t in talents if any(re.sub(r"\s+", "", item.get("tab_name") or "") in normalized_tabs for item in t["list"])]
     if not skill_lists:
         raise ScrapeError("页面中没有技能展示区块（role_talent）")
     skill_list = skill_lists[0]
-    found_tabs = [item.get("tab_name") for item in skill_list]
-    missing = [tab for tab in SKILL_TABS if tab not in found_tabs]
-    if missing:
-        raise ScrapeError(f"技能 tab 缺失 {missing}；实际 tab 为 {found_tabs}")
+    found_tabs = [re.sub(r"\s+", "", item.get("tab_name") or "") for item in skill_list]
+    # 把实际出现的 tab 映射到 skill key，校验 6 个必需 key（basic/dodge/assist/special/chain/core）
+    # 是否齐全，而不逐个要求别名都出现（官方不同代理人页 tab 写法不一，如“普攻”/“普通攻击”）。
+    found_keys = {normalized_tabs[tab][0] for tab in found_tabs if tab in normalized_tabs}
+    required_keys = {key for key, _ in SKILL_TABS.values()}
+    missing_keys = required_keys - found_keys
+    if missing_keys:
+        missing_tabs = [tab for tab, (key, _) in SKILL_TABS.items() if key in missing_keys]
+        raise ScrapeError(f"技能 tab 缺失 {missing_tabs}；实际 tab 为 {found_tabs}")
 
     skills: list[dict] = []
     for item in skill_list:
         tab = item.get("tab_name")
-        key, name = SKILL_TABS[tab]
+        key, name = normalized_tabs[re.sub(r"\s+", "", tab)]
         moves: list[dict] = []
         skipped = 0
         is_core = tab == "核心技"
@@ -320,10 +392,17 @@ def parse_skills(page: dict) -> list[dict]:
             title = (child.get("title") or "").strip()
             text = html_to_text(child.get("desc") or "")
             if not title or not text:
-                # WIKI 存在一批「变体条目」：只有标题（如「…（3段 无剑势）」）、
-                # 描述与成长数据均为空，是供页面内跳转的锚点，没有可展示内容。
-                skipped += 1
-                continue
+                # 变体条目：只有标题、无描述与成长，是页面内跳转锚点（照旧跳过）。
+                # 核心技的另一种结构：子项只有成长表，描述在成长首行的「详情」属性里
+                # （如克拉蕾），此时用成长表反推出招式。
+                if is_core:
+                    detail_title, detail_text = core_detail_from_growth(child.get("growth"))
+                    if detail_text:
+                        title = title or detail_title or name
+                        text = detail_text
+                if not title or not text:
+                    skipped += 1
+                    continue
             move = {"title": title, "text": text}
             growth = parse_growth(child.get("growth"))
             if growth:
@@ -429,10 +508,26 @@ BASE_PANEL_FIELDS = (
     "能量自动回复",
 )
 
+#: 满级行的字段名比初始行短（缺「值 / 力」后缀）。合并是按标签文本做键的，
+#: 不先归一成同一键，满级值就覆盖不了初始值，而会被当成额外字段追加下去——
+#: 基础面板于是同时列出初始行与满级行的生命 / 攻击 / 防御（柚叶踩过）。
+#: 「生命力」是希希芙页面满级行的写法（生命值的另一种标签），同样归一。
+BASE_PANEL_ALIASES = {
+    "生命": "生命值",
+    "生命力": "生命值",
+    "攻击": "攻击力",
+    "防御": "防御力",
+}
+
 
 def num(value) -> object:
-    """整值收敛为 int，避免 JSON 里出现 7673.0 这类字面量。"""
-    return int(value) if float(value).is_integer() else float(value)
+    """整值收敛为 int，避免 JSON 里出现 7673.0 这类字面量。
+
+    注意必须先转 float 再判整：WIKI 有些页面写作「5.0%」而非「5%」，
+    直接 ``int("5.0")`` 会抛 ValueError。
+    """
+    parsed = float(value)
+    return int(parsed) if parsed.is_integer() else parsed
 
 
 def parse_base_panel(page: dict) -> list[dict]:
@@ -441,6 +536,7 @@ def parse_base_panel(page: dict) -> list[dict]:
     WIKI 把基础数据放在 role_talent（晋升需求）的滑块里：初始行给全量字段，
     满级行只给随晋升变化的生命 / 攻击 / 防御，逐字段用满级覆盖初始即为 60 级
     面板——与仓库 ``data/agent-presets.json`` 的 ``base`` 同源同值。
+    满级行的短字段名先经 ``BASE_PANEL_ALIASES`` 归一，否则覆盖不生效。
     输出 ``[{label, value, unit}]``，``unit`` 为 "%" 或空串。
     """
     stats: dict[str, dict] = {}
@@ -460,8 +556,9 @@ def parse_base_panel(page: dict) -> list[dict]:
                                 for line in html_to_text(cell).split("\n"):
                                     match = re.fullmatch(r"(.+?)[：:]\s*([\d.]+)(%?)", line.strip())
                                     if match:
-                                        stats[match.group(1)] = {
-                                            "label": match.group(1),
+                                        label = BASE_PANEL_ALIASES.get(match.group(1), match.group(1))
+                                        stats[label] = {
+                                            "label": label,
                                             "value": num(match.group(2)),
                                             "unit": match.group(3),
                                         }
@@ -583,7 +680,7 @@ def profile_icons(profile: dict, page: dict, args) -> dict:
       落 ``--assets-dir``，写 ``/images/strategy/<slug>/title.png``；没有称号的
       代理人该字段为空，自动跳过。
     - 属性图标：WIKI 不下发，检测人工放置的
-      ``images/attributes/<role_attribute>.png``（如 honed_edge），存在才写该
+      ``images/attributes/<slug>.png``（如 honed-edge），存在才写该
       URL，否则前端以色牌降级。
     """
     base_info = find_components(page, "role_base_info")[0]
@@ -593,19 +690,21 @@ def profile_icons(profile: dict, page: dict, args) -> dict:
     icons: dict = {"profession": "", "grade": "", "attribute": "", "title": ""}
 
     if not args.no_images:
-        profession_src = IMAGES_ROOT / "icons" / f"{profession_slug}.png"
-        if profession_src.is_file():
-            icons["profession"] = f"/images/icons/{profession_slug}.png"
+        # 职业图标：全代理人共享，直接引用仓库图标集（始终写入正确路径）
+        if profession_slug and profession_slug in PROFESSION_ICON_MAP:
+            icons["profession"] = f"/images/icons/{PROFESSION_ICON_MAP[profession_slug]}.png"
+        # 等级图标：从 WIKI bundle vp 映射下载，已存在则跳过；下载失败留空，由 fix-agent 兜底
         grade_dest = IMAGES_ROOT / "grades" / f"{grade}.png"
         grade_url = GRADE_ICON_URLS.get(grade)
         if grade_url and download_image(grade_url, grade_dest, args.timeout, skip_if_exists=True):
             icons["grade"] = f"/images/grades/{grade}.png"
+        # 称号图标（虚狩专属）：role_base_info.addition_img 直接下发
         title_img_url = base_info.get("addition_img") or ""
         if title_img_url and download_image(title_img_url, args.assets_dir / "title.png", args.timeout):
             icons["title"] = f"{args.strategy_url}/title.png"
-        attribute_src = IMAGES_ROOT / "attributes" / f"{attribute_slug}.png"
-        if attribute_src.is_file():
-            icons["attribute"] = f"/images/attributes/{attribute_slug}.png"
+        # 属性图标：WIKI 不下发，直接引用仓库图标集（始终写入正确路径）
+        if attribute_slug and attribute_slug in ATTRIBUTE_ICON_MAP:
+            icons["attribute"] = f"/images/attributes/{ATTRIBUTE_ICON_MAP[attribute_slug]}.png"
     return icons
 
 

@@ -240,8 +240,10 @@ def test_repo_data_wins_over_compiled_module(
     monkeypatch.delenv("ZZZ_PANEL_DATA_DIR", raising=False)
     monkeypatch.setattr(loader, "_data_dir", None)
 
-    assert len(loader.load_agents()) == 60
-    assert len(loader.load_weapons()) == 100
+    agents = json.loads((REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8"))
+    weapons = json.loads((REPO_ROOT / "data" / "weapon-presets.json").read_text(encoding="utf-8"))
+    assert len(loader.load_agents()) == len(agents)
+    assert len(loader.load_weapons()) == len(weapons)
 
 
 def test_compiled_module_matches_repo_data_when_present(

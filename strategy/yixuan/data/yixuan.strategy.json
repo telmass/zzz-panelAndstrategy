@@ -1,0 +1,314 @@
+{
+  "_meta": {
+    "agentId": "ep-1299",
+    "name": "仪玄",
+    "note": "本文件为仪玄的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 yixuan.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/yixuan/data/yixuan.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：命破模式口径参考般岳（strategy/banyue/），仪玄亦为命破 S 级，贯穿力 = 0.3×攻击 + 0.1×生命，核心给暴击率+基础生命值",
+      "官方 WIKI：https://baike.mihoyo.com/zzz/wiki/content/1299/detail"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/1299/detail"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 11,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "怒目金刚",
+          "stats": "S 级 · 基础攻击 713 · 生命值 30%",
+          "icon": "/images/weapons/ep-1721.png"
+        }
+      ],
+      "note": "命破 S 级音擎（般岳页同款首选）：基础攻击 713、副词条生命值 30%。命破角色只能使用命破音擎。"
+    },
+    {
+      "tier": "下位",
+      "items": [
+        {
+          "name": "青溟笼舍",
+          "stats": "S 级 · 基础攻击 743 · 生命值 30%",
+          "icon": "/images/weapons/ep-1342.png"
+        },
+        {
+          "name": "海妖摇篮",
+          "stats": "S 级 · 基础攻击 713 · 生命值 30%",
+          "icon": "/images/weapons/ep-1664.png"
+        }
+      ],
+      "note": "命破音擎下位，需按 WIKI 音擎详情页补全特效文本。"
+    },
+    {
+      "tier": "备选",
+      "items": [
+        {
+          "name": "辉骑面铠",
+          "stats": "S 级 · 基础攻击 713 · 生命值 30%",
+          "icon": "/images/weapons/ep-2002.png"
+        },
+        {
+          "name": "青漪灵鼎",
+          "stats": "A 级 · 基础攻击 594 · 生命值 25%",
+          "icon": "/images/weapons/ep-1774.png"
+        }
+      ],
+      "note": "备选命破音擎，需按 WIKI 音擎详情页补全特效文本。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "云岿如我 4 件套 + 折枝剑歌 2 件套",
+      "set4": {
+        "name": "云岿如我",
+        "label": "生命值 +10%",
+        "effect4": "装备者处于[以太帷幕]中时，受到伤害提升12%；装备者不处于[以太帷幕]中时，造成伤害提升12%。",
+        "icon": "/images/discs/ep-1347.png"
+      },
+      "set2": {
+        "main": {
+          "name": "折枝剑歌",
+          "label": "暴击伤害 +16%",
+          "icon": "/images/discs/ep-1000.png"
+        },
+        "alt": {
+          "name": "河豚电音",
+          "label": "穿透率 +8%",
+          "icon": "/images/discs/ep-193.png"
+        }
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "暴击伤害 +48%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "5 号位",
+          "main": "伤害加成 +30%",
+          "alt": "攻击力 +30%"
+        },
+        {
+          "slot": "6 号位",
+          "main": "生命值 +30%",
+          "alt": "攻击力 +30%"
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "暴击率",
+          "next": ">"
+        },
+        {
+          "label": "暴击伤害",
+          "next": ">"
+        },
+        {
+          "label": "生命值%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "生命值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "仪橘卢",
+      "members": [
+        {
+          "agentId": "ep-1299",
+          "name": "仪玄",
+          "role": "命破",
+          "avatar": "/images/agents/ep-1299.png",
+          "note": "玄墨命破主 C，贯穿伤害无视防御，双大招爆发；核心按最大生命值转贯穿力，毕业面板优先保命中值与暴击率。",
+          "set4": [
+            {
+              "name": "云岿如我",
+              "icon": "/images/discs/ep-1347.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1301",
+          "name": "橘福福",
+          "role": "击破",
+          "avatar": "/images/agents/ep-1301.png",
+          "note": "后台击破辅助，自动衔接连携技，提供全队暴击伤害Buff；与仪玄组「仪橘卢」失衡窗口。",
+          "set4": [
+            {
+              "name": "山大王",
+              "icon": "/images/discs/ep-1346.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1533",
+          "name": "卢西娅",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1533.png",
+          "note": "以太异常副C，提供贯穿力加成与回血，命破体系常用第三位。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            },
+            {
+              "name": "云岿如我",
+              "icon": "/images/discs/ep-1347.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表",
+      "lines": [
+        "资源循环：仪玄所有攻击均用贯穿力作为倍率，无视敌人防御；核心按最大生命值每 1 点转 0.1 点贯穿力，生命值是贯穿力的第二倍率源。",
+        "太极机制：通过长按攻击发动强化特殊技，造成伤害的同时消耗能量积攒太极进度条；太极满后点亮太极图，长按闪避可发动[玄墨极阵]，持续为特殊技回复能量。",
+        "双大招爆发：喧响达[极]时发动[终结技：青溟云影]或[符法千重]，释放时平均分配队伍生命值；[玄墨值]足够时长按可快速衔接[普通攻击：玄墨极阵]。",
+        "爆发循环：进场 → 强化特殊技积太极 → 终结技爆发 → 衔接极阵持续回能 → 下一轮强化特殊技；招架支援累积大量失衡值，配合击破队友快速触发失衡。",
+        "配队要求：仪玄为命破主 C，主推 仪橘卢（仪玄 + 橘福福 + 卢西娅），橘福福的失衡辅助与暴击Buff、卢西娅的贯穿力加成均直增仪玄输出。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "贯穿力是仪玄的核心倍率：面板贯穿力 = 0.3×攻击力 + 0.1×生命值，毕业面板展示生命值与贯穿力两行，优先保命中值（暴击率 ≥50%）与生命值。",
+        "云岿如我四件套在[以太帷幕]内外分别给受伤/造成伤害 +12%，二件套生命值+10%已计入面板；折枝剑歌二件套暴伤+16%计入。",
+        "核心被动「术法宗师」按最大生命值转贯穿力（每 1 HP → 0.1 贯穿力），无上限，生命值副词条与六号位生命+30%均有收益。",
+        "闪避基本不用（Lv.11 即止），资源优先给核心技（暴击率+基础生命值）与特殊技（输出核心）。",
+        "属性为玄墨，仓库暂无玄墨属性图标，页面 hero 处显示属性色牌兜底，不影响数值与机制展示。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "仪玄",
+      "weapon": "怒目金刚",
+      "core": "暴击率 +14.4%、基础生命值 +420",
+      "set4": "云岿如我",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位伤害加成 +30%，6 号位生命值 +30%",
+      "subStats": "54 条满配：暴击率 ×20、暴击伤害 ×14、生命值% ×12、攻击力% ×6、生命值 ×2"
+    },
+    "totals": [
+      {
+        "label": "生命值",
+        "value": 19672.4,
+        "unit": ""
+      },
+      {
+        "label": "贯穿力",
+        "value": 2623.1,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 67.4,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 181.2,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T06:24:09+00:00"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "仪玄",
+      "weapon": "怒目金刚",
+      "core": "暴击率 +14.4%、基础生命值 +420",
+      "set4": "云岿如我",
+      "set2": "折枝剑歌",
+      "mainStats": "4 号位暴击伤害 +48%，5 号位伤害加成 +30%，6 号位生命值 +30%",
+      "subStats": "低词条参考：暴击率 ×7、暴击伤害 ×13、生命值% ×10、攻击力% ×4"
+    },
+    "totals": [
+      {
+        "label": "生命值",
+        "value": 18946,
+        "unit": ""
+      },
+      {
+        "label": "贯穿力",
+        "value": 2522.0,
+        "unit": ""
+      },
+      {
+        "label": "暴击率",
+        "value": 36.2,
+        "unit": "%"
+      },
+      {
+        "label": "暴击伤害",
+        "value": 176.4,
+        "unit": "%"
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-16T06:24:09+00:00",
+    "title": "非满配毕业面板（低词条参考）"
+  }
+}

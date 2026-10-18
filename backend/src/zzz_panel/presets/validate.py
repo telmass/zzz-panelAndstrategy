@@ -20,6 +20,9 @@ from ..schemas.presets import AgentCoreBonus, AgentPreset, WeaponPreset
 from .attributes import AGENT_ATTRIBUTES, AGENT_GRADES
 
 #: 代理人标签全集，用于校验 ``roleTag``。与前端 ``AGENT_ROLE_TAGS`` 同源。
+#:
+#: 中英对照：强攻Attack、击破Stun、异常Anomaly、支援Support、防护Defense、
+#: 命破Rupture、锋御Armorer。取值保持中文，英文仅用于图标文件名与展示转换。
 AGENT_ROLE_TAGS = frozenset({"强攻", "击破", "异常", "支援", "防护", "命破", "锋御"})
 
 #: 基础面板的键序，同时用于「缺失的键必须在 unavailableBaseStats 中」这条检查。
