@@ -11,7 +11,7 @@
 | 3 | [architecture.md](architecture.md) | 代码怎么分层、依赖方向为什么是这样 |
 | 4 | [directory-layout.md](directory-layout.md) | 每个目录放什么、边界在哪 |
 | 5 | [structure-review.md](structure-review.md) | **当前结构问题、证据、解决方案与修复顺序** |
-| 6 | [repair-plan.md](repair-plan.md) | **全项目审计后的完整修复计划（英文）：P0/P1/P2、文件清单、执行顺序与验收命令** |
+| 6 | [completeds/repair-plan.md](completeds/repair-plan.md) | **全项目审计后的完整修复计划（英文）：P0/P1/P2、文件清单、执行顺序与验收命令** |
 
 > 文档与代码冲突时**以代码为准**，并回头修正文档。数量类事实以
 > [project-overview.md](project-overview.md) 的「当前规模」表为准，专题文档不再重复。

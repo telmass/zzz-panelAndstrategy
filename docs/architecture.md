@@ -62,7 +62,7 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 
 - `views/StrategyView.vue`：按 slug 拉取 `/strategy/<slug>/data/*.json`，管理加载/错误态与卸载；
 - `strategy/renderStrategy.ts`：从 legacy 静态模板迁移的唯一渲染器，负责生成 DOM 与交互；
-- `strategy/strategy.css`：唯一一份攻略样式，收窄在 `.strategy-detail` 下，避免与主应用冲突。
+- `strategy/strategy.css`：唯一一份攻略样式，收窄在 `.strategy-detail` 下，避免与主应用冲突。左侧导航栏为紧凑版（主链接 32px / 子链接 26px / 操作按钮并排），设计目标是在 768px 视口高度内完整展示、不产生内部滚动。
 
 `vite.config.ts` 的 `strategyDataPlugin` 只做两件事：开发期把 `/strategy/<slug>/data/*.json`
 映射到仓库 `strategy/`，构建期只把两份 JSON 拷进 `dist/strategy/<slug>/data/`。

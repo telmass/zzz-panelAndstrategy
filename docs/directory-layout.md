@@ -44,7 +44,7 @@
 | `components/common/` | 表单与布局原语：`PanelModule`（模块卡片外壳）、`SelectField`、`NumberField`、`TextField`、`StepperInput`、`SideNav`（指南页左侧编号目录）。代理人与音擎改用 naive-ui 的 `n-cascader`，故**无** `GroupedSelectField`；`SelectField` 仍被核心与驱动盘主词条使用 |
 | `components/calculator/` | 6 个业务模块 + `ResultPanel`，对应计算器页的六块UI |
 | `components/guide/` | 4 个纯展示组件：`GuideSection`、`GuideCallout`、`GuideTable`、`GuideAttrGrid` |
-| `router/` | 5 条路由表：`/`、`/calculator`、`/guide`、`/strategy`、`/strategy/:slug`。唯一的导航守卫在 `/strategy/:slug`：slug 不在生成的 `constants/strategyGuides.ts` 登记表里就重定向回 `/`（避免请求不存在的数据） |
+| `router/` | 6 条路由表：`/`、`/calculator`、`/guide`、`/strategy`、`/strategy/:slug`、兜底 `/:pathMatch(.*)*`。唯一的导航守卫在 `/strategy/:slug`：slug 不在生成的 `constants/strategyGuides.ts` 登记表里就重定向回 `/`（避免请求不存在的数据） |
 | `stores/` | Pinia 两个 store：`panelStore`（输入唯一真源）、`presetStore`（预设拉取）。**均不持久化** |
 | `composables/` | `usePanelCalc`（防抖调用后端 + 明细渲染）、`useAgentPreset`（预设校验与套用）、`usePanelMode`（模式派生显隐与文案）、`useSubStatLimit`（副词条钳制）、`useCascaderIcons`（代理人与音擎共用的 cascader 选项图标与文案）、`useScrollSpy`（侧边目录滚动高亮）、`useNaiveTheme`（CSS 变量 → `themeOverrides`） |
 | `api/` | **唯一**网络出口。`panel.ts`（计算）、`presets.ts`（预设）、`errors.ts`（`ApiError` 及两个子类） |

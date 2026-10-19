@@ -141,24 +141,27 @@ def _set4_names(build: dict) -> tuple:
     "slug",
     sorted(p.name for p in (REPO_ROOT / "strategy").iterdir() if p.is_dir()),
 )
-def test_drive_builds_do_not_repeat_the_same_two_piece(slug: str) -> None:
-    """同一个 2 件套被多个方案重复列出时，必须合并成一个方案。
+def test_drive_builds_have_distinct_four_piece_sets(slug: str) -> None:
+    """多个驱动盘方案只要 4 件套不同，就写成独立方案（分页），不合并。
 
-    柚叶曾把「月光骑士颂 / 静听嘉音 / 自由蓝调 + 法厄同之歌」写成三个完整方案，
-    主词条表与副词条链整段重复三遍。合并后 4 件套收进一个 ``set4`` 数组、
-    每项带 ``scene`` 使用场景备注，共用同一份 2 件套 / 主词条 / 副词条。
+    roxy 的参考实现：非锋御队 4 山大王 + 2 回能与锋御队 4 静听嘉音 + 2 回能
+    共用同一份 2 件套 / 主词条 / 副词条，但因为 4 件套不同而写成两个方案——
+    每个方案的名字以使用场景开头（"非锋御队：" / "锋御队："）。
+
+    同一个 4 件套出现在多个方案中才是数据错误（重复方案）。
     """
     data = json.loads((REPO_ROOT / "strategy" / slug / "data" / f"{slug}.strategy.json").read_text(encoding="utf-8"))
-    seen: dict[tuple, tuple] = {}
-    for build in _drive_builds(data):
-        signature = _set2_signature(build)
+    seen: dict[tuple, int] = {}
+    for index, build in enumerate(_drive_builds(data)):
+        signature = _set4_names(build)
         if not signature:
             continue
         assert signature not in seen, (
-            f"{slug} 的 2 件套 {signature} 被重复列出："
-            f"{seen.get(signature)} 与 {_set4_names(build)}，应合并为一个方案"
+            f"{slug} 的 4 件套 {signature} 被重复列出："
+            f"方案 {seen.get(signature)} 与方案 {index}——"
+            "同一个 4 件套不应出现在多个方案中；不同 4 件套应写成独立方案"
         )
-        seen[signature] = _set4_names(build)
+        seen[signature] = index
 
 
 @pytest.mark.parametrize(

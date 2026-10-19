@@ -42,7 +42,7 @@ Create the editorial content. Schema is documented in `strategy/README.md`.
 
 1. Skill priority chain and target levels
 2. Weapon recommendations (tiers: 专属 / 下位 / 备选 / 四星)
-3. Drive disc builds (4-set + 2-set, main stats, sub-stat priority)
+3. Drive disc builds (4-set + 2-set, main stats, sub-stat priority). **If the 4-set differs between builds, write them as separate entries in the `driveBuilds` array** — even if the 2-set, mainStats, and subPriority are identical (see roxy: 非锋御队 4 山大王 vs 锋御队 4 静听嘉音). Name each build with its usage scenario prefix (e.g. "非锋御队：…" / "锋御队：…"). Do NOT merge different 4-sets into one build with a set4 array; that pattern is deprecated.
 4. Graduation panel spec (weapon, sets, cores, main stats, 54 sub-stat allocation)
 5. Team compositions (~3 teams)
 6. Text guide (competitive notes)
@@ -105,6 +105,26 @@ cd frontend; npm run test; npm run build
 | 防护 | defense | profession |
 | 命破 | rupture | profession |
 | 锋御 | armorer | profession |
+
+**All strategy-specific image filenames must be lowercase**: `film.png` (cinema priority), `tachie.png`, `background.png`, `cinema-2.png`, `cinema-3.png`. The `/images/…` URL in JSON must match the on-disk filename exactly — Cloudflare's CDN is case-sensitive even though local dev on Windows/macOS is not.
+
+## Cinema priority (optional field)
+
+To add a cinema priority section to an agent's strategy page, include this in `<slug>.strategy.json`:
+
+```json
+"cinemaPriority": {
+  "image": "/images/strategy/<slug>/film.png",
+  "keyLevels": [1, 2, 6],
+  "note": "核心命座说明…"
+}
+```
+
+- `image`: path to the cinema priority icon (typically `film.png`, ~48KB)
+- `keyLevels`: array of cinema numbers (1–6) that are key investment nodes
+- `note`: explanatory text shown below the image and numbered slots
+
+The renderer displays a 56px image on the left and six numbered slots (01–06) on the right; key levels are highlighted with accent color. Agents without this field skip the section entirely.
 
 ## Key rules
 

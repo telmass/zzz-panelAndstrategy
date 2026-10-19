@@ -41,9 +41,10 @@ strategy/<slug>/
 | --- | --- |
 | `_meta` | `agentId`、`name`、`note`、`editorialSources`、`officialGuide` |
 | `background` | 可选，右侧全身背景图 URL |
+| `cinemaPriority` | 可选，关键命座（影画）推荐：`image`（命座图标 URL）+ `keyLevels`（关键影画编号数组，如 `[1,2,6]`）+ `note`（文字说明） |
 | `skillPriority` | 加点优先级链：每项 `key` / `label` / `icon` / `level` / `maxLevel` / `next` |
 | `weapons` | 音擎推荐：`tier` / `items[]`（`name` / `stats` / `icon`）/ `note` |
-| `driveBuilds` | 驱动盘方案数组：`name` / `set4`（对象或数组）/ `set2`（`main` + `alt`）/ `mainStats[]` / `subPriority` / 可选 `note` |
+| `driveBuilds` | 驱动盘方案数组：`name` / `set4`（对象或数组）/ `set2`（`main` + `alt`）/ `mainStats[]` / `subPriority` / 可选 `note`。**只要 4 件套不同，就写成独立方案（分页）**，即使 2 件套 / 主词条 / 副词条完全相同（参考 roxy：非锋御队 4 山大王 vs 锋御队 4 静听嘉音，共用同一份 set2/mainStats/subPriority）。方案名以使用场景开头（如 "非锋御队：…" / "锋御队：…"）。同一个 4 件套不应出现在多个方案中 |
 | `driveBuilds[].mainStats[]` | 主词条：`slot` / `main` / `alt` / `note`；`note` 为第四列备注 |
 | `graduationPanel` | 满配毕业面板：`build`（文案对象）/ `totals[]`（`label` / `value` / `unit`）/ `note` / `computedAt` |
 | `graduationPanelAlt` | 可选，非满配面板（同上结构，多一个 `title`） |
@@ -83,6 +84,7 @@ strategy/<slug>/
 ## 渲染约定
 
 - 模块顺序固定：攻略 → 基础面板 → 技能 → 影画
-- 侧边目录、滚动高亮、技能二级切换、影画分组、属性色、保存图片按钮都在共享渲染器里
+- 侧边目录（紧凑版：主链接 32px / 子链接 26px / 操作按钮并排，全部内容在 768px 视口内免滚动）、滚动高亮、技能二级切换、影画分组、属性色、保存图片按钮都在共享渲染器里
 - **不要**为单个代理人改 `renderStrategy.ts` 或 `strategy.css`；确需新能力时改共享层，并为核心逻辑补测试
 - 属性/职业图标文件名统一小写 slug：`honed-edge.png`、`attack.png` 等
+- **所有攻略专属图片文件名统一小写**：`film.png`（命座推荐图）、`tachie.png`、`background.png`、`cinema-2.png`、`cinema-3.png`。JSON 中的 `/images/…` URL 与磁盘文件名的大小写必须完全一致（部署到 Cloudflare 后 URL 区分大小写）

@@ -373,6 +373,7 @@ function sidebarHtml(guide, slug) {
   const strategy = guide.strategy;
   const guideSublinks = strategy
     ? [
+        ...(strategy.cinemaPriority && strategy.cinemaPriority.image ? [{ id: 'guide-cinemas', label: '关键命座推荐' }] : []),
         { id: 'guide-skills', label: '技能加点优先级' },
         { id: 'guide-weapons', label: '音擎推荐' },
         { id: 'guide-drives', label: '驱动盘推荐' },
@@ -802,6 +803,39 @@ function footerHtml(guide) {
 /** 六大类技能的固定顺序（普攻/闪避/支援/特殊/连携/核心），技能区按此排序展示。 */
 const SKILL_CATEGORY_ORDER = ['basic', 'dodge', 'assist', 'special', 'chain', 'core'];
 
+/**
+ * 关键命座（影画）推荐——左侧小图 + 右侧 6 格编号，关键命座高亮。
+ * JSON 字段：image（图 URL）、keyLevels（[1..6]）、note（说明文字）。
+ * 没有 cinemaPriority 字段的代理人整块跳过。
+ */
+function cinemaPriorityHtml(strategy) {
+  const cp = strategy.cinemaPriority;
+  if (!cp || !cp.image) return '';
+  const keyLevels = new Set(cp.keyLevels || []);
+  const slots = Array.from({ length: 6 }, (_, i) => {
+    const level = i + 1;
+    const isKey = keyLevels.has(level);
+    const num = String(level).padStart(2, '0');
+    return `<span class="cinema-slot${isKey ? ' cinema-slot--key' : ''}" ${isKey ? 'title="关键命座"' : ''}>${num}</span>`;
+  }).join('');
+  const note = cp.note
+    ? `<figcaption class="cinema-priority__note">${escapeHtml(cp.note)}</figcaption>`
+    : '';
+  return `<div class="guide-block" id="guide-cinemas">
+    <h3 class="guide-block__title">关键命座推荐</h3>
+    <figure class="cinema-priority">
+      <img
+        class="cinema-priority__image"
+        src="${escapeHtml(cp.image)}"
+        alt="命座图标"
+        loading="lazy"
+      />
+      <div class="cinema-priority__slots">${slots}</div>
+      ${note}
+    </figure>
+  </div>`;
+}
+
 function skillPriorityHtml(strategy) {
   // 加点优先级用「> / =」连接符表达（数据顺序即优先级链），与副词条一致
   const chain = (strategy.skillPriority || [])
@@ -1186,8 +1220,9 @@ function strategyHtml(guide, slug) {
     </section>`;
   }
   return `<section id="guide" class="section reveal" aria-labelledby="guide-title">
-    ${sectionHeadHtml('01', '攻略', '技能加点优先级 · 音擎推荐 · 驱动盘推荐 · 毕业面板 · 队伍推荐 · 文字攻略', 'guide')}
+    ${sectionHeadHtml('01', '攻略', '关键命座推荐 · 技能加点优先级 · 音擎推荐 · 驱动盘推荐 · 毕业面板 · 队伍推荐 · 文字攻略', 'guide')}
     <div class="guide-grid">
+      ${cinemaPriorityHtml(strategy)}
       ${skillPriorityHtml(strategy)}
       ${weaponHtml(strategy)}
       ${drivesHtml(strategy)}

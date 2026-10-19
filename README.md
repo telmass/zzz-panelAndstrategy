@@ -210,7 +210,7 @@ python tools/seed_main_stat_notes.py --check
 | [docs/project-overview.md](docs/project-overview.md) | **集成式技术总览**：项目定位、当前规模、架构、数据流、目录地图、常用命令 |
 | [docs/README.md](docs/README.md) | 文档总索引（含按角色的阅读路径） |
 | [docs/structure-review.md](docs/structure-review.md) | **结构问题、证据、解决方案与修复顺序** |
-| [docs/repair-plan.md](docs/repair-plan.md) | **全项目审计后的完整修复计划（英文）** |
+| [docs/completeds/repair-plan.md](docs/completeds/repair-plan.md) | **全项目审计后的完整修复计划（英文）** |
 | [docs/requirements.md](docs/requirements.md) | 项目范围、非目标、已知限制 |
 | [docs/architecture.md](docs/architecture.md) | 架构分层与设计决策 |
 | [docs/api-reference.md](docs/api-reference.md) | HTTP 接口契约 |

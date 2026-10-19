@@ -40,6 +40,8 @@ Repository root. Relative paths are relative to the repo root.
 
 Grade icon file name is the grade lowercased (`S` → `s.png`, `A` → `a.png`).
 
+**All strategy-specific image filenames must be lowercase**: `film.png`, `tachie.png`, `background.png`, `cinema-2.png`, `cinema-3.png`. JSON URL casing must match disk filenames exactly (Cloudflare CDN is case-sensitive).
+
 ## Workflow
 
 ### Step 1 — Resolve canonical slug, attribute, roleTag, grade
@@ -85,6 +87,7 @@ Ensure `tachie:` (and any tachie reference) is `/images/strategy/<slug>/tachie.p
 4. **`data/<slug>.strategy.json`**: replace any stale `<old>` slug references in `note`/`editorialSources`/paths with `<slug>`.
    - **JSON 有效性**：同样用 `python -c "import json; json.load(...)"` 校验；损坏时从 `strategy/ye-shunguang/data/ye-shunguang.strategy.json` 复制模板后按 agent-strategy skill 填充，而非手改。
    - **检查该文件中所有 `/images/strategy/<folder>/...` 引用，确保 `<folder>` 等于 `<slug>`；不一致则修正。**
+   - **若存在 `cinemaPriority.image`，确保文件名全小写**（如 `film.png`，不是 `Film.png`）；同时确认 `frontend/public/images/strategy/<slug>/` 下的磁盘文件名与 JSON 引用大小写一致。
 5. **Rendering is shared.** There is no per-agent `app.js` / `index.html` / `styles.css`.
    `StrategyView.vue` + `frontend/src/strategy/renderStrategy.ts` read the JSON and fall back to the
    role icon map when `profile.icons.profession` is empty. Fix the data, not a page copy.

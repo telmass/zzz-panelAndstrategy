@@ -184,7 +184,7 @@
   display: grid;
   min-width: 0;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-7);
+  gap: var(--space-4);
 }
 
 /* ---------- 入场动效 ---------- */
@@ -245,20 +245,20 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
   box-shadow: var(--shadow-module);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
   overflow: hidden;
 }
 
 .strategy-detail .hero__row {
   display: flex;
   align-items: center;
-  gap: var(--space-5);
-  padding: var(--space-5) var(--space-5) var(--space-4);
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-4) var(--space-3);
 }
 
 .strategy-detail .hero__avatar {
-  width: 116px;
-  height: 116px;
+  width: 88px;
+  height: 88px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border-strong);
   object-fit: cover;
@@ -385,7 +385,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 216px minmax(0, 1fr);
-  gap: var(--space-5);
+  gap: var(--space-4);
   align-items: start;
 }
 
@@ -393,23 +393,23 @@
   min-width: 0;
 }
 
-/* ---------- 左侧导航栏 ---------- */
+/* ---------- 左侧导航栏（紧凑版：全部内容在常见 768px 视口内免滚动） ---------- */
 
 .strategy-detail .sidebar {
   grid-column: auto;
   position: sticky;
-  top: var(--space-5);
+  top: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  max-height: calc(100vh - 2 * var(--space-5));
+  gap: var(--space-1);
+  max-height: calc(100vh - 2 * var(--space-4));
   overflow-y: auto;
   padding: var(--space-3);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
   box-shadow: var(--shadow-module);
-  /* 内滚时保留细滚动条：长目录（技能+攻略子链接）需要滚动提示 */
+  /* 兜底：极端矮屏仍然可以内部滚动 */
   scrollbar-width: thin;
 }
 
@@ -423,8 +423,8 @@
 
 .strategy-detail .sidebar__brand-badge {
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -433,7 +433,7 @@
   letter-spacing: 0.04em;
   color: var(--attr-on-color, #101318);
   background: var(--attr-color, #9aa3b2);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
 }
 
 .strategy-detail .sidebar__brand-text {
@@ -443,7 +443,7 @@
 
 .strategy-detail .sidebar__brand-name {
   margin: 0;
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-strong);
   line-height: var(--leading-tight);
@@ -490,12 +490,12 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 44px;
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--text-md);
+  min-height: 32px;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text-muted);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   border-left: 3px solid transparent;
   transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
 }
@@ -528,8 +528,8 @@
 .strategy-detail .sidebar__sublinks {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  margin: var(--space-1) 0 var(--space-1) var(--space-3);
+  gap: 0;
+  margin: 2px 0 2px var(--space-2);
   padding-left: var(--space-2);
   border-left: 1px solid var(--color-border);
 }
@@ -537,9 +537,9 @@
 .strategy-detail .sidebar__sublink {
   display: flex;
   align-items: center;
-  min-height: 40px;
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-sm);
+  min-height: 26px;
+  padding: 2px var(--space-2);
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
   border-radius: var(--radius-sm);
   border-left: 2px solid transparent;
@@ -562,27 +562,27 @@
 
 .strategy-detail .sidebar__actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--space-1);
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
+  margin-top: var(--space-1);
+  padding-top: var(--space-2);
   border-top: 1px solid var(--color-border);
 }
 
 .strategy-detail .sidebar__btn {
-  width: 100%;
-  min-height: 44px;
+  flex: 1;
+  min-height: 32px;
   appearance: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: 600;
   color: var(--color-text);
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border-interactive);
-  border-radius: var(--radius-md);
-  padding: var(--space-2) var(--space-3);
-  text-align: left;
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  text-align: center;
   transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
 }
 
@@ -650,9 +650,9 @@
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
-  padding: var(--space-4);
+  padding: var(--space-3);
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
   align-content: start;
 }
 
@@ -660,8 +660,8 @@
 .strategy-detail .section__head {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-left: 4px solid var(--attr-color, #9aa3b2);
@@ -670,16 +670,16 @@
 
 .strategy-detail .section__no {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--text-md);
+  font-size: var(--text-sm);
   font-weight: 700;
   color: var(--attr-on-color, #101318);
   background: var(--attr-color, #9aa3b2);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
 }
@@ -705,7 +705,7 @@
 
 .strategy-detail .section__hint {
   margin: 0;
-  max-width: 72ch;
+  max-width: none;
   color: var(--color-text-muted);
   font-size: var(--text-md);
 }
@@ -720,7 +720,7 @@
 }
 
 .strategy-detail .para--gap {
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
 }
 
 .strategy-detail .term {
@@ -853,7 +853,7 @@
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-border-strong);
   border-radius: var(--radius-module);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
 }
 
 /* 六大类技能沿用计算器六大模块的六色（顺序与 skills 数组一致） */
@@ -1216,7 +1216,7 @@
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-accent);
   border-radius: var(--radius-module);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   overflow: hidden;
 }
 
@@ -1269,7 +1269,7 @@
   display: grid;
   min-width: 0;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-3);
   align-items: start;
 }
 
@@ -1296,7 +1296,7 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
 }
 
 .strategy-detail .guide-block__title {
@@ -1332,6 +1332,89 @@
   margin: var(--space-3) 0 0;
   font-size: var(--text-xs);
   color: var(--color-text-muted);
+}
+
+/* 关键命座推荐（左图 + 右侧 6 格编号，关键命座高亮） */
+
+.strategy-detail .cinema-priority {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.strategy-detail .cinema-priority__image {
+  display: block;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: var(--space-1);
+}
+
+.strategy-detail .cinema-priority__slots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.strategy-detail .cinema-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-fill-soft);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.strategy-detail .cinema-slot--key {
+  border-color: var(--color-accent-border-strong);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-text);
+}
+
+.strategy-detail .cinema-priority__note {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 72ch;
+}
+
+/* 图 + 编号行并排；隐形横向中线让图与序号垂直居中；≤720px 回落上下排 */
+@media (min-width: 721px) {
+  .strategy-detail .cinema-priority {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .strategy-detail .cinema-priority__image {
+    align-self: flex-start;
+  }
+  .strategy-detail .cinema-priority__image,
+  .strategy-detail .cinema-priority__slots {
+    /* 共用同一中线的行内对：图和编号行各自垂直居中 */
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .strategy-detail .cinema-priority__slots {
+    flex: 1;
+    min-width: 0;
+  }
+  .strategy-detail .cinema-priority__note {
+    flex-basis: 100%;
+  }
 }
 
 /* 加点优先级（> / = 连接符链式排列） */
@@ -1828,7 +1911,7 @@
 /* 驱动盘推荐（多方案，版式同队伍分组） */
 
 .strategy-detail .drive-group {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
 }
 
 .strategy-detail .drive-group:last-child {
@@ -1863,7 +1946,7 @@
 /* 队伍推荐 */
 
 .strategy-detail .team-group {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-3);
 }
 
 .strategy-detail .team-group:last-child {
