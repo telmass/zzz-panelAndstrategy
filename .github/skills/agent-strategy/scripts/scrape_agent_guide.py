@@ -104,7 +104,14 @@ SKILL_TABS: dict[str, tuple[str, str]] = {
     "核心技": ("core", "核心技"),
 }
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+def _find_repo_root() -> Path:
+    """Walk up from this file until pyproject.toml is found (robust to nesting)."""
+    current = Path(__file__).resolve()
+    for parent in current.parents:
+        if (parent / "pyproject.toml").is_file():
+            return parent
+    raise RuntimeError(f"Cannot find pyproject.toml above {current}")
+REPO_ROOT = _find_repo_root()
 #: 唯一图片根。所有引用（含 data/*.json 与攻略 JSON）一律写成 /images/… URL。
 IMAGES_ROOT = REPO_ROOT / "frontend" / "public" / "images"
 DEFAULT_SLUG = "ye-shunguang"

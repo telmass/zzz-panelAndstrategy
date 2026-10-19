@@ -38,7 +38,7 @@
 | F7 | 计算全部在后端完成，前端只做输入与渲染 | `api-reference.md` |
 | F8 | 长文学习指南页（`/guide`） | `views/GuideView.vue` |
 | F9 | 预设数据更新流程可重复执行且字节幂等 | `tools/sync_presets.py --check` |
-| F10 | 启动页「代理人攻略」入口卡 → `/strategy` 代理人选择页（封面卡网格）→ `/strategy/<slug>` 攻略单页（Vue 路由 + 共享渲染器读取 `strategy/<slug>/data/`）。当前 59 个攻略数据目录、59 条登记 | `views/LauncherView.vue`、`views/StrategyPickerView.vue`、`views/StrategyView.vue`、`strategy/renderStrategy.ts`、`constants/strategyGuides.ts`、`vite.config.ts` |
+| F10 | 启动页「代理人攻略」入口卡 → `/strategy` 代理人选择页（封面卡网格）→ `/strategy/<slug>` 攻略单页（Vue 路由 + 共享渲染器读取 `strategy/<slug>/data/`）。当前 60 个攻略数据目录、60 条登记 | `views/LauncherView.vue`、`views/StrategyPickerView.vue`、`views/StrategyView.vue`、`strategy/renderStrategy.ts`、`constants/strategyGuides.ts`、`vite.config.ts` |
 
 ### 3.2 明确不做
 
@@ -92,8 +92,8 @@
 | --- | --- |
 | 前端类型检查 | `npm run typecheck` 无错 |
 | 前端构建 | `npm run build` 通过 |
-| 前端测试 | `npm run test` 全绿（当前 112 项） |
-| 后端测试 | `uv run pytest` 全绿，**且无 skip**（306 项全部通过） |
+| 前端测试 | `npm run test` 全绿（当前 118 项） |
+| 后端测试 | `uv run pytest` 全绿，**且无 skip**（310 项全部通过） |
 | 数据同步门禁 | `sync_presets.py --to-legacy --check`、`--options --check`、`bundle_worker_data.py --check` 均退出 0 |
 | 部署门禁 | `wrangler.jsonc` 为纯 ASCII；带代理执行 `pywrangler deploy` 成功 |
 | 手工验收 | `/`、`/calculator`、`/guide`、`/strategy` 可打开；抽查 `/strategy/ye-shunguang`、`/strategy/banyue`、`/strategy/roxy` 等攻略页无控制台报错、图片正常 |

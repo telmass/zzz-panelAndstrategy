@@ -6,6 +6,7 @@
 export interface StrategyGuide {
   slug: string;
   name: string;
+  shortName: string;
   en: string;
   agentId: string;
   tachie?: string;
@@ -18,6 +19,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'roxy',
     name: '洛克茜·伊芙莉塔·普莱斯',
+    shortName: '洛克茜',
     en: 'Roxy',
     agentId: 'ep-2152',
     tachie: '/images/strategy/roxy/tachie.png',
@@ -28,6 +30,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'claret',
     name: '克拉蕾·弗林特',
+    shortName: '克拉蕾',
     en: 'Claret',
     agentId: 'ep-2145',
     tachie: '/images/strategy/claret/tachie.png',
@@ -38,6 +41,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'sigrid',
     name: '希格莉德·德拉叙尔',
+    shortName: '希格莉德',
     en: 'Sigrid',
     agentId: 'ep-2079',
     tachie: '/images/strategy/sigrid/tachie.png',
@@ -48,6 +52,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'remielle',
     name: '蕾米埃尔·丹',
+    shortName: '蕾米埃尔',
     en: 'Remielle',
     agentId: 'ep-2076',
     tachie: '/images/strategy/remielle/tachie.png',
@@ -58,6 +63,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'norma',
     name: '诺姆·霍洛维尔',
+    shortName: '诺姆',
     en: 'Norma',
     agentId: 'ep-1962',
     tachie: '/images/strategy/norma/tachie.png',
@@ -68,6 +74,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'velina',
     name: '维琳娜·艾嘉德',
+    shortName: '维琳娜',
     en: 'Velina',
     agentId: 'ep-1960',
     tachie: '/images/strategy/velina/tachie.png',
@@ -78,6 +85,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'pyrois',
     name: '佩洛伊斯',
+    shortName: '佩洛伊斯',
     en: 'Pyrois',
     agentId: 'ep-1958',
     tachie: '/images/strategy/pyrois/tachie.png',
@@ -88,6 +96,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'promeia',
     name: '普罗米娅',
+    shortName: '普罗米娅',
     en: 'Promeia',
     agentId: 'ep-1926',
     tachie: '/images/strategy/promeia/tachie.png',
@@ -98,6 +107,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'starlight-billy',
     name: '星徽·比利·奇德',
+    shortName: '星徽·比利',
     en: 'Starlight - Billy',
     agentId: 'ep-1927',
     tachie: '/images/strategy/starlight-billy/tachie.png',
@@ -108,6 +118,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'cissia',
     name: '希希芙',
+    shortName: '希希芙',
     en: 'Cissia',
     agentId: 'ep-1861',
     tachie: '/images/strategy/cissia/tachie.png',
@@ -118,6 +129,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'nangong-yu',
     name: '南宫羽',
+    shortName: '南宫羽',
     en: 'Nangong Yu',
     agentId: 'ep-1852',
     tachie: '/images/strategy/nangong-yu/tachie.png',
@@ -128,6 +140,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'aria',
     name: '爱芮',
+    shortName: '爱芮',
     en: 'Aria',
     agentId: 'ep-1793',
     tachie: '/images/strategy/aria/tachie.png',
@@ -138,6 +151,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'sunna',
     name: '千夏',
+    shortName: '千夏',
     en: 'Sunna',
     agentId: 'ep-1791',
     tachie: '/images/strategy/sunna/tachie.png',
@@ -148,6 +162,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'dialyn',
     name: '琉音',
+    shortName: '琉音',
     en: 'Dialyn',
     agentId: 'ep-1624',
     tachie: '/images/strategy/dialyn/tachie.png',
@@ -158,6 +173,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'banyue',
     name: '般岳',
+    shortName: '般岳',
     en: 'Banyue',
     agentId: 'ep-1626',
     tachie: '/images/strategy/banyue/tachie.png',
@@ -168,6 +184,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'seed',
     name: '「席德」',
+    shortName: '「席德」',
     en: 'Seed',
     agentId: 'ep-1499',
     tachie: '/images/strategy/seed/tachie.png',
@@ -178,6 +195,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'lucia',
     name: '卢西娅·艾洛温',
+    shortName: '卢西娅',
     en: 'Lucia',
     agentId: 'ep-1533',
     tachie: '/images/strategy/lucia/tachie.png',
@@ -188,6 +206,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'manato',
     name: '狛野 真斗',
+    shortName: '真斗',
     en: 'Manato',
     agentId: 'ep-1536',
     tachie: '/images/strategy/manato/tachie.png',
@@ -198,6 +217,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'ye-shunguang',
     name: '叶瞬光',
+    shortName: '叶瞬光',
     en: 'Ye Shunguang',
     agentId: 'ep-1687',
     tachie: '/images/strategy/ye-shunguang/tachie.png',
@@ -208,6 +228,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'pan-yinhu',
     name: '潘引壶',
+    shortName: '潘引壶',
     en: 'Pan Yinhu',
     agentId: 'ep-1300',
     tachie: '/images/strategy/pan-yinhu/tachie.png',
@@ -218,6 +239,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'yuzuha',
     name: '浮波 柚叶',
+    shortName: '柚叶',
     en: 'Yuzuha',
     agentId: 'ep-1386',
     tachie: '/images/strategy/yuzuha/tachie.png',
@@ -228,6 +250,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'alice',
     name: '爱丽丝·泰姆菲尔德',
+    shortName: '爱丽丝',
     en: 'Alice',
     agentId: 'ep-1385',
     tachie: '/images/strategy/alice/tachie.png',
@@ -238,6 +261,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'ju-fufu',
     name: '橘福福',
+    shortName: '橘福福',
     en: 'Ju Fufu',
     agentId: 'ep-1301',
     tachie: '/images/strategy/ju-fufu/tachie.png',
@@ -248,6 +272,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'soldier-0-anby',
     name: '零号·安比',
+    shortName: '零号·安比',
     en: 'Soldier 0 - Anby',
     agentId: 'ep-1190',
     tachie: '/images/strategy/soldier-0-anby/tachie.png',
@@ -258,6 +283,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'yixuan',
     name: '仪玄',
+    shortName: '仪玄',
     en: 'Yixuan',
     agentId: 'ep-1299',
     tachie: '/images/strategy/yixuan/tachie.png',
@@ -268,6 +294,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'trigger',
     name: '「扳机」',
+    shortName: '「扳机」',
     en: 'Trigger',
     agentId: 'ep-1230',
     tachie: '/images/strategy/trigger/tachie.png',
@@ -278,6 +305,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'pulchra',
     name: '波可娜·费雷尼',
+    shortName: '波可娜',
     en: 'Pulchra',
     agentId: 'ep-1191',
     tachie: '/images/strategy/pulchra/tachie.png',
@@ -288,6 +316,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'zhao',
     name: '照',
+    shortName: '照',
     en: 'Zhao',
     agentId: 'ep-1686',
     tachie: '/images/strategy/zhao/tachie.png',
@@ -298,6 +327,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'vivian',
     name: '薇薇安·班希',
+    shortName: '薇薇安',
     en: 'Vivian',
     agentId: 'ep-1276',
     tachie: '/images/strategy/vivian/tachie.png',
@@ -308,6 +338,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'evelyn',
     name: '伊芙琳·舒瓦利耶',
+    shortName: '伊芙琳',
     en: 'Evelyn',
     agentId: 'ep-1158',
     tachie: '/images/strategy/evelyn/tachie.png',
@@ -318,15 +349,18 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'astra-yao',
     name: '耀嘉音',
+    shortName: '耀嘉音',
     en: 'Astra Yao',
     agentId: 'ep-1109',
     tachie: '/images/strategy/astra-yao/tachie.png',
     gradeIcon: '/images/grades/s.png',
+    attributeIcon: '/images/attributes/ether.png',
     roleIcon: '/images/icons/support.png',
   },
   {
     slug: 'orphie-magus',
     name: '奥菲丝&「鬼火」',
+    shortName: '奥菲丝&「鬼火」',
     en: 'Orphie & Magus',
     agentId: 'ep-1501',
     tachie: '/images/strategy/orphie-magus/tachie.png',
@@ -337,6 +371,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'hugo',
     name: '雨果·维拉德',
+    shortName: '雨果',
     en: 'Hugo',
     agentId: 'ep-1290',
     tachie: '/images/strategy/hugo/tachie.png',
@@ -347,6 +382,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'piper',
     name: '派派·韦尔',
+    shortName: '派派',
     en: 'Piper',
     agentId: 'ep-485',
     tachie: '/images/strategy/piper/tachie.png',
@@ -357,6 +393,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'seth',
     name: '赛斯·洛威尔',
+    shortName: '赛斯',
     en: 'Seth',
     agentId: 'ep-758',
     tachie: '/images/strategy/seth/tachie.png',
@@ -367,6 +404,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'jane',
     name: '简·杜',
+    shortName: '简',
     en: 'Jane',
     agentId: 'ep-759',
     tachie: '/images/strategy/jane/tachie.png',
@@ -377,24 +415,29 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'qingyi',
     name: '青衣',
+    shortName: '青衣',
     en: 'Qingyi',
     agentId: 'ep-680',
     tachie: '/images/strategy/qingyi/tachie.png',
     gradeIcon: '/images/grades/s.png',
     attributeIcon: '/images/attributes/electric.png',
+    roleIcon: '/images/icons/stun.png',
   },
   {
     slug: 'zhu-yuan',
     name: '朱鸢',
+    shortName: '朱鸢',
     en: 'Zhu Yuan',
     agentId: 'ep-634',
     tachie: '/images/strategy/zhu-yuan/tachie.png',
     gradeIcon: '/images/grades/s.png',
     attributeIcon: '/images/attributes/ether.png',
+    roleIcon: '/images/icons/attack.png',
   },
   {
     slug: 'yanagi',
     name: '月城柳',
+    shortName: '柳',
     en: 'Yanagi',
     agentId: 'ep-916',
     tachie: '/images/strategy/yanagi/tachie.png',
@@ -405,6 +448,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'rina',
     name: '亚历山德丽娜·莎芭丝缇安',
+    shortName: '丽娜',
     en: 'Rina',
     agentId: 'ep-316',
     tachie: '/images/strategy/rina/tachie.png',
@@ -415,6 +459,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'harumasa',
     name: '浅羽 悠真',
+    shortName: '悠真',
     en: 'Harumasa',
     agentId: 'ep-997',
     tachie: '/images/strategy/harumasa/tachie.png',
@@ -425,6 +470,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'ellen',
     name: '艾莲·乔',
+    shortName: '艾莲',
     en: 'Ellen',
     agentId: 'ep-317',
     tachie: '/images/strategy/ellen/tachie.png',
@@ -435,6 +481,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'grace',
     name: '格莉丝·霍华德',
+    shortName: '格莉丝',
     en: 'Grace',
     agentId: 'ep-150',
     tachie: '/images/strategy/grace/tachie.png',
@@ -445,6 +492,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'burnice',
     name: '柏妮思·怀特',
+    shortName: '柏妮思',
     en: 'Burnice',
     agentId: 'ep-840',
     tachie: '/images/strategy/burnice/tachie.png',
@@ -455,6 +503,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'lighter',
     name: '莱特',
+    shortName: '莱特',
     en: 'Lighter',
     agentId: 'ep-950',
     tachie: '/images/strategy/lighter/tachie.png',
@@ -465,6 +514,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'lucy',
     name: '露西亚娜·德·蒙特夫',
+    shortName: '露西',
     en: 'Lucy',
     agentId: 'ep-493',
     tachie: '/images/strategy/lucy/tachie.png',
@@ -475,6 +525,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'lycaon',
     name: '冯·莱卡恩',
+    shortName: '莱卡恩',
     en: 'Lycaon',
     agentId: 'ep-65',
     tachie: '/images/strategy/lycaon/tachie.png',
@@ -485,6 +536,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'soukaku',
     name: '苍角',
+    shortName: '苍角',
     en: 'Soukaku',
     agentId: 'ep-227',
     tachie: '/images/strategy/soukaku/tachie.png',
@@ -495,15 +547,18 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'ben',
     name: '本·比格',
+    shortName: '本',
     en: 'Ben',
     agentId: 'ep-158',
     tachie: '/images/strategy/ben/tachie.png',
     gradeIcon: '/images/grades/a.png',
     attributeIcon: '/images/attributes/fire.png',
+    roleIcon: '/images/icons/defense.png',
   },
   {
     slug: 'anton',
     name: '安东·伊万诺夫',
+    shortName: '安东',
     en: 'Anton',
     agentId: 'ep-147',
     tachie: '/images/strategy/anton/tachie.png',
@@ -514,6 +569,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'koleda',
     name: '珂蕾妲·贝洛伯格',
+    shortName: '珂蕾妲',
     en: 'Koleda',
     agentId: 'ep-318',
     tachie: '/images/strategy/koleda/tachie.png',
@@ -524,6 +580,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'miyabi',
     name: '星见 雅',
+    shortName: '雅',
     en: 'Miyabi',
     agentId: 'ep-996',
     tachie: '/images/strategy/miyabi/tachie.png',
@@ -534,6 +591,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'billy',
     name: '比利·奇德',
+    shortName: '比利',
     en: 'Billy',
     agentId: 'ep-371',
     tachie: '/images/strategy/billy/tachie.png',
@@ -542,8 +600,20 @@ export const strategyGuides: StrategyGuide[] = [
     roleIcon: '/images/icons/attack.png',
   },
   {
+    slug: 'caesar',
+    name: '凯撒·金',
+    shortName: '凯撒',
+    en: 'Caesar',
+    agentId: 'ep-801',
+    tachie: '/images/strategy/caesar/tachie.png',
+    gradeIcon: '/images/grades/s.png',
+    attributeIcon: '/images/attributes/physical.png',
+    roleIcon: '/images/icons/defense.png',
+  },
+  {
     slug: 'corin',
     name: '可琳·威克斯',
+    shortName: '可琳',
     en: 'Corin',
     agentId: 'ep-179',
     tachie: '/images/strategy/corin/tachie.png',
@@ -554,6 +624,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'yidhari',
     name: '伊德海莉·墨菲',
+    shortName: '伊德海莉',
     en: 'Yidhari',
     agentId: 'ep-1538',
     tachie: '/images/strategy/yidhari/tachie.png',
@@ -564,6 +635,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'soldier-11',
     name: '「11号」',
+    shortName: '「11号」',
     en: 'Soldier 11',
     agentId: 'ep-73',
     tachie: '/images/strategy/soldier-11/tachie.png',
@@ -574,15 +646,18 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'nicole',
     name: '妮可·德玛拉',
+    shortName: '妮可',
     en: 'Nicole',
     agentId: 'ep-80',
     tachie: '/images/strategy/nicole/tachie.png',
     gradeIcon: '/images/grades/a.png',
+    attributeIcon: '/images/attributes/ether.png',
     roleIcon: '/images/icons/support.png',
   },
   {
     slug: 'nekomata',
     name: '猫宫 又奈',
+    shortName: '猫又',
     en: 'Nekomata',
     agentId: 'ep-378',
     tachie: '/images/strategy/nekomata/tachie.png',
@@ -593,6 +668,7 @@ export const strategyGuides: StrategyGuide[] = [
   {
     slug: 'anby',
     name: '安比·德玛拉',
+    shortName: '安比',
     en: 'Anby',
     agentId: 'ep-379',
     tachie: '/images/strategy/anby/tachie.png',

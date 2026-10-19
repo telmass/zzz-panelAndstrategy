@@ -155,7 +155,7 @@
       "target": "cd",              // 累加器键名，取值见 calculation-rules.md
       "value": 48,                 // 副词条数值
       "kind": "pct",               // pct | flat
-      "label": "暴击伤害"// 仅用于回显，不参与计算
+      "label": "暴击伤害",           // 仅用于回显，不参与计算
     }
   },
   "core":     { "core1": "cr", "core2": "cd" },       // 各为选项 id，共 2 槽
@@ -171,7 +171,10 @@
   由 `backend/src/zzz_panel/core/options.py` 单向生成。
 - **未知 id 静默忽略**，不报错（`core/options.py: find_option` 返回 `None`）。
 - **副词条条数向下取整且不为负**：`count = max(0, floor(raw))`
-  （`core/modifiers.py:121`）。传 `-5` 或 `3.9` 都不会报 422。
+  （`core/modifiers.py:121`）。API 层 `subStats` 的值必须是整数——
+  传 `3.9` 会报 **422**（`Dict[str, int]` 类型约束，见
+  `backend/tests/test_api.py:test_fractional_sub_stat_count_is_rejected`）；
+  传 `-5` 不报 422，由 core 层钳为 0。
 - 音擎基础值按 `baseKind` **互斥**计入攻击或防御，不会同时计入。
 
 ### 响应体

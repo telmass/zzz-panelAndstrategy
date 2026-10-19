@@ -203,8 +203,11 @@ def test_base_panel_matches_agent_presets(slug: str) -> None:
 
     agent_id = (data.get("meta") or {}).get("agentId")
     preset = presets.get(agent_id)
-    if preset is None:
-        pytest.skip(f"{slug}（{agent_id}）不在 agent-presets.json 中")
+    assert preset is not None, (
+        f"{slug}（agentId={agent_id}）不在 agent-presets.json 中——"
+        "每个攻略页的 agentId 都必须对应一个已发布的预设；"
+        "未发布代理人不应有攻略页目录"
+    )
     base = preset["base"]
     for field in panel:
         key = PANEL_TO_BASE.get(field["label"])
@@ -256,11 +259,6 @@ def test_strategy_data_files_are_canonical_utf8_and_self_consistent() -> None:
             for other in re.findall(r"/images/strategy/([^/\"']+)/", text):
                 if other != slug:
                     problems.append(f"{path.relative_to(REPO_ROOT)} 引用旧图片目录 {other}")
-        app_js = REPO_ROOT / "strategy" / slug / "app.js"
-        if app_js.exists():
-            text = app_js.read_text(encoding="utf-8")
-            if f"data/{slug}.json" not in text or f"data/{slug}.strategy.json" not in text:
-                problems.append(f"{app_js.relative_to(REPO_ROOT)} 的 DATA_URL/STRATEGY_URL 未指向 {slug}")
     assert not problems, "\n".join(problems)
 
 
@@ -301,6 +299,20 @@ def test_all_strategy_image_references_exist() -> None:
     assert not missing, "\n".join(missing)
 
 
+def test_every_main_stat_has_a_string_note_field() -> None:
+    """主词条表第四列备注依赖 ``mainStats[].note``；每条都必须预留字符串位置。"""
+    problems: list[str] = []
+    for path in sorted((REPO_ROOT / "strategy").glob("*/data/*.strategy.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for build_index, build in enumerate(data.get("driveBuilds") or []):
+            for stat_index, stat in enumerate(build.get("mainStats") or []):
+                if not isinstance(stat.get("note"), str):
+                    problems.append(
+                        f"{path.relative_to(REPO_ROOT)} driveBuilds[{build_index}].mainStats[{stat_index}] 缺 note 字符串"
+                    )
+    assert not problems, "\n".join(problems)
+
+
 def test_skill_doc_strategy_paths_exist() -> None:
     """Skill 文档里的 ``strategy/<slug>/`` 示例必须指向真实目录。"""
     actual = set(_strategy_dirs())
@@ -312,3 +324,77 @@ def test_skill_doc_strategy_paths_exist() -> None:
             if ref not in actual and ref not in ignored:
                 missing.append(f"{path.relative_to(REPO_ROOT)} -> strategy/{ref}/")
     assert not missing, "\n".join(missing)
+
+
+def test_strategy_cross_references_resolve() -> None:
+    """攻略 JSON 的交叉引用完整性：武器名/图标、队伍 agentId、驱动盘名/图标。"""
+    agents = json.loads((REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8"))
+    weapons = json.loads((REPO_ROOT / "data" / "weapon-presets.json").read_text(encoding="utf-8"))
+    discs = json.loads((REPO_ROOT / "data" / "drive-disc-presets.json").read_text(encoding="utf-8"))
+    by_agent_id = {a["id"]: a for a in agents}
+    by_weapon_name = {w["name"]: w for w in weapons}
+    by_disc_name = {d["name"]: d for d in discs}
+    problems: list[str] = []
+
+    for slug in _strategy_dirs():
+        path = REPO_ROOT / "strategy" / slug / "data" / f"{slug}.strategy.json"
+        if not path.is_file():
+            continue
+        data = json.loads(path.read_text(encoding="utf-8"))
+
+        # 音擎推荐：名称必须在 weapon-presets 中；有图标时 id 要对应
+        for tier in data.get("weapons") or []:
+            for item in tier.get("items") or []:
+                name = item.get("name", "")
+                weapon = by_weapon_name.get(name)
+                if weapon is None:
+                    problems.append(f"{slug}: 音擎「{name}」不在 weapon-presets.json 中")
+                elif item.get("icon") and item["icon"] != f"/images/weapons/{weapon['id']}.png":
+                    problems.append(f"{slug}: 音擎「{name}」图标 id 不匹配")
+
+        # 队伍成员：agentId 必须在 agent-presets 中；avatar 有值时要对应
+        for team in data.get("teams") or []:
+            for member in team.get("members") or []:
+                aid = member.get("agentId", "")
+                if aid not in by_agent_id:
+                    problems.append(f"{slug}: 队伍成员 agentId={aid} 不在 agent-presets.json 中")
+                avatar = member.get("avatar", "")
+                if avatar and avatar != f"/images/agents/{aid}.png":
+                    problems.append(f"{slug}: 队伍成员 {aid} avatar 路径不匹配")
+
+        # 驱动盘方案：set4/set2 名称必须在 drive-disc-presets 中
+        for build in data.get("driveBuilds") or []:
+            set4 = build.get("set4") or {}
+            if isinstance(set4, list):
+                for s in set4:
+                    name = (s or {}).get("name", "")
+                    if name and name not in by_disc_name:
+                        problems.append(f"{slug}: 4 件套「{name}」不在 drive-disc-presets.json 中")
+            else:
+                name = (set4 or {}).get("name", "")
+                if name and name not in by_disc_name:
+                    problems.append(f"{slug}: 4 件套「{name}」不在 drive-disc-presets.json 中")
+            set2 = build.get("set2") or {}
+            if isinstance(set2, dict):
+                for key in ("main", "alt"):
+                    sub = set2.get(key)
+                    if isinstance(sub, dict) and sub.get("name") and sub["name"] not in by_disc_name:
+                        problems.append(f"{slug}: 2 件套「{sub['name']}」不在 drive-disc-presets.json 中")
+
+    assert not problems, "\n".join(sorted(set(problems)))
+
+
+def test_no_placeholder_text_in_strategy_data() -> None:
+    """攻略数据不应残留占位文本（待确认 / TODO / TBD）。"""
+    pattern = re.compile(r"待确认|TODO|TBD|FIXME|placeholder|占位")
+    problems: list[str] = []
+    for slug in _strategy_dirs():
+        for suffix in ("json", "strategy.json"):
+            path = REPO_ROOT / "strategy" / slug / "data" / f"{slug}.{suffix}"
+            if not path.is_file():
+                continue
+            text = path.read_text(encoding="utf-8")
+            for match in pattern.finditer(text):
+                context = text[max(0, match.start() - 30) : match.end() + 30]
+                problems.append(f"{path.relative_to(REPO_ROOT)}: …{context}…")
+    assert not problems, "\n".join(problems)

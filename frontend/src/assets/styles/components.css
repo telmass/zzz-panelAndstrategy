@@ -1972,18 +1972,5 @@
   outline: none;
 }
 
-/* ====== 攻略页舞台（/strategy/:slug） =====
- * 攻略本体是 strategy/<slug>/ 的静态页，整屏 iframe 嵌入。
- * fixed + inset:0 绕过 body 的通用内边距直接贴边；返回按钮
- * .back-link 的 z-index 更高，浮在攻略页之上。
- */
-
-.strategy-frame {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
+/* 攻略页（/strategy/:slug）的样式已收窄在 frontend/src/strategy/strategy.css 的
+ * `.strategy-detail` 作用域内；本文件不再保留 iframe / 静态页舞台样式。 */

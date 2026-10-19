@@ -14,6 +14,13 @@
  * `strategy/<slug>/` 只保留 JSON 数据，不再生成静态页副本。
  */
 
+import { strategyGuides } from '@/constants/strategyGuides';
+
+/** 导航栏品牌名使用登记表的中文缩写；hero 与 document.title 仍用全名。 */
+const AGENT_SHORT_NAMES = new Map(
+  strategyGuides.map((guide) => [guide.slug, guide.shortName]),
+);
+
 export interface RenderStrategyOptions {
   root: HTMLElement;
   guide: Record<string, unknown>;
@@ -49,10 +56,10 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-/** 渲染备注说明：支持字符串或字符串数组，数组项之间用 <br> 换行。 */
+/** 渲染备注说明：支持字符串或字符串数组；字符串内的换行也会转成 <br>。 */
 function noteHtml(note) {
   if (!note) return '';
-  const items = Array.isArray(note) ? note : [note];
+  const items = Array.isArray(note) ? note : String(note).split('\n');
   return items.map((item) => escapeHtml(String(item))).join('<br>');
 }
 
@@ -308,6 +315,23 @@ function heroIconsHtml(profile) {
   </p>`;
 }
 
+/**
+ * 校验外部链接 URL：仅放行 https 且域名在官方 allowlist 内。
+ * 防止数据中的 `javascript:`/`data:` 等危险 scheme 被渲染成可点击链接。
+ */
+function safeExternalUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== 'https:') return '';
+    const ALLOWED_HOSTS = /^(?:[\w-]+\.)*mihoyo\.com$/;
+    if (!ALLOWED_HOSTS.test(parsed.hostname)) return '';
+    return url;
+  } catch {
+    return '';
+  }
+}
+
 function heroHtml(guide) {
   const { profile, assets, meta } = guide;
   const tachie = asset(assets, 'tachie');
@@ -318,10 +342,10 @@ function heroHtml(guide) {
       <div class="hero__meta">
         <p class="hero__eyebrow"><span>ZENLESS ZONE ZERO</span><i></i><span>代理人攻略</span></p>
         <div class="hero__title-row">
-          <h1 class="hero__name">${escapeHtml(profile.name)}</h1>
+          <h1 class="hero__name" tabindex="-1">${escapeHtml(profile.name)}</h1>
           ${heroIconsHtml(profile)}
         </div>
-        <p class="hero__source">数据来源：<a href="${escapeHtml(meta.source)}" target="_blank" rel="noreferrer">米游社绝区零 WIKI</a>，抓取于 ${escapeHtml(
+        <p class="hero__source">数据来源：${(() => { const safeUrl = safeExternalUrl(meta.source); return safeUrl ? `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer">米游社绝区零 WIKI</a>` : '米游社绝区零 WIKI'; })()}，抓取于 ${escapeHtml(
           meta.scrapedAt ? new Date(meta.scrapedAt).toLocaleString('zh-CN') : '—',
         )}</p>
       </div>
@@ -331,7 +355,7 @@ function heroHtml(guide) {
 }
 
 /** 左侧导航栏：四大区块 + 技能六大类子链接 + 移动端目录开关。 */
-function sidebarHtml(guide) {
+function sidebarHtml(guide, slug) {
   const sections = [
     { id: 'guide', label: '攻略', index: '01' },
     { id: 'base', label: '基础面板', index: '02' },
@@ -341,7 +365,10 @@ function sidebarHtml(guide) {
   const skillSublinks = (guide.skills || [])
     .map((skill) => `<a class="sidebar__sublink" href="#skill-${escapeHtml(skill.key)}">${escapeHtml(skill.name)}</a>`)
     .join('');
-  const name = (guide.profile && guide.profile.name) || '';
+  const name =
+    AGENT_SHORT_NAMES.get(slug) ||
+    (guide.profile && guide.profile.name) ||
+    '';
   // 攻略二级菜单（与攻略区块的 id 一一对应；毕业面板视数据存在与否显隐）
   const strategy = guide.strategy;
   const guideSublinks = strategy
@@ -356,7 +383,7 @@ function sidebarHtml(guide) {
         .map((item) => `<a class="sidebar__sublink" href="#${item.id}">${escapeHtml(item.label)}</a>`)
         .join('')
     : '';
-  return `<aside class="sidebar" id="sidebar">
+  return `<aside class="sidebar" id="sidebar" aria-label="攻略目录">
     <div class="sidebar__brand">
       <span class="sidebar__brand-badge">ZZZ</span>
       <div class="sidebar__brand-text">
@@ -387,19 +414,15 @@ function sidebarHtml(guide) {
       <button class="sidebar__btn" type="button" data-action="save-guide">保存攻略</button>
       <button class="sidebar__btn" type="button" data-action="save-full">保存一图流</button>
     </div>
-    <div class="sidebar__foot">
-      <p>数据来源</p>
-      <p class="sidebar__foot-source">米游社绝区零 WIKI</p>
-    </div>
   </aside>`;
 }
 
 /** 一级板块头部带：编号方块 + 标题 + 一句副标题（与左侧导航编号一致）。 */
-function sectionHeadHtml(index, title, sub) {
+function sectionHeadHtml(index, title, sub, id) {
   return `<header class="section__head">
     <span class="section__no">${escapeHtml(index)}</span>
     <div class="section__heading">
-      <h2 class="section__title">${escapeHtml(title)}</h2>
+      <h2 class="section__title" id="${escapeHtml(id)}-title">${escapeHtml(title)}</h2>
       ${sub ? `<p class="section__sub">${escapeHtml(sub)}</p>` : ''}
     </div>
   </header>`;
@@ -420,8 +443,8 @@ function basePanelHtml(guide) {
       </div>`;
     })
     .join('');
-  return `<section id="base" class="section reveal">
-    ${sectionHeadHtml('02', '基础面板', '60 级 · 0 突破 · 不含核心技与配装加成')}
+  return `<section id="base" class="section reveal" aria-labelledby="base-title">
+    ${sectionHeadHtml('02', '基础面板', '60 级 · 0 突破 · 不含核心技与配装加成', 'base')}
     <p class="section__hint">该面板为晋升需求滑块的初始行与满级行合并结果，与游戏内 60 级（0 突破）基础数据一致。</p>
     <div class="base-panel">${fields || '<p class="para">暂无基础面板数据</p>'}</div>
   </section>`;
@@ -436,40 +459,49 @@ function skillCatHtml(skill) {
     <span class="skill-cat__count">${moves.length} 个招式</span>
   </header>`;
 
-  const panelHtml = (move, index) => `<div class="move-panel${index === 0 ? ' is-active' : ''}" data-panel="${index}">
-    <h4 class="move__title">${escapeHtml(move.title)}</h4>
-    <div class="move__text">${paragraphsHtml(move.text)}</div>
-    ${growthHtml(move)}
-  </div>`;
+  const skillId = `skill-${escapeHtml(skill.key)}`;
+  const tabbed = moves.length > 1;
+  const panelHtml = (move, index) => {
+    const panelId = `${skillId}-panel-${index}`;
+    const tabId = `${skillId}-tab-${index}`;
+    const panelAttrs = tabbed
+      ? ` role="tabpanel" id="${panelId}" aria-labelledby="${tabId}" tabindex="0"${index === 0 ? '' : ' hidden'}`
+      : '';
+    return `<div class="move-panel${index === 0 ? ' is-active' : ''}" data-panel="${index}"${panelAttrs}>
+      <h4 class="move__title">${escapeHtml(move.title)}</h4>
+      <div class="move__text">${paragraphsHtml(move.text)}</div>
+      ${growthHtml(move)}
+    </div>`;
+  };
 
   // 多招式类别：招式 tab + 详情面板的二级选择
-  if (moves.length > 1) {
+  if (tabbed) {
     // tab 标签去掉与类别名重复的前缀（如「普通攻击：」），面板内仍用完整标题
     const prefix = new RegExp(`^${skill.name}[：:]\\s*`);
     const tabLabel = (title) => title.replace(prefix, '');
     const tabs = moves
       .map(
         (move, index) =>
-          `<button class="move-tab${index === 0 ? ' is-active' : ''}" type="button" data-move="${index}">${escapeHtml(tabLabel(move.title))}</button>`,
+          `<button class="move-tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="${skillId}-tab-${index}" aria-selected="${index === 0}" aria-controls="${skillId}-panel-${index}" tabindex="${index === 0 ? 0 : -1}" data-move="${index}">${escapeHtml(tabLabel(move.title))}</button>`,
       )
       .join('');
     const panels = moves.map(panelHtml).join('');
-    return `<section class="skill-cat skill-cat--tabbed" id="skill-${escapeHtml(skill.key)}">
+    return `<section class="skill-cat skill-cat--tabbed" id="${skillId}">
       ${head}
-      <div class="move-tabs" role="tablist">${tabs}</div>
+      <div class="move-tabs" role="tablist" aria-label="${escapeHtml(skill.name)}招式">${tabs}</div>
       <div class="move-panels">${panels}</div>
     </section>`;
   }
 
   // 单招式类别：无 tab bar，直接展示面板
   if (moves.length === 1) {
-    return `<section class="skill-cat skill-cat--tabbed" id="skill-${escapeHtml(skill.key)}">
+    return `<section class="skill-cat skill-cat--tabbed" id="${skillId}">
       ${head}
       <div class="move-panels">${moves.map(panelHtml).join('')}</div>
     </section>`;
   }
 
-  return `<section class="skill-cat skill-cat--tabbed" id="skill-${escapeHtml(skill.key)}">
+  return `<section class="skill-cat skill-cat--tabbed" id="${skillId}">
     ${head}
     <div class="move-panels"><p class="para">暂无招式数据</p></div>
   </section>`;
@@ -480,26 +512,55 @@ function skillsHtml(guide) {
     (a, b) => SKILL_CATEGORY_ORDER.indexOf(a.key) - SKILL_CATEGORY_ORDER.indexOf(b.key),
   );
   const blocks = skillList.map(skillCatHtml);
-  return `<section id="skills" class="section reveal">
-    ${sectionHeadHtml('03', '技能', '六大类技能 · 板块内支持按招式二级切换')}
+  return `<section id="skills" class="section reveal" aria-labelledby="skills-title">
+    ${sectionHeadHtml('03', '技能', '六大类技能 · 板块内支持按招式二级切换', 'skills')}
     <p class="section__hint">按普攻 / 闪避 / 支援 / 特殊 / 连携（含终结技）/ 核心技六大类展示；各板块内支持按招式二级切换查看描述，展开「技能详细数据」可查看各等级数值。</p>
     ${blocks.join('')}
   </section>`;
 }
 
-/** 绑定普攻板块的招式 tab 切换（事件委托，重渲染后自动失效，无需手动解绑）。 */
-function bindSkillTabs() {
-  app.querySelectorAll('.skill-cat--tabbed .move-tabs').forEach((bar) => {
+/** 绑定技能招式 tab：点击 / 方向键 / Home / End，并同步 ARIA 状态。 */
+/** 通用 tablist：技能招式与驱动盘方案共用点击 / 方向键 / Home / End 与 ARIA 同步。 */
+function bindTablist({ tablistSelector, tabSelector, panelSelector }) {
+  app.querySelectorAll(tablistSelector).forEach((bar) => {
+    const tabs = [...bar.querySelectorAll(tabSelector)];
+    const scope = bar.parentElement;
+    if (!scope || tabs.length === 0) return;
+
+    const activate = (tab) => {
+      if (!tab) return;
+      const index = tabs.indexOf(tab);
+      tabs.forEach((item) => {
+        const active = item === tab;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', String(active));
+        item.tabIndex = active ? 0 : -1;
+      });
+      scope.querySelectorAll(panelSelector).forEach((panel) => {
+        const active = panel.dataset.panel === String(index);
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+      });
+    };
+
     bar.addEventListener('click', (event) => {
-      const tab = event.target.closest('.move-tab');
+      const tab = event.target.closest(tabSelector);
       if (!tab || !bar.contains(tab)) return;
-      const cat = tab.closest('.skill-cat');
-      const index = tab.dataset.move;
-      cat.querySelectorAll('.move-tab').forEach((item) => item.classList.remove('is-active'));
-      cat.querySelectorAll('.move-panel').forEach((panel) => panel.classList.remove('is-active'));
-      tab.classList.add('is-active');
-      const panel = cat.querySelector(`.move-panel[data-panel="${index}"]`);
-      if (panel) panel.classList.add('is-active');
+      activate(tab);
+    });
+
+    bar.addEventListener('keydown', (event) => {
+      const current = tabs.indexOf(document.activeElement);
+      if (current === -1) return;
+      let next = current;
+      if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      tabs[next].focus();
+      activate(tabs[next]);
     });
   });
 }
@@ -543,7 +604,12 @@ function bindScrollSpy() {
   const paint = () => {
     const current = isAtBottom() ? lastId : deepFirst.find((id) => visible.has(id));
     const currentHref = current ? `#${current}` : '';
-    links.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === currentHref));
+    links.forEach((link) => {
+      const active = link.getAttribute('href') === currentHref;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
     app.querySelectorAll('.sidebar__link').forEach((link) => {
       const group = link.closest('.sidebar__group');
       link.classList.toggle('is-parent', !!group && !!group.querySelector('.sidebar__sublink.is-active'));
@@ -718,8 +784,8 @@ function cinemaHtml(guide) {
     })
     .join('');
 
-  return `<section id="cinema" class="section reveal">
-    ${sectionHeadHtml('04', '影画', '影画 1 - 6 · 按命数分组展示 WIKI 展示图')}
+  return `<section id="cinema" class="section reveal" aria-labelledby="cinema-title">
+    ${sectionHeadHtml('04', '影画', '影画 1 - 6 · 按命数分组展示 WIKI 展示图', 'cinema')}
     <div class="cinema-groups">${blocks || '<p class="para">暂无影画数据</p>'}</div>
   </section>`;
 }
@@ -759,11 +825,15 @@ function skillPriorityHtml(strategy) {
 
 function weaponHtml(strategy) {
   const cards = (strategy.weapons || [])
-    .map(
-      (group) => `<div class="weapon-card">
-        <span class="weapon-card__tier">${escapeHtml(group.tier)}</span>
+    .map((group) => {
+      const items = group.items || [];
+      return `<div class="weapon-card${group.note ? '' : ' weapon-card--no-note'}">
+        <div class="weapon-card__head">
+          <span class="weapon-card__tier">${escapeHtml(group.tier)}</span>
+          <span class="weapon-card__count">${items.length} 把</span>
+        </div>
         <div class="weapon-card__row">
-          ${(group.items || [])
+          ${items
             .map(
               (weapon) => `<div class="weapon-item">
                 ${weapon.icon ? `<img class="weapon-item__icon" src="${escapeHtml(weapon.icon)}" alt="${escapeHtml(weapon.name)}图标" loading="lazy" onerror="this.style.display='none'" />` : ''}
@@ -776,8 +846,8 @@ function weaponHtml(strategy) {
             .join('')}
         </div>
         ${group.note ? `<p class="weapon-card__note">${noteHtml(group.note)}</p>` : ''}
-      </div>`,
-    )
+      </div>`;
+    })
     .join('');
   return `<div class="guide-block" id="guide-weapons">
     <h3 class="guide-block__title">音擎推荐</h3>
@@ -785,151 +855,183 @@ function weaponHtml(strategy) {
   </div>`;
 }
 
-/**
- * 渲染「首选 / 备选 / 4 件套备选」行。
- * 接受单个套装或数组；**二件套效果文案相同的套装会合并到同一行**——
- * 图标与名称并列、效果文案只显示一次（如 摇摆爵士 / 月光骑士颂 同为能量自动回复 +20%）。
- */
-function driveSetRowHtml(sets, prefix) {
-  const list = (Array.isArray(sets) ? sets : [sets]).filter(Boolean);
-  if (!list.length) return '';
-  const groups = [];
-  for (const set of list) {
-    const label = (set.label || '').trim();
-    const hit = groups.find((group) => group.label === label);
-    if (hit) {
-      hit.sets.push(set);
-    } else {
-      groups.push({ label, sets: [set] });
-    }
-  }
-  return groups
-    .map(
-      ({ label, sets: groupSets }) => `<div class="drive-set__row">
-      <span class="drive-set__prefix">${escapeHtml(prefix)}</span>
-      <div class="drive-set__row-sets">
-        ${groupSets
-          .map(
-            (set) => `<span class="drive-set__unit">
-          ${set.icon ? `<img class="drive-set__icon" src="${escapeHtml(set.icon)}" alt="${escapeHtml(set.name || '')}图标" loading="lazy" onerror="this.style.display='none'" />` : ''}
-          <span class="drive-set__name">${escapeHtml(set.name || '')}</span>
-        </span>`,
-          )
-          .join('')}
-        <span class="drive-set__label">${escapeHtml(label)}</span>
-      </div>
-    </div>`,
-    )
+/** 套装名称 / 图标 / 效果字段兼容字符串与对象两种历史形态。 */
+function driveSetValue(set, key) {
+  if (!set || typeof set !== 'object') return '';
+  return set[key] || '';
+}
+
+function driveSetUnitHtml(set) {
+  const name = typeof set === 'string' ? set : set.name || '';
+  const icon = typeof set === 'string' ? '' : set.icon || '';
+  return `<span class="drive-set-row__unit">
+    ${icon ? `<img class="drive-set-row__icon" src="${escapeHtml(icon)}" alt="${escapeHtml(name)}图标" loading="lazy" onerror="this.style.display='none'" />` : ''}
+    <span class="drive-set-row__unit-name">${escapeHtml(name)}</span>
+  </span>`;
+}
+
+function driveSetTagHtml(tag) {
+  return tag ? `<span class="drive-set-row__tag">${escapeHtml(tag)}</span>` : '';
+}
+
+function driveSetEffectHtml(tag, text) {
+  if (!text) return '';
+  return `<p class="drive-set-row__effect"><span>${escapeHtml(tag)}</span><span>${escapeHtml(text)}</span></p>`;
+}
+
+function driveSetSceneHtml(text) {
+  if (!text) return '';
+  return `<p class="drive-set-row__scene"><span>适用</span><span>${escapeHtml(text)}</span></p>`;
+}
+
+function driveSetRowShell(units, body) {
+  return `<div class="drive-set-row">
+    <div class="drive-set-row__units">${units}</div>
+    ${body ? `<div class="drive-set-row__body">${body}</div>` : ''}
+  </div>`;
+}
+
+/** 4 件套：每个套装一行；alt4 递归为「备选 4 件套」行。 */
+function driveSet4RowsHtml(sets, tag = '') {
+  return asList(sets)
+    .filter(Boolean)
+    .map((set) => {
+      const body = [
+        driveSetEffectHtml('二件套', driveSetValue(set, 'label')),
+        driveSetEffectHtml('四件套', driveSetValue(set, 'effect4')),
+        driveSetSceneHtml(driveSetValue(set, 'scene')),
+      ].join('');
+      const row = driveSetRowShell(`${driveSetUnitHtml(set)}${driveSetTagHtml(tag)}`, body);
+      const alt = driveSetValue(set, 'alt4') ? driveSet4RowsHtml(set.alt4, '备选') : '';
+      return row + alt;
+    })
     .join('');
 }
 
-/**
- * 渲染 4 件套卡。
- *
- * `set4` 可以是单个对象，也可以是**数组**：多个 4 件套共用同一套 2 件套 /
- * 主词条 / 副词条时（如柚叶的月光骑士颂 / 静听嘉音 / 自由蓝调，2 件套都是
- * 法厄同之歌），把它们合并进同一个方案，每个 4 件套各占一条并附 `scene`
- * 使用场景备注——否则主词条表与副词条链要整段重复三遍。
- * 单套装时走的是同一条渲染路径，产出的 DOM 与旧版逐字符一致。
- */
-function set4CardHtml(set4) {
-  const list = (Array.isArray(set4) ? set4 : [set4]).filter(Boolean);
+/** 2 件套：按二件套效果合并同效果套装；每行可并列多个套装。 */
+function driveSet2RowsHtml(sets, tag) {
+  const list = asList(sets).filter(Boolean);
   if (!list.length) return '';
-  const block = (set) => `      <div class="drive-set__row">
-        ${set.icon ? `<img class="drive-set__icon" src="${escapeHtml(set.icon)}" alt="${escapeHtml(set.name || '')}图标" loading="lazy" onerror="this.style.display='none'" />` : ''}
-        <div class="drive-set__meta">
-          <p class="drive-set__name">${escapeHtml(set.name || '')}</p>
-          <div class="drive-set__effects">
-            ${set.label ? `<div class="drive-set__effect2"><span class="drive-set__effect2-tag">二件套</span><p>${escapeHtml(set.label)}</p></div>` : ''}
-            ${set.effect4 ? `<div class="drive-set__effect4"><span class="drive-set__effect4-tag">四件套</span><p>${escapeHtml(set.effect4)}</p></div>` : ''}${set.scene ? `
-            <p class="drive-set__scene"><span class="drive-set__scene-tag">适用</span><span>${escapeHtml(set.scene)}</span></p>` : ''}
-          </div>
-        </div>
-      </div>
-      ${set.alt4 ? driveSetRowHtml(set.alt4, '备选') : ''}`;
-  // 多个 4 件套之间插一条分隔线；只有一个时不插，输出与旧模板逐字符一致
-  const blocks = list
-    .map(block)
-    .join(`
-      <div class="drive-set__sep" aria-hidden="true"></div>
-`);
-  // ${blocks} 必须顶格：块内自带 6 空格缩进，占位符若也有缩进，
-  // 单套装的首行就会比旧模板多出一段空白（DOM 相同但不再是逐字符一致）。
-  return `<div class="drive-set">
-      <span class="drive-set__slot">4 件套</span>
-${blocks}
-    </div>`;
+  const groups = [];
+  for (const set of list) {
+    const label = driveSetValue(set, 'label').trim();
+    const hit = groups.find((group) => group.label === label);
+    if (hit) hit.sets.push(set);
+    else groups.push({ label, sets: [set] });
+  }
+  return groups
+    .map(({ label, sets: groupSets }) => {
+      const units = groupSets.map(driveSetUnitHtml).join('') + driveSetTagHtml(tag);
+      return driveSetRowShell(units, driveSetEffectHtml('二件套', label));
+    })
+    .join('');
 }
 
-/** 单个驱动盘推荐方案：4 件套卡 + 2 件套卡 + 主词条表 + 副词条链。 */
+/** 方案名缺省时用套装组合自动生成，追加方案不强制命名。 */
+function driveBuildName(build, set4, set2) {
+  if (build.name) return build.name;
+  const set2Main = asList(set2.main);
+  const set4List = asList(set4);
+  const fallback = [
+    set4List.length ? `${set4List.map((set) => (typeof set === 'string' ? set : set.name)).filter(Boolean).join(' / ')} 4 件套` : '',
+    set2Main.length ? `${set2Main.map((set) => (typeof set === 'string' ? set : set.name)).filter(Boolean).join(' / ')} 2 件套` : '',
+  ].filter(Boolean).join(' + ');
+  return fallback || '推荐配装';
+}
+
+/** 单个驱动盘推荐方案：套装/副词条两栏 + 全宽四列主词条表。 */
 function driveBuildHtml(build) {
   const set4 = build.set4;
-  const set2 = build.set2;
-  const setCards = [];
-  if (set4) {
-    setCards.push(set4CardHtml(set4));
-  }
-  if (set2) {
-    // main / alt 均可为单对象或数组（多套装并列；效果文案相同的会在行内合并）
-    const asList = (value) => (Array.isArray(value) ? value : value ? [value] : []);
-    // 整组一次性交给 driveSetRowHtml，由它按效果文案分组合并
-    const rows = [driveSetRowHtml(asList(set2.main), '首选'), driveSetRowHtml(asList(set2.alt), '备选')].join('');
-    setCards.push(`<div class="drive-set">
-      <span class="drive-set__slot">2 件套</span>
-      ${rows}
-    </div>`);
-  }
-  const mains = (build.mainStats || [])
+  const set2 = build.set2 && typeof build.set2 === 'object' ? build.set2 : {};
+
+  const mains = (Array.isArray(build.mainStats) ? build.mainStats : [])
     .map(
       (item) => `<tr>
         <th scope="row" class="drive-main__slot">${escapeHtml(item.slot)}</th>
         <td class="drive-main__stat">${escapeHtml(item.main)}</td>
         <td class="drive-main__alt">${escapeHtml(item.alt)}</td>
+        <td class="drive-main__note">${noteHtml(item.note) || '—'}</td>
       </tr>`,
     )
     .join('');
-  // 副词条按「> / ≈」连接符排序（≈ 表示同档约等于，> 表示严格大于），不用数字序号
-  const subs = (build.subPriority || [])
+
+  const subs = (Array.isArray(build.subPriority) ? build.subPriority : [])
     .map((item) => {
       const label = typeof item === 'string' ? item : item.label;
       const next = typeof item === 'string' ? '' : item.next || '';
       return `<span class="sub-chip">${escapeHtml(label)}</span>${next ? `<span class="sub-op">${escapeHtml(next)}</span>` : ''}`;
     })
     .join('');
-  // 方案名缺省时用套装组合自动生成，追加方案不强制命名。
-  // set4 可能是数组（多个 4 件套合并成一个方案），名称用「 / 」连接。
-  const set2Main = Array.isArray(set2.main) ? set2.main : set2.main ? [set2.main] : [];
-  const set4List = Array.isArray(set4) ? set4 : set4 ? [set4] : [];
-  const fallbackName = [
-    set4List.length ? `${set4List.map((set) => set.name).filter(Boolean).join(' / ')} 4 件套` : '',
-    set2Main.length ? `${set2Main.map((set) => set.name).join(' / ')} 2 件套` : '',
-  ]
-    .filter(Boolean)
-    .join(' + ');
+
   return `<div class="drive-group">
-    <h4 class="drive-group__title">${escapeHtml(build.name || fallbackName || '推荐配装')}</h4>
+    <h4 class="drive-group__title">${escapeHtml(driveBuildName(build, set4, set2))}</h4>
     ${build.note ? `<p class="drive-group__note">${noteHtml(build.note)}</p>` : ''}
-    <div class="drive-sets">${setCards.join('')}</div>
-    <h5 class="guide-block__subtitle">主词条（4 / 5 / 6 号位）</h5>
-    <table class="drive-main">
-      <thead><tr><th>部位</th><th>首选</th><th>备选</th></tr></thead>
-      <tbody>${mains}</tbody>
-    </table>
-    <h5 class="guide-block__subtitle">副词条优先级</h5>
-    <p class="sub-prio">${subs || '暂无数据'}</p>
+    <div class="drive-spec">
+      <div class="drive-spec__sets">
+        <section class="drive-spec__set4" aria-label="4 件套推荐">
+          <h5 class="guide-block__subtitle">4 件套</h5>
+          <div class="drive-set-list">${driveSet4RowsHtml(set4) || '<p class="para">暂无数据</p>'}</div>
+        </section>
+        <section class="drive-spec__set2" aria-label="2 件套推荐">
+          <h5 class="guide-block__subtitle">2 件套</h5>
+          <div class="drive-set-list">${
+            driveSet2RowsHtml(set2.main, '首选') + driveSet2RowsHtml(set2.alt, '备选') || '<p class="para">暂无数据</p>'
+          }</div>
+        </section>
+      </div>
+      <section class="drive-spec__mains" aria-label="主词条推荐">
+        <h5 class="guide-block__subtitle">主词条推荐</h5>
+        ${mains ? `<div class="table-scroll">
+          <table class="drive-main" aria-label="主词条推荐">
+            <thead><tr><th scope="col">部位</th><th scope="col">首选</th><th scope="col">备选</th><th scope="col">备注</th></tr></thead>
+            <tbody>${mains}</tbody>
+          </table>
+        </div>` : '<p class="para">暂无主词条数据</p>'}
+      </section>
+      <section class="drive-spec__subs" aria-label="副词条优先级">
+        <h5 class="guide-block__subtitle">副词条优先级</h5>
+        <p class="sub-prio">${subs || '暂无数据'}</p>
+      </section>
+    </div>
   </div>`;
 }
 
 function drivesHtml(strategy) {
-  // 多方案数组；兼容旧的单个 drives 对象（迁移前的手改数据）
   const builds = Array.isArray(strategy.driveBuilds)
     ? strategy.driveBuilds
     : strategy.drives
       ? [strategy.drives]
       : [];
+  if (!builds.length) {
+    return `<div class="guide-block" id="guide-drives">
+      <h3 class="guide-block__title">驱动盘推荐</h3>
+      <p class="para">暂无数据</p>
+    </div>`;
+  }
+  if (builds.length === 1) {
+    return `<div class="guide-block" id="guide-drives">
+      <h3 class="guide-block__title">驱动盘推荐</h3>
+      ${driveBuildHtml(builds[0])}
+    </div>`;
+  }
+  const tabs = builds
+    .map((build, index) => {
+      const set2 = build.set2 && typeof build.set2 === 'object' ? build.set2 : {};
+      const name = driveBuildName(build, build.set4, set2);
+      return `<button class="drive-tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="drive-tab-${index}" aria-selected="${index === 0}" aria-controls="drive-panel-${index}" tabindex="${index === 0 ? 0 : -1}" title="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
+    })
+    .join('');
+  const panels = builds
+    .map(
+      (build, index) => `<div class="drive-panel${index === 0 ? ' is-active' : ''}" data-panel="${index}" role="tabpanel" id="drive-panel-${index}" aria-labelledby="drive-tab-${index}"${index === 0 ? '' : ' hidden'}>
+      ${driveBuildHtml(build)}
+    </div>`,
+    )
+    .join('');
   return `<div class="guide-block" id="guide-drives">
     <h3 class="guide-block__title">驱动盘推荐</h3>
-    ${builds.length ? builds.map(driveBuildHtml).join('') : '<p class="para">暂无数据</p>'}
+    <div class="drive-tabs" role="tablist" aria-label="驱动盘方案">${tabs}</div>
+    <div class="drive-panels drive-panels--tabbed">${panels}</div>
   </div>`;
 }
 
@@ -982,8 +1084,6 @@ function graduationPanelHtml(strategy, panel) {
       </div>`,
     )
     .join('');
-  const attribute = (strategy && strategy.profile && strategy.profile.attribute) || '';
-  const attributeColor = ATTRIBUTE_TILE_COLORS[attribute] || '#9aa3b2';
   const build = Object.entries(panel.build || {})
     .filter(([key]) => !['agent', 'weapon', 'core'].includes(key))
     .map(([key, value]) => {
@@ -993,7 +1093,7 @@ function graduationPanelHtml(strategy, panel) {
       const iconHtml = icon
         ? `<img class="build-row__icon" src="${escapeHtml(icon)}" alt="" loading="lazy" onerror="this.style.display='none'" />`
         : '';
-      return `<div class="build-row"><dt style="background:${escapeHtml(attributeColor)};color:#000;border-color:${escapeHtml(attributeColor)}">${escapeHtml(BUILD_LABELS[key] || key)}</dt><dd>${iconHtml}${escapeHtml(value)}</dd></div>`;
+      return `<div class="build-row"><dt>${escapeHtml(BUILD_LABELS[key] || key)}</dt><dd>${iconHtml}${escapeHtml(value)}</dd></div>`;
     })
     .join('');
   return `<div class="base-panel base-panel--graduation">${totals}</div>
@@ -1077,24 +1177,24 @@ function textGuideHtml(strategy) {
   </div>`;
 }
 
-function strategyHtml(guide) {
+function strategyHtml(guide, slug) {
   const strategy = guide.strategy;
   if (!strategy) {
-    return `<section id="guide" class="section reveal">
-      ${sectionHeadHtml('01', '攻略', '技能加点优先级 · 音擎推荐 · 驱动盘推荐 · 毕业面板 · 队伍推荐 · 文字攻略')}
-      <div class="guide-block"><p class="para">未找到攻略数据文件（data/roxy.strategy.json）。</p></div>
+    return `<section id="guide" class="section reveal" aria-labelledby="guide-title">
+      ${sectionHeadHtml('01', '攻略', '技能加点优先级 · 音擎推荐 · 驱动盘推荐 · 毕业面板 · 队伍推荐 · 文字攻略', 'guide')}
+      <div class="guide-block"><p class="para">未找到攻略数据文件（data/${escapeHtml(slug)}.strategy.json）。</p></div>
     </section>`;
   }
-  return `<section id="guide" class="section reveal">
-    ${sectionHeadHtml('01', '攻略', '技能加点优先级 · 音擎推荐 · 驱动盘推荐 · 毕业面板 · 队伍推荐 · 文字攻略')}
+  return `<section id="guide" class="section reveal" aria-labelledby="guide-title">
+    ${sectionHeadHtml('01', '攻略', '技能加点优先级 · 音擎推荐 · 驱动盘推荐 · 毕业面板 · 队伍推荐 · 文字攻略', 'guide')}
     <div class="guide-grid">
       ${skillPriorityHtml(strategy)}
       ${weaponHtml(strategy)}
       ${drivesHtml(strategy)}
+      ${graduationHtml(strategy)}
+      ${teamHtml(strategy)}
+      ${textGuideHtml(strategy)}
     </div>
-    ${graduationHtml(strategy)}
-    ${teamHtml(strategy)}
-    ${textGuideHtml(strategy)}
   </section>`;
 }
 
@@ -1107,6 +1207,20 @@ function attributeShade(hex, ratio, toWhite) {
   const target = toWhite ? 255 : 0;
   const mix = (channel) => Math.round(channel * (1 - ratio) + target * ratio);
   return `#${[mix(r), mix(g), mix(b)].map((c) => c.toString(16).padStart(2, '0')).join('')}`;
+}
+
+/** 按属性色的相对亮度选择黑/白前景，避免亮色上的白字对比度不足。 */
+function contrastText(hex) {
+  const value = parseInt(String(hex).replace('#', ''), 16);
+  if (!Number.isFinite(value)) return '#101318';
+  const channel = (shift) => {
+    const c = ((value >> shift) & 255) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  const luminance = 0.2126 * channel(16) + 0.7152 * channel(8) + 0.0722 * channel(0);
+  const blackContrast = (luminance + 0.05) / 0.05;
+  const whiteContrast = 1.05 / (luminance + 0.05);
+  return blackContrast >= whiteContrast ? '#101318' : '#ffffff';
 }
 
 function render(guide, slug) {
@@ -1122,16 +1236,16 @@ function render(guide, slug) {
   }
   app.innerHTML = `${background ? '<div class="page-bg" aria-hidden="true"></div>' : ''}
     <div class="layout">
-      ${sidebarHtml(guide)}
+      ${sidebarHtml(guide, slug)}
       <div class="content">
         ${heroHtml(guide)}
-        <main class="page">
-          ${strategyHtml(guide)}
+        <main class="page" id="strategy-main" tabindex="-1">
+          ${strategyHtml(guide, slug)}
           ${basePanelHtml(guide)}
           ${skillsHtml(guide)}
           ${cinemaHtml(guide)}
-          ${footerHtml(guide)}
         </main>
+        ${footerHtml(guide)}
       </div>
     </div>
     <button class="to-top" type="button" aria-label="返回顶部">
@@ -1143,7 +1257,17 @@ function render(guide, slug) {
   app.style.setProperty('--attr-color', attributeColor);
   app.style.setProperty('--attr-color-soft', attributeShade(attributeColor, 0.9, true));
   app.style.setProperty('--attr-color-text', attributeShade(attributeColor, 0.35, false));
-  bindSkillTabs();
+  app.style.setProperty('--attr-on-color', contrastText(attributeColor));
+  bindTablist({
+    tablistSelector: '.skill-cat--tabbed .move-tabs',
+    tabSelector: '.move-tab',
+    panelSelector: '.move-panel',
+  });
+  bindTablist({
+    tablistSelector: '.drive-tabs',
+    tabSelector: '.drive-tab',
+    panelSelector: '.drive-panel',
+  });
   cleanups.push(bindSidebar());
   cleanups.push(bindScrollSpy());
   cleanups.push(bindReveal());

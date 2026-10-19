@@ -53,7 +53,14 @@ OUTPUT = "data/drive-disc-presets.json"
 IMAGES_DIR = "frontend/public/images/discs"
 
 #: 仓库根。本脚本从 ``.github/skills/<skill>/scripts/`` 上溯四层到达。
-REPO_ROOT = Path(__file__).resolve().parents[4]
+def _find_repo_root() -> Path:
+    """Walk up from this file until pyproject.toml is found (robust to nesting)."""
+    current = Path(__file__).resolve()
+    for parent in current.parents:
+        if (parent / "pyproject.toml").is_file():
+            return parent
+    raise RuntimeError(f"Cannot find pyproject.toml above {current}")
+REPO_ROOT = _find_repo_root()
 
 #: 块级闭合标签与 ``<br>`` 先换成空格，否则相邻两段的文字会粘在一起。
 _BLOCK_TAG = re.compile(r"(?i)</\s*(?:p|div|li|tr|table|h[1-6])\s*>|<br\s*/?>")

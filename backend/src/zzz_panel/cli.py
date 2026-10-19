@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import sys
 
+from .core.fmt import fmt
 from .core.models import PanelInputs
 from .core.panel import calculate_panel
 
@@ -51,11 +52,8 @@ EXAMPLE = PanelInputs(
 
 
 def _fmt(value: float, as_percent: bool = False) -> str:
-    if as_percent:
-        return f"{value:.2f}%"
-    if abs(value - round(value)) < 1e-9:
-        return str(int(round(value)))
-    return f"{value:.2f}"
+    """委托 core.fmt.fmt；百分比行追加 ``%`` 后缀。"""
+    return f"{fmt(value)}%" if as_percent else fmt(value)
 
 
 def main() -> None:

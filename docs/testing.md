@@ -7,8 +7,8 @@
 
 | 套件 | 命令 | 用例数 | 覆盖 |
 | --- | --- | --- | --- |
-| 后端 | `uv run pytest` | 306 全部通过 | 计算、格式化、预设校验、Worker 数据打包、HTTP 契约、攻略数据 |
-| 前端 | `npm run test` | 112 | 渲染、交互、请求构造、攻略 UI、**三方对拍** |
+| 后端 | `uv run pytest` | 310 全部通过 | 计算、格式化、预设校验、Worker 数据打包、HTTP 契约、攻略数据 |
+| 前端 | `npm run test` | 118 | 渲染、交互、请求构造、攻略 UI、**三方对拍** |
 
 测试状态以这两个命令的输出为准。CI 配置在 `.github/workflows/ci.yml`：
 push / PR 会跑数据漂移闸、后端测试、前端测试、类型检查与构建。
@@ -84,13 +84,13 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
 
 > 这是本项目的一条通用原则：**护栏的失效方式必须是红灯，不许是绿灯。**
 
-## 4. 后端测试（306 项）
+## 4. 后端测试（310 项）
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `test_presets.py` | 32 | 目录定位、四类加载错误、语义校验的每条规则、响应与 JSON 逐条等价、503 而非 500、id 唯一性 |
 | `test_panel.py` | 41 | 加成链路、音擎基础值并入顺序、百分比二次加成、取整向下、模式公式与非法模式，以及**逐条二件套选项**（见下） |
-| `test_strategy_data.py` | 184 | 攻略抓取产物：满级行短字段名（生命/攻击/防御）必须归一并覆盖初始值；每个攻略页 `basePanel` 不得字段重复、不得残留短名、与 `agent-presets.json` 同名字段同值；驱动盘推荐不得把同一 2 件套重复列成多个方案（应合并成一个 `set4` 数组），且数组合并时每一项都要带 `scene` 使用场景备注。当前多数失败源于数据文件名与 UTF-8 问题，见结构审查 |
+| `test_strategy_data.py` | 188 | 攻略抓取产物：满级行短字段名（生命/攻击/防御）必须归一并覆盖初始值；每个攻略页 `basePanel` 不得字段重复、不得残留短名、与 `agent-presets.json` 同名字段同值；驱动盘推荐不得把同一 2 件套重复列成多个方案（应合并成一个 `set4` 数组），且数组合并时每一项都要带 `scene` 使用场景备注。`mainStats[]` 必须有字符串 `note` 备注占位；历史编码问题已修复 |
 | `test_worker_bundle.py` | 15 | `tools/bundle_worker_data.py` 的打包与幂等、生成模块的加载回退、`--check` 漂移闸 |
 | `test_api.py` | 13 | 路由形状、CORS 预检、422 触发条件、负数条数被钳制、`def` 别名、响应键名大小写 |
 | `test_options_json.py` | 11 | `data/options.json` 与 Python 规则表一致；`DISC_FIXED_STATS` 顺序与槽位一致 |
@@ -115,7 +115,7 @@ tests/fixtures/legacy-calculator/  frontend/src/  +  backend/
   测试明确记录这个行为，避免有人误加约束导致对拍失败。
 - **空body `{}` 是合法请求**：所有字段都有默认值。
 
-## 5. 前端测试（112 项）
+## 5. 前端测试（118 项）
 
 Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 `vitest.config.ts`**，容易找错）。
@@ -123,7 +123,7 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `calculator-view.spec.ts` | 36 | 计算器骨架、启动页、子页返回导航、指南页、攻略选择页卡片与 `/strategy/:slug` 路由透传/守卫 |
-| `strategy-view.spec.ts` | 4 | 共享渲染器渲染攻略详情、数据缺失错误态、背景字段、登记表内全部代理人数据都能渲染 |
+| `strategy-view.spec.ts` | 10 | 共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、加载/错误态、背景字段，以及全部代理人数据渲染 |
 | `panel-interactions.spec.ts` | 51 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `strategy-ui.spec.ts` | 17 | 攻略同款排版：侧边目录编号与锚点、目录开关、`useScrollSpy` 可见带 / 区域容器 / 空窗保留 / 触底兜底 / 二级链接整链路、结果区复制/重置、启动页顶部导航与卡片、指南章节序号与 CTA、两页页眉无跳转按钮 |
 | `legacy-parity.spec.ts` | 4 | 三方对拍 |
@@ -185,7 +185,7 @@ Vitest + jsdom，配置在 `vite.config.ts` 的 `test` 块（**没有独立的
 | 未覆盖 | 风险 | 建议 |
 | --- | --- | --- |
 | 前端**视觉回归** | 改 CSS 不会变红 | 手工核对启动页、计算器、指南与攻略页；引入截图对比需先解决 jsdom 无法渲染的问题 |
-| 后端**并发与性能** | 个人工具，160 条预设 + 纯函数计算，实测无压力 | 暂不需要 |
+| 后端**并发与性能** | 个人工具，161 条预设 + 纯函数计算，实测无压力 | 暂不需要 |
 | **`refresh_*_presets.py` 的端到端** | 需要联网抓 Wiki，CI 不跑 | 由 `test_presets.py` 间接保证 `render()` 与已提交文件一致 |
 | **线上 Worker 本身** | 本地测试不覆盖 Cloudflare 的运行时、配额与域名绑定 | 部署后按 [deployment.md](deployment.md) 第 7 节自检清单人工过一遍 |
 

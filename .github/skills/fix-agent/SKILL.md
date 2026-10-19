@@ -86,7 +86,7 @@ Ensure `tachie:` (and any tachie reference) is `/images/strategy/<slug>/tachie.p
    - **JSON 有效性**：同样用 `python -c "import json; json.load(...)"` 校验；损坏时从 `strategy/ye-shunguang/data/ye-shunguang.strategy.json` 复制模板后按 agent-strategy skill 填充，而非手改。
    - **检查该文件中所有 `/images/strategy/<folder>/...` 引用，确保 `<folder>` 等于 `<slug>`；不一致则修正。**
 5. **Rendering is shared.** There is no per-agent `app.js` / `index.html` / `styles.css`.
-   `StrategyView.vue` + `strategy/renderStrategy.ts` read the JSON and fall back to the
+   `StrategyView.vue` + `frontend/src/strategy/renderStrategy.ts` read the JSON and fall back to the
    role icon map when `profile.icons.profession` is empty. Fix the data, not a page copy.
 6. **Image folder**: `frontend/public/images/strategy/<slug>/` must exist with `tachie.png` (and `title.png`/`cinema-*.png` if available).
 

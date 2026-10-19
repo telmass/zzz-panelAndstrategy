@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 
 import { CORE_OPTIONS } from '@/constants/calculatorOptions';
-import { usePanelCalc } from '@/composables/usePanelCalc';
+import { useCoreSummary } from '@/composables/useCoreSummary';
 import { usePanelMode } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
 import { PanelModule, SelectField } from '@/components/common';
@@ -17,7 +17,7 @@ import { PanelModule, SelectField } from '@/components/common';
  */
 const panel = usePanelStore();
 const { localize } = usePanelMode();
-const { coreSummary } = usePanelCalc();
+const { coreSummary } = useCoreSummary();
 
 const coreOptions = computed(() =>
   CORE_OPTIONS.map((option) => ({ value: option.id, label: localize(option.label) })),
@@ -25,9 +25,9 @@ const coreOptions = computed(() =>
 </script>
 
 <template>
-  <PanelModule title="核心加成" tag="9选2 · 可重复选" variant="core" index="03">
+  <PanelModule title="核心加成" tag="12选2 · 可重复选" variant="core" index="03">
     <p class="note note--lead">
-      从8项中选2项，可重复（如两次暴击率=28.8%）。<br />核心互斥：同一属性不会同时给基础值与百分比。
+      从12项中选2项，可重复（如两次暴击率=28.8%）。<br />核心互斥：同一属性不会同时给基础值与百分比。
     </p>
 
     <div class="grid-2">

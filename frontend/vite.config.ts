@@ -50,10 +50,20 @@ async function isFile(path: string): Promise<boolean> {
 /** strategy/ 下每个含 data/ 的子目录即一个攻略数据目录。 */
 async function listStrategyDataDirs(): Promise<StrategyDataDir[]> {
   const entries = await readdir(STRATEGY_ROOT, { withFileTypes: true });
+  // 只打包已发布的 slug（在 agent-presets 中有对应预设的），
+  // 防止未发布/不完整的目录被意外带进 dist。
+  const presetsText = await readFile(resolve(STRATEGY_ROOT, '..', 'data', 'agent-presets.json'), 'utf-8');
+  const presets: Array<{ id: string }> = JSON.parse(presetsText);
+  const agentsText = await readFile(resolve(STRATEGY_ROOT, '..', 'data', 'agent-name-mapping.json'), 'utf-8');
+  const mapping: Array<{ slug: string }> = JSON.parse(agentsText);
+  const mappingSlugs = new Set(mapping.map((m) => m.slug));
   const dirs: StrategyDataDir[] = [];
   for (const entry of entries) {
     if (!entry.isDirectory() || !STRATEGY_SLUG_PATTERN.test(entry.name)) {
       continue;
+    }
+    if (!mappingSlugs.has(entry.name)) {
+      continue; // 未在 mapping 中登记的目录不打包
     }
     const dir = join(STRATEGY_ROOT, entry.name);
     if (await isDirectory(join(dir, 'data'))) {

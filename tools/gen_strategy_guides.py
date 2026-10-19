@@ -21,6 +21,19 @@ MAPPING_PATH = REPO_ROOT / "data" / "agent-name-mapping.json"
 PRESETS_PATH = REPO_ROOT / "data" / "agent-presets.json"
 OUTPUT_PATH = REPO_ROOT / "frontend" / "src" / "constants" / "strategyGuides.ts"
 
+#: 属性/职业/评级 → 图标 slug 映射。与 agent-background Skill 和共享渲染器
+#: (renderStrategy.ts) 中的同名表保持一致；这里是生成器侧的唯一真实源。
+ATTRIBUTE_SLUGS = {
+    "火": "fire", "冰": "ice", "电": "electric", "以太": "ether",
+    "物理": "physical", "烈霜": "frost", "玄墨": "auric-ink",
+    "凛刃": "honed-edge", "风": "wind", "流明": "lumiflux",
+}
+ROLE_SLUGS = {
+    "强攻": "attack", "击破": "stun", "异常": "anomaly", "支援": "support",
+    "防护": "defense", "命破": "rupture", "锋御": "armorer",
+}
+GRADE_SLUGS = {"S": "s", "A": "a"}
+
 
 def ts(value: str) -> str:
     return "'" + str(value).replace("\\", "\\\\").replace("'", "\\'") + "'"
@@ -52,20 +65,37 @@ def build_entries() -> list[dict[str, str]]:
 
         agent_id = meta.get("agentId") or preset.get("id") or ""
         name = profile.get("name") or item.get("cn_full") or item.get("cn_short") or slug
+        short_name = item.get("cn_short") or name
         entry = {
             "slug": slug,
             "name": name,
+            "shortName": short_name,
             "en": item.get("en") or "",
             "agentId": agent_id,
         }
         if assets.get("tachie"):
             entry["tachie"] = assets["tachie"]
-        if icons.get("grade"):
-            entry["gradeIcon"] = icons["grade"]
-        if icons.get("attribute"):
-            entry["attributeIcon"] = icons["attribute"]
-        if icons.get("profession"):
-            entry["roleIcon"] = icons["profession"]
+        # 图标解析：优先取抓取产物的 profile.icons，缺失时从预设数据
+        # (attribute/roleTag/grade) 推导，保证字段永不缺位。
+        attr_label = profile.get("attribute") or preset.get("attribute") or ""
+        role_label = profile.get("roleTag") or preset.get("roleTag") or ""
+        grade_label = profile.get("grade") or preset.get("grade") or ""
+
+        grade_icon = icons.get("grade") or (
+            f"/images/grades/{GRADE_SLUGS[grade_label]}.png" if grade_label in GRADE_SLUGS else ""
+        )
+        attribute_icon = icons.get("attribute") or (
+            f"/images/attributes/{ATTRIBUTE_SLUGS[attr_label]}.png" if attr_label in ATTRIBUTE_SLUGS else ""
+        )
+        role_icon = icons.get("profession") or (
+            f"/images/icons/{ROLE_SLUGS[role_label]}.png" if role_label in ROLE_SLUGS else ""
+        )
+        if grade_icon:
+            entry["gradeIcon"] = grade_icon
+        if attribute_icon:
+            entry["attributeIcon"] = attribute_icon
+        if role_icon:
+            entry["roleIcon"] = role_icon
         entries.append(entry)
     return entries
 
@@ -80,6 +110,7 @@ def render(entries: list[dict[str, str]]) -> str:
         "export interface StrategyGuide {",
         "  slug: string;",
         "  name: string;",
+        "  shortName: string;",
         "  en: string;",
         "  agentId: string;",
         "  tachie?: string;",
@@ -92,7 +123,7 @@ def render(entries: list[dict[str, str]]) -> str:
     ]
     for entry in entries:
         lines.append("  {")
-        for key in ("slug", "name", "en", "agentId", "tachie", "gradeIcon", "attributeIcon", "roleIcon"):
+        for key in ("slug", "name", "shortName", "en", "agentId", "tachie", "gradeIcon", "attributeIcon", "roleIcon"):
             if key in entry:
                 lines.append(f"    {key}: {ts(entry[key])},")
         lines.append("  },")

@@ -86,7 +86,7 @@ describe('CalculatorView 静态骨架', () => {
     expect(titles.map((node) => node.find('.tag').text())).toEqual([
       '角色本体',
       '选择音擎以自动载入固定属性',
-      '9选2 · 可重复选',
+      '12选2 · 可重复选',
       '1~3固定 · 4/5/6可选',
       '每盘9条 · 6盘共54条',
       '0~3组',
@@ -298,7 +298,7 @@ describe('LauncherView 静态骨架', () => {
   it('保留 eyebrow 与主标题', () => {
     const wrapper = mountLauncher();
     expect(wrapper.find('.eyebrow').text()).toBe('ZENLESS ZONE ZERO · PANEL TOOLS');
-    expect(wrapper.find('h1').text()).toBe('代理人面板计算器');
+    expect(wrapper.find('h1').text()).toBe('绝区零 · 面板计算与攻略');
   });
 
   it('提供计算器、指南、攻略三个入口，共用同一套卡片样式', () => {
@@ -388,9 +388,10 @@ describe('子页面返回导航', () => {
     }
   });
 
-  it('五条路由均有对应视图', () => {
+  it('六条路由均有对应视图（含兜底路由）', () => {
     expect(router.getRoutes().map((route) => route.path).sort()).toEqual([
       '/',
+      '/:pathMatch(.*)*',
       '/calculator',
       '/guide',
       '/strategy',

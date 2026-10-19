@@ -1,81 +1,18 @@
 ﻿<script setup lang="ts">
 import { BackToLauncher, BackToTop } from '@/components/layout';
 import { SideNav } from '@/components/common';
-import type { SideNavGroup } from '@/components/common';
 import { GuideAttrGrid, GuideCallout, GuideSection, GuideTable } from '@/components/guide';
+import { BASE_ATTRS, FINAL_ATTRS, NAV_GROUPS, WEAPON_ATTRS } from '@/constants/guideContent';
 
 /**
  * 面板计算方式学习指南。
  *
- * 正文迁自 legacy/pages/guide.html（迁移第 5 步第 21 条）。原文是自带一整段
- * 内联样式的静态长文；这里把样式收进 components.css 的「指南页」区块，
- * 重复出现的四类结构抽成 components/guide/ 下的展示组件，
- * 文字与数值一字未改，包括原文自身的两处笔误：
- *   - 攻防血第 4 个步骤框标题写作「第三步」（原文如此）
- *   - 该框的 class 是 step4，而原文 CSS 只定义了 step1~3，故它按默认样式渲染
+ * 内容数据（目录结构、属性卡片）从 `constants/guideContent.ts` 导入，
+ * 与模板解耦——编辑指南数值只需改数据文件。
  *
- * 版式与代理人攻略页对齐：页眉 + 左侧编号目录 + 正文，章节序号用徽标承载
- * （不再写「一、二、三」），目录支持滚动高亮与二级模块锚点。
+ * 正文迁自 legacy/pages/guide.html；文字与数值一字未改。
+ * 版式与代理人攻略页对齐：页眉 + 左侧编号目录 + 正文。
  */
-
-/** 侧边目录。二级条目指向「二、六大模块详解」内各模块的小标题锚点。 */
-const NAV_GROUPS: SideNavGroup[] = [
-  { id: 'overview', label: '整体结构概览' },
-  {
-    id: 'modules',
-    label: '六大模块详解',
-    sub: [
-      { id: 'mod-base', label: '基础面板' },
-      { id: 'mod-core', label: '核心加成' },
-      { id: 'mod-weapon', label: '音擎加成' },
-      { id: 'mod-drive', label: '驱动盘' },
-      { id: 'mod-set', label: '2件套效果' },
-    ],
-  },
-  { id: 'attack', label: '攻防血通用计算' },
-  { id: 'crit', label: '双爆与其他属性' },
-  { id: 'drive', label: '驱动盘进阶知识' },
-  { id: 'summary', label: '规律与概念总结' },
-];
-
-/** 「基础面板」属性卡片。 */
-const BASE_ATTRS = [
-  { label: '生命值', value: '7673' },
-  { label: '攻击力', value: '888' },
-  { label: '防御力', value: '612' },
-  { label: '冲击力', value: '93' },
-  { label: '暴击率', value: '19.4%' },
-  { label: '暴击伤害', value: '50%' },
-  { label: '异常掌控', value: '94' },
-  { label: '异常精通', value: '93' },
-  { label: '穿透率', value: '0%' },
-  { label: '能量自动回复', value: '1.2' },
-  { label: '增伤', value: '0%' },
-  { label: '穿透值', value: '0' },
-];
-
-/** 「音擎加成」属性卡片。 */
-const WEAPON_ATTRS = [
-  { label: '基础攻击力', value: '713' },
-  { label: '基础防御力', value: '0' },
-  { label: '副词条：暴击率', value: '24%' },
-];
-
-/** 文末「最终面板一览」卡片。 */
-const FINAL_ATTRS = [
-  { label: '生命值', value: '10781.4' },
-  { label: '攻击力', value: '3066' },
-  { label: '防御力', value: '913' },
-  { label: '暴击率', value: '72.2%' },
-  { label: '暴击伤害', value: '155.6%' },
-  { label: '增伤', value: '10%' },
-  { label: '穿透率', value: '24%' },
-  { label: '穿透值', value: '9' },
-  { label: '冲击力', value: '93' },
-  { label: '异常掌控', value: '94' },
-  { label: '异常精通', value: '102' },
-  { label: '能量自动回复', value: '1.2' },
-];
 </script>
 
 <template>

@@ -32,11 +32,11 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](api-reference.md)**。
 
 用途：
 
-- `fix-agent` Skill 以它为准修正攻略页的 slug、数据文件名、`DATA_URL` 与图标路径；
+- `fix-agent` Skill 以它为准修正攻略页的 slug、数据文件名与图标路径；
 - 攻略页目录名与 `strategyGuides.ts` 的 `slug` 必须与它一致；
 - 新增代理人时先补映射，再建 `strategy/<slug>/`。
 
-它不是抓取产物，**不要用 `refresh_*_presets.py` 覆盖**。当前没有自动守卫，
+它不是抓取产物，**不要用 `refresh_*_presets.py` 覆盖**。由 gen_strategy_guides.py --check 与 test_strategy_data.py 守卫，
 一致性检查方案见 [structure-review.md](structure-review.md) P1-1。
 
 ## 2. 代理人预设

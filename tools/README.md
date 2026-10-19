@@ -9,6 +9,7 @@
 | `bundle_worker_data.py` | 预设 `data/*.json` → `backend/src/zzz_panel/_bundled_data.py`，供 Cloudflare Worker 使用 |
 | `normalize_strategy.py` | 攻略页目录 / 数据文件名 / 图片引用归一，校验并可选重新抓取坏 JSON |
 | `gen_strategy_guides.py` | 从 mapping + 攻略数据生成 `frontend/src/constants/strategyGuides.ts`（`--check` 供 CI） |
+| `seed_main_stat_notes.py` | 为 `driveBuilds[].mainStats[]` 预留 `note: ""` 备注字段（`--check` 供 CI） |
 | `dump_backend_responses.py` | 把 `legacy_cases.json` 的每条用例 POST 给后端并落盘，用于排查对拍差异 |
 
 前端另有两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中：
@@ -83,6 +84,18 @@ python tools/gen_strategy_guides.py --check  # 与数据不一致时退出码 1
 ```
 
 新增 / 改名代理人后运行生成器，不要手改 TS 数组。
+
+## 主词条备注占位
+
+`seed_main_stat_notes.py` 为所有攻略编辑 JSON 的
+`driveBuilds[].mainStats[]` 预留 `note` 字符串：
+
+```powershell
+python tools/seed_main_stat_notes.py          # 补缺失的 note: ""
+python tools/seed_main_stat_notes.py --check  # 缺字段时退出码 1
+```
+
+已有非空备注不会被覆盖；主词条表的第四列「备注」由该字段驱动。
 
 ## 双向同步脚本
 

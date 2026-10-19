@@ -1,11 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import CalculatorView from '@/views/CalculatorView.vue';
-import GuideView from '@/views/GuideView.vue';
 import LauncherView from '@/views/LauncherView.vue';
-import StrategyPickerView from '@/views/StrategyPickerView.vue';
-import StrategyView from '@/views/StrategyView.vue';
 import { strategyGuides } from '@/constants/strategyGuides';
+
+// 路由级懒加载：启动页保持 eager（首屏），其余按需加载。
+// GuideView（684 行）与 StrategyView（含 1260 行 renderStrategy）
+// 是两个最大的 chunk，不必在首页就拉取。
+const CalculatorView = () => import('@/views/CalculatorView.vue');
+const GuideView = () => import('@/views/GuideView.vue');
+const StrategyPickerView = () => import('@/views/StrategyPickerView.vue');
+const StrategyView = () => import('@/views/StrategyView.vue');
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +35,13 @@ const router = createRouter({
         }
         return true;
       },
+    },
+    // 兜底路由：未知路径回启动页，不渲染空白页。
+    // 必须放在最后；Vue Router 按 routes 数组顺序匹配。
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      redirect: '/',
     },
   ],
 });

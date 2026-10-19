@@ -88,4 +88,4 @@ and must not be hand-edited; the script overwrites the whole file on each run. E
 carry `id` (`ep-<entry_page_id>`), `name`, `source` (detail-page link),
 `setEffect2` / `setEffect4` (verbatim Wiki text), and `image`
 (`/images/discs/ep-<entry_page_id>.png` URL), sorted by `entry_page_id`. Details of the
-file's role in the data pipeline live in [`data/README.md`](/data/README.md).
+file's role in the data pipeline live in [`data/README.md`](../../../data/README.md).

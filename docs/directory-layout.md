@@ -29,7 +29,7 @@
 | `vite.config.ts` | dev 代理 `/api` → `http://127.0.0.1:8000`（避免 CORS）；别名 `@` → `src`、`@data` → `../data`；**Vitest 配置也在此文件的 `test` 块中**（无独立 `vitest.config.ts`） |
 | `tsconfig.json` | `strict` + `noUnusedLocals` + `noUnusedParameters`；别名 `@/*`、`@data/*`；`exclude` 含 `tests/fixtures` |
 | `package.json` | 6 个脚本：`dev` / `build` / `preview` / `typecheck` / `test` / `test:watch` |
-| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 395 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标 + 30 驱动盘套装图标 + 6 技能 + 10 属性 + 2 等级 + 180 攻略独有，完整清单见第 2.2 节 |
+| `public/` | **Vite 原样拷贝到 `dist/` 根，不做指纹化。** 不能被 `import`，只能按 URL 引用。当前 398 张 PNG：60 代理人 + 100 音擎 + 7 roletag 图标 + 30 驱动盘套装图标 + 6 技能 + 10 属性 + 2 等级 + 183 攻略独有，完整清单见第 2.2 节 |
 | `tools/` | 两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中 |
 | `tests/` | Vitest 测试 + 夹具，见第 4 节 |
 
@@ -60,7 +60,7 @@
 | 路径 | 说明 |
 | --- | --- |
 | `assets/styles/index.css` | 仅用 `@import` 按序引入下列三个，**自身不写任何规则** |
-| `assets/styles/tokens.css` | 75 个设计变量（颜色、间距、圆角、阴影、布局、模块强调色、结果区渐变）。**无字号令牌**，也**无暗色模式** |
+| `assets/styles/tokens.css` | 76 个设计变量（颜色、间距、圆角、阴影、布局、模块强调色、结果区渐变）。**无字号令牌**，也**无暗色模式** |
 | `assets/styles/base.css` | reset + 排版 + 页面骨架 + 各类栅格；3 个响应式断点（960 / 560 / 480px） |
 | `assets/styles/components.css` | 12 个区块：模块卡片、表单字段、音擎与代理人选择器及头像卡片、提示文字、固定词条徽标、副词条步进器、结果区、按钮、指南页、启动界面、攻略板块选择页（`/strategy`）、攻略页舞台（`/strategy/:slug`） |
 | `../README.md` | 本目录的使用约定，见 [frontend/src/README.md](../frontend/src/README.md) |
@@ -86,7 +86,7 @@ frontend/public/images/
 ├── skills/<key>.png            # 6，全代理人共享：basic/dodge/assist/special/chain/core
 ├── attributes/<attribute>.png  # 10，属性图标（honed-edge/fire/ice/electric/ether/physical/wind/frost/auric-ink/lumiflux）
 ├── grades/<grade>.png          # 2，等级图标（s/a）
-└── strategy/<slug>/            # 180 张，每代理人独有：tachie / title / cinema-2 / cinema-3 / background
+└── strategy/<slug>/            # 183 张，每代理人独有：tachie / title / cinema-2 / cinema-3 / background
 ```
 
 > 文件名统一为**小写 ASCII slug**（如 `honed-edge.png`、`attack.png`），不再使用空格或首字母大写。
@@ -94,7 +94,7 @@ frontend/public/images/
 
 已接入的取图位置：
 
-> **`weapons/`（100 张）**——音擎 `n-cascader` 的头像卡片与二级选项前缀按
+> **`weapons/`（100 张，另有 1 项预设无本地图标——见下方说明）**——音擎 `n-cascader` 的头像卡片与二级选项前缀按
 > `/images/weapons/{id}.png` 取图（`WeaponModule.vue`）。
 > **`agents/`（60 张）**——代理人 `n-cascader` 同构，按
 > `/images/agents/{id}.png` 取图（`AgentBaseModule.vue`）；`/strategy` 选择页封面与
@@ -123,7 +123,7 @@ src-layout，包名 `zzz_panel`。
 | `presets/` | `loader.py`（按 mtime 缓存的 JSON 加载）、`validate.py`（语义校验） |
 | `zzz_panel/_bundled_data.py` | **生成物，不提交**。`tools/bundle_worker_data.py` 把 `data/*.json` 的原文编译成两个字符串常量，供 Cloudflare Worker 读取——`pywrangler` 只上传 `.py`，包里的 `.json` 会被静默丢弃。见 [deployment.md](deployment.md) 第 5.3 节 |
 | `cli.py` | 命令行入口。无子命令，固定跑一组示例并打印 12 行 |
-| `tests/` | pytest：8 个测试模块 + `conftest.py`（当前 306 项） |
+| `tests/` | pytest：8 个测试模块 + `conftest.py`（当前 310 项） |
 
 ### 3.0 backend/src/ 的顶层两个文件
 
@@ -168,12 +168,12 @@ src-layout，包名 `zzz_panel`。
 
 ## 4. frontend/tests/
 
-当前 112 项（5 个 spec 文件）。
+当前 118 项（5 个 spec 文件）。
 
 | 路径 | 说明 |
 | --- | --- |
 | `calculator-view.spec.ts` | 36 项渲染断言（计算器骨架、启动页、返回导航、指南页、攻略选择页与 `/strategy/:slug` 路由透传/守卫） |
-| `strategy-view.spec.ts` | 4 项：共享渲染器渲染策略详情、错误态、背景字段、登记表内全部代理人的数据都能渲染 |
+| `strategy-view.spec.ts` | 10 项：共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、加载/错误态、背景字段，以及全部代理人的数据渲染 |
 | `panel-interactions.spec.ts` | 51 项交互与后端对接 |
 | `strategy-ui.spec.ts` | 17 项攻略同款排版与侧边目录行为 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
@@ -233,7 +233,7 @@ src-layout，包名 `zzz_panel`。
 
 | 路径 | 职责 |
 | --- | --- |
-| `strategy/<slug>/` | 一名代理人的攻略数据目录，**一个目录一个代理人**（当前 59 个目录、全部已登记）。目录名即主应用路由 slug，必须与 `data/agent-name-mapping.json` 的 `slug` 一致 |
+| `strategy/<slug>/` | 一名代理人的攻略数据目录，**一个目录一个代理人**（当前 60 个目录、全部已登记）。目录名即主应用路由 slug，必须与 `data/agent-name-mapping.json` 的 `slug` 一致 |
 | `strategy/<slug>/data/<slug>.json` | 抓取产物（基础信息 / 基础面板 / 技能 / 影画 / 背景图），由 `.github/skills/agent-strategy/scripts/scrape_agent_guide.py` 生成 |
 | `strategy/<slug>/data/<slug>.strategy.json` | 攻略编辑内容（加点链 / 音擎 / 驱动盘 / 队伍 / 文字攻略，手写；`graduationPanel` 由 `calc_graduation_panel.py` 写入；可选 `background` 字段） |
 

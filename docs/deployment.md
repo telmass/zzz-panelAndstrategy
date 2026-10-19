@@ -46,7 +46,7 @@ dist/
 ├── assets/
 │   ├── index-<hash>.js
 │   └── index-<hash>.css
-├── images/                  # public/images/ 原样拷贝（当前 395 张 PNG）
+├── images/                  # public/images/ 原样拷贝（当前 398 张 PNG）
 └── strategy/<slug>/data/    # 每页仅两份 JSON（<slug>.json / <slug>.strategy.json）
 ```
 
@@ -405,7 +405,7 @@ Invoke-RestMethod http://127.0.0.1:8000/api/health          # 期望 {"status":"
 
 # 2. 预设可读
 (Invoke-RestMethod http://127.0.0.1:8000/api/presets/agents).items.Length   # 期望 60
-(Invoke-RestMethod http://127.0.0.1:8000/api/presets/weapons).items.Length  # 期望 100
+(Invoke-RestMethod http://127.0.0.1:8000/api/presets/weapons).items.Length  # 期望 101
 
 # 3. 计算可用（空body 即合法请求，应返回 12 个 totals 键）
 (Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/panel/calc `
@@ -467,7 +467,7 @@ uv run --group worker pywrangler deploy
 | 数据库与迁移 | 无持久化，唯一的「状态」是 `data/` 下的五个 JSON |
 | 认证授权 | 全站刻意公开、无鉴权，见 [5.9](#59-访问控制当前是公开的) |
 | 监控告警 / 日志聚合 | `/api/health` 足够；Wrangler 自带 `observability`（见 `wrangler.jsonc`） |
-| CI/CD 流水线 | 仓库内没有 CI 配置。需要时按 [development.md](development.md) 第 10 节的检查项组装 |
+| CI/CD 流水线 | CI 在 .github/workflows/ci.yml（数据闸 + 测试 + 构建）；部署仍为手动。需要时按 [development.md](development.md) 第 10 节的检查项组装 |
 
 ### 关于认证
 

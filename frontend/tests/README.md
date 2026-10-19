@@ -1,6 +1,6 @@
 # frontend/tests — 前端测试
 
-Vitest + jsdom，共 **112 项**。
+Vitest + jsdom，共 **118 项**。
 
 ```powershell
 npm run test          # 一次性
@@ -17,7 +17,7 @@ npm run test:watch    # 监听
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `calculator-view.spec.ts` | 36 | 计算器骨架、启动页、子页返回导航、指南页、攻略选择页卡片与 `/strategy/:slug` 路由透传/守卫 |
-| `strategy-view.spec.ts` | 4 | 共享渲染器渲染攻略详情、错误态、背景字段，以及登记表内全部代理人的数据都能渲染 |
+| `strategy-view.spec.ts` | 10 | 共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、加载/错误态、背景字段，以及全部代理人的数据渲染 |
 | `panel-interactions.spec.ts` | 51 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `strategy-ui.spec.ts` | 17 | 攻略同款排版：侧边目录编号与锚点、目录开关、`useScrollSpy` 可见带 / 区域容器 / 空窗保留 / 触底兜底 / 二级链接整链路、结果区复制/重置、启动页顶部导航与卡片、指南章节序号与 CTA、两页页眉无跳转按钮 |
 | `legacy-parity.spec.ts` | 4 | **三方对拍**：旧 JS ≡ Vue3 页面 ≡ Python 后端 |

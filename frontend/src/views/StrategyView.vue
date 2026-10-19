@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { onBeforeUnmount, ref, watch } from 'vue';
+import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 
 import { BackToLauncher } from '@/components/layout';
+import { fetchStrategyContent, fetchStrategyData } from '@/api/strategy';
 import { renderStrategy } from '@/strategy/renderStrategy';
 import '@/strategy/strategy.css';
 
@@ -13,6 +14,7 @@ import '@/strategy/strategy.css';
  * 主应用直接挂载共享渲染器 `@/strategy/renderStrategy`，样式收窄在
  * `.strategy-detail` 下，因此没有 iframe、也没有每页模板副本。
  *
+ * 网络访问经 `src/api/strategy.ts`，组件内不直接 `fetch`。
  * 新增代理人只需放数据；渲染器与样式自动复用。
  */
 const props = defineProps<{ slug: string }>();
@@ -32,16 +34,15 @@ async function load(slug: string): Promise<void> {
   errorMessage.value = '';
 
   try {
-    const base = `/strategy/${slug}/data/${slug}`;
-    const [guideResponse, strategyResponse] = await Promise.all([
-      fetch(`${base}.json`, { cache: 'no-store' }),
-      fetch(`${base}.strategy.json`, { cache: 'no-store' }),
-    ]);
-    if (!guideResponse.ok) {
-      throw new Error(`HTTP ${guideResponse.status}`);
+    const guide = await fetchStrategyData(slug);
+    // strategy.json 是编辑内容，404 时降级为 null（部分早期页面可能没有）
+    let strategy: Record<string, unknown> | null = null;
+    try {
+      strategy = (await fetchStrategyContent(slug)) as Record<string, unknown>;
+    } catch {
+      strategy = null;
     }
-    const guide: Record<string, unknown> = await guideResponse.json();
-    guide.strategy = strategyResponse.ok ? await strategyResponse.json() : null;
+    guide.strategy = strategy;
 
     if (current !== requestId || !host.value) {
       return;
@@ -55,6 +56,8 @@ async function load(slug: string): Promise<void> {
       },
     });
     state.value = 'ready';
+    await nextTick();
+    host.value?.querySelector<HTMLElement>('.hero__name')?.focus({ preventScroll: true });
   } catch (error) {
     if (current !== requestId) {
       return;
@@ -81,15 +84,16 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <BackToLauncher to="/strategy" label="返回代理人选择" />
-
   <div class="strategy-detail">
-    <div v-if="state === 'loading'" class="boot">
+    <a class="skip-link" href="#strategy-main">跳到正文</a>
+    <BackToLauncher to="/strategy" label="返回代理人选择" />
+
+    <div v-if="state === 'loading'" class="boot" role="status" aria-live="polite">
       <div class="boot__spinner" aria-hidden="true"></div>
       <p class="boot__text">正在加载攻略数据…</p>
     </div>
 
-    <div v-else-if="state === 'error'" class="boot boot--error">
+    <div v-else-if="state === 'error'" class="boot boot--error" role="alert">
       <p class="boot__title">无法加载攻略数据</p>
       <p class="boot__text">{{ errorMessage }}</p>
       <p class="boot__text">
@@ -97,6 +101,12 @@ onBeforeUnmount(() => {
       </p>
     </div>
 
-    <div v-show="state === 'ready'" ref="host" class="app" data-state="loading"></div>
+    <div
+      v-show="state === 'ready'"
+      ref="host"
+      class="app"
+      data-state="loading"
+      :aria-busy="state === 'loading'"
+    ></div>
   </div>
 </template>

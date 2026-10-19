@@ -1,77 +1,68 @@
-/* 攻略页样式：从 legacy 静态模板迁移，收窄到 .strategy-detail。新增攻略页不需要复制本文件。 */
+/* 攻略页样式：从 legacy 静态模板迁移，收窄到 .strategy-detail。新增攻略页不需要复制本文件。
+   基础令牌（页面/文本色、边框、强调色、圆角、阴影、间距 1-6、容器宽）直接消费全局
+   assets/styles/tokens.css（:root，经 main.ts -> index.css 全站加载）；
+   本文件只定义攻略特有令牌：边框强调档、浅填充、六模块色、字号阶梯、扩展间距、悬浮阴影。 */
 
 .strategy-detail {
+  position: relative;
   color: var(--color-text);
   font-family: var(--font-sans);
+  line-height: var(--leading-body);
   background: var(--color-page-bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* 80px 与 base.css 壳层 .page 容器 padding-bottom 对应 */
   min-height: calc(100vh - 80px);
-}
 
-/* ============================================================
-   代理人攻略原型页 · 样式
-   浅色主题，令牌与主应用（frontend/src/assets/styles/tokens.css）
-   同名同值，视觉与「指南 / 计算器」两个板块保持一致：
-   页面底 #f0f2f5、白色卡片 + 左侧色条、靛蓝 #6366f1 主色、
-   六大模块六色（靛/琥珀/绿/粉/紫/橙）分配给六大类技能。
-   ============================================================ */
-
-.strategy-detail {
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-
-  /* 页面与文本 */
-  --color-page-bg: #f2f3f5;
-  --color-surface: #fff;
-  --color-text: #2a2f3a;
-  --color-text-strong: #101318;
-  --color-text-muted: #6b7280;
-  --color-text-faint: #9ca3af;
-  --color-border: #dcdde1;
+  /* ---- 边框强调档与浅填充（全局仅有 --color-border 一档边框） ---- */
   --color-border-strong: #c8cad0;
+  --color-border-interactive: #b8bcc6;
   --color-fill-soft: #f7f8fa;
-
-  /* 品牌与交互：低饱和靛蓝，只作强调，不大面积铺色 */
-  --color-accent: #4f46e5;
-  --color-accent-soft: #f4f4f8;
-  --color-accent-border: #d8d9e2;
-  --color-accent-text: #3f3d8f;
 
   /* 六大模块色（计算器同款：靛/琥珀/绿/粉/紫/橙），仅用于细节点缀 */
   --cat-basic: #6366f1;
   --cat-basic-text: #4b4ecf;
   --cat-dodge: #f59e0b;
-  --cat-dodge-text: #c2770a;
+  --cat-dodge-text: #8a5a00;
   --cat-assist: #10b981;
-  --cat-assist-text: #0a9269;
+  --cat-assist-text: #067a56;
   --cat-special: #ec4899;
   --cat-special-text: #cd2f78;
   --cat-chain: #8b5cf6;
   --cat-chain-text: #7451da;
   --cat-core: #f97316;
-  --cat-core-text: #dd5f13;
+  --cat-core-text: #b54708;
 
-  /* 圆角 / 间距 / 阴影 */
-  --radius-sm: 3px;
-  --radius-md: 5px;
-  --radius-lg: 8px;
-  --radius-module: 10px;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --shadow-module: 0 1px 2px rgb(16 19 24 / 5%);
-  --container-max-width: 1440px;
+  /* 间距阶梯扩展：全局止步 --space-6(24px) */
+  --space-7: 32px;
+  --space-8: 40px;
+
+  /* 排版阶梯：12 / 13 / 14 / 15 / 17 / 20 / display（全局无字号令牌） */
+  --text-2xs: 12px;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-display: clamp(26px, 3.2vw, 34px);
+  --leading-tight: 1.2;
+  --leading-body: 1.7;
+  --leading-relaxed: 1.75;
+  --tracking-wide: 0.06em;
+  --tracking-caps: 0.14em;
+
+  /* 高度层级：悬浮元素用（卡片仍是全局 --shadow-module） */
+  --shadow-raised: 0 4px 16px rgb(16 19 24 / 12%);
 }
 
-.strategy-detail *, .strategy-detail *::before, .strategy-detail *::after {
+.strategy-detail *,
+.strategy-detail *::before,
+.strategy-detail *::after {
   box-sizing: border-box;
 }
 
 .strategy-detail ::selection {
-  background: rgb(79 70 229 / 14%);
+  background: rgb(99 102 241 / 14%);
 }
 
 .strategy-detail a {
@@ -84,12 +75,46 @@
   text-decoration: underline;
 }
 
+/* 跳到最后正文：键盘用户不必先穿过整个目录。 */
+.strategy-detail .skip-link {
+  position: absolute;
+  top: -120px;
+  left: var(--space-4);
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-accent-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-interactive);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-module);
+  transition: top 120ms ease;
+}
+
+.strategy-detail .skip-link:focus {
+  top: var(--space-4);
+}
+
+/* 攻略页的返回按钮改为文档流内，避免与移动端 sticky 目录条重叠。 */
+.strategy-detail>.back-link {
+  position: static;
+  margin-bottom: var(--space-3);
+}
+
+.strategy-detail a:focus-visible,
+.strategy-detail button:focus-visible,
+.strategy-detail summary:focus-visible,
+.strategy-detail [tabindex]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 .strategy-detail code {
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: 0.1em 0.4em;
   font-size: 0.9em;
+  overflow-wrap: anywhere;
 }
 
 /* ---------- 加载 / 错误态 ---------- */
@@ -100,9 +125,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: var(--space-3);
   text-align: center;
-  padding: 40px 20px;
+  padding: var(--space-8) var(--space-5);
 }
 
 .strategy-detail .boot__spinner {
@@ -120,13 +145,14 @@
   }
 }
 
-.strategy-detail .boot__text, .strategy-detail .boot__title {
+.strategy-detail .boot__text,
+.strategy-detail .boot__title {
   margin: 0;
   color: var(--color-text-muted);
 }
 
 .strategy-detail .boot__title {
-  font-size: 22.5px;
+  font-size: var(--text-xl);
   font-weight: 700;
   color: var(--color-text-strong);
 }
@@ -138,7 +164,7 @@
   margin: 0 auto;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-left: 4px solid #ef4444;
+  border-left: 4px solid var(--color-danger);
   border-radius: var(--radius-module);
   box-shadow: var(--shadow-module);
   padding: var(--space-6);
@@ -156,7 +182,9 @@
 
 .strategy-detail .page {
   display: grid;
-  gap: var(--space-6);
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
 }
 
 /* ---------- 入场动效 ---------- */
@@ -173,15 +201,22 @@
 }
 
 /* 卡片悬停微交互（克制，只做边框与位移） */
-.strategy-detail .move-panel, .strategy-detail .guide-block, .strategy-detail .cinema, .strategy-detail .skill-cat {
+.strategy-detail .move-panel,
+.strategy-detail .guide-block,
+.strategy-detail .cinema,
+.strategy-detail .skill-cat {
   transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
 }
 
-.strategy-detail .move-panel:hover, .strategy-detail .guide-block:hover, .strategy-detail .cinema:hover, .strategy-detail .skill-cat:hover {
+.strategy-detail .move-panel:hover,
+.strategy-detail .guide-block:hover,
+.strategy-detail .cinema:hover,
+.strategy-detail .skill-cat:hover {
   border-color: var(--color-border-strong);
 }
 
-.strategy-detail .skill-cat:hover, .strategy-detail .guide-block:hover {
+.strategy-detail .skill-cat:hover,
+.strategy-detail .guide-block:hover {
   transform: translateY(-1px);
 }
 
@@ -241,10 +276,10 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--color-text-faint);
+  letter-spacing: var(--tracking-caps);
+  color: var(--color-text-muted);
 }
 
 .strategy-detail .hero__eyebrow i {
@@ -254,16 +289,23 @@
 }
 
 .strategy-detail .hero__name {
+  min-width: 0;
   margin: 0 0 var(--space-3);
-  font-size: 34px;
-  font-weight: 800;
+  font-size: var(--text-display);
+  font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-text-strong);
-  line-height: 1.15;
+  line-height: var(--leading-tight);
+  overflow-wrap: anywhere;
+}
+
+.strategy-detail .hero__name:focus {
+  outline: none;
 }
 
 .strategy-detail .hero__title-row {
   display: flex;
+  min-width: 0;
   align-items: center;
   gap: var(--space-3);
   flex-wrap: wrap;
@@ -273,7 +315,7 @@
   margin: 0;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .strategy-detail .hero-icon {
@@ -290,7 +332,7 @@
   align-items: center;
   justify-content: center;
   height: 30px;
-  padding: 0 9px;
+  padding: 0 var(--space-2);
   background: #171a23;
   border: 1px solid #2b3040;
   border-radius: var(--radius-sm);
@@ -312,28 +354,25 @@
   min-width: 30px;
   height: 30px;
   padding: 0 5px;
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #fff;
+  color: var(--attr-on-color, #101318);
   background: var(--attr-color, #9aa3b2);
   border: 1px solid rgb(0 0 0 / 12%);
-  /* 属性色改用游戏内徽标同色后整体更亮（如凛刃 #93B7FB 白字对比仅 2.0），
-     投影相应加重，保证小字号白字可读 */
-  text-shadow: 0 1px 2px rgb(0 0 0 / 45%);
 }
 
 .strategy-detail .hero__source {
   margin: 0;
   padding-top: var(--space-3);
   border-top: 1px dashed var(--color-border);
-  font-size: 13.5px;
-  color: var(--color-text-faint);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 .strategy-detail .hero__tachie {
-  width: 220px;
-  max-height: 168px;
+  width: clamp(120px, 18vw, 220px);
+  max-height: 180px;
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -341,6 +380,7 @@
 /* ---------- 布局：左侧导航 + 内容 ---------- */
 
 .strategy-detail .layout {
+  min-width: 0;
   max-width: var(--container-max-width);
   margin: 0 auto;
   display: grid;
@@ -356,18 +396,20 @@
 /* ---------- 左侧导航栏 ---------- */
 
 .strategy-detail .sidebar {
+  grid-column: auto;
   position: sticky;
   top: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
   max-height: calc(100vh - 2 * var(--space-5));
   overflow-y: auto;
-  padding: var(--space-4);
+  padding: var(--space-3);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
   box-shadow: var(--shadow-module);
+  /* 内滚时保留细滚动条：长目录（技能+攻略子链接）需要滚动提示 */
   scrollbar-width: thin;
 }
 
@@ -375,7 +417,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -386,14 +428,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12.5px;
-  font-weight: 800;
+  font-size: var(--text-2xs);
+  font-weight: 700;
   letter-spacing: 0.04em;
-  color: #fff;
+  color: var(--attr-on-color, #101318);
   background: var(--attr-color, #9aa3b2);
   border-radius: var(--radius-md);
-  /* 与属性色牌同一套投影：属性色提亮后保白字可读 */
-  text-shadow: 0 1px 2px rgb(0 0 0 / 45%);
 }
 
 .strategy-detail .sidebar__brand-text {
@@ -403,36 +443,42 @@
 
 .strategy-detail .sidebar__brand-name {
   margin: 0;
-  font-size: 17px;
-  font-weight: 800;
+  font-size: var(--text-lg);
+  font-weight: 700;
   color: var(--color-text-strong);
-  line-height: 1.2;
+  line-height: var(--leading-tight);
+  overflow-wrap: anywhere;
 }
 
 .strategy-detail .sidebar__brand-sub {
   margin: 0;
-  font-size: 12.5px;
-  color: var(--color-text-faint);
+  font-size: var(--text-2xs);
+  color: var(--color-text-muted);
 }
 
 .strategy-detail .sidebar__toggle {
   display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
   appearance: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: var(--text-xs);
   font-weight: 700;
   color: var(--color-text);
   background: var(--color-fill-soft);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-interactive);
   border-radius: var(--radius-sm);
-  padding: 3px 10px;
+  padding: var(--space-2) var(--space-4);
 }
 
 .strategy-detail .sidebar__nav {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0;
 }
 
 .strategy-detail .sidebar__group {
@@ -444,8 +490,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 8px 10px;
-  font-size: 16px;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--color-text-muted);
   border-radius: var(--radius-md);
@@ -459,20 +506,22 @@
   text-decoration: none;
 }
 
-.strategy-detail .sidebar__link.is-active, .strategy-detail .sidebar__link.is-parent {
+.strategy-detail .sidebar__link.is-active,
+.strategy-detail .sidebar__link.is-parent {
   color: var(--attr-color-text, #57637a);
   background: var(--attr-color-soft, #f3f5f8);
   border-left-color: var(--attr-color, #9aa3b2);
 }
 
 .strategy-detail .sidebar__index {
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 700;
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.strategy-detail .sidebar__link.is-active .sidebar__index, .strategy-detail .sidebar__link.is-parent .sidebar__index {
+.strategy-detail .sidebar__link.is-active .sidebar__index,
+.strategy-detail .sidebar__link.is-parent .sidebar__index {
   color: var(--attr-color-text, #57637a);
 }
 
@@ -480,14 +529,17 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
-  margin: 2px 0 4px 12px;
-  padding-left: 10px;
+  margin: var(--space-1) 0 var(--space-1) var(--space-3);
+  padding-left: var(--space-2);
   border-left: 1px solid var(--color-border);
 }
 
 .strategy-detail .sidebar__sublink {
-  padding: 5px 8px;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
   color: var(--color-text-muted);
   border-radius: var(--radius-sm);
   border-left: 2px solid transparent;
@@ -506,23 +558,6 @@
   border-left-color: var(--attr-color, #9aa3b2);
 }
 
-.strategy-detail .sidebar__foot {
-  margin-top: auto;
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
-  font-size: 12.5px;
-  color: var(--color-text-faint);
-}
-
-.strategy-detail .sidebar__foot p {
-  margin: 0;
-}
-
-.strategy-detail .sidebar__foot-source {
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
 /* ---------- 保存攻略 / 保存一图流按钮 ---------- */
 
 .strategy-detail .sidebar__actions {
@@ -536,28 +571,29 @@
 
 .strategy-detail .sidebar__btn {
   width: 100%;
+  min-height: 44px;
   appearance: none;
   cursor: pointer;
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text);
   background: var(--color-fill-soft);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-interactive);
   border-radius: var(--radius-md);
-  padding: 8px 10px;
+  padding: var(--space-2) var(--space-3);
   text-align: left;
   transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
 }
 
 .strategy-detail .sidebar__btn:hover {
-  color: var(--color-text-strong);
-  background: var(--color-fill);
-  border-color: var(--color-border-active, var(--color-border));
+  color: var(--color-accent-text);
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent-border);
 }
 
 .strategy-detail .sidebar__btn:active {
-  transform: translateY(0);
+  transform: translateY(1px);
 }
 
 .strategy-detail .sidebar__btn:disabled {
@@ -570,19 +606,19 @@
 .strategy-detail .to-top {
   position: fixed;
   right: var(--space-5);
-  bottom: var(--space-5);
+  bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
   z-index: 60;
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--color-text-muted);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-interactive);
   border-radius: 50%;
-  box-shadow: 0 4px 16px rgb(16 19 24 / 12%);
+  box-shadow: var(--shadow-raised);
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);
@@ -609,24 +645,26 @@
 
 /* 模块面板：浅色底 + 细边 + 圆角，与页面灰底区分，凸显四大板块 */
 .strategy-detail .section {
-  background: #f7f8fb;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
   padding: var(--space-4);
   display: grid;
   gap: var(--space-4);
   align-content: start;
 }
 
-/* 模块头部带：编号方块 + 标题 + 副标题 */
+/* 模块头部带：白底 + 属性色左边条，和浅灰 section 拉开层级。 */
 .strategy-detail .section__head {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 12px 14px;
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-accent-border);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--attr-color, #9aa3b2);
   border-radius: var(--radius-lg);
 }
 
@@ -637,15 +675,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
-  font-weight: 800;
-  color: #fff;
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--attr-on-color, #101318);
   background: var(--attr-color, #9aa3b2);
   border-radius: var(--radius-md);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
-  /* 与属性色牌同一套投影：属性色提亮后保白字可读 */
-  text-shadow: 0 1px 2px rgb(0 0 0 / 45%);
 }
 
 .strategy-detail .section__heading {
@@ -654,8 +690,8 @@
 
 .strategy-detail .section__title {
   margin: 0;
-  font-size: 19px;
-  font-weight: 800;
+  font-size: var(--text-xl);
+  font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--color-text-strong);
   line-height: 1.25;
@@ -663,18 +699,20 @@
 
 .strategy-detail .section__sub {
   margin: 3px 0 0;
-  font-size: 13.5px;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
 
 .strategy-detail .section__hint {
-  margin: calc(-1 * var(--space-2)) 0 0;
+  margin: 0;
+  max-width: 72ch;
   color: var(--color-text-muted);
-  font-size: 14.5px;
+  font-size: var(--text-md);
 }
 
 .strategy-detail .para {
   margin: 0 0 var(--space-2);
+  overflow-wrap: anywhere;
 }
 
 .strategy-detail .para:last-child {
@@ -691,40 +729,92 @@
   font-weight: 600;
 }
 
-/* 术语按属性着色（与属性徽标同色，见 app.js 的 ATTRIBUTE_TILE_COLORS）。
-   用于文字攻略 / 技能描述里如 [风化]、[浸染] 这类局内术语。 */
-.strategy-detail .term--attr-风    { color: #85A1F7; }
-/* 浸染：风属性的反色（互补色），与风属性术语形成对比 */
-.strategy-detail .term--attr-wind-inverse { color: #B8860B; }
-.strategy-detail .term--attr-火    { color: #F65411; }
-.strategy-detail .term--attr-冰    { color: #00E4CD; }
-.strategy-detail .term--attr-电    { color: #0B94FE; }
-.strategy-detail .term--attr-以太  { color: #C43C8F; }
-.strategy-detail .term--attr-物理  { color: #D6A500; }
-.strategy-detail .term--attr-流明  { color: #C08EB6; }
-.strategy-detail .term--attr-玄墨  { color: #CC953E; }
-.strategy-detail .term--attr-凛刃  { color: #93B7FB; }
-.strategy-detail .term--attr-烈霜  { color: #5DB6FB; }
+/* 术语按属性着色：使用满足正文对比度的深色变体，亮色只用于填充与图标。 */
+.strategy-detail .term--attr-风 {
+  color: #4f66b3;
+}
 
-/* 术语按职业着色：攻略正文里的 [击破]、[锋御]、[强攻] 等局内称谓 */
-.strategy-detail .term--role-attack    { color: #ef4444; }
-.strategy-detail .term--role-stun      { color: #ea580c; }
-.strategy-detail .term--role-anomaly   { color: #7c3aed; }
-.strategy-detail .term--role-support   { color: #059669; }
-.strategy-detail .term--role-defense   { color: #4f46e5; }
-.strategy-detail .term--role-rupture   { color: #db2777; }
-.strategy-detail .term--role-armorer   { color: #0891b2; }
+/* 浸染：风属性的反色（互补色），与风属性术语形成对比 */
+.strategy-detail .term--attr-wind-inverse {
+  color: #7a5a00;
+}
+
+.strategy-detail .term--attr-火 {
+  color: #b83a0b;
+}
+
+.strategy-detail .term--attr-冰 {
+  color: #007c70;
+}
+
+.strategy-detail .term--attr-电 {
+  color: #0767b2;
+}
+
+.strategy-detail .term--attr-以太 {
+  color: #9d2f72;
+}
+
+.strategy-detail .term--attr-物理 {
+  color: #7a5e00;
+}
+
+.strategy-detail .term--attr-流明 {
+  color: #8a5d80;
+}
+
+.strategy-detail .term--attr-玄墨 {
+  color: #7d5a22;
+}
+
+.strategy-detail .term--attr-凛刃 {
+  color: #4a6aa8;
+}
+
+.strategy-detail .term--attr-烈霜 {
+  color: #1f6fa8;
+}
+
+/* 术语按职业着色：正文里使用深色变体，满足 4.5:1。 */
+.strategy-detail .term--role-attack {
+  color: #b91c1c;
+}
+
+.strategy-detail .term--role-stun {
+  color: #9a3412;
+}
+
+.strategy-detail .term--role-anomaly {
+  color: #6d28d9;
+}
+
+.strategy-detail .term--role-support {
+  color: #047857;
+}
+
+.strategy-detail .term--role-defense {
+  color: #4338ca;
+}
+
+.strategy-detail .term--role-rupture {
+  color: #be185d;
+}
+
+.strategy-detail .term--role-armorer {
+  color: #0e7490;
+}
 
 /* ---------- 基础面板 ---------- */
 
+/* 列数随容器自适应：桌面一行放满（10 项 → 10 列），窄屏自动降列，
+   长标签允许换行而不是溢出重叠（与毕业面板 minmax(140px) 同一思路，档位更密）。 */
 .strategy-detail .base-panel {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
   gap: 1px;
   background: var(--color-border);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
   overflow: hidden;
 }
 
@@ -732,7 +822,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 12px 14px;
+  padding: var(--space-2);
   background: var(--color-surface);
   transition: background 120ms ease;
 }
@@ -742,17 +832,18 @@
 }
 
 .strategy-detail .base-field__label {
-  font-size: 13.5px;
+  font-size: var(--text-2xs);
   color: var(--color-text-muted);
 }
 
 .strategy-detail .base-field__value {
-  font-size: 22.5px;
-  font-weight: 800;
+  font-size: var(--text-xl);
+  font-weight: 700;
   color: var(--color-text-strong);
   font-variant-numeric: tabular-nums;
-  line-height: 1.25;
+  line-height: var(--leading-tight);
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 /* ---------- 技能 ---------- */
@@ -762,8 +853,7 @@
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-border-strong);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
-  padding: 16px 18px;
+  padding: var(--space-4) var(--space-5);
 }
 
 /* 六大类技能沿用计算器六大模块的六色（顺序与 skills 数组一致） */
@@ -809,7 +899,7 @@
 
 .strategy-detail .skill-cat__name {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-text-strong);
@@ -841,11 +931,11 @@
 
 .strategy-detail .skill-cat__count {
   margin-left: auto;
-  font-size: 12.5px;
-  color: var(--color-text-faint);
+  font-size: var(--text-2xs);
+  color: var(--color-text-muted);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 1px 8px;
+  padding: 1px var(--space-2);
   white-space: nowrap;
 }
 
@@ -861,13 +951,14 @@
 
 .strategy-detail .move-tab {
   flex-shrink: 0;
+  min-height: 44px;
   appearance: none;
   border: none;
   background: none;
   cursor: pointer;
-  padding: 7px 10px;
+  padding: var(--space-2) var(--space-3);
   font-family: inherit;
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--color-text-muted);
   border-bottom: 2px solid transparent;
@@ -920,12 +1011,12 @@
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 14px 16px;
+  padding: var(--space-3) var(--space-4);
 }
 
 .strategy-detail .move__title {
   margin: 0 0 var(--space-2);
-  font-size: 16px;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-strong);
 }
@@ -955,7 +1046,7 @@
 }
 
 .strategy-detail .move__text {
-  font-size: 16px;
+  font-size: var(--text-md);
   color: var(--color-text);
 }
 
@@ -977,7 +1068,9 @@
 
 .strategy-detail .growth__summary {
   cursor: pointer;
-  font-size: 14.5px;
+  min-height: 44px;
+  padding: var(--space-2) 0;
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--color-text-muted);
   display: flex;
@@ -992,7 +1085,7 @@
 
 .strategy-detail .growth__summary::before {
   content: "▸";
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
 }
 
 .strategy-detail .growth[open] .growth__summary::before {
@@ -1000,9 +1093,9 @@
 }
 
 .strategy-detail .growth__range {
-  font-size: 13.5px;
+  font-size: var(--text-xs);
   font-weight: 400;
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
 }
 
 .strategy-detail .growth__body {
@@ -1015,12 +1108,13 @@
 .strategy-detail .growth__table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14.5px;
+  font-size: var(--text-md);
 }
 
-.strategy-detail .growth__table th, .strategy-detail .growth__table td {
+.strategy-detail .growth__table th,
+.strategy-detail .growth__table td {
   border: 1px solid var(--color-border);
-  padding: 5px 10px;
+  padding: var(--space-1) var(--space-2);
   text-align: left;
   vertical-align: top;
 }
@@ -1047,10 +1141,10 @@
 
 /* ---------- 影画 ---------- */
 
-/* 桌面固定三列（不随侧栏占宽掉列），窄屏降为单列 */
+/* 桌面按可用宽度自动排列，窄屏自然降为单列 */
 .strategy-detail .cinema-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-3);
 }
 
@@ -1064,7 +1158,6 @@
   position: relative;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
   overflow: hidden;
   background: var(--color-surface);
 }
@@ -1083,7 +1176,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, rgb(255 255 255 / 74%) 0%, rgb(255 255 255 / 62%) 55%, rgb(255 255 255 / 48%) 100%);
+  background: linear-gradient(115deg, rgb(255 255 255 / 92%) 0%, rgb(255 255 255 / 88%) 55%, rgb(255 255 255 / 84%) 100%);
   pointer-events: none;
 }
 
@@ -1097,24 +1190,24 @@
 
 .strategy-detail .cinema-group__label {
   justify-self: start;
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--tracking-wide);
   color: var(--color-text-muted);
   background: rgb(255 255 255 / 80%);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 1px 9px;
+  padding: 1px var(--space-2);
 }
 
 /* 组内卡片高透明白底，透出底层展示图；悬停时提高不透明度便于阅读 */
 .strategy-detail .cinema-group .cinema {
-  background: rgb(255 255 255 / 72%);
+  background: rgb(255 255 255 / 90%);
   transition: background 160ms ease, border-color 140ms ease;
 }
 
 .strategy-detail .cinema-group .cinema:hover {
-  background: rgb(255 255 255 / 88%);
+  background: rgb(255 255 255 / 96%);
   border-color: var(--color-border-strong);
 }
 
@@ -1123,8 +1216,7 @@
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-accent);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
-  padding: 16px 18px;
+  padding: var(--space-4) var(--space-5);
   overflow: hidden;
 }
 
@@ -1141,31 +1233,31 @@
 }
 
 .strategy-detail .cinema__badge {
-  font-size: 13.5px;
+  font-size: var(--text-xs);
   font-weight: 700;
   color: var(--color-text-muted);
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 1px 8px;
+  padding: 1px var(--space-2);
   white-space: nowrap;
 }
 
 .strategy-detail .cinema__name {
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--color-text-strong);
 }
 
 .strategy-detail .cinema__text {
   position: relative;
-  font-size: 16px;
+  font-size: var(--text-md);
   color: var(--color-text-muted);
 }
 
 .strategy-detail .cinema__text .para--gap {
-  color: var(--color-text-faint);
-  font-size: 14.5px;
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
   border-left: 2px solid var(--color-border);
   padding-left: var(--space-3);
   margin-top: var(--space-4);
@@ -1175,24 +1267,43 @@
 
 .strategy-detail .guide-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
   align-items: start;
 }
 
+.strategy-detail .guide-block>.para,
+.strategy-detail .guide-block__note,
+.strategy-detail .weapon-card__note,
+.strategy-detail .text-block,
+.strategy-detail .cinema__text {
+  max-width: 72ch;
+}
+
+.strategy-detail .guide-block,
+.strategy-detail .drive-group,
+.strategy-detail .team-group,
+.strategy-detail .cinema-groups,
+.strategy-detail .cinema-group,
+.strategy-detail .skill-cat,
+.strategy-detail .text-block {
+  min-width: 0;
+}
+
 .strategy-detail .guide-block {
+  min-width: 0;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-module);
-  box-shadow: var(--shadow-module);
-  padding: 16px 18px;
+  padding: var(--space-4) var(--space-5);
 }
 
 .strategy-detail .guide-block__title {
   margin: 0 0 var(--space-3);
   padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--color-border);
-  font-size: 17px;
+  font-size: var(--text-lg);
   font-weight: 700;
   letter-spacing: 0.03em;
   color: var(--color-text-strong);
@@ -1211,7 +1322,7 @@
 
 .strategy-detail .guide-block__subtitle {
   margin: var(--space-4) 0 var(--space-2);
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-muted);
   letter-spacing: 0.02em;
@@ -1219,8 +1330,8 @@
 
 .strategy-detail .guide-block__note {
   margin: var(--space-3) 0 0;
-  font-size: 13.5px;
-  color: var(--color-text-faint);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 /* 加点优先级（> / = 连接符链式排列） */
@@ -1237,7 +1348,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 4px 10px 4px 5px;
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -1254,7 +1365,7 @@
 }
 
 .strategy-detail .skill-chip__label {
-  font-size: 15px;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-strong);
 }
@@ -1266,19 +1377,20 @@
   gap: var(--space-2);
 }
 
+/* Lv 是加点链的扫读目标：用深色强调，不再借用闪避档的琥珀色（六色语义留给类别） */
 .strategy-detail .skill-chip__level {
   display: inline-flex;
   align-items: baseline;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--cat-dodge-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-strong);
   font-variant-numeric: tabular-nums;
 }
 
 .strategy-detail .skill-op {
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 700;
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   padding: 0 2px;
 }
 
@@ -1290,29 +1402,57 @@
 }
 
 .strategy-detail .weapon-card {
-  padding: 12px 14px;
+  grid-column: auto;
+  display: grid;
+  grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  grid-template-areas:
+    "head head"
+    "row note";
+  column-gap: var(--space-4);
+  row-gap: var(--space-2);
+  align-items: start;
+  padding: var(--space-3) var(--space-4);
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 
+.strategy-detail .weapon-card--no-note .weapon-card__head,
+.strategy-detail .weapon-card--no-note .weapon-card__row {
+  grid-column: 1 / -1;
+}
+
+.strategy-detail .weapon-card__head {
+  grid-area: head;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.strategy-detail .weapon-card__count {
+  font-size: var(--text-2xs);
+  color: var(--color-text-muted);
+}
+
 .strategy-detail .weapon-card__tier {
   display: inline-block;
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--tracking-wide);
   color: var(--color-text-muted);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0 8px;
-  margin-bottom: var(--space-2);
+  padding: 0 var(--space-2);
 }
 
 .strategy-detail .weapon-card__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3) var(--space-5);
+  grid-area: row;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  min-width: 0;
 }
 
 .strategy-detail .weapon-item {
@@ -1323,8 +1463,8 @@
 }
 
 .strategy-detail .weapon-item__icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   object-fit: cover;
@@ -1338,217 +1478,190 @@
 
 .strategy-detail .weapon-item__name {
   margin: 0 0 1px;
-  font-size: 15px;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-strong);
 }
 
 .strategy-detail .weapon-item__stats {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .strategy-detail .weapon-card__note {
-  margin: var(--space-2) 0 0;
-  padding-top: var(--space-2);
-  border-top: 1px dashed var(--color-border);
-  font-size: 14px;
+  grid-area: note;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
   color: var(--color-text-muted);
 }
 
 /* 驱动盘推荐 */
 
-.strategy-detail .drive-sets {
-  display: grid;
-  /* 4 件套卡与 2 件套卡统一上下排布。
-     早先这里是两列网格，内容多少不一时会出现两种毛病：一是两卡被强制等高后，
-     内容少的 2 件套卡「小标题在顶、内容被压到底」（看似框内换行）；二是左右
-     宽度被对半砍，4 件套效果文案与 2 件套的首选/备选行都嫌挤。
-     单列各按自身高度排布，两个问题一并消失。 */
-  grid-template-columns: 1fr;
-  gap: var(--space-2);
+.strategy-detail .drive-tabs {
+  display: flex;
+  gap: var(--space-1);
   margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
-.strategy-detail .drive-set {
-  padding: 10px 12px;
-  background: var(--color-fill-soft);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  display: grid;
-  gap: var(--space-2);
-}
-
-.strategy-detail .drive-set__slot {
-  justify-self: start;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0 8px;
-}
-
-.strategy-detail .drive-set__row {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.strategy-detail .drive-set__prefix {
+.strategy-detail .drive-tab {
   flex-shrink: 0;
-  width: 28px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--color-text-faint);
+  min-height: 44px;
+  appearance: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  font-family: inherit;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  transition: color 120ms ease, border-color 120ms ease;
 }
 
-/* 驱动盘行内的套装并列（相同效果的套装合并到同一行） */
+.strategy-detail .drive-tab:hover {
+  color: var(--color-text-strong);
+}
 
-.strategy-detail .drive-set__row-sets {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-4);
+.strategy-detail .drive-tab.is-active {
+  color: var(--color-accent-text);
+  border-bottom-color: var(--color-accent);
+}
+
+.strategy-detail .drive-panel[hidden] {
+  display: none;
+}
+
+/* 多方案时方案名已经在 tabs 上，面板内不再重复标题。 */
+.strategy-detail .drive-panels--tabbed .drive-group__title {
+  display: none;
+}
+
+.strategy-detail .drive-spec {
+  display: grid;
+  gap: var(--space-4);
   min-width: 0;
 }
 
-.strategy-detail .drive-set__unit {
+.strategy-detail .drive-spec__sets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+  min-width: 0;
+}
+
+.strategy-detail .drive-spec__set4,
+.strategy-detail .drive-spec__set2,
+.strategy-detail .drive-spec__subs,
+.strategy-detail .drive-spec__mains {
+  min-width: 0;
+}
+
+.strategy-detail .drive-set-list {
+  display: grid;
+}
+
+.strategy-detail .drive-set-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: start;
+}
+
+.strategy-detail .drive-set-row:last-child {
+  border-bottom: 0;
+}
+
+.strategy-detail .drive-set-row__units {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  min-width: 0;
+}
+
+.strategy-detail .drive-set-row__unit {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   min-width: 0;
 }
 
-/* 并列行的套装图标比 4/2 件套卡主图标小一档，避免一行多份时过重 */
-.strategy-detail .drive-set__unit .drive-set__icon {
-  width: 42px;
-  height: 42px;
-}
-
-.strategy-detail .drive-set__row-sets .drive-set__name {
-  margin: 0;
-  font-size: 15px;
-  white-space: nowrap;
-}
-
-.strategy-detail .drive-set__icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
+.strategy-detail .drive-set-row__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
   object-fit: cover;
   background: var(--color-surface);
   flex-shrink: 0;
 }
 
-.strategy-detail .drive-set__meta {
+.strategy-detail .drive-set-row__unit-name {
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--color-text-strong);
+  overflow-wrap: anywhere;
+}
+
+.strategy-detail .drive-set-row__tag {
+  font-size: var(--text-2xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-2);
+}
+
+.strategy-detail .drive-set-row__body {
+  display: grid;
+  gap: var(--space-1);
   min-width: 0;
 }
 
-.strategy-detail .drive-set__name {
-  margin: 0 0 2px;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text-strong);
-}
-
-.strategy-detail .drive-set__label {
-  font-size: 13.5px;
-  color: var(--color-text-muted);
-}
-
-.strategy-detail .drive-set__effects {
+.strategy-detail .drive-set-row__effect,
+.strategy-detail .drive-set-row__scene {
+  margin: 0;
   display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
   gap: var(--space-2);
-  padding-top: var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-muted);
 }
 
-.strategy-detail .drive-set__effect2 {
-  display: flex;
-  gap: var(--space-2);
-}
-
-.strategy-detail .drive-set__effect2-tag {
-  flex-shrink: 0;
-  height: 18px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 12.5px;
+.strategy-detail .drive-set-row__effect span:first-child,
+.strategy-detail .drive-set-row__scene span:first-child {
+  color: var(--color-text-muted);
   font-weight: 700;
-  color: var(--color-text-muted);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0 6px;
 }
 
-.strategy-detail .drive-set__effect2 p {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--color-text-muted);
-}
+/* （历史版本曾以 .drive-set__* 卡片族渲染套装推荐，现由 .drive-set-row__* 行式
+   布局取代；旧选择器族已删除，渲染器不再输出这些类名。） */
 
-.strategy-detail .drive-set__effect4 {
-  display: flex;
-  gap: var(--space-2);
-  padding-top: 0;
-  border-top: none;
-}
-
-.strategy-detail .drive-set__effect4-tag {
-  flex-shrink: 0;
-  height: 18px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0 6px;
-}
-
-.strategy-detail .drive-set__effect4 p {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--color-text-muted);
-}
-
-/* 多个 4 件套合并成一个方案时：每条之间的分隔，以及各自的「适用」场景备注 */
-.strategy-detail .drive-set__sep {
-  height: 1px;
-  margin: var(--space-1) 0;
-  background: var(--color-border);
-}
-
-.strategy-detail .drive-set__scene {
-  margin: 0;
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--color-text-muted);
-}
-
-.strategy-detail .drive-set__scene-tag {
-  flex-shrink: 0;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--color-accent-text);
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-accent-border);
-  border-radius: var(--radius-sm);
-  padding: 0 6px;
+.strategy-detail .table-scroll {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 0 var(--space-2);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .strategy-detail .drive-main {
@@ -1560,27 +1673,36 @@
      固定 20 / 40 / 40 后，所有攻略页这张表的三列划分完全一致。 */
   table-layout: fixed;
   border-collapse: collapse;
-  font-size: 14.5px;
+  font-size: var(--text-md);
 }
 
-.strategy-detail .drive-main th, .strategy-detail .drive-main td {
+.strategy-detail .drive-main th,
+.strategy-detail .drive-main td {
   border: 1px solid var(--color-border);
-  padding: 6px 10px;
+  padding: var(--space-1) var(--space-2);
   text-align: left;
   vertical-align: top;
 }
 
-/* 首列只放「4 号位」这类短标签，后两列首选 / 备选各占一半 */
-.strategy-detail .drive-main th:nth-child(1), .strategy-detail .drive-main td:nth-child(1) {
-  width: 20%;
+/* 四列：部位 / 首选 / 备选 / 备注 */
+.strategy-detail .drive-main th:nth-child(1),
+.strategy-detail .drive-main td:nth-child(1) {
+  width: 14%;
 }
 
-.strategy-detail .drive-main th:nth-child(2), .strategy-detail .drive-main td:nth-child(2) {
-  width: 40%;
+.strategy-detail .drive-main th:nth-child(2),
+.strategy-detail .drive-main td:nth-child(2) {
+  width: 28%;
 }
 
-.strategy-detail .drive-main th:nth-child(3), .strategy-detail .drive-main td:nth-child(3) {
-  width: 40%;
+.strategy-detail .drive-main th:nth-child(3),
+.strategy-detail .drive-main td:nth-child(3) {
+  width: 28%;
+}
+
+.strategy-detail .drive-main th:nth-child(4),
+.strategy-detail .drive-main td:nth-child(4) {
+  width: 30%;
 }
 
 .strategy-detail .drive-main thead th {
@@ -1606,6 +1728,11 @@
   color: var(--color-text-muted);
 }
 
+.strategy-detail .drive-main__note {
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
 .strategy-detail .sub-prio {
   margin: 0;
   display: flex;
@@ -1617,19 +1744,19 @@
 .strategy-detail .sub-chip {
   display: inline-flex;
   align-items: center;
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 600;
   color: var(--color-text);
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 2px 10px;
+  padding: 2px var(--space-2);
 }
 
 .strategy-detail .sub-op {
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 700;
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   padding: 0 2px;
 }
 
@@ -1651,7 +1778,8 @@
   gap: var(--space-2);
   grid-template-columns: 1fr;
 }
-@media (min-width: 900px) {
+
+@media (min-width: 1200px) {
   .strategy-detail .build-spec {
     grid-template-columns: 1fr 1fr;
   }
@@ -1666,24 +1794,23 @@
 }
 
 .strategy-detail .build-row dt {
-  font-size: 12.5px;
-  color: #f6f1ff;
-  padding: 4px 10px;
+  font-size: var(--text-2xs);
+  color: var(--attr-color-text, #4338ca);
+  padding: var(--space-1) var(--space-2);
   white-space: nowrap;
-  background: linear-gradient(135deg, rgba(138, 92, 255, 0.28), rgba(255, 132, 193, 0.2));
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--attr-color-soft, var(--color-accent-soft));
+  border: 1px solid var(--color-border);
   border-radius: 999px;
-  box-shadow: 0 6px 18px rgba(138, 92, 255, 0.16);
 }
 
 .strategy-detail .build-row dd {
   margin: 0;
-  font-size: 14.5px;
+  font-size: var(--text-md);
   color: var(--color-text-muted);
   /* 图标与文字基线对齐，窄行高也不会被图标顶开 */
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   min-width: 0;
 }
 
@@ -1710,7 +1837,7 @@
 
 .strategy-detail .drive-group__title {
   margin: 0 0 var(--space-3);
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--color-text-muted);
@@ -1727,10 +1854,10 @@
 }
 
 .strategy-detail .drive-group__note {
-  margin: calc(-1 * var(--space-2)) 0 var(--space-3);
+  margin: 0 0 var(--space-3);
   color: var(--color-text-muted);
-  font-size: 12px;
-  line-height: 1.75;
+  font-size: var(--text-2xs);
+  line-height: var(--leading-relaxed);
 }
 
 /* 队伍推荐 */
@@ -1745,7 +1872,7 @@
 
 .strategy-detail .team-group__title {
   margin: 0 0 var(--space-3);
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--color-text-muted);
@@ -1763,7 +1890,7 @@
 
 .strategy-detail .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-3);
 }
 
@@ -1771,7 +1898,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: 14px;
+  padding: var(--space-4);
   background: var(--color-fill-soft);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -1804,7 +1931,7 @@
 
 .strategy-detail .team-card__name {
   margin: 0;
-  font-size: 14.5px;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-strong);
   text-align: center;
@@ -1817,19 +1944,19 @@
 
 .strategy-detail .team-card__role {
   display: inline-block;
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 600;
   color: var(--color-text-muted);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0 7px;
+  padding: 0 var(--space-2);
   margin-bottom: var(--space-1);
 }
 
 .strategy-detail .team-card__note {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
   color: var(--color-text-muted);
 }
 
@@ -1845,13 +1972,13 @@
 
 .strategy-detail .team-card__drives-label {
   flex-shrink: 0;
-  font-size: 12.5px;
+  font-size: var(--text-2xs);
   font-weight: 700;
   color: var(--color-text-muted);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0 7px;
+  padding: 0 var(--space-2);
 }
 
 .strategy-detail .team-card__set-list {
@@ -1863,7 +1990,7 @@
 .strategy-detail .team-card__set {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
 }
 
 .strategy-detail .team-card__set4-icon {
@@ -1877,12 +2004,18 @@
 }
 
 .strategy-detail .team-card__set4-name {
-  font-size: 13px;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 /* 文字攻略 */
+
+/* 文字攻略按卡片整宽排版：段落跟随 guide-block 宽度，不再保留 72ch 的右侧空白。 */
+.strategy-detail #guide-text .text-block,
+.strategy-detail #guide-text .para {
+  max-width: none;
+}
 
 .strategy-detail .text-block {
   margin-bottom: var(--space-3);
@@ -1894,7 +2027,7 @@
 
 .strategy-detail .text-block__title {
   margin: 0 0 var(--space-2);
-  font-size: 16px;
+  font-size: var(--text-md);
   font-weight: 700;
   color: var(--color-text-strong);
   display: flex;
@@ -1915,8 +2048,8 @@
 .strategy-detail .footer {
   border-top: 1px solid var(--color-border);
   padding-top: var(--space-4);
-  color: var(--color-text-faint);
-  font-size: 14.5px;
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
   display: grid;
   gap: var(--space-1);
 }
@@ -1928,13 +2061,15 @@
 /* ---------- 响应式 ---------- */
 
 @media (max-width: 960px) {
+
   /* 左侧导航折叠为顶部目录条 */
   .strategy-detail .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-4);
   }
 
   .strategy-detail .sidebar {
+    grid-column: 1 / -1;
     position: sticky;
     top: var(--space-3);
     z-index: 40;
@@ -1957,8 +2092,12 @@
     animation: sidebar-in 200ms ease;
   }
 
-  .strategy-detail .sidebar__foot {
+  .strategy-detail .sidebar__actions {
     display: none;
+  }
+
+  .strategy-detail .sidebar.is-open .sidebar__actions {
+    display: flex;
   }
 }
 
@@ -1974,8 +2113,13 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1023px) {
+  .strategy-detail .drive-spec__sets {
+    grid-template-columns: 1fr;
+  }
+}
 
+@media (max-width: 720px) {
   .strategy-detail .hero__row {
     flex-direction: column;
     align-items: flex-start;
@@ -1989,30 +2133,69 @@
 
   .strategy-detail .hero__tachie {
     width: 100%;
-    max-height: 200px;
+    max-height: 160px;
   }
 
-  .strategy-detail .cinema-grid {
+  .strategy-detail .weapon-card {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "head"
+      "row"
+      "note";
   }
 
-  /* 基础面板窄屏降为 2 列（5 行），避免数值被压扁。
-     毕业面板的 .base-panel--graduation 用 repeat(auto-fit, minmax(140px, 1fr))，
-     窄屏自动减列，此处无需再覆盖。 */
-  .strategy-detail .base-panel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .strategy-detail .weapon-card__row {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
 
-  .strategy-detail .team-grid {
-    grid-template-columns: 1fr;
+  /* 小屏让方案名换行而不是藏在横向滚动里，避免用户看不到第二个方案。 */
+  .strategy-detail .drive-tabs {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .strategy-detail .drive-tab {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .strategy-detail .section__head {
+    align-items: flex-start;
+  }
+
+  .strategy-detail .table-scroll .drive-main {
+    min-width: 720px;
   }
 
   .strategy-detail .team-card__avatar {
     width: 48px;
     height: 48px;
   }
+}
 
-  /* .drive-sets 基线即为单列，窄屏无需再覆盖 */
+@media (max-width: 560px) {
+
+  /* 小屏优先内容：立绘与装饰背景让位，避免首屏被图片占满。 */
+  .strategy-detail .page-bg,
+  .strategy-detail .hero__tachie {
+    display: none;
+  }
+
+  .strategy-detail .hero__title-row {
+    align-items: flex-start;
+  }
+
+  .strategy-detail .build-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .strategy-detail .build-row dt {
+    justify-self: start;
+    white-space: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2035,13 +2218,56 @@
     animation: none;
   }
 
-  .strategy-detail .move-panel, .strategy-detail .guide-block, .strategy-detail .cinema, .strategy-detail .skill-cat, .strategy-detail .to-top {
+  .strategy-detail .move-panel,
+  .strategy-detail .guide-block,
+  .strategy-detail .cinema,
+  .strategy-detail .skill-cat,
+  .strategy-detail .to-top {
     transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+
+  .strategy-detail .section,
+  .strategy-detail .sidebar,
+  .strategy-detail .hero,
+  .strategy-detail .guide-block,
+  .strategy-detail .skill-cat,
+  .strategy-detail .cinema,
+  .strategy-detail .team-card,
+  .strategy-detail .drive-set {
+    border: 1px solid CanvasText;
+  }
+
+  .strategy-detail .sidebar__link.is-active,
+  .strategy-detail .sidebar__sublink.is-active,
+  .strategy-detail .move-tab.is-active {
+    outline: 2px solid Highlight;
+    outline-offset: 1px;
   }
 }
 
 /* 背景层必须在内容下方：.app 建立 stacking context（z-index + isolation），
    .page-bg 用负 z-index 留在这个 context 内，不会跑到页面背景后面。 */
-.strategy-detail .page-bg { position: absolute; top: 120px; right: 0; width: 40vw; max-width: 520px; height: 70vh; background-image: var(--strategy-bg, none); background-repeat: no-repeat; background-size: contain; background-position: right top; pointer-events: none; z-index: -1; opacity: 0.9; }
-.strategy-detail .app { position: relative; z-index: 1; isolation: isolate; }
+.strategy-detail .page-bg {
+  position: absolute;
+  top: 120px;
+  right: 0;
+  width: 40vw;
+  max-width: 520px;
+  height: 70vh;
+  background-image: var(--strategy-bg, none);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right top;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.28;
+}
 
+.strategy-detail .app {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}

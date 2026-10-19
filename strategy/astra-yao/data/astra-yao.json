@@ -26,7 +26,7 @@
     "icons": {
       "profession": "/images/icons/support.png",
       "grade": "/images/grades/s.png",
-      "attribute": "",
+      "attribute": "/images/attributes/ether.png",
       "title": ""
     }
   },

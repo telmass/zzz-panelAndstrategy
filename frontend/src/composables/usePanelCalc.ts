@@ -1,8 +1,6 @@
 import { computed, onScopeDispose, ref, shallowRef, watch } from 'vue';
 
 import { calcPanel, PanelApiError } from '@/api/panel';
-import { CORE_OPTIONS } from '@/constants/calculatorOptions';
-import { displayEnergyAttributeLabel } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
 import { usePresetStore } from '@/stores/presetStore';
 import type {
@@ -70,14 +68,6 @@ function renderBreakdown(lines: BreakdownLine[] | undefined): string {
   return (lines ?? []).map(renderLine).join('');
 }
 
-/** 按 id 查选项，未选中返回 undefined。 */
-function optionById(options: typeof CORE_OPTIONS, id: string) {
-  if (!id) {
-    return undefined;
-  }
-  return options.find((option) => option.id === id);
-}
-
 /** 由 store 组装请求。只带选择，不带任何计算口径。 */
 function buildRequest(): PanelCalcRequest {
   const panel = usePanelStore();
@@ -123,8 +113,6 @@ function buildRequest(): PanelCalcRequest {
 }
 
 export function usePanelCalc() {
-  const panel = usePanelStore();
-
   /** 后端原始响应。`null` 表示尚未拿到首个结果。 */
   const response = shallowRef<PanelApiResponse | null>(null);
   /** 计算中标记，避免结果面板闪回旧值。 */
@@ -172,8 +160,6 @@ export function usePanelCalc() {
     () => JSON.stringify(buildRequest()),
     () => {
       cancel();
-      // 一旦排上新的重算就立刻标记 pending：否则防抖窗口内（200ms）
-      // 结果区毫无反馈，用户会以为输入没生效。
       pending.value = true;
       timer = setTimeout(() => {
         timer = undefined;
@@ -232,20 +218,5 @@ export function usePanelCalc() {
     return output;
   });
 
-  /**
-   * 核心选择摘要。对应 legacy 的 `core_summary`。
-   * 未选择时给出与 legacy 同色的警示文案。
-   */
-  const coreSummary = computed(() => {
-    const mode = panel.panelMode;
-    const picks = [optionById(CORE_OPTIONS, panel.core.core1), optionById(CORE_OPTIONS, panel.core.core2)];
-    const labels = picks
-      .map((option, index) =>
-        option ? `核心${index + 1}(${displayEnergyAttributeLabel(option.label, mode)})` : '',
-      )
-      .filter(Boolean);
-    return labels.length ? `已选：${labels.join('，')}` : '<span style="color:#dc2626">未选择核心</span>';
-  });
-
-  return { result, coreSummary, pending, error };
+  return { result, pending, error };
 }

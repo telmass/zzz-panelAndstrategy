@@ -28,12 +28,12 @@
 | 驱动盘套装效果 | 30 套 | `data/drive-disc-presets.json` |
 | 配装规则表 | 7 张，共 54 个条目 | `data/options.json` |
 | 代理人命名映射 | 62 条（含 2 条未上线） | `data/agent-name-mapping.json` |
-| 攻略页目录 | 59 个（全部已登记） | `strategy/` + `constants/strategyGuides.ts` |
-| 图片资源 | 395 张 PNG | `frontend/public/images/` |
-| 前端测试 | 112 项通过 | `cd frontend; npm run test` |
-| 后端测试 | 306 项全部通过 | `.venv/Scripts/python -m pytest` |
+| 攻略页目录 | 60 个（全部已登记） | `strategy/` + `constants/strategyGuides.ts` |
+| 图片资源 | 398 张 PNG | `frontend/public/images/` |
+| 前端测试 | 118 项通过 | `cd frontend; npm run test` |
+| 后端测试 | 310 项全部通过 | `.venv/Scripts/python -m pytest` |
 
-图片明细：代理人 60、音擎 100、驱动盘 30、职业 7、技能 6、属性 10、等级 2、攻略独有 180。
+图片明细：代理人 60、音擎 100、驱动盘 30、职业 7、技能 6、属性 10、等级 2、攻略独有 183。
 属性与职业图标文件名统一为小写 ASCII slug（如 `honed-edge.png`、`attack.png`）；
 历史文档里的 `Honed Edge.png` / `honed_edge` 写法已过时。
 
@@ -107,7 +107,7 @@ backend/src/zzz_panel/core/           规则真源：纯函数、零 IO、零框
 | `strategy/<slug>/data/<slug>.strategy.json` | 攻略编辑内容 + 毕业面板 | 手写；`calc_graduation_panel.py` 写入 `graduationPanel` |
 | `backend/src/zzz_panel/_bundled_data.py` | Worker 内预设镜像 | `tools/bundle_worker_data.py`（gitignored） |
 
-五条漂移闸：
+六条漂移闸：
 
 ```powershell
 python tools/sync_presets.py --to-legacy --check
@@ -115,6 +115,7 @@ python tools/sync_presets.py --options --check
 python tools/bundle_worker_data.py --check
 python tools/normalize_strategy.py --check
 python tools/gen_strategy_guides.py --check
+python tools/seed_main_stat_notes.py --check
 ```
 
 ## 6. 目录地图
@@ -146,12 +147,13 @@ uv sync                         # Python 依赖
 cd frontend; npm install; cd ..
 
 pwsh tools/dev.ps1              # 一键启动前后端（推荐）
-uv run pytest                   # 后端 306 项
-cd frontend; npm run test       # 前端 112 项（不要与 pytest 并行）
+uv run pytest                   # 后端 310 项
+cd frontend; npm run test       # 前端 118 项（不要与 pytest 并行）
 cd frontend; npm run typecheck  # 类型检查
 cd frontend; npm run build      # 构建 dist/
 python tools/normalize_strategy.py --check   # 攻略数据命名/引用
 python tools/gen_strategy_guides.py --check  # 登记表漂移
+python tools/seed_main_stat_notes.py --check # 主词条备注占位
 ```
 
 部署（Cloudflare Worker）：
@@ -184,7 +186,7 @@ uv run --group worker pywrangler deploy   # 国内网络需配置 HTTPS_PROXY
 ## 9. 维护规则
 
 1. **一处事实只写一次。** 数量、路径、命令优先写进本文或专题文档，其他文档链接过去，不再复制。
-2. **数字必须可核对。** 新增「60 名 / 101 把 / 112 项」这类断言时，同时写出核对命令或数据文件。
+2. **数字必须可核对。** 新增「60 名 / 101 把 / 118 项」这类断言时，同时写出核对命令或数据文件。
 3. **代码是权威。** 文档与实现冲突时改文档，而不是让代码迁就文档。
 4. **完成事项移入 `completeds/`。** 归档后修正所有指向它的链接。
 5. **结构变更同步结构审查。** 合入 P0/P1 修复后，更新 [structure-review.md](structure-review.md) 的状态。

@@ -33,8 +33,8 @@ body {
   padding: var(--space-5) var(--space-4) 80px;
 }
 
-/* 页内锚点跳转：平滑滚动 + 为左上角固定返回按钮留出空间。
-   与攻略页（strategy 下各 slug 的 styles.css）表现一致，目录点击不顶格。 */
+/* 页内锚点跳转：平滑滚动 + 为固定返回按钮 / sticky 目录留出空间。
+   攻略页的目录与返回按钮已改为文档流内布局，无需单独再让位。 */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 76px;

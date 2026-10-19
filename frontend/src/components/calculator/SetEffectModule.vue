@@ -4,13 +4,15 @@ import { computed } from 'vue';
 import { SET_OPTIONS } from '@/constants/calculatorOptions';
 import { usePanelMode } from '@/composables/usePanelMode';
 import { usePanelStore } from '@/stores/panelStore';
-import { PanelModule } from '@/components/common';
+import { PanelModule, SelectField } from '@/components/common';
 
 /**
  * 模块 06 · 二件套效果。对应 legacy 的 `.module.set`。
  *
  * 组数语义（2+2+2=3 组、4+2=2 组、2+散件=1 组、全散件=0 组）
  * 由三组下拉的留空数量隐含表达——留空即未组成一组。
+ *
+ * 使用共享 `SelectField` 组件（与其他下拉模块一致的样式与行为）。
  */
 const panel = usePanelStore();
 const { localize } = usePanelMode();
@@ -25,10 +27,6 @@ const SLOTS = [
   { key: 'set1' as const, index: 2 },
   { key: 'set2' as const, index: 3 },
 ];
-
-function onChange(key: 'set0' | 'set1' | 'set2', event: Event): void {
-  panel.setEffects[key] = (event.target as HTMLSelectElement).value;
-}
 </script>
 
 <template>
@@ -39,17 +37,13 @@ function onChange(key: 'set0' | 'set1' | 'set2', event: Event): void {
 
     <div class="set-grid">
       <div v-for="slot in SLOTS" :key="slot.key" class="set-item">
-        <label class="helper" :for="`set${slot.index - 1}`">第{{ slot.index }}组</label>
-        <select
-          :id="`set${slot.index - 1}`"
-          :value="panel.setEffects[slot.key]"
-          @change="onChange(slot.key, $event)"
-        >
-          <option value="">请选择</option>
-          <option v-for="option in options" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
+        <SelectField
+          :name="`set${slot.index - 1}`"
+          :label="`第${slot.index}组`"
+          :options="options"
+          :model-value="panel.setEffects[slot.key]"
+          @update:model-value="panel.setEffects[slot.key] = $event"
+        />
       </div>
     </div>
   </PanelModule>

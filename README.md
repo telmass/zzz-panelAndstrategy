@@ -27,7 +27,7 @@
 | 逐项计算明细 | 每行结果都附来源追溯，能看出「这个数从哪来」 |
 | 长文学习指南 | 应用内 `/guide`，讲清各字段口径与计算顺序 |
 | 攻略同款排版 | 主页 / 计算器 / 指南三页统一为「页眉 + 回到顶部」，与代理人攻略页同一套视觉；指南页带左侧编号目录（滚动高亮 + 二级锚点），计算器六大模块带序号徽标 |
-| 代理人攻略 | 应用内 `/strategy`：按代理人收录加点优先级、音擎 / 驱动盘推荐、满配毕业面板、队伍搭配与文字攻略（Vue 路由 + 共享渲染器，当前 59 个数据目录、59 条登记） |
+| 代理人攻略 | 应用内 `/strategy`：按代理人收录加点优先级、音擎 / 驱动盘推荐、满配毕业面板、队伍搭配与文字攻略（Vue 路由 + 共享渲染器，当前 60 个数据目录、60 条登记） |
 
 **不做的**：伤害计算 / DPS 模拟、账号与云存档、养成建议、多语言。
 理由见 [docs/requirements.md](docs/requirements.md) 第 3 节。
@@ -91,12 +91,12 @@ uv run zzz-panel-and-strategy  # 固定跑一组示例输入，打印 12 行结�
 ### 测试
 
 ```powershell
-uv run pytest                           # 后端 306 项
-cd frontend; npm run test               # 前端 112 项
+uv run pytest                           # 后端 310 项
+cd frontend; npm run test               # 前端 118 项
 ```
 
 > **pytest 必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行。
-> 后端测试当前全绿（306/306），详见 [docs/testing.md](docs/testing.md)；
+> 后端测试当前全绿（310/310），详见 [docs/testing.md](docs/testing.md)；
 > 此前的数据命名 / 编码红灯与修复记录见 [docs/structure-review.md](docs/structure-review.md)。
 
 更多命令与已知坑见 [docs/development.md](docs/development.md)。
@@ -143,7 +143,7 @@ uv run --group worker pywrangler deploy
 │   │   ├── fixtures/legacy-calculator/   只读参照实现，供三方对拍
 │   │   └── support/                      测试夹具层
 │   ├── tools/               两个 Node 诊断脚本
-│   └── public/images/       代理人 / 音擎 / 驱动盘 / 职业 / 技能 / 属性 / 等级 / 攻略独有 PNG（395 张，唯一图片根）
+│   └── public/images/       代理人 / 音擎 / 驱动盘 / 职业 / 技能 / 属性 / 等级 / 攻略独有 PNG（398 张，唯一图片根）
 │
 ├── backend/                 Python 计算服务
 │   ├── src/
@@ -158,9 +158,9 @@ uv run --group worker pywrangler deploy
 │   └── tests/               pytest
 │
 ├── data/                    唯一真实数据源（5 个 JSON：4 个生成物 + 1 个手写命名映射）
-├── strategy/                代理人攻略数据目录（59 个，data/ 两份 JSON；页面由 Vue 共享渲染器提供）
+├── strategy/                代理人攻略数据目录（60 个，data/ 两份 JSON；页面由 Vue 共享渲染器提供）
 ├── docs/                    技术文档（见下）
-├── tools/                   开发脚本：dev.ps1 · sync_presets.py · bundle_worker_data.py · dump_backend_responses.py
+├── tools/                   开发脚本：dev.ps1 · sync_presets.py · bundle_worker_data.py · normalize_strategy.py · gen_strategy_guides.py · seed_main_stat_notes.py · dump_backend_responses.py
 └── .github/skills/          数据抓取 Skill（脚本位置固定，勿移动）
 ```
 
@@ -190,7 +190,7 @@ python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
 python tools/sync_presets.py --options
 ```
 
-五条漂移闸（任一失败即说明数据与代码已经不一致，必须先修再提交）：
+六条漂移闸（任一失败即说明数据与代码已经不一致，必须先修再提交）：
 
 ```powershell
 python tools/sync_presets.py --to-legacy --check
@@ -198,6 +198,7 @@ python tools/sync_presets.py --options --check
 python tools/bundle_worker_data.py --check
 python tools/normalize_strategy.py --check
 python tools/gen_strategy_guides.py --check
+python tools/seed_main_stat_notes.py --check
 ```
 
 数据管线全貌见 [docs/development.md](docs/development.md) 第 6 节。
@@ -209,6 +210,7 @@ python tools/gen_strategy_guides.py --check
 | [docs/project-overview.md](docs/project-overview.md) | **集成式技术总览**：项目定位、当前规模、架构、数据流、目录地图、常用命令 |
 | [docs/README.md](docs/README.md) | 文档总索引（含按角色的阅读路径） |
 | [docs/structure-review.md](docs/structure-review.md) | **结构问题、证据、解决方案与修复顺序** |
+| [docs/repair-plan.md](docs/repair-plan.md) | **全项目审计后的完整修复计划（英文）** |
 | [docs/requirements.md](docs/requirements.md) | 项目范围、非目标、已知限制 |
 | [docs/architecture.md](docs/architecture.md) | 架构分层与设计决策 |
 | [docs/api-reference.md](docs/api-reference.md) | HTTP 接口契约 |
@@ -239,8 +241,8 @@ python tools/gen_strategy_guides.py --check
 以及从「自建服务器 + Nginx 反代」到「Cloudflare Worker」。`frontend/src/` 与 `backend/`
 是当前唯一实现，旧实现只作为对拍夹具保留在 `frontend/tests/fixtures/legacy-calculator/`。
 
-攻略板块已扩充到 59 个数据目录（59 个已登记）。此前的命名 / UTF-8 / 模板重复问题已修复：
-攻略页由 Vue 共享渲染器渲染，后端 306 项、前端 112 项测试全绿。结构审查记录见
+攻略板块已扩充到 60 个数据目录（60 个已登记）。此前的命名 / UTF-8 / 模板重复问题已修复：
+攻略页由 Vue 共享渲染器渲染，后端 310 项、前端 118 项测试全绿。结构审查记录见
 [docs/structure-review.md](docs/structure-review.md)。
 
 已知限制与仍在跟踪的取舍记录在 [docs/requirements.md](docs/requirements.md) 第 7 节；

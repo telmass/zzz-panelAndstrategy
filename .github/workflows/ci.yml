@@ -37,6 +37,9 @@ jobs:
           python tools/bundle_worker_data.py --check
           python tools/normalize_strategy.py --check
           python tools/gen_strategy_guides.py --check
+          python tools/seed_main_stat_notes.py --check
+          python tools/check_docs.py
+          python .github/skills/agent-strategy/scripts/calc_graduation_panel.py --check-all
 
       - name: Backend tests
         run: uv run pytest

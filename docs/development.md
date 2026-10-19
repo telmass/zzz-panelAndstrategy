@@ -79,8 +79,8 @@ uv run --group worker pywrangler dev
 ## 4. 测试
 
 ```powershell
-uv run pytest                          # 后端 306 项
-cd frontend; npm run test              # 前端 112 项
+uv run pytest                          # 后端 310 项
+cd frontend; npm run test              # 前端 118 项
 ```
 
 前端另外两个脚本：
@@ -94,7 +94,7 @@ npm run test:watch     # vitest 监听模式
 尤其 `test_fmt_parity.py`，它会因「node 不可用」以外的原因跳过，
 详见 [testing.md](testing.md)。看到 skip 要查原因，不要忽略。
 
-> ✅ **后端测试当前全绿（306 项）。** 此前 60 项失败集中在攻略数据命名 / UTF-8 编码
+> ✅ **后端测试当前全绿（310 项）。** 此前 60 项失败集中在攻略数据命名 / UTF-8 编码
 > （`test_strategy_data.py`）与音擎数量从 100 变 101 后的硬编码断言，已分别通过
 > 数据归一 / 重新抓取与动态读取修复。回归守卫见 [structure-review.md](structure-review.md) P0-1 ～ P0-3。
 
@@ -182,6 +182,7 @@ python tools/normalize_strategy.py                  # 重命名文件并改写�
 python tools/normalize_strategy.py --rescrape-invalid  # 重新抓取非 UTF-8 的抓取产物
 python tools/gen_strategy_guides.py                 # 从数据重新生成攻略登记表
 python tools/gen_strategy_guides.py --check
+python tools/seed_main_stat_notes.py --check
 ```
 
 `--check` 覆盖目录名、`<slug>.json` / `<slug>.strategy.json`、JSON 内的图片路径与
@@ -345,10 +346,10 @@ pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该�
 ## 10. 提交前检查
 
 ```powershell
-uv run pytest                      # 后端 306 项，0 skip
+uv run pytest                      # 后端 310 项，0 skip
 cd frontend
 npm run typecheck                  # 类型
-npm run test                       # 112 项，含三方对拍（与 pytest 串行跑）
+npm run test                       # 118 项，含三方对拍（与 pytest 串行跑）
 cd ..
 python tools/sync_presets.py --to-legacy --check
 python tools/sync_presets.py --options --check

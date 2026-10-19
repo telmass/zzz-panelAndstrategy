@@ -177,10 +177,10 @@ def test_set_penetration_rate_lands_on_the_penetration_rate_row() -> None:
 @pytest.mark.parametrize(
     "value,as_percent,expected",
     [
-        (7673.0, False, "7673"),
+        (7673.0, False, "7,673"),
         (101.52, False, "101.52"),
-        (1.2, False, "1.20"),
-        (48.2, True, "48.20%"),
+        (1.2, False, "1.2"),
+        (48.2, True, "48.2%"),
     ],
 )
 def test_fmt(value: float, as_percent: bool, expected: str) -> None:

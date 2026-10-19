@@ -53,13 +53,13 @@
 | `frontend/src/assets/` | 会被 `import`、生成带 hash URL、可被 CSS `url()` 引用。**未被 import 的文件不进构建产物** |
 
 > `public/images/` 是**唯一图片根**，所有引用一律写 `/images/…` URL（禁止页相对
-> `assets/…` 与仓库相对 `frontend/public/images/…`）。当前 395 张 PNG：
+> `assets/…` 与仓库相对 `frontend/public/images/…`）。当前 398 张 PNG：
 > `weapons/`（100 张）由音擎 `n-cascader`、`agents/`（60 张）由代理人 `n-cascader`，
 > 各自的选中卡片按 `/images/{weapons,agents}/{id}.png` 引用，选项前缀同理；
 > `icons/`（7 张）为两个选择器共用的一级 roletag 图标；`discs/`（30 张驱动盘套装图标）
 > 由 `data/drive-disc-presets.json` 的 `image` 字段与攻略页引用（计算器 UI 接入待做）；
 > `skills/`（6 张，全代理人共享）、`attributes/`（10 张）、`grades/`（2 张）与
-> `strategy/<slug>/`（180 张，每代理人独有的立绘 / 称号 / 影画背景 / 背景图）只被攻略页消费。
+> `strategy/<slug>/`（183 张，每代理人独有的立绘 / 称号 / 影画背景 / 背景图）只被攻略页消费。
 > 完整目录树见 [docs/directory-layout.md](../../docs/directory-layout.md) 第 2.2 节。
 
 ### 样式

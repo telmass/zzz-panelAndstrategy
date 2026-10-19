@@ -71,7 +71,14 @@ import json
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[4]
+def _find_repo_root() -> Path:
+    """Walk up from this file until pyproject.toml is found (robust to nesting)."""
+    current = Path(__file__).resolve()
+    for parent in current.parents:
+        if (parent / "pyproject.toml").is_file():
+            return parent
+    raise RuntimeError(f"Cannot find pyproject.toml above {current}")
+REPO_ROOT = _find_repo_root()
 sys.path.insert(0, str(REPO_ROOT / "backend" / "src"))
 
 from zzz_panel.schemas.panel import PanelRequest  # noqa: E402
@@ -333,6 +340,49 @@ def strip_timestamp(panel: dict | None) -> dict | None:
     return {key: value for key, value in panel.items() if key != "computedAt"}
 
 
+def check_all_strategy_panels() -> int:
+    """Structural check: every strategy/*.strategy.json has a valid graduationPanel."""
+    strategy_root = REPO_ROOT / "strategy"
+    problems = []
+    checked = 0
+    for path in sorted(strategy_root.glob("*/data/*.strategy.json")):
+        slug = path.parent.parent.name
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            problems.append(f"{slug}: cannot parse JSON ({e})")
+            continue
+        panel = data.get("graduationPanel")
+        if not panel:
+            problems.append(f"{slug}: missing graduationPanel")
+            continue
+        build = panel.get("build")
+        if not build or not isinstance(build, dict):
+            problems.append(f"{slug}: graduationPanel.build missing or not a dict")
+            continue
+        totals = panel.get("totals")
+        if not totals or not isinstance(totals, list) or len(totals) < 1:
+            problems.append(f"{slug}: graduationPanel.totals missing or empty")
+            continue
+        for item in totals:
+            if not isinstance(item, dict) or "label" not in item or "value" not in item:
+                problems.append(f"{slug}: graduationPanel.totals has malformed entry")
+                break
+        alt = data.get("graduationPanelAlt")
+        if alt is not None:
+            alt_totals = alt.get("totals")
+            if not alt_totals or not isinstance(alt_totals, list):
+                problems.append(f"{slug}: graduationPanelAlt.totals missing or invalid")
+        checked += 1
+    if problems:
+        for p in problems:
+            print(f"  {p}", file=sys.stderr)
+        print(f"check-all: {len(problems)} problem(s) in {checked} file(s)", file=sys.stderr)
+        return 1
+    print(f"check-all: {checked} strategy files have structurally valid graduation panels")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--agent-id", default="ep-1687", help="代理人预设 id（data/agent-presets.json）")
@@ -374,7 +424,15 @@ def main() -> int:
     )
     parser.add_argument("--strategy", type=Path, default=DEFAULT_STRATEGY, help=f"攻略 JSON 路径，默认 {DEFAULT_STRATEGY}")
     parser.add_argument("--check", action="store_true", help="只比对，不写回")
+    parser.add_argument(
+        "--check-all",
+        action="store_true",
+        help="结构化校验所有 strategy/*/data/*.strategy.json 的 graduationPanel（不实算，只验形状）",
+    )
     args = parser.parse_args()
+
+    if args.check_all:
+        return check_all_strategy_panels()
 
     panel, alt = compute(args)
 
