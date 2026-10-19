@@ -15,6 +15,8 @@
  */
 
 import { strategyGuides } from '@/constants/strategyGuides';
+import { saveStrategyCard } from './strategyCard';
+import { formatPanelTitle, formatSubStats } from './substats';
 
 /** 导航栏品牌名使用登记表的中文缩写；hero 与 document.title 仍用全名。 */
 const AGENT_SHORT_NAMES = new Map(
@@ -683,7 +685,11 @@ function bindToTop() {
   return () => window.removeEventListener('scroll', onScroll);
 }
 
-/** 绑定「保存攻略」/「保存一图流」按钮：截取对应区块并下载。 */
+/**
+ * 绑定「保存攻略」/「保存一图流」按钮。
+ * 「保存攻略」不再截取页面，而是把 strategy JSON 渲染成一张紧凑的攻略卡片；
+ * 「保存一图流」仍保留整页截图。
+ */
 function bindSaveButtons(guide) {
   const actions = app.querySelector('.sidebar__actions');
   if (!actions) return;
@@ -693,47 +699,34 @@ function bindSaveButtons(guide) {
     const action = btn.dataset.action;
     if (!app || app.dataset.state !== 'ready') return;
 
-    let target;
-    let suffix;
-    let tempWrapper = null;
     if (action === 'save-guide') {
-      const hero = app.querySelector('.hero');
-      const guide = app.querySelector('#guide');
-      if (!hero || !guide) {
-        showTip('截图目标不存在，请刷新页面后重试');
-        return;
+      const filename = agentFileName(guide, '攻略');
+      btn.disabled = true;
+      try {
+        await saveStrategyCard(guide, filename);
+        showTip('已下载：' + filename);
+      } catch (error) {
+        showTip('生成攻略图失败：' + (error && error.message ? error.message : String(error)));
+      } finally {
+        btn.disabled = false;
       }
-      // 包含 hero 头部（含属性/职业/评级图标）与 01攻略区块，截图后移除临时包裹元素，
-      // 确保不包含左侧导航栏与返回顶部按钮。
-      tempWrapper = document.createElement('div');
-      // 样式已收窄在 `.strategy-detail` 下；截图副本必须带同一个作用域类，
-      // 否则 html2canvas 克隆到 body 后会丢失攻略页样式。
-      tempWrapper.className = 'strategy-detail';
-      tempWrapper.style.cssText =
-        'position:fixed;inset:0;overflow:visible;pointer-events:none;z-index:-1;';
-      tempWrapper.appendChild(hero.cloneNode(true));
-      tempWrapper.appendChild(guide.cloneNode(true));
-      document.body.appendChild(tempWrapper);
-      target = tempWrapper;
-      suffix = '攻略';
-    } else if (action === 'save-full') {
-      target = app.querySelector('.content');
-      suffix = '一图流';
-    } else {
       return;
     }
+
+    if (action !== 'save-full') return;
+    const target = app.querySelector('.content');
+    const filename = agentFileName(guide, '一图流');
     if (!target) {
       showTip('截图目标不存在，请刷新页面后重试');
       return;
     }
     btn.disabled = true;
     try {
-      await captureAndDownload(target, agentFileName(guide, suffix));
-      showTip('已下载：' + agentFileName(guide, suffix));
+      await captureAndDownload(target, filename);
+      showTip('已下载：' + filename);
     } catch (error) {
       showTip('截图下载失败：' + (error && error.message ? error.message : String(error)));
     } finally {
-      if (tempWrapper) tempWrapper.remove();
       btn.disabled = false;
     }
   });
@@ -1127,7 +1120,12 @@ function graduationPanelHtml(strategy, panel) {
       const iconHtml = icon
         ? `<img class="build-row__icon" src="${escapeHtml(icon)}" alt="" loading="lazy" onerror="this.style.display='none'" />`
         : '';
-      return `<div class="build-row"><dt>${escapeHtml(BUILD_LABELS[key] || key)}</dt><dd>${iconHtml}${escapeHtml(value)}</dd></div>`;
+      // 计算仍用完整词条；这里只把「副词条」行换成「大词条 + 小词条」的展示口径。
+      const displayValue =
+        key === 'subStats' ? formatSubStats(value)?.display || value : value;
+      return `<div class="build-row"><dt>${escapeHtml(BUILD_LABELS[key] || key)}</dt><dd>${iconHtml}${escapeHtml(
+        displayValue,
+      )}</dd></div>`;
     })
     .join('');
   return `<div class="base-panel base-panel--graduation">${totals}</div>
@@ -1137,16 +1135,23 @@ function graduationPanelHtml(strategy, panel) {
 function graduationHtml(strategy) {
   const panel = strategy.graduationPanel;
   if (!panel || !Array.isArray(panel.totals)) return '';
+  const panelStats = formatSubStats(panel.build && panel.build.subStats);
   // 非满配面板为可选项：攻略数据带 graduationPanelAlt 才渲染第二个面板（词条数由需求方人为界定）
   const alt = strategy.graduationPanelAlt;
+  const altStats =
+    alt && Array.isArray(alt.totals)
+      ? formatSubStats(alt.build && alt.build.subStats)
+      : null;
   const altBlock =
     alt && Array.isArray(alt.totals)
-      ? `<h4 class="guide-block__subtitle">${escapeHtml(alt.title || '非满配毕业面板')}</h4>
+      ? `<h4 class="guide-block__subtitle">${escapeHtml(
+          formatPanelTitle(alt.title || '非满配毕业面板', altStats),
+        )}</h4>
 ${graduationPanelHtml(strategy, alt)}`
       : '';
   return `<div class="guide-block" id="guide-graduation">
     <h3 class="guide-block__title">毕业面板</h3>
-    ${panel.title ? `<h4 class="guide-block__subtitle">${escapeHtml(panel.title)}</h4>` : ''}
+    ${panel.title ? `<h4 class="guide-block__subtitle">${escapeHtml(formatPanelTitle(panel.title, panelStats))}</h4>` : ''}
     ${graduationPanelHtml(strategy, panel)}
     ${altBlock}
   </div>`;

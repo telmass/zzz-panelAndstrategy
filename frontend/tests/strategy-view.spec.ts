@@ -53,6 +53,16 @@ describe('StrategyView', () => {
     expect(document.activeElement).toBe(wrapper.get('.hero__name').element);
   });
 
+  it('毕业面板把 54 条词条拆成 47+7 展示', async () => {
+    const wrapper = await mountStrategy('roxy');
+    const graduation = wrapper.get('#guide-graduation');
+
+    expect(graduation.text()).toContain('47+7 词条');
+    expect(graduation.text()).toContain('+7 小词条');
+    expect(graduation.text()).toContain('暴击率 ×24');
+    expect(graduation.text()).not.toContain('攻击力 ×5');
+  });
+
   it('提供 skip link、main landmark，并把返回按钮放进文档流', async () => {
     const wrapper = await mountStrategy('ye-shunguang');
 

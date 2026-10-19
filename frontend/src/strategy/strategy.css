@@ -2354,3 +2354,505 @@
   z-index: 1;
   isolation: isolate;
 }
+
+/* ---------- 「保存攻略」生成的攻略缩略图（一图流卡片） ----------
+   完全由 strategy JSON 生成，不截取页面 DOM。导出时挂在 body 上离屏渲染，
+   所以样式不依赖 .strategy-detail 作用域。 */
+
+.strategy-card.strategy-card--export {
+  --sc-ink: #111318;
+  --sc-muted: #343a45;
+  --sc-line: #4b5563;
+  --sc-chip: #ffffff;
+  --sc-chip-border: #cfd4dd;
+  box-sizing: border-box;
+  position: relative;
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 20px 36px;
+  width: 1360px;
+  padding: 44px 48px 44px 40px;
+  color: var(--sc-ink);
+  font-family: var(--font-sans, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif);
+  line-height: 1.45;
+  background: #ffffff;
+  border: 1px solid #d7dbe2;
+  border-radius: 30px;
+  box-shadow: 0 18px 50px rgb(17 19 24 / 10%);
+  transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.strategy-card--export *,
+.strategy-card--export *::before,
+.strategy-card--export *::after {
+  box-sizing: border-box;
+}
+
+.strategy-card--export .strategy-card__portrait {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+.strategy-card--export .strategy-card__tachie {
+  position: static;
+  height: auto;
+  width: 100%;
+  max-height: 820px;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 14px 20px rgb(17 19 24 / 12%));
+}
+
+.strategy-card__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  padding-left: 34px;
+}
+
+.strategy-card__body::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--sc-line);
+}
+
+.strategy-card__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  min-height: 40px;
+}
+
+.strategy-card__row::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -36px;
+  width: 38px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--sc-line);
+}
+
+.strategy-card__label {
+  color: var(--sc-ink);
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.strategy-card__value {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.strategy-card__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.strategy-card__muted {
+  color: var(--sc-muted);
+  font-weight: 600;
+}
+
+.strategy-card__op {
+  padding: 0;
+  color: var(--sc-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* 技能加点 */
+
+.strategy-card__skill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px 4px 4px;
+  background: var(--sc-chip);
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgb(23 25 31 / 6%);
+}
+
+.strategy-card__skill-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #101318;
+}
+
+.strategy-card__skill-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.05;
+}
+
+.strategy-card__skill-meta b {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.strategy-card__skill-meta small {
+  color: var(--sc-muted);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* 命座推荐 */
+
+.strategy-card__cinema {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+.strategy-card__cinema-slots {
+  display: flex;
+  gap: 8px;
+}
+
+.strategy-card__cinema-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 40px;
+  color: var(--sc-muted);
+  font-size: 13px;
+  font-weight: 750;
+  background: #f3f4f6;
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 10px;
+}
+
+.strategy-card__cinema-slot.is-key {
+  color: #ffffff;
+  background: #111318;
+  border-color: #111318;
+  box-shadow: 0 3px 8px rgb(17 19 24 / 18%);
+}
+
+/* 驱动盘属性：括号式子分支 */
+
+.strategy-card__sub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-left: 26px;
+}
+
+.strategy-card__sub::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  border: 2px solid var(--sc-line);
+  border-right: 0;
+  border-radius: 8px 0 0 8px;
+}
+
+.strategy-card__sub-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.strategy-card__sub-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -27px;
+  width: 29px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--sc-line);
+}
+
+.strategy-card__sub-item i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--sc-muted);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  background: #eef0f4;
+  border-radius: 50%;
+}
+
+.strategy-card__sub-item--head {
+  color: var(--sc-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* 武器 */
+
+.strategy-card__weapon-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.strategy-card__tier {
+  flex: none;
+  min-width: 62px;
+  padding: 3px 8px;
+  color: var(--sc-muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  background: #eef0f4;
+  border-radius: 999px;
+}
+
+.strategy-card__tier.is-primary {
+  color: #7a4a00;
+  background: #fdf0d5;
+}
+
+.strategy-card__weapon-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.strategy-card__weapon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 9px 4px 4px;
+  background: var(--sc-chip);
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 10px;
+}
+
+.strategy-card__weapon-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #101318;
+}
+
+.strategy-card__weapon-name {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* 驱动盘 */
+
+.strategy-card__builds {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+.strategy-card__build {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.strategy-card__build-label {
+  color: var(--sc-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.strategy-card__build-sets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.strategy-card__set {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px 4px 4px;
+  background: var(--sc-chip);
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 10px;
+}
+
+.strategy-card__set b {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.strategy-card__set-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #101318;
+}
+
+/* 队伍 */
+
+.strategy-card__team {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.strategy-card__team-name {
+  flex: none;
+  min-width: 62px;
+  padding: 3px 8px;
+  color: var(--sc-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  background: #eef0f4;
+  border-radius: 999px;
+}
+
+.strategy-card__team-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.strategy-card__member {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 3px;
+  background: var(--sc-chip);
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 999px;
+}
+
+.strategy-card__member-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #101318;
+}
+
+.strategy-card__member-name {
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.strategy-card__member small {
+  color: var(--sc-muted);
+  font-size: 10px;
+}
+
+/* 毕业面板 */
+
+.strategy-card__grad-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.strategy-card__grad {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.strategy-card__grad-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--sc-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.strategy-card__grad-title::before {
+  content: '';
+  width: 3px;
+  height: 14px;
+  background: var(--sc-ink);
+  border-radius: 2px;
+}
+
+.strategy-card__grad-substats {
+  color: var(--sc-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.strategy-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.strategy-card__stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 10px;
+  background: var(--sc-chip);
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 9px;
+}
+
+.strategy-card__stat span {
+  color: var(--sc-muted);
+  font-size: 12px;
+}
+
+.strategy-card__stat b {
+  font-size: 15px;
+}
+
+.strategy-card__todo {
+  display: inline-flex;
+  padding: 5px 12px;
+  color: #6b4300;
+  font-size: 13px;
+  font-weight: 700;
+  background: #fdf0d5;
+  border-radius: 999px;
+}
