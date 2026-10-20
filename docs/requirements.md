@@ -92,7 +92,7 @@
 | --- | --- |
 | 前端类型检查 | `npm run typecheck` 无错 |
 | 前端构建 | `npm run build` 通过 |
-| 前端测试 | `npm run test` 全绿（当前 118 项） |
+| 前端测试 | `npm run test` 全绿（当前 127 项） |
 | 后端测试 | `uv run pytest` 全绿，**且无 skip**（310 项全部通过） |
 | 数据同步门禁 | `sync_presets.py --to-legacy --check`、`--options --check`、`bundle_worker_data.py --check` 均退出 0 |
 | 部署门禁 | `wrangler.jsonc` 为纯 ASCII；带代理执行 `pywrangler deploy` 成功 |

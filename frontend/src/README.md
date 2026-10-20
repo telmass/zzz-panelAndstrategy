@@ -22,7 +22,7 @@
 | `api/` | **唯一**网络出口：`panel.ts`、`presets.ts`、`errors.ts` |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
 | `constants/` | `calculatorOptions.ts`（`@data/options.json` → 7 张 `RuleOption[]`）+ `strategyGuides.ts`（攻略登记表，**由 `tools/gen_strategy_guides.py` 生成**，决定 `/strategy` 卡片与详情可达性） |
-| `strategy/` | 攻略页共享层：`renderStrategy.ts`（唯一渲染器，从 legacy 静态模板迁移）+ `strategy.css`（唯一一份攻略样式，收窄在 `.strategy-detail`）。`strategy/<slug>/` 只放数据 |
+| `strategy/` | 攻略共享层：`renderStrategy.ts`（页面渲染器，从 legacy 静态模板迁移）、`strategyCard.ts`（`保存攻略` 的 JSON 驱动导出卡片）、`substats.ts`（毕业面板 47+7 展示口径）+ `strategy.css`（页面与导出卡片样式）。`strategy/<slug>/` 只放数据 |
 | `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（仅导出 `normalizeCount`，`clamp` 为模块私有） |
 | `assets/styles/` | 4 个文件，顺序由 `index.css` 固定：tokens → base → components |
 
@@ -59,7 +59,7 @@
 > `icons/`（7 张）为两个选择器共用的一级 roletag 图标；`discs/`（30 张驱动盘套装图标）
 > 由 `data/drive-disc-presets.json` 的 `image` 字段与攻略页引用（计算器 UI 接入待做）；
 > `skills/`（6 张，全代理人共享）、`attributes/`（10 张）、`grades/`（2 张）与
-> `strategy/<slug>/`（183 张，每代理人独有的立绘 / 称号 / 影画背景 / 背景图）只被攻略页消费。
+> `strategy/<slug>/`（183 张，每代理人独有的立绘 / 称号 / 影画背景 / 背景图）只被攻略页与导出卡片消费。
 > 完整目录树见 [docs/directory-layout.md](../../docs/directory-layout.md) 第 2.2 节。
 
 ### 样式
@@ -81,7 +81,7 @@
 
 攻略数据 `/strategy/<slug>/data/*.json` 由 `vite.config.ts` 的 `strategyDataPlugin` 提供
 （开发期中间件直读仓库 `strategy/<slug>/data/`，构建期只把两份 JSON 拷入
-`dist/strategy/<slug>/data/`）。页面本体由 `strategy/renderStrategy.ts` 渲染，不再有
+`dist/strategy/<slug>/data/`）。页面本体由 `strategy/renderStrategy.ts` 渲染，`保存攻略` 由 `strategyCard.ts` 按同一份 JSON 生成导出卡片，不再有
 iframe 或每页 `index.html/app.js/styles.css`。
 
 ## 相关文档

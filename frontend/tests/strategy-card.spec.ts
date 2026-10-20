@@ -44,12 +44,17 @@ describe('攻略缩略图卡片', () => {
     expect(card.querySelectorAll('.strategy-card__cinema-slot.is-key')).toHaveLength(3);
     expect(card.querySelector('.strategy-card__cinema-note')).toBeNull();
 
-    expect(Array.from(card.querySelectorAll('.strategy-card__sub-item')).map((node) => node.textContent?.trim())).toEqual([
-      '驱动盘属性',
-      '4暴率',
-      '5风伤',
-      '6回能',
+    expect(card.querySelectorAll('.strategy-card__main')).toHaveLength(3);
+    expect(Array.from(card.querySelectorAll('.strategy-card__main-slot')).map((node) => node.textContent?.trim())).toEqual([
+      '4 号位',
+      '5 号位',
+      '6 号位',
     ]);
+    expect(card.textContent).toContain('暴击率 +24%');
+    expect(card.textContent).toContain('风属性伤害 +30%');
+    expect(card.textContent).toContain('穿透率 +24% / 攻击力 +30%');
+    expect(card.textContent).toContain('能量回复 +60%');
+    expect(card.querySelectorAll('.strategy-card__main small')).toHaveLength(1);
 
     expect(card.textContent).toContain('绯月银棺');
     expect(card.textContent).toContain('福虓炉炉');
@@ -68,6 +73,16 @@ describe('攻略缩略图卡片', () => {
     expect(card.textContent).toContain('101%');
     expect(card.textContent).toContain('79.4%');
     expect(card.textContent).not.toContain('出招表');
+  });
+
+  it('主词条卡片同时展示首选与备选', () => {
+    const card = buildStrategyCard(loadGuide('lighter'));
+    expect(card.querySelectorAll('.strategy-card__main')).toHaveLength(3);
+    expect(card.textContent).toContain('暴击率 +24%');
+    expect(card.textContent).toContain('暴击伤害 +48%');
+    expect(card.textContent).toContain('火属性伤害 +30%');
+    expect(card.textContent).toContain('攻击力 +30%');
+    expect(card.textContent).toContain('冲击力 +24%');
   });
 
   it('缺少毕业生或攻略字段时降级为待拓展/占位，而不是报错', () => {

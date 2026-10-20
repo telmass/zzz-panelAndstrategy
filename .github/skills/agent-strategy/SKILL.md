@@ -47,6 +47,8 @@ Create the editorial content. Schema is documented in `strategy/README.md`.
 5. Team compositions (~3 teams)
 6. Text guide (competitive notes)
 
+> The export card also renders `driveBuilds[].mainStats[]`: `main` is the primary main stat and `alt` is the alternative shown as「备选」. Fill `alt` for every slot (write `"无"` when there is no alternative); the card hides `"无"` automatically.
+
 ### Step 4 — Compute the graduation panel
 
 ```powershell
@@ -67,6 +69,8 @@ The `--check` flag compares without writing. `--check-all` validates all strateg
 
 **Sub-stats must total 54** (initial 4 + 5 upgrades × 6 discs = 9 per disc × 6 = 54).
 
+> **Display note:** the page/export card splits the 54 rolls into major + minor (e.g. Roxy = `47+7`). This is display-only, implemented in `frontend/src/strategy/substats.ts`; keep the full 54-roll allocation in `subStats` and do not rewrite it to `47+7`.
+
 ### Step 5 — Register
 
 ```powershell
@@ -82,6 +86,24 @@ python tools/normalize_strategy.py --check
 python tools/gen_strategy_guides.py --check
 python .github/skills/agent-strategy/scripts/calc_graduation_panel.py --check-all
 cd frontend; npm run test; npm run build
+```
+
+## Export card (保存攻略)
+
+`保存攻略` no longer screenshots the page. It builds an off-screen card from the same JSON via `frontend/src/strategy/strategyCard.ts` and exports a PNG:
+
+- 1360px wide, white background, dark text; root class is `strategy-card strategy-card--export` so it overrides the launcher `.strategy-card` / `.strategy-card__tachie` rules in `components.css`;
+- left side uses `strategy.background` (fallback: `assets.tachie`);
+- six branches: 技能加点 / 命座 / 武器 / 驱动盘 / 队伍 / 毕业面板;
+- 命座 shows only the 01–06 slots with key levels highlighted (no note text in the export card);
+- 驱动盘 shows build rows + 4/5/6 main-stat cards, each with `main` and `alt` (备选);
+- 毕业面板 shows both full and non-full panels, with the major+minor roll summary.
+
+`保存一图流` still captures the full page. When changing card markup or the roll display, run the card tests:
+
+```powershell
+cd frontend
+npm test -- --run tests/strategy-card.spec.ts tests/substats.spec.ts
 ```
 
 ## Naming conventions
@@ -124,7 +146,7 @@ To add a cinema priority section to an agent's strategy page, include this in `<
 - `keyLevels`: array of cinema numbers (1–6) that are key investment nodes
 - `note`: explanatory text shown below the image and numbered slots
 
-The renderer displays a 56px image on the left and six numbered slots (01–06) on the right; key levels are highlighted with accent color. Agents without this field skip the section entirely.
+The renderer displays a 56px image on the left and six numbered slots (01–06) on the right; key levels are highlighted with accent color. Agents without this field skip the section entirely. The export card reuses the same 01–06 slots and highlights but omits the `note` text.
 
 ## Key rules
 

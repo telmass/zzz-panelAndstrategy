@@ -2557,69 +2557,6 @@
   box-shadow: 0 3px 8px rgb(17 19 24 / 18%);
 }
 
-/* 驱动盘属性：括号式子分支 */
-
-.strategy-card__sub {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding-left: 26px;
-}
-
-.strategy-card__sub::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 12px;
-  border: 2px solid var(--sc-line);
-  border-right: 0;
-  border-radius: 8px 0 0 8px;
-}
-
-.strategy-card__sub-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 15px;
-  font-weight: 650;
-}
-
-.strategy-card__sub-item::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: -27px;
-  width: 29px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--sc-line);
-}
-
-.strategy-card__sub-item i {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  color: var(--sc-muted);
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 700;
-  background: #eef0f4;
-  border-radius: 50%;
-}
-
-.strategy-card__sub-item--head {
-  color: var(--sc-muted);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
-
 /* 武器 */
 
 .strategy-card__weapon-group {
@@ -2702,6 +2639,68 @@
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+}
+
+.strategy-card__mains-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  width: 100%;
+}
+
+.strategy-card__mains-label {
+  padding-top: 9px;
+  color: var(--sc-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.strategy-card__mains {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-items: stretch;
+}
+
+.strategy-card__main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  height: 100%;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid var(--sc-chip-border);
+  border-radius: 11px;
+  box-shadow: 0 2px 6px rgb(17 19 24 / 5%);
+}
+
+.strategy-card__main-slot {
+  color: var(--sc-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.strategy-card__main b {
+  color: var(--sc-ink);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.strategy-card__main small {
+  color: var(--sc-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.strategy-card__main small em {
+  margin-right: 4px;
+  color: var(--sc-ink);
+  font-style: normal;
+  font-weight: 750;
 }
 
 .strategy-card__set {

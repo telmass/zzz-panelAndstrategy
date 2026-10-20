@@ -1,0 +1,344 @@
+{
+  "background": "/images/strategy/phoenix/background.png",
+  "_meta": {
+    "agentId": "ep-2216",
+    "name": "菲欧妮",
+    "note": "本文件为菲欧妮·蕾法爱菈的攻略编辑内容（加点/推荐/队伍/文字攻略），与抓取产物 phoenix.json 分开维护；graduationPanel 由 calc_graduation_panel.py 用仓库计算器实算后写入，请勿手改。",
+    "editorialSources": [
+      "技能机制：抓取自米游社 WIKI 代理人页的技能与影画文本（strategy/phoenix/data/phoenix.json）",
+      "配装口径：仓库计算器选项表（data/options.json）、音擎预设（data/weapon-presets.json）与驱动盘预设（data/drive-disc-presets.json）",
+      "推荐档位与队伍：社区攻略整理，经需求方确认"
+    ],
+    "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/2216/detail"
+  },
+  "cinemaPriority": {
+    "image": "/images/strategy/phoenix/film.png",
+    "keyLevels": [
+      1,
+      6
+    ],
+    "note": "核心命座为 1 / 6 影画"
+  },
+  "skillPriority": [
+    {
+      "key": "core",
+      "label": "核心技",
+      "icon": "/images/skills/core.png",
+      "level": 7,
+      "maxLevel": 7,
+      "next": ">"
+    },
+    {
+      "key": "chain",
+      "label": "连携技",
+      "icon": "/images/skills/chain.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "basic",
+      "label": "普通攻击",
+      "icon": "/images/skills/basic.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": "="
+    },
+    {
+      "key": "special",
+      "label": "特殊技",
+      "icon": "/images/skills/special.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "assist",
+      "label": "支援技",
+      "icon": "/images/skills/assist.png",
+      "level": 12,
+      "maxLevel": 12,
+      "next": ">"
+    },
+    {
+      "key": "dodge",
+      "label": "闪避",
+      "icon": "/images/skills/dodge.png",
+      "level": 7,
+      "maxLevel": 12,
+      "next": ""
+    }
+  ],
+  "weapons": [
+    {
+      "tier": "首选",
+      "items": [
+        {
+          "name": "涅槃初翎",
+          "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
+          "icon": "/images/weapons/ep-2259.png"
+        }
+      ],
+      "note": "专武装备者的异常精通提升90点；队伍中任意角色对敌人造成的属性异常伤害产生暴击时，装备者造成的火属性伤害提升40%，持续20秒，重复触发刷新持续时间。"
+    },
+    {
+      "tier": "限定下位",
+      "items": [
+        {
+          "name": "壳中之灵",
+          "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
+          "icon": "/images/weapons/ep-1883.png"
+        }
+      ],
+      "note": "相比专武，只少了40%的增伤，其他属性无差异，算最佳下位替代。\n其他异常掌控音擎不推荐，场内表现可能不如常驻下位音擎。"
+    },
+    {
+      "tier": "常驻下位",
+      "items": [
+        {
+          "name": "双生泣星",
+          "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
+          "icon": "/images/weapons/ep-212.png"
+        },
+        {
+          "name": "嵌合编译器",
+          "stats": "A 级 · 基础攻击 684 · 穿透率 24%",
+          "icon": "/images/weapons/ep-214.png"
+        }
+      ],
+      "note": "实在没有以上选择再考虑，但不推荐抽取本体。"
+    }
+  ],
+  "driveBuilds": [
+    {
+      "name": "常驻套装： 4 自由蓝调 + 2 法厄同之歌",
+      "set4": {
+        "name": "自由蓝调",
+        "label": "异常精通 +30",
+        "effect4": "[强化特殊技]命中敌人时，根据装备者的属性类型，使目标对应属性异常积蓄抗性降低20%，持续8秒，相同属性的效果不可叠加。",
+        "scene": "搭配菲欧妮的被动[灼蚀],稳定全局收益。",
+        "icon": "/images/discs/ep-191.png"
+      },
+      "set2": {
+        "main": [
+          {
+            "name": "法厄同之歌",
+            "label": "异常掌控 +8%",
+            "icon": "/images/discs/ep-1194.png"
+          }
+        ]
+      },
+      "mainStats": [
+        {
+          "slot": "4 号位",
+          "main": "异常精通 +92",
+          "alt": "无",
+          "note": ""
+        },
+        {
+          "slot": "5 号位",
+          "main": "火属性伤害 +30%",
+          "alt": "穿透率 +24%",
+          "note": "2命前火伤，2命后根据需求选择"
+        },
+        {
+          "slot": "6 号位",
+          "main": "异常掌控 +30%",
+          "alt": "无",
+          "note": ""
+        }
+      ],
+      "subPriority": [
+        {
+          "label": "异常精通",
+          "next": ">"
+        },
+        {
+          "label": "攻击力%",
+          "next": ">"
+        },
+        {
+          "label": "攻击力",
+          "next": ">"
+        },
+        {
+          "label": "穿透值",
+          "next": ""
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "name": "菲欧妮+维琳娜+蕾米埃尔",
+      "members": [
+        {
+          "agentId": "ep-2216",
+          "name": "菲欧妮",
+          "role": "异常",
+          "avatar": "/images/agents/ep-2216.png",
+          "note": "火属性异常主C，驻场输出，核心被动为全队施加[灼蚀]并提升异常爆伤。",
+          "set4": [
+            {
+              "name": "自由蓝调",
+              "icon": "/images/discs/ep-191.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1960",
+          "name": "维琳娜",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1960.png",
+          "note": "风属性异常，是菲欧妮当之无愧的最佳队友。",
+          "set4": [
+            {
+              "name": "呼啸沙龙",
+              "icon": "/images/discs/ep-2038.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-2076",
+          "name": "蕾米埃尔",
+          "role": "异常",
+          "avatar": "/images/agents/ep-2076.png",
+          "note": "放大[灼蚀]伤害，可以让菲欧妮伤害进一步提高。",
+          "set4": [
+            {
+              "name": "谶羽之誓",
+              "icon": "/images/discs/ep-2116.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "菲欧妮+维琳娜+柚叶",
+      "members": [
+        {
+          "agentId": "ep-2216",
+          "name": "菲欧妮",
+          "role": "异常",
+          "avatar": "/images/agents/ep-2216.png",
+          "note": "火属性异常主C，驻场输出，核心被动为全队施加[灼蚀]并提升异常爆伤。",
+          "set4": [
+            {
+              "name": "自由蓝调",
+              "icon": "/images/discs/ep-191.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1960",
+          "name": "维琳娜",
+          "role": "异常",
+          "avatar": "/images/agents/ep-1960.png",
+          "note": "风属性异常，是菲欧妮当之无愧的最佳队友。",
+          "set4": [
+            {
+              "name": "呼啸沙龙",
+              "icon": "/images/discs/ep-2038.png"
+            }
+          ]
+        },
+        {
+          "agentId": "ep-1386",
+          "name": "柚叶",
+          "role": "支援",
+          "avatar": "/images/agents/ep-1386.png",
+          "note": "通过柚叶染色加快火异常的附着速率，提高全队dps。",
+          "set4": [
+            {
+              "name": "月光骑士颂",
+              "icon": "/images/discs/ep-1551.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "textGuide": [
+    {
+      "title": "出招表（驻场循环）",
+      "lines": [
+        "① 进场后积累[燔焰]，通过[燃烧攻击]回复燔焰，最多120点。",
+        "② 燔焰足够时长按[普通攻击：焚罪]触发[异放]，结算对应属性的属性异常伤害，暴击伤害额外提升40%。",
+        "③ [特殊技：掠火]可触发完美格挡，点按后直接衔接第三段[普通攻击]，跳过后撤动作。",
+        "④ [强化特殊技：燎斩]拥有[升变]时发动，蓄力可提升伤害，视为[燃烧攻击]。",
+        "⑤ 能量足够时发动[强化特殊技：眩焰]获得1点[升变]，随后发动[强化特殊技：坠阳]。",
+        "⑥ [终结技：万死重明]消耗所有生命值进入[生竭]，随后自动释放[终结技：烬火追魂]恢复生命并触发[异放]。"
+      ]
+    },
+    {
+      "title": "注意事项",
+      "lines": [
+        "核心被动[涅槃]使菲欧妮的异常精通提升43点，且[灼蚀]状态下敌人受到属性异常伤害时有概率触发暴击，初始异常掌控超过155点时每点额外提升0.7%暴击率，255点时达到最大值。",
+        "[强化特殊技：眩焰]发动后进入[枯荣]状态，下次[强化特殊技：眩焰]会替换为[强化特殊技：坠阳]。",
+        "异常精通是菲欧妮的核心副词条，优先堆叠。"
+      ]
+    }
+  ],
+  "graduationPanel": {
+    "build": {
+      "agent": "菲欧妮·蕾法爱菈",
+      "weapon": "涅槃初翎",
+      "core": "异常掌控 +36、基础攻击力 +75",
+      "set4": "自由蓝调",
+      "set2": "法厄同之歌",
+      "mainStats": "4 号位异常精通 +92，5 号位火属性伤害 +30%，6 号位异常掌控 +30%",
+      "subStats": "54 条满配：异常精通 ×30、攻击力% ×11、攻击力 ×6、穿透值 ×6、生命值% ×1"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2538.1,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 510,
+        "unit": ""
+      },
+      {
+        "label": "异常掌控",
+        "value": 255.4,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-19T18:33:36+00:00",
+    "title": "满配毕业面板（54 词条）"
+  },
+  "graduationPanelAlt": {
+    "build": {
+      "agent": "菲欧妮·蕾法爱菈",
+      "weapon": "涅槃初翎",
+      "core": "异常掌控 +36、基础攻击力 +75",
+      "set4": "自由蓝调",
+      "set2": "法厄同之歌",
+      "mainStats": "4 号位异常精通 +92，5 号位火属性伤害 +30%，6 号位异常掌控 +30%",
+      "subStats": "30 条：异常精通 ×21、攻击力% ×8、攻击力 ×1"
+    },
+    "totals": [
+      {
+        "label": "攻击力",
+        "value": 2300.4,
+        "unit": ""
+      },
+      {
+        "label": "异常精通",
+        "value": 429,
+        "unit": ""
+      },
+      {
+        "label": "异常掌控",
+        "value": 255.4,
+        "unit": ""
+      }
+    ],
+    "note": "由仓库计算器（POST /api/panel/calc 同一份 core 逻辑）实算后固定，非手填。",
+    "computedAt": "2026-10-19T18:33:36+00:00",
+    "title": "非满配毕业面板（30 词条）"
+  }
+}

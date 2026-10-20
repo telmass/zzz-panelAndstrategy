@@ -40,13 +40,13 @@ strategy/<slug>/
 | 字段 | 内容 |
 | --- | --- |
 | `_meta` | `agentId`、`name`、`note`、`editorialSources`、`officialGuide` |
-| `background` | 可选，右侧全身背景图 URL |
-| `cinemaPriority` | 可选，关键命座（影画）推荐：`image`（命座图标 URL）+ `keyLevels`（关键影画编号数组，如 `[1,2,6]`）+ `note`（文字说明） |
+| `background` | 可选，右侧全身背景图 URL；`保存攻略` 导出卡片会把它放在左侧作为人物图 |
+| `cinemaPriority` | 可选，关键命座（影画）推荐：`image`（命座图标 URL）+ `keyLevels`（关键影画编号数组，如 `[1,2,6]`）+ `note`（文字说明；仅页面展示，导出卡片不带说明） |
 | `skillPriority` | 加点优先级链：每项 `key` / `label` / `icon` / `level` / `maxLevel` / `next` |
 | `weapons` | 音擎推荐：`tier` / `items[]`（`name` / `stats` / `icon`）/ `note` |
 | `driveBuilds` | 驱动盘方案数组：`name` / `set4`（对象或数组）/ `set2`（`main` + `alt`）/ `mainStats[]` / `subPriority` / 可选 `note`。**只要 4 件套不同，就写成独立方案（分页）**，即使 2 件套 / 主词条 / 副词条完全相同（参考 roxy：非锋御队 4 山大王 vs 锋御队 4 静听嘉音，共用同一份 set2/mainStats/subPriority）。方案名以使用场景开头（如 "非锋御队：…" / "锋御队：…"）。同一个 4 件套不应出现在多个方案中 |
-| `driveBuilds[].mainStats[]` | 主词条：`slot` / `main` / `alt` / `note`；`note` 为第四列备注 |
-| `graduationPanel` | 满配毕业面板：`build`（文案对象）/ `totals[]`（`label` / `value` / `unit`）/ `note` / `computedAt` |
+| `driveBuilds[].mainStats[]` | 主词条：`slot` / `main` / `alt` / `note`；`note` 为第四列备注。`保存攻略` 导出卡片会同时展示 `main` 与 `alt`（备选），`alt` 写 `"无"` 时自动隐藏 |
+| `graduationPanel` | 满配毕业面板：`build`（文案对象）/ `totals[]`（`label` / `value` / `unit`）/ `note` / `computedAt`。`build.subStats` 仍写完整 54 条；页面/导出卡片由 `substats.ts` 拆成「大词条 + 小词条」展示（如洛茜 47+7） |
 | `graduationPanelAlt` | 可选，非满配面板（同上结构，多一个 `title`） |
 | `teams` | 队伍推荐：`name` / `members[]`（`agentId` / `name` / `role` / `avatar` / `note` / `set4`） |
 | `textGuide` | 文字攻略：`title` / `lines[]` |
@@ -84,7 +84,8 @@ strategy/<slug>/
 ## 渲染约定
 
 - 模块顺序固定：攻略 → 基础面板 → 技能 → 影画
-- 侧边目录（紧凑版：主链接 32px / 子链接 26px / 操作按钮并排，全部内容在 768px 视口内免滚动）、滚动高亮、技能二级切换、影画分组、属性色、保存图片按钮都在共享渲染器里
-- **不要**为单个代理人改 `renderStrategy.ts` 或 `strategy.css`；确需新能力时改共享层，并为核心逻辑补测试
+- 侧边目录（紧凑版：主链接 32px / 子链接 26px / 操作按钮并排，全部内容在 768px 视口内免滚动）、滚动高亮、技能二级切换、影画分组、属性色、保存按钮都在共享渲染器里
+- 两个保存按钮：`保存攻略` 由 `frontend/src/strategy/strategyCard.ts` 按 JSON 生成 1360px 白底卡片（左侧 `background`、六条分支、驱动盘主词条 + 备选、毕业面板满配/非满配），`保存一图流` 仍截取整页；词条展示的 47+7 拆分在 `substats.ts`，计算仍用完整 54 条
+- **不要**为单个代理人改 `renderStrategy.ts` / `strategyCard.ts` / `substats.ts` / `strategy.css`；确需新能力时改共享层，并为核心逻辑补测试（`tests/strategy-card.spec.ts`、`tests/substats.spec.ts`）
 - 属性/职业图标文件名统一小写 slug：`honed-edge.png`、`attack.png` 等
 - **所有攻略专属图片文件名统一小写**：`film.png`（命座推荐图）、`tachie.png`、`background.png`、`cinema-2.png`、`cinema-3.png`。JSON 中的 `/images/…` URL 与磁盘文件名的大小写必须完全一致（部署到 Cloudflare 后 URL 区分大小写）

@@ -64,7 +64,7 @@
 ⚠️ 新增代理人 = `strategy/<slug>/data/` 数据目录 + 运行
 `python tools/gen_strategy_guides.py` 生成登记表；页面由共享渲染器提供，不需要复制
 `index.html/app.js/styles.css`。slug 必须以 `data/agent-name-mapping.json` 为准。
-图片一律写 `/images/…` URL。
+图片一律写 `/images/…` URL。`保存攻略` 会按 JSON 自动生成导出卡片（驱动盘主词条会带 `alt` 备选），毕业面板的 54 条在展示时拆成「大词条 + 小词条」，无需手工改数据。
 
 ### 我要改名或修攻略页引用
 
@@ -94,7 +94,7 @@
 | --- | --- |
 | **一处事实只写一次** | 数量、路径、命令优先写进 [project-overview.md](project-overview.md) 或对应专题，其他文档链接过去 |
 | **代码是唯一权威** | 文档与代码冲突时以代码为准，并回头修文档 |
-| **数字必须可核对** | 写「60 名 / 101 把 / 118 项」时附上数据文件或核对命令 |
+| **数字必须可核对** | 写「60 名 / 101 把 / 127 项」时附上数据文件或核对命令 |
 | **专题文档只讲一个主题** | 接口、数据字段、公式、部署、测试各自独立，不互相复制 |
 | **已知限制显式记录** | 技术债写进 [requirements.md](requirements.md) 第 7 节或 [structure-review.md](structure-review.md) |
 | **完成事项归档** | 移入 `completeds/` 后修正所有指向它的链接 |
@@ -112,7 +112,7 @@
 | [../backend/tests/README.md](../backend/tests/README.md) | 后端测试清单 |
 | [../strategy/README.md](../strategy/README.md) | 攻略数据契约、渲染架构与新增流程 |
 | `.github/skills/do_calculatorModel/SKILL.md` | 新增代理人预设 |
-| `.github/skills/agent-strategy/SKILL.md` | 攻略页抓取 → 编辑 → 毕业面板 → 渲染 |
+| `.github/skills/agent-strategy/SKILL.md` | 攻略页抓取 → 编辑 → 毕业面板 → 渲染/导出卡片 |
 | `.github/skills/fix-agent/SKILL.md` | 按中文名修正单个代理人的攻略页引用 |
 | `.github/skills/agent-background/SKILL.md` | 给攻略页加右侧全身背景图 |
 | `.github/skills/read-zzz-agent-stats/SKILL.md` | 代理人预设抓取与刷新 |

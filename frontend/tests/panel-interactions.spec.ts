@@ -412,7 +412,7 @@ describe('代理人 cascader 分组与载入', () => {
   it('每条代理人都带合法 attribute 与 grade', () => {
     const agents = usePresetStore().agents;
 
-    expect(agents).toHaveLength(60);
+    expect(agents).toHaveLength(61);
     for (const agent of agents) {
       expect(AGENT_ATTRIBUTES).toContain(agent.attribute);
       expect(AGENT_GRADES).toContain(agent.grade);

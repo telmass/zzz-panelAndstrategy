@@ -50,7 +50,7 @@
 | `api/` | **唯一**网络出口。`panel.ts`（计算）、`presets.ts`（预设）、`errors.ts`（`ApiError` 及两个子类） |
 | `types/` | TS 类型，与 `backend/src/zzz_panel/schemas/` 对齐 |
 | `constants/` | 两个文件：`calculatorOptions.ts`（`@data/options.json` → 7 张 `RuleOption[]`，加枚举与常量，以及 `HIDE_STANDARD_MODE_LABEL` + `panelModeTagLabel()`——隐藏「通用」模式名的唯一开关，两者都是**模块私有**，只在本文件内生效）与 `strategyGuides.ts`（攻略登记表，**由 `tools/gen_strategy_guides.py` 生成**，不要手改；决定 `/strategy` 卡片与 `/strategy/<slug>` 可达性） |
-| `strategy/` | 攻略页共享渲染层：`renderStrategy.ts`（从 legacy 模板迁移的唯一 DOM 渲染器）与 `strategy.css`（唯一一份攻略样式，收窄在 `.strategy-detail`）。新增代理人不再复制任何前端文件 |
+| `strategy/` | 攻略共享层：`renderStrategy.ts`（页面 DOM 渲染器）、`strategyCard.ts`（`保存攻略` 的 JSON 驱动导出卡片）、`substats.ts`（毕业面板词条 47+7 展示口径）与 `strategy.css`（页面 + 导出卡片样式）。新增代理人不再复制任何前端文件 |
 | `utils/` | `fmt.ts`（`fmt` + `escapeHtml`）、`clamp.ts`（只导出 `normalizeCount`；`clamp` 为模块私有） |
 | `assets/styles/` | 4 个文件，**顺序由 `index.css` 固定**：tokens → base → components |
 | `README.md` | 本目录的使用约定，见 [frontend/src/README.md](../frontend/src/README.md) |
@@ -168,12 +168,14 @@ src-layout，包名 `zzz_panel`。
 
 ## 4. frontend/tests/
 
-当前 118 项（5 个 spec 文件）。
+当前 127 项（7 个 spec 文件）。
 
 | 路径 | 说明 |
 | --- | --- |
 | `calculator-view.spec.ts` | 36 项渲染断言（计算器骨架、启动页、返回导航、指南页、攻略选择页与 `/strategy/:slug` 路由透传/守卫） |
-| `strategy-view.spec.ts` | 10 项：共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、加载/错误态、背景字段，以及全部代理人的数据渲染 |
+| `strategy-view.spec.ts` | 11 项：共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、毕业面板 47+7 展示、加载/错误态、背景字段，以及全部代理人的数据渲染 |
+| `strategy-card.spec.ts` | 4 项：`保存攻略` 导出卡片的结构、`background` 立绘、驱动盘主词条 + 备选、毕业面板 47+7、全部代理人可生成 |
+| `substats.spec.ts` | 4 项：洛茜 47+7、莱特 47+7、克拉蕾 37+17、叶瞬光 45+9，以及全部毕业面板可解析 |
 | `panel-interactions.spec.ts` | 51 项交互与后端对接 |
 | `strategy-ui.spec.ts` | 17 项攻略同款排版与侧边目录行为 |
 | `legacy-parity.spec.ts` | 4 项三方对拍 |
@@ -247,6 +249,8 @@ src-layout，包名 `zzz_panel`。
 `dist/strategy/<slug>/data/`）；视图侧是 `/strategy`（`StrategyPickerView`，卡片来自
 生成的 `strategyGuides.ts`）与 `/strategy/:slug`（`StrategyView`，共享渲染器）。
 新增代理人 = `strategy/<slug>/data/` + `python tools/gen_strategy_guides.py`。
+
+**导出卡片的数据约定**：`driveBuilds[].mainStats[]` 的 `slot / main / alt` 会被 `strategyCard.ts` 读取，`alt` 作为「备选」显示（`"无"` 自动隐藏）；`graduationPanel.build.subStats` 仍写完整 54 条，`substats.ts` 只在展示时拆成「大词条 + 小词条」，不要手改成 `47+7`。
 
 **图片不放在这里**：攻略 JSON 一律写 `/images/…` URL，文件本体落在
 `frontend/public/images/`（共享图标进 `skills/ icons/ grades/ attributes/`，

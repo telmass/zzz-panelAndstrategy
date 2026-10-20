@@ -17,6 +17,17 @@ export interface StrategyGuide {
 
 export const strategyGuides: StrategyGuide[] = [
   {
+    slug: 'phoenix',
+    name: '菲欧妮·蕾法爱菈',
+    shortName: '菲欧妮',
+    en: 'Phoenix',
+    agentId: 'ep-2216',
+    tachie: '/images/strategy/phoenix/tachie.png',
+    gradeIcon: '/images/grades/s.png',
+    attributeIcon: '/images/attributes/fire.png',
+    roleIcon: '/images/icons/anomaly.png',
+  },
+  {
     slug: 'roxy',
     name: '洛克茜·伊芙莉塔·普莱斯',
     shortName: '洛克茜',

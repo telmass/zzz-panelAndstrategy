@@ -13,7 +13,7 @@
 
 - **计算器**：选择代理人、音擎、核心技、驱动盘主副词条与二件套，得到最终面板与逐项计算明细。
 - **攻略库**：每个代理人一个数据驱动的攻略页（Vue 路由 + 共享渲染器），包含加点优先级、
-  音擎 / 驱动盘推荐、满配毕业面板、队伍搭配与文字攻略。
+  音擎 / 驱动盘推荐、满配毕业面板、队伍搭配与文字攻略；`保存攻略` 会按同一份 JSON 生成紧凑导出卡片。
 - **边界**：只算面板，不做伤害计算 / DPS 模拟；无账号、无云存档、无多语言。
 
 线上站点：<https://zzzstrategy.cc.cd>，生产形态是 Cloudflare Worker（Python Workers + 静态 Assets），
@@ -30,7 +30,7 @@
 | 代理人命名映射 | 62 条（含 2 条未上线） | `data/agent-name-mapping.json` |
 | 攻略页目录 | 60 个（全部已登记） | `strategy/` + `constants/strategyGuides.ts` |
 | 图片资源 | 398 张 PNG | `frontend/public/images/` |
-| 前端测试 | 118 项通过 | `cd frontend; npm run test` |
+| 前端测试 | 127 项通过 | `cd frontend; npm run test` |
 | 后端测试 | 310 项全部通过 | `.venv/Scripts/python -m pytest` |
 
 图片明细：代理人 60、音擎 100、驱动盘 30、职业 7、技能 6、属性 10、等级 2、攻略独有 183。
@@ -55,6 +55,7 @@
   │ 静态资源（Cloudflare Assets 或 Vite dev）
   ▼
 frontend/src/views/*.vue ── StrategyView.vue ──> strategy/renderStrategy.ts（共享渲染器）
+  │                                          ├─ strategyCard.ts（保存攻略导出卡片）
   │ 只经 src/api/*.ts 发请求                 └─ fetch /strategy/<slug>/data/*.json
   ▼
 POST /api/panel/calc · GET /api/presets/*
@@ -76,7 +77,7 @@ backend/src/zzz_panel/core/           规则真源：纯函数、零 IO、零框
 4. 前端不做面板算术，只提交「选了什么」。
 5. `frontend/tests/fixtures/legacy-calculator/` 是只读对拍基准，禁止修改。
 6. 攻略数据与主应用共用唯一图片根 `frontend/public/images/`，JSON 只写 `/images/…` URL；
-   攻略页由 `frontend/src/strategy/renderStrategy.ts` 统一渲染，`strategy/<slug>/` 只放数据。
+   攻略页由 `frontend/src/strategy/renderStrategy.ts` 统一渲染，`保存攻略` 由 `strategyCard.ts` 按 JSON 生成卡片，`strategy/<slug>/` 只放数据。
 
 ## 5. 数据流
 
@@ -148,7 +149,7 @@ cd frontend; npm install; cd ..
 
 pwsh tools/dev.ps1              # 一键启动前后端（推荐）
 uv run pytest                   # 后端 310 项
-cd frontend; npm run test       # 前端 118 项（不要与 pytest 并行）
+cd frontend; npm run test       # 前端 127 项（不要与 pytest 并行）
 cd frontend; npm run typecheck  # 类型检查
 cd frontend; npm run build      # 构建 dist/
 python tools/normalize_strategy.py --check   # 攻略数据命名/引用
@@ -186,7 +187,7 @@ uv run --group worker pywrangler deploy   # 国内网络需配置 HTTPS_PROXY
 ## 9. 维护规则
 
 1. **一处事实只写一次。** 数量、路径、命令优先写进本文或专题文档，其他文档链接过去，不再复制。
-2. **数字必须可核对。** 新增「60 名 / 101 把 / 118 项」这类断言时，同时写出核对命令或数据文件。
+2. **数字必须可核对。** 新增「60 名 / 101 把 / 127 项」这类断言时，同时写出核对命令或数据文件。
 3. **代码是权威。** 文档与实现冲突时改文档，而不是让代码迁就文档。
 4. **完成事项移入 `completeds/`。** 归档后修正所有指向它的链接。
 5. **结构变更同步结构审查。** 合入 P0/P1 修复后，更新 [structure-review.md](structure-review.md) 的状态。

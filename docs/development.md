@@ -80,7 +80,7 @@ uv run --group worker pywrangler dev
 
 ```powershell
 uv run pytest                          # 后端 310 项
-cd frontend; npm run test              # 前端 118 项
+cd frontend; npm run test              # 前端 127 项
 ```
 
 前端另外两个脚本：
@@ -349,7 +349,7 @@ pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该�
 uv run pytest                      # 后端 310 项，0 skip
 cd frontend
 npm run typecheck                  # 类型
-npm run test                       # 118 项，含三方对拍（与 pytest 串行跑）
+npm run test                       # 127 项，含三方对拍（与 pytest 串行跑）
 cd ..
 python tools/sync_presets.py --to-legacy --check
 python tools/sync_presets.py --options --check

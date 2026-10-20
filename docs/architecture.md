@@ -62,14 +62,18 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 
 - `views/StrategyView.vue`：按 slug 拉取 `/strategy/<slug>/data/*.json`，管理加载/错误态与卸载；
 - `strategy/renderStrategy.ts`：从 legacy 静态模板迁移的唯一渲染器，负责生成 DOM 与交互；
-- `strategy/strategy.css`：唯一一份攻略样式，收窄在 `.strategy-detail` 下，避免与主应用冲突。左侧导航栏为紧凑版（主链接 32px / 子链接 26px / 操作按钮并排），设计目标是在 768px 视口高度内完整展示、不产生内部滚动。
+- `strategy/strategyCard.ts`：`保存攻略` 的导出卡片构建器。完全由攻略 JSON 生成 1360px 白底 PNG（左侧 `background` 立绘 + 技能/命座/武器/驱动盘/队伍/毕业面板），不再截取页面；根类为 `strategy-card strategy-card--export`，用于覆盖启动页同名 `.strategy-card` / `.strategy-card__tachie` 规则；
+- `strategy/substats.ts`：毕业面板词条展示口径。计算仍用完整 54 条，展示拆成「大词条 + 小词条」（如洛茜 54 → `47+7`），详情页与导出卡片共用；
+- `strategy/strategy.css`：唯一一份攻略样式，页面样式收窄在 `.strategy-detail` 下；导出卡片样式使用 `.strategy-card--export` 作用域，避免与主应用冲突。左侧导航栏为紧凑版（主链接 32px / 子链接 26px / 操作按钮并排），设计目标是在 768px 视口高度内完整展示、不产生内部滚动。
 
 `vite.config.ts` 的 `strategyDataPlugin` 只做两件事：开发期把 `/strategy/<slug>/data/*.json`
 映射到仓库 `strategy/`，构建期只把两份 JSON 拷进 `dist/strategy/<slug>/data/`。
 不再有 iframe、`index.html`、`app.js`、`styles.css` 的每页副本。
 
+两个保存按钮的边界：`保存攻略` 走 `strategyCard.ts` 生成数据驱动卡片（驱动盘主词条卡片会同时展示 `main` 与 `alt` 备选）；`保存一图流` 仍截取整页。
+
 新增代理人 = 补 `strategy/<slug>/data/` + 运行 `tools/gen_strategy_guides.py`；
-渲染器与样式自动复用。`/strategy` 是选择页，`/strategy/:slug` 是同一个 `StrategyView`。
+渲染器、导出卡片与样式自动复用。`/strategy` 是选择页，`/strategy/:slug` 是同一个 `StrategyView`。
 
 ## 2. 分层与依赖方向铁律
 

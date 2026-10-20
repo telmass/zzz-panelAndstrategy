@@ -185,20 +185,24 @@ function driveBuildHtml(build: Json): string {
   </span>`;
 }
 
-function driveProps(strategy: Json): string {
-  const build = driveBuilds(strategy)[0];
-  if (!build) return '';
-  const stats = list(build.mainStats).filter((stat) => stat && typeof stat === 'object');
+function driveMainsHtml(strategy: Json): string {
+  const build = driveBuilds(strategy).find((item) => list(item.mainStats).length);
+  const stats = build ? list(build.mainStats).filter((stat) => stat && typeof stat === 'object') : [];
   if (!stats.length) return '';
-  return `<span class="strategy-card__sub strategy-card__sub--props">
-    <span class="strategy-card__sub-item strategy-card__sub-item--head">驱动盘属性</span>
-    ${stats
-      .map(
-        (stat, index) => `<span class="strategy-card__sub-item">
-          <i>${esc(index + 4)}</i>${esc(shortStat(stat.main))}
-        </span>`,
-      )
-      .join('')}
+  return `<span class="strategy-card__mains-row">
+    <span class="strategy-card__mains-label">主词条</span>
+    <span class="strategy-card__mains">${stats
+      .map((stat) => {
+        const alt = text(stat.alt).trim();
+        const altText = alt.replace(/\s*\/\s*/g, ' / ');
+        const hasAlt = altText && altText !== '无' && altText !== '—';
+        return `<span class="strategy-card__main"${stat.note ? ` title="${esc(stat.note)}"` : ''}>
+          <span class="strategy-card__main-slot">${esc(stat.slot || '')}</span>
+          <b>${esc(stat.main || '—')}</b>
+          ${hasAlt ? `<small><em>备选</em>${esc(altText)}</small>` : ''}
+        </span>`;
+      })
+      .join('')}</span>
   </span>`;
 }
 
@@ -207,7 +211,7 @@ function drivesHtml(strategy: Json): string {
   if (!builds.length) return '';
   return `<span class="strategy-card__builds">
     ${builds.map(driveBuildHtml).join('')}
-    ${driveProps(strategy)}
+    ${driveMainsHtml(strategy)}
   </span>`;
 }
 
