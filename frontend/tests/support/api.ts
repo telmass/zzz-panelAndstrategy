@@ -23,12 +23,16 @@ import type { WeaponPreset } from '@/types/weaponPresets';
 
 const REPO_ROOT = resolve(__dirname, '../../..');
 
-function readPreset<T>(name: string): T[] {
-  return JSON.parse(readFileSync(resolve(REPO_ROOT, 'data', name), 'utf-8')) as T[];
+/**
+ * 预设数据读仓库根的真实内容。路径由 `data/manifest.json` 登记，
+ * 这里用 `@data` 别名同源的相对路径读，避免把文件名再写一遍。
+ */
+function readPreset<T>(relativePath: string): T[] {
+  return JSON.parse(readFileSync(resolve(REPO_ROOT, 'data', relativePath), 'utf-8')) as T[];
 }
 
-const AGENT_PRESETS = readPreset<AgentPreset>('agent-presets.json');
-const WEAPON_PRESETS = readPreset<WeaponPreset>('weapon-presets.json');
+const AGENT_PRESETS = readPreset<AgentPreset>('catalog/agents.json');
+const WEAPON_PRESETS = readPreset<WeaponPreset>('catalog/weapons.json');
 
 const EMPTY_TOTALS: Record<string, number> = {
   hp: 10200,

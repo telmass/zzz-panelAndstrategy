@@ -4,7 +4,7 @@
     "entryPageId": 2076,
     "name": "蕾米埃尔·丹",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2076/detail",
-    "scrapedAt": "2026-10-17T03:31:50+00:00"
+    "scrapedAt": "2026-10-20T11:01:29+00:00"
   },
   "profile": {
     "name": "蕾米埃尔·丹",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】流明异常、后场输出、全队增伤、积蓄输出\n【角色详情】蕾米埃尔是S级流明属性异常类代理人，适合搭配其他属性异常类代理人一同出战。在队友触发流明属性的“异化”反应后，蕾米埃尔可积攒“虚耀”点数，以此触发“耀变”效果并造成大量伤害。此外蕾米埃尔还可通过普通攻击积攒“浮晖”，积攒满后释放特殊技可使蕾米埃尔进入“相变时流”状态，切至后场辅助攻击。在实战中先通过普攻积攒“浮晖“，然后通过特殊技进入“相变时流“状态，在后场积攒“虚耀”点数，积攒满后切至前场释放强化普攻触发“耀变”效果造成大量伤害，之后继续进入“相变时流”状态，以此形成输出循环。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/lumiflux.png",
-      "title": "/images/strategy/remielle/title.png"
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/lumiflux.webp",
+      "title": "/images/strategy/remielle/title.webp"
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7482,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 748,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 83,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 115,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 116,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-2076.png",
+    "avatar": "/images/agents/ep-2076.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/22/15559334/13b7b06627a8a99ffdf1f397b1daf7d1_5495460923605178593.png",
-    "tachie": "/images/strategy/remielle/tachie.png",
+    "tachie": "/images/strategy/remielle/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/22/15559334/9a7f9e783be2279e026e8d6358942d16_8868901248011836016.png"
   },
   "skills": [
@@ -1207,7 +1155,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1776,7 +1724,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2801,7 +2749,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3644,7 +3592,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -4209,7 +4157,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -4218,8 +4166,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：时序=万色滞行\n蕾米埃尔的[异化系数]为自身异常精通的0.02%，且当队伍中[异常]角色数量为3时，[异化系数]额外提升10%；\n蕾米埃尔通过队友触发[异化]反应时，会根据此次属性异常效果在受到[异化]加强后的[异常效果强度]生成[虚曜]］，最多可储存最新生成的3个[虚曜]；\n若[支援技：花羽轮舞]/[终结技：缭乱终幕]/[普通攻击：垂虹]/[普通攻击：惊鸿]命中目标，在招式结束后可触发[耀变]效果：\n基于已储存的所有[虚曜]中的[异常效果强度]，对敌人造成招式对应倍率的属性异常伤害，并根据自身异常精通的0.1%提升此伤害倍率；，基础攻击力提升75点。（此处数据为满级数据）\n蕾米埃尔在进入[相变时流]状态时或发动[普通攻击：垂虹]或[普通攻击：惊鸿]后，会清空身上储存的所有[虚曜]。\n\n额外能力：芳菲之邀\n队伍中存在其他[异常]角色或同阵营角色时触发：\n当队伍中[异常]角色数量为1/2/3时，进入战场时为全队角色提升等同于蕾米埃尔初始攻击力6%/12%/40%的攻击力，提升上限不超过1600点，蕾米埃尔在[相变时流]状态下造成的失衡值提升6%/12%/35%；\n蕾米埃尔为敌人施加[流明积蓄点]时会同时附加[幻色]效果：全队角色攻击[幻色]效果下的敌人时，异常积蓄效率提升15%，敌人身上无[流明积蓄点]时[幻色]效果\n消失，[幻色]效果消失后该异常积蓄效率提升效果会额外持续8秒。",
+          "title": "核心技：时序=万色滞行",
+          "text": "蕾米埃尔的[异化系数]为自身异常精通的0.02%，且当队伍中[异常]角色数量为3时，[异化系数]额外提升10%；\n蕾米埃尔通过队友触发[异化]反应时，会根据此次居性异常效果在受到[异化]加强后的[异常效果强度]生成[虚曜]］，最多可储存最新生成的3个[虚曜]；\n若[支援技：花羽轮舞]/[终结技：缭乱终幕]/[普通攻击：垂虹]/[普通攻击：惊鸿]命中目标，在招式结束后可触发[耀变]效果：\n基于已储存的所有[虚曜]中的[异常效果强度]，对敌人造成招式对应倍率的属性异常伤害，并根据自身异常精通的0.2%提升此伤害倍率；\n蕾米埃尔在进入[相变时流]状态时或发动[普通攻击：垂虹]或[普通攻击：惊鸿]后，会清空身上储存的所有[虚曜]。",
           "growth": [
             {
               "level": "A",
@@ -4288,9 +4236,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：芳菲之邀",
+          "text": "队伍中存在其他[异常]角色或同阵营角色时触发：\n当队伍中[异常]角色数量为1/2/3时，进入战场时为全队角色提升等同于蕾米埃尔初始攻击力6%/12%/40%的攻击力，提升上限不超过1600点，蕾米埃尔在[相变时流]状态下造成的失衡值提升6%/12%/35%；\n蕾米埃尔为敌人施加[流明积蓄点]时会同时附加[幻色]效果：全队角色攻击[幻色]效果下的敌人时，异常积蓄效率提升15%，敌人身上无[流明积蓄点]时[幻色]效果\n消失，[幻色]效果消失后该异常积蓄效率提升效果会额外持续8秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/22/15559334/d8637272dbc8927b496eb7f79791cc7d_6632099402899463930.png"
     }
   ],
@@ -4328,27 +4280,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/remielle/cinema-2.png",
+      "image": "/images/strategy/remielle/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/29/71319299/f545057ce54af3eaa43562c77a92a27e_2688996149089548061.png"
     },
     "2": {
-      "image": "/images/strategy/remielle/cinema-2.png",
+      "image": "/images/strategy/remielle/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/29/71319299/f545057ce54af3eaa43562c77a92a27e_2688996149089548061.png"
     },
     "3": {
-      "image": "/images/strategy/remielle/cinema-2.png",
+      "image": "/images/strategy/remielle/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/29/71319299/f545057ce54af3eaa43562c77a92a27e_2688996149089548061.png"
     },
     "4": {
-      "image": "/images/strategy/remielle/cinema-3.png",
+      "image": "/images/strategy/remielle/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/29/71319299/021fcee0948bf9f95d46322aa436693d_3115366706395102010.png"
     },
     "5": {
-      "image": "/images/strategy/remielle/cinema-3.png",
+      "image": "/images/strategy/remielle/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/29/71319299/021fcee0948bf9f95d46322aa436693d_3115366706395102010.png"
     },
     "6": {
-      "image": "/images/strategy/remielle/cinema-3.png",
+      "image": "/images/strategy/remielle/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/29/71319299/021fcee0948bf9f95d46322aa436693d_3115366706395102010.png"
     }
   }

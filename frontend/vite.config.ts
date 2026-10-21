@@ -20,6 +20,21 @@ import vue from '@vitejs/plugin-vue';
 const STRATEGY_ROOT = resolve(fileURLToPath(new URL('../strategy', import.meta.url)));
 const STRATEGY_PREFIX = '/strategy/';
 
+/**
+ * 数据集登记表。路径只在这里声明一次（`data/manifest.json`），
+ * 本文件按 id 取用，不再自己记文件名。
+ */
+const DATA_DIR = fileURLToPath(new URL('../data', import.meta.url));
+const MANIFEST_PATH = join(DATA_DIR, 'manifest.json');
+
+interface ManifestEntry {
+  path: string;
+}
+
+interface Manifest {
+  datasets: Record<string, ManifestEntry>;
+}
+
 /** 目录名即 URL 片段，限制为小写字母/数字/连字符，避免穿越与大小写歧义。 */
 const STRATEGY_SLUG_PATTERN = /^[a-z0-9][a-z0-9-]*$/;
 
@@ -47,14 +62,24 @@ async function isFile(path: string): Promise<boolean> {
   }
 }
 
+/** 读取登记表并返回某个数据集的绝对路径。 */
+async function datasetPath(id: string): Promise<string> {
+  const manifest = JSON.parse(await readFile(MANIFEST_PATH, 'utf-8')) as Manifest;
+  const entry = manifest.datasets[id];
+  if (!entry) {
+    throw new Error(`数据集 ${id} 未在 data/manifest.json 中登记`);
+  }
+  return join(DATA_DIR, entry.path);
+}
+
 /** strategy/ 下每个含 data/ 的子目录即一个攻略数据目录。 */
 async function listStrategyDataDirs(): Promise<StrategyDataDir[]> {
   const entries = await readdir(STRATEGY_ROOT, { withFileTypes: true });
   // 只打包已发布的 slug（在 agent-presets 中有对应预设的），
   // 防止未发布/不完整的目录被意外带进 dist。
-  const presetsText = await readFile(resolve(STRATEGY_ROOT, '..', 'data', 'agent-presets.json'), 'utf-8');
+  const presetsText = await readFile(await datasetPath('agents'), 'utf-8');
   const presets: Array<{ id: string }> = JSON.parse(presetsText);
-  const agentsText = await readFile(resolve(STRATEGY_ROOT, '..', 'data', 'agent-name-mapping.json'), 'utf-8');
+  const agentsText = await readFile(await datasetPath('agent-index'), 'utf-8');
   const mapping: Array<{ slug: string }> = JSON.parse(agentsText);
   const mappingSlugs = new Set(mapping.map((m) => m.slug));
   const dirs: StrategyDataDir[] = [];

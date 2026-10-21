@@ -4,7 +4,7 @@
     "entryPageId": 485,
     "name": "派派·韦尔",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/485/detail",
-    "scrapedAt": "2026-10-18T05:17:09+00:00"
+    "scrapedAt": "2026-10-20T11:01:00+00:00"
   },
   "profile": {
     "name": "派派·韦尔",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】快速异常、全队加伤、清杂优秀\n【角色详情】派派是一位优秀的物理属性异常角色，她可以在「强化特殊技：引擎转」和「终结技」中发动旋转斩击命中敌人，来获得名为「动力」的层数，每层「动力」都会提高自身一定比例的物理异常积蓄效率；当队友满足条件且派派拥有20层或以上的「动力」时，全队造成的伤害提升。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 6976,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 683,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 116,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-485.png",
+    "avatar": "/images/agents/ep-485.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/76099754/90668b1414a002827f47c02feccbdf3e_8975374000446600175.png",
-    "tachie": "/images/strategy/piper/tachie.png",
+    "tachie": "/images/strategy/piper/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/102594259ff0844c16286931f27e3738_7546128660858702351.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2810,7 +2758,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3375,7 +3323,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3384,8 +3332,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：动力蓄能\n派派在[强化特殊技：引擎转]或[终结技]中发动旋转斩击命中敌人时，获得1层[动力]，最多叠加20层，持续12秒，重复触发时刷新持续时间；每拥有一层[动力]，派派的物理异常积蓄效率提升2%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：同步疾驰\n队伍中存在与自身属性或阵营相同的角色或其他[异常]角色时触发：\n派派拥有20层或以上[动力]时，全队角色造成的伤害提升18%。",
+          "title": "核心技：动力蓄能",
+          "text": "派派在[强化特殊技：引擎转]或[终结技]中发动旋转斩击命中敌人时，获得1层[动力]，最多叠加20层，持续12秒，重复触发时刷新持续时间；每拥有一层[动力]，派派的物理异常积蓄效率提升4%。",
           "growth": [
             {
               "level": "A",
@@ -3454,9 +3402,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：同步疾驰",
+          "text": "队伍中存在与自身属性或阵营相同的角色或其他[异常]角色时触发：\n派派拥有20层或以上[动力]时，全队角色造成的伤害提升18%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/30/82500917/a6b11ef0de36b79645211e580fd413ab_5744601174791094955.png"
     }
   ],
@@ -3494,27 +3446,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/piper/cinema-2.png",
+      "image": "/images/strategy/piper/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/028b005db3713df02fec8d34a7512e47_7140093372324057081.png"
     },
     "2": {
-      "image": "/images/strategy/piper/cinema-2.png",
+      "image": "/images/strategy/piper/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/028b005db3713df02fec8d34a7512e47_7140093372324057081.png"
     },
     "3": {
-      "image": "/images/strategy/piper/cinema-2.png",
+      "image": "/images/strategy/piper/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/028b005db3713df02fec8d34a7512e47_7140093372324057081.png"
     },
     "4": {
-      "image": "/images/strategy/piper/cinema-3.png",
+      "image": "/images/strategy/piper/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/881dfce1cd686f5f5f3d3c7704efa763_915923293465944749.png"
     },
     "5": {
-      "image": "/images/strategy/piper/cinema-3.png",
+      "image": "/images/strategy/piper/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/881dfce1cd686f5f5f3d3c7704efa763_915923293465944749.png"
     },
     "6": {
-      "image": "/images/strategy/piper/cinema-3.png",
+      "image": "/images/strategy/piper/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/82500917/881dfce1cd686f5f5f3d3c7704efa763_915923293465944749.png"
     }
   }

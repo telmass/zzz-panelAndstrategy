@@ -5,6 +5,9 @@ description: Design rulebook and diagnostic layer for web UI, distilled from Ref
 
 # Refactoring UI
 
+> 🧭 本 skill 是 `get-agent-strategy` 的子流程，通常由它编排调用；单独使用同样有效。
+> 共享规则见 [`_shared/naming.md`](../_shared/naming.md)。
+
 ## What this skill is
 
 This skill is the **constraint and diagnosis layer** for interface work. It supplies the rules a design must satisfy and finds where a design breaks them.

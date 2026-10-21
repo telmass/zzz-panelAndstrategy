@@ -47,30 +47,31 @@ backend/src/zzz_panel/cli.py             命令行入口（uv run zzz-panel-and-
 决定哪些路径进 Worker，其余由 Assets 层直接返回（不进脚本、不计 CPU）。
 
 **后端不托管前端静态文件**——`api/app.py` 中没有 `StaticFiles`，也没有 `mount()`。
-详见 [deployment.md](deployment.md)。
+详见 [deployment.md](../guides/deployment.md)。
 
 ### 迁移前的原生实现
 
 Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为**只读参照基准**
-保留在 `frontend/tests/fixtures/legacy-calculator/`，仅供[三方对拍](testing.md)，
+保留在 `frontend/tests/fixtures/legacy-calculator/`，仅供[三方对拍](../guides/testing.md)，
 不参与运行时与构建。删除记录见
-[completeds/legacy-pages.md](completeds/legacy-pages.md)。
+[completeds/legacy-pages.md](../completeds/legacy-pages.md)。
 
 ### 攻略页：Vue 路由 + 共享渲染器
 
 `strategy/<slug>/` 只保存该代理人的两份 JSON 数据；页面由主应用统一渲染：
 
 - `views/StrategyView.vue`：按 slug 拉取 `/strategy/<slug>/data/*.json`，管理加载/错误态与卸载；
-- `strategy/renderStrategy.ts`：从 legacy 静态模板迁移的唯一渲染器，负责生成 DOM 与交互；
-- `strategy/strategyCard.ts`：`保存攻略` 的导出卡片构建器。完全由攻略 JSON 生成 1360px 白底 PNG（左侧 `background` 立绘 + 技能/命座/武器/驱动盘/队伍/毕业面板），不再截取页面；根类为 `strategy-card strategy-card--export`，用于覆盖启动页同名 `.strategy-card` / `.strategy-card__tachie` 规则；
-- `strategy/substats.ts`：毕业面板词条展示口径。计算仍用完整 54 条，展示拆成「大词条 + 小词条」（如洛茜 54 → `47+7`），详情页与导出卡片共用；
-- `strategy/strategy.css`：唯一一份攻略样式，页面样式收窄在 `.strategy-detail` 下；导出卡片样式使用 `.strategy-card--export` 作用域，避免与主应用冲突。左侧导航栏为紧凑版（主链接 32px / 子链接 26px / 操作按钮并排），设计目标是在 768px 视口高度内完整展示、不产生内部滚动。
+- `frontend/src/strategy/renderStrategy.ts`：从 legacy 静态模板迁移的唯一渲染器，负责生成 DOM 与交互；
+- `frontend/src/strategy/strategyCard.ts`：`保存攻略` 的导出卡片构建器。完全由攻略 JSON 生成 1360px 白底 PNG（左侧 `background` 立绘 + 技能/命座/武器/驱动盘/队伍/毕业面板），不再截取页面；根类为 `strategy-card strategy-card--export`，用于覆盖启动页同名 `.strategy-card` / `.strategy-card__tachie` 规则。**导出卡片内部一律用 flex 布局**（html2canvas 不支持 grid，会被拍平成竖排），并显式重置启动页卡片继承来的 `flex-direction` / `align-items` / `justify-content`；立绘用 `max-width/max-height` 约束而非 `object-fit`。驱动盘主词条按 4/5/6 号位给三个小框，首选与备选同框且左对齐，只显示词条名，数值后缀（如 `+92` / `+30%`）仅详情页保留；主词条按方案分组（共用则一行、不同则各自成组）；驱动盘套装按**装备组**渲染——`set2` / `set2b` / `set2c` 三组 2 件套（并列，都要装）各出一栏，编号 ①②③；**没有 4 件套组时（2+2+2）整个「4 件套」栏不渲染**，留个空栏会让人以为漏了内容。单组时沿用旧口径（写效果名，一组候选常常同效果）；多组时组内效果可能相同，靠**套装名**才分得清；
+- `frontend/src/strategy/substats.ts`：毕业面板词条展示口径。计算仍用完整 54 条，展示拆成「大词条 + 小词条」（如洛茜 54 → `47+7`），详情页与导出卡片共用；
+- `frontend/src/strategy/strategy.css`：唯一一份攻略样式，页面样式收窄在 `.strategy-detail` 下；导出卡片样式使用 `.strategy-card--export` 作用域，避免与主应用冲突。左侧导航栏为紧凑版（主链接 32px / 子链接 26px / 操作按钮并排），设计目标是在 768px 视口高度内完整展示、不产生内部滚动。
 
 `vite.config.ts` 的 `strategyDataPlugin` 只做两件事：开发期把 `/strategy/<slug>/data/*.json`
 映射到仓库 `strategy/`，构建期只把两份 JSON 拷进 `dist/strategy/<slug>/data/`。
 不再有 iframe、`index.html`、`app.js`、`styles.css` 的每页副本。
 
-两个保存按钮的边界：`保存攻略` 走 `strategyCard.ts` 生成数据驱动卡片（驱动盘主词条卡片会同时展示 `main` 与 `alt` 备选）；`保存一图流` 仍截取整页。
+两个保存按钮的边界：**同一张图，两种交付方式**——`保存攻略` 走 `strategyCard.ts` 生成数据驱动卡片后**下载**；`复制攻略` 生成同一张卡片后**写进系统剪贴板**，可直接粘贴（剪贴板不可用时退回下载）。
+卡片横向 1600px，驱动盘主词条单元按内容分配宽度（`flex: 1 1 auto`）——文案长的那个盒子更宽，不再三个等分硬挤。
 
 新增代理人 = 补 `strategy/<slug>/data/` + 运行 `tools/gen_strategy_guides.py`；
 渲染器、导出卡片与样式自动复用。`/strategy` 是选择页，`/strategy/:slug` 是同一个 `StrategyView`。
@@ -92,7 +93,7 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 | 曾经的错误 | 现状 |
 | --- | --- |
 | 第 2 步前端组件内自行计算面板 | 已下沉到 `core/`；`usePanelCalc.buildRequest` 只组装选择项 |
-| 预设数据在前端持有副本 | 已改为 `GET /api/presets/*`；前端不再 import `data/*.json` |
+| 预设数据在前端持有副本 | 已改为 `GET /api/presets/*`；前端不再 import `data/catalog/*.json` |
 | `SetEffectModule.vue` 直接用原生 `<select>`，未走 `SelectField` | **仍存在**。属样式层不一致，不违反上表任何一条铁律，故未修 |
 
 ## 3. 数据流
@@ -101,23 +102,23 @@ Vue3 迁移已完成。旧的原生 HTML 实现已删除，其计算部分作为
 
 | 数据 | 存放| 消费者 | 理由 |
 | --- | --- | --- | --- |
-| 代理人预设（60 条）<br>音擎预设（101 条） | `data/*.json` → `GET /api/presets/*` | 后端 `presets/loader.py`、前端经 HTTP | 数据量大、更新频率高（跟随游戏版本），走接口便于统一缓存与失效 |
+| 代理人预设（61 条）<br>音擎预设（101 条） | `data/catalog/*.json` → `GET /api/presets/*` | 后端 `presets/loader.py`、前端经 HTTP | 数据量大、更新频率高（跟随游戏版本），走接口便于统一缓存与失效 |
 | 同上，**Worker 上的形态** | `data/*.json` → 编译进 `zzz_panel/_bundled_data.py` | Worker 里的 `presets/loader.py` | Worker 没有仓库目录，`data/` 上不去（pywrangler 只传 `.py`）。磁盘上有 `data/` 时优先读磁盘，编译产物只作兜底 |
-| 配装规则表（7 张表） | `data/options.json` → `@data` 别名直接 import | 前端 `constants/calculatorOptions.ts` | 下拉框要瞬时可用，不能等一次 HTTP 往返，也不能因接口不可用就瘫掉。**不编译进后端包** |
-| 驱动盘套装效果（30 套） | `data/drive-disc-presets.json` + `frontend/public/images/discs/` | Vue 路由攻略页（`StrategyView` + `renderStrategy.ts`）；计算器 UI 仍未接入（待做，见 [requirements.md](requirements.md) 第 7 节） | 与预设同为 Wiki 抓取物，但当前不进计算器：没有规则表条目、没有接口、不编译进 Worker。`image` 字段是 `/images/…` URL（唯一图片根约定，见 [directory-layout.md](directory-layout.md) 第 2.2 节），不是仓库相对路径 |
+| 配装规则表（7 张表） | `data/rules/calculator-rules.json` → `@data` 别名直接 import | 前端 `constants/calculatorOptions.ts` | 下拉框要瞬时可用，不能等一次 HTTP 往返，也不能因接口不可用就瘫掉。**不编译进后端包** |
+| 驱动盘套装效果（30 套） | `data/catalog/drive-discs.json` + `frontend/public/images/discs/` | Vue 路由攻略页（`StrategyView` + `renderStrategy.ts`）；计算器 UI 仍未接入（待做，见 [requirements.md](../overview/requirements.md) 第 7 节） | 与预设同为 Wiki 抓取物，但当前不进计算器：没有规则表条目、没有接口、不编译进 Worker。`image` 字段是 `/images/…` URL（唯一图片根约定，见 [directory-layout.md](../overview/directory-layout.md) 第 2.2 节），不是仓库相对路径 |
 | 对拍夹具的 JS 包装 | `tests/fixtures/legacy-calculator/data/*.js` | 仅三方对拍 | 参照实现在顶层直接读 `window.AGENT_PRESETS`，删了它对拍就跑不起来 |
 
-`data/` 下五个 JSON 中，四个是生成物，`agent-name-mapping.json` 是手工维护的规范 slug 表。
-改生成物必须重新生成，且有测试守卫漂移：
+`data/` 下五个 JSON 中，四个是生成物，`catalog/agent-index.json` 是手工维护的规范 slug 表；
+路径由 `data/manifest.json` 统一登记。改生成物必须重新生成，且有闸门守卫漂移：
 
 | 生成物 | 源头 | 生成命令 | 漂移守卫 |
 | --- | --- | --- | --- |
-| `agent-presets.json`<br>`weapon-presets.json` | `.github/skills/*/scripts/refresh_*_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | `test_presets.py` 断言数据规范化 |
-| 夹具 `data/*.js` | `data/*.json` | `sync_presets.py --to-legacy` | `sync_presets.py --to-legacy --check` |
-| `options.json` | `core/options.py` + `core/constants.py` | `sync_presets.py --options` | `backend/tests/test_options_json.py` |
-| `drive-disc-presets.json` | `.github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | **无自动守卫**：不在 `--to-legacy` / `bundle` 覆盖范围内，靠重跑幂等（JSON 字节不变）与人工核对 |
-| `_bundled_data.py`（gitignored） | `data/agent-presets.json`<br>`data/weapon-presets.json` | `tools/bundle_worker_data.py` | `bundle_worker_data.py --check`<br>`backend/tests/test_worker_bundle.py` |
-| `agent-name-mapping.json`（手写） | 维护者 / `fix-agent` Skill | 不经生成器；作为 slug 唯一来源 | 由 gen_strategy_guides.py --check 与 test_strategy_data.py 守卫（目录 ↔ 登记表 ↔ mapping 一致性） |
+| `catalog/agents.json`<br>`catalog/weapons.json` | `.github/skills/*/scripts/refresh_*_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | `test_presets.py` 断言数据规范化 |
+| 夹具 `data/*.js` | **冻结的快照**（不再生成） | 无 | `backend/tests/test_legacy_fixture_snapshot.py`（语义等值） |
+| `rules/calculator-rules.json` | `core/options.py` + `core/constants.py` | `sync_presets.py --options` | `backend/tests/test_options_json.py` |
+| `catalog/drive-discs.json` | `.github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py`（联网抓官方 Wiki） | 抓取脚本直接写 | `sync_manifest.py --check`（**要**跑，它登记在册）；不进 Worker 产物，靠重跑幂等（JSON 字节不变）与人工核对 |
+| `_bundled_data.py`（gitignored） | `data/catalog/agents.json`<br>`data/catalog/weapons.json` | `tools/bundle_worker_data.py` | `bundle_worker_data.py --check`<br>`backend/tests/test_worker_bundle.py` |
+| `catalog/agent-index.json`（手写） | 维护者 / `fix-agent` Skill | 不经生成器；作为 slug 唯一来源 | 由 gen_strategy_guides.py --check 与 test_strategy_data.py 守卫（目录 ↔ 登记表 ↔ mapping 一致性） |
 
 ### 面板计算的往返
 
@@ -157,9 +158,9 @@ ResultPanel 展示
 | 明细返回结构化片段 | 返回 HTML 字符串 | 后端不掺入展示逻辑 |
 | 响应字段 camelCase、`totals` 键用短名、`breakdown` 键用长名 | 全部统一一种风格 | 有意的不统一，且有测试锁住。前端 `types/panel.ts` 与之逐字对齐 |
 | 保留旧实现作只读夹具 | 直接删除 | 三方对拍是唯一的端到端正确性保证；删掉后 `test_fmt_parity.py` 还会静默 skip 成假绿灯 |
-| 副词条上限 36/54 只在前端钳制 | 后端也限制 | 后端无上限契约，`core` 只做 `max(0, floor(x))`；详见 [requirements.md](requirements.md) 已知限制 |
-| 生产部署用 Cloudflare Worker | 自建服务器 + Nginx 反代 | 一个 URL 同时提供页面与 API，不维护服务器、不做端口映射。代价是只能装纯 Python 包、只能上传 `.py`（预设因此要编译进包），见 [deployment.md](deployment.md) |
-| 站点公开、无鉴权 | Cloudflare Access / Worker 内 Basic Auth | 全站无账号、无个人信息、无可写数据面。**这是刻意决定**，依据与残留风险见 [deployment.md](deployment.md) 5.9 |
+| 副词条上限 36/54 只在前端钳制 | 后端也限制 | 后端无上限契约，`core` 只做 `max(0, floor(x))`；详见 [requirements.md](../overview/requirements.md) 已知限制 |
+| 生产部署用 Cloudflare Worker | 自建服务器 + Nginx 反代 | 一个 URL 同时提供页面与 API，不维护服务器、不做端口映射。代价是只能装纯 Python 包、只能上传 `.py`（预设因此要编译进包），见 [deployment.md](../guides/deployment.md) |
+| 站点公开、无鉴权 | Cloudflare Access / Worker 内 Basic Auth | 全站无账号、无个人信息、无可写数据面。**这是刻意决定**，依据与残留风险见 [deployment.md](../guides/deployment.md) 5.9 |
 
 ## 5. 开发命令
 
@@ -180,16 +181,16 @@ npm run build                     # 产物到 frontend/dist/
 ```
 
 开发期 Vite 代理 `/api`，因此**不涉及 CORS**；CORS 白名单只是跨域部署时的兜底。
-详见 [deployment.md](deployment.md)。
+详见 [deployment.md](../guides/deployment.md)。
 
 ## 6. 相关文档
 
-- [requirements.md](requirements.md) —— 项目定位、功能范围、约束与已知限制
-- [api-reference.md](api-reference.md) —— HTTP 接口与数据结构
+- [requirements.md](../overview/requirements.md) —— 项目定位、功能范围、约束与已知限制
+- [api-reference.md](../reference/api-reference.md) —— HTTP 接口与数据结构
 - [data-schema.md](data-schema.md) —— 预设与选项表字段定义
 - [calculation-rules.md](calculation-rules.md) —— 计算公式
-- [directory-layout.md](directory-layout.md) —— 目录职责详解
-- [development.md](development.md) —— 开发流程、数据管线、常见坑
-- [testing.md](testing.md) —— 测试策略与三方对拍
-- [deployment.md](deployment.md) —— 构建与部署形态
-- [changelog.md](changelog.md) —— 变更记录
+- [directory-layout.md](../overview/directory-layout.md) —— 目录职责详解
+- [development.md](../guides/development.md) —— 开发流程、数据管线、常见坑
+- [testing.md](../guides/testing.md) —— 测试策略与三方对拍
+- [deployment.md](../guides/deployment.md) —— 构建与部署形态
+- [changelog.md](../changelog.md) —— 变更记录

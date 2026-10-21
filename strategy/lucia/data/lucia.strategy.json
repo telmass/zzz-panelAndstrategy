@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/lucia/background.webp",
   "_meta": {
     "agentId": "ep-1533",
     "name": "卢西娅·艾洛温",
@@ -15,7 +16,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -39,7 +40,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "铸梦炉歌",
           "stats": "S 级 · 基础攻击 713 · 生命值 30%",
-          "icon": "/images/weapons/ep-1611.png"
+          "icon": "/images/weapons/ep-1611.webp"
         }
       ],
       "note": "专武（WIKI 推荐表仅列卢西娅）：目前唯一副词条为生命值的支援音擎，把 24000 阈值的词条压力从 20 条大生命压到 10 条；后场每 0.64 点/秒回能保证约 36 秒一次强化特殊技，开启或延长以太帷幕时全队增伤 +40%、生命上限 +24%（45 秒、可刷新）。"
@@ -79,7 +80,7 @@
         {
           "name": "啜泣摇篮",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-218.png"
+          "icon": "/images/weapons/ep-218.webp"
         }
       ],
       "note": "常驻 S 级，后场每 1.2 点/秒回能同样能维持强特循环；但没有生命词条，堆 24000 需要 20 条大生命，且增伤只在命中后的 3 秒内生效。"
@@ -90,7 +91,7 @@
         {
           "name": "好斗的阿炮",
           "stats": "A 级 · 基础攻击 624 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-486.png"
+          "icon": "/images/weapons/ep-486.webp"
         }
       ],
       "note": "A 级回能副词条 + 友方单位命中叠全队攻击（每层 4%、最多 4 层），与召唤物队友（橘福福）能快速叠满；同样没有生命加成。"
@@ -101,12 +102,12 @@
         {
           "name": "聚宝箱",
           "stats": "A 级 · 基础攻击 624 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-217.png"
+          "icon": "/images/weapons/ep-217.webp"
         },
         {
           "name": "逍遥游球",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-213.png"
+          "icon": "/images/weapons/ep-213.webp"
         }
       ],
       "note": "聚宝箱的特效需要以太伤害才能触发（她是以太属性、可以吃到），但追加攻击不触发、覆盖率有限；逍遥游球需要攻击命中触发属性克制，只能打以太弱点敌人。"
@@ -119,18 +120,18 @@
         "name": "月光骑士颂",
         "label": "能量自动回复 +20%",
         "effect4": "装备者为[支援]角色时，发动[强化特殊技]或[终结技]会使全队角色造成的伤害提升18%，持续25秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-        "icon": "/images/discs/ep-1551.png"
+        "icon": "/images/discs/ep-1551.webp"
       },
       "set2": {
         "main": {
           "name": "云岿如我",
           "label": "生命值 +10%",
-          "icon": "/images/discs/ep-1347.png"
+          "icon": "/images/discs/ep-1347.webp"
         },
         "alt": {
           "name": "摇摆爵士",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-231.png"
+          "icon": "/images/discs/ep-231.webp"
         }
       },
       "mainStats": [
@@ -185,16 +186,16 @@
           "agentId": "ep-1299",
           "name": "仪玄",
           "role": "命破",
-          "avatar": "/images/agents/ep-1299.png",
+          "avatar": "/images/agents/ep-1299.webp",
           "note": "玄墨命破站场主C，最契合卢西娅的队友；她的生命上限提升让仪玄按 10:1 额外转出贯穿力。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             },
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         },
@@ -202,16 +203,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "支援",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "命破体系专辅：[破暗]按她的初始生命给全队贯穿力（24000 吃满 900 点），[巡梦童谣]增伤 10% 全程覆盖，终结技后留下回血区域。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -219,12 +220,12 @@
           "agentId": "ep-1301",
           "name": "橘福福",
           "role": "击破",
-          "avatar": "/images/agents/ep-1301.png",
+          "avatar": "/images/agents/ep-1301.webp",
           "note": "后场击破，快速破韧并存储喧响值，让仪玄在失衡期打出更多大招；站位排全队最前。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         }
@@ -237,16 +238,16 @@
           "agentId": "ep-1538",
           "name": "伊德海莉·墨菲",
           "role": "命破",
-          "avatar": "/images/agents/ep-1538.png",
+          "avatar": "/images/agents/ep-1538.webp",
           "note": "冰属性命破烧血大C；与卢西娅双以太帷幕叠加，生命上限提升直接放大她的蓄力贯穿伤害。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             },
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         },
@@ -254,16 +255,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "支援",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "提供高额贯穿力与暴伤，回血区域补足伊德海莉烧血后的生存；两人帷幕互相延长。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -271,12 +272,12 @@
           "agentId": "ep-1301",
           "name": "橘福福",
           "role": "击破",
-          "avatar": "/images/agents/ep-1301.png",
+          "avatar": "/images/agents/ep-1301.webp",
           "note": "后场击破提供失衡效率与喧响存储，让伊德海莉的以太帷幕·涌泉衔接终结技更顺畅。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         }
@@ -289,12 +290,12 @@
           "agentId": "ep-1536",
           "name": "真斗",
           "role": "命破",
-          "avatar": "/images/agents/ep-1536.png",
+          "avatar": "/images/agents/ep-1536.webp",
           "note": "A 级火命破，卢西娅的贯穿力与暴伤同样适配；无仪玄/伊德海莉时的平民过渡主C。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -302,16 +303,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "支援",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "0+0 的拐力已超过 6 影潘引壶，是这支平民队的核心；强特+第五段普攻即可挂满三段增益。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -319,12 +320,12 @@
           "agentId": "ep-1301",
           "name": "橘福福",
           "role": "击破",
-          "avatar": "/images/agents/ep-1301.png",
+          "avatar": "/images/agents/ep-1301.webp",
           "note": "击破位可替换为扳机等；负责破韧与喧响循环。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         }

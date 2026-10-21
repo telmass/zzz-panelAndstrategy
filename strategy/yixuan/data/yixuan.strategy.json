@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/yixuan/background.webp",
   "_meta": {
     "agentId": "ep-1299",
     "name": "仪玄",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": "="
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -39,7 +40,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "怒目金刚",
           "stats": "S 级 · 基础攻击 713 · 生命值 30%",
-          "icon": "/images/weapons/ep-1721.png"
+          "icon": "/images/weapons/ep-1721.webp"
         }
       ],
       "note": "命破 S 级音擎（般岳页同款首选）：基础攻击 713、副词条生命值 30%。命破角色只能使用命破音擎。"
@@ -79,12 +80,12 @@
         {
           "name": "青溟笼舍",
           "stats": "S 级 · 基础攻击 743 · 生命值 30%",
-          "icon": "/images/weapons/ep-1342.png"
+          "icon": "/images/weapons/ep-1342.webp"
         },
         {
           "name": "海妖摇篮",
           "stats": "S 级 · 基础攻击 713 · 生命值 30%",
-          "icon": "/images/weapons/ep-1664.png"
+          "icon": "/images/weapons/ep-1664.webp"
         }
       ],
       "note": "命破音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -95,12 +96,12 @@
         {
           "name": "辉骑面铠",
           "stats": "S 级 · 基础攻击 713 · 生命值 30%",
-          "icon": "/images/weapons/ep-2002.png"
+          "icon": "/images/weapons/ep-2002.webp"
         },
         {
           "name": "青漪灵鼎",
           "stats": "A 级 · 基础攻击 594 · 生命值 25%",
-          "icon": "/images/weapons/ep-1774.png"
+          "icon": "/images/weapons/ep-1774.webp"
         }
       ],
       "note": "备选命破音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -113,18 +114,18 @@
         "name": "云岿如我",
         "label": "生命值 +10%",
         "effect4": "装备者处于[以太帷幕]中时，受到伤害提升12%；装备者不处于[以太帷幕]中时，造成伤害提升12%。",
-        "icon": "/images/discs/ep-1347.png"
+        "icon": "/images/discs/ep-1347.webp"
       },
       "set2": {
         "main": {
           "name": "折枝剑歌",
           "label": "暴击伤害 +16%",
-          "icon": "/images/discs/ep-1000.png"
+          "icon": "/images/discs/ep-1000.webp"
         },
         "alt": {
           "name": "河豚电音",
           "label": "穿透率 +8%",
-          "icon": "/images/discs/ep-193.png"
+          "icon": "/images/discs/ep-193.webp"
         }
       },
       "mainStats": [
@@ -179,12 +180,12 @@
           "agentId": "ep-1299",
           "name": "仪玄",
           "role": "命破",
-          "avatar": "/images/agents/ep-1299.png",
+          "avatar": "/images/agents/ep-1299.webp",
           "note": "玄墨命破主 C，贯穿伤害无视防御，双大招爆发；核心按最大生命值转贯穿力，毕业面板优先保命中值与暴击率。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -192,12 +193,12 @@
           "agentId": "ep-1301",
           "name": "橘福福",
           "role": "击破",
-          "avatar": "/images/agents/ep-1301.png",
+          "avatar": "/images/agents/ep-1301.webp",
           "note": "后台击破辅助，自动衔接连携技，提供全队暴击伤害Buff；与仪玄组「仪橘卢」失衡窗口。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -205,16 +206,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "异常",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "以太异常副C，提供贯穿力加成与回血，命破体系常用第三位。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         }

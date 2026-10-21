@@ -4,7 +4,7 @@
     "entryPageId": 2216,
     "name": "菲欧妮·蕾法爱菈",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2216/detail",
-    "scrapedAt": "2026-10-19T16:41:03+00:00"
+    "scrapedAt": "2026-10-20T11:00:58+00:00"
   },
   "profile": {
     "name": "菲欧妮·蕾法爱菈",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】火属性异常、异常暴击、驻场输出、异放\n【角色详情】菲欧妮是火属性S级异常代理人，拥有独特的异常爆伤机制，同时还可主动触发“异放”，提高队伍的异常伤害输出。菲欧妮的核心被动可使全队任意角色对敌人造成属性异常伤害时，为敌人施加“灼蚀”效果，在此期间敌人受到属性异常伤害时有几率触发暴击伤害，可有效提升全队的异常伤害输出。在实战中，菲欧妮通过驻场输出累积“燔焰”，积累足够“燔焰”后可释放强化普攻，触发“异放”效果并造成大量伤害。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 797,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 116,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-2216.png",
+    "avatar": "/images/agents/ep-2216.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/10/16/71319299/0c6fe6449ebd56b87745a332ade80e1f_5954047325411114795.png",
-    "tachie": "/images/strategy/phoenix/tachie.png",
+    "tachie": "/images/strategy/phoenix/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/10/14/82500917/18d1edb371088161b9ef37d6043576de_7445320364134582903.png"
   },
   "skills": [
@@ -1025,7 +973,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1594,7 +1542,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2341,7 +2289,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3462,7 +3410,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -4401,7 +4349,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -4410,8 +4358,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：涅槃\n菲欧妮的异常精通提升43点；\n队伍中任意角色对敌人造成属性异常伤害时，会使其陷入[灼蚀]状态，持续20秒，重复触发刷新持续时间；[灼蚀]状态下的敌人受到属性异常伤害时有概率触发暴击，基础暴击率为30%，暴击伤害为12.5%，若菲欧妮的初始异常掌控大于155点，每点超过的异常掌控会使得该效果的暴击率额外提升0.7%；\n当菲欧妮的初始异常掌控达到255点时，[灼蚀]状态下的敌人受到属性异常伤害的暴击率达到最大值；\n[灼蚀]状态下的敌人每8秒受到菲欧妮25%攻击力的火属性伤害，该伤害视为[强化特殊技]伤害；\n[燃烧攻击]发动期间，抗打断等级提升，造成伤害时，会回复[燔焰]，菲欧妮最多拥有120点[燔焰]；\n[燃烧攻击]发动后，点按可跳过[特殊技：掠火]以及[强化特殊技：燎斩]的后撤动作，直接衔接上挑攻击；\n菲欧妮受到致命伤害时不会战败退场，可触发[重明]效果，下一次普通换入、快速支援、招架支援换入前场时会回复50%最大生命值，在勘域模式中此效果1200秒内最多触发一次；\n菲欧妮触发完美格挡效果时，获得5点[燔焰]，10秒内最多触发一次；\n菲欧妮发动[强化特殊技]时，进入[枯荣]状态，持续20秒，[燃烧攻击]命中敌人或重复施加时刷新持续时间；\n[枯荣]状态下，发动[强化特殊技：眩焰]后，下次发动[强化特殊技：眩焰]会替换为发动[强化特殊技：坠阳]。\n，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：黑枝王牌\n队伍中存在其他[异常]角色或同阵营角色时触发：\n[灼蚀]状态下的敌人受到属性异常伤害的暴击伤害提升15%。",
+          "title": "核心技：涅槃",
+          "text": "菲欧妮的异常精通提升85点；\n队伍中任意角色对敌人造成属性异常伤害时，会使其陷入[灼蚀]状态，持续20秒，重复触发刷新持续时间；[灼蚀]状态下的敌人受到属性异常伤害时有概率触发暴击，基础暴击率为30%，暴击伤害为25%，若菲欧妮的初始异常掌控大于155点，每点超过的异常掌控会使得该效果的暴击率额外提升0.7%；\n当菲欧妮的初始异常掌控达到255点时，[灼蚀]状态下的敌人受到属性异常伤害的暴击率达到最大值；\n[灼蚀]状态下的敌人每8秒受到菲欧妮50%攻击力的火属性伤害，该伤害视为[强化特殊技]伤害；\n[燃烧攻击]发动期间，抗打断等级提升，造成伤害时，会回复[燔焰]，菲欧妮最多拥有120点[燔焰]；\n[燃烧攻击]发动后，点按可跳过[特殊技：掠火]以及[强化特殊技：燎斩]的后撤动作，直接衔接上挑攻击；\n菲欧妮受到致命伤害时不会战败退场，可触发[重明]效果，下一次普通换入、快速支援、招架支援换入前场时会回复50%最大生命值，在勘域模式中此效果1200秒内最多触发一次；\n菲欧妮触发完美格挡效果时，获得5点[燔焰]，10秒内最多触发一次；\n菲欧妮发动[强化特殊技]时，进入[枯荣]状态，持续20秒，[燃烧攻击]命中敌人或重复施加时刷新持续时间；\n[枯荣]状态下，发动[强化特殊技：眩焰]后，下次发动[强化特殊技：眩焰]会替换为发动[强化特殊技：坠阳]。",
           "growth": [
             {
               "level": "A",
@@ -4480,9 +4428,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：黑枝王牌",
+          "text": "队伍中存在其他[异常]角色或同阵营角色时触发：\n[灼蚀]状态下的敌人受到属性异常伤害的暴击伤害提升15%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/10/10/82500917/6e1a29cc197f4b4dd234b567f732e84e_3204966877890274330.png"
     }
   ],

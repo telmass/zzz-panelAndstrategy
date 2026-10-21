@@ -1,8 +1,10 @@
 {
+  "schemaVersion": 2,
   "_generated": "由 tools/sync_presets.py --options 从 backend/src/zzz_panel/core/ 生成，勿手改；规则表的唯一真实源是 core/options.py 与 core/constants.py。",
   "coreOptions": [
     {
       "id": "er_base",
+      "name": "基础能量自动回复",
       "label": "基础能量自动回复 +0.36",
       "value": 0.36,
       "kind": "flat",
@@ -10,6 +12,7 @@
     },
     {
       "id": "atk_base",
+      "name": "基础攻击力",
       "label": "基础攻击力 +75",
       "value": 75,
       "kind": "base",
@@ -17,6 +20,7 @@
     },
     {
       "id": "impact_base",
+      "name": "基础冲击力",
       "label": "基础冲击力 +18",
       "value": 18,
       "kind": "flat",
@@ -24,6 +28,7 @@
     },
     {
       "id": "cd",
+      "name": "暴击伤害",
       "label": "暴击伤害 +28.8%",
       "value": 28.8,
       "kind": "pct",
@@ -31,6 +36,7 @@
     },
     {
       "id": "cr",
+      "name": "暴击率",
       "label": "暴击率 +14.4%",
       "value": 14.4,
       "kind": "pct",
@@ -38,6 +44,7 @@
     },
     {
       "id": "hp_pct",
+      "name": "生命值百分比",
       "label": "生命值百分比 +18%",
       "value": 18,
       "kind": "pct",
@@ -45,6 +52,7 @@
     },
     {
       "id": "hp_base",
+      "name": "基础生命值",
       "label": "基础生命值 +420",
       "value": 420,
       "kind": "base",
@@ -52,6 +60,7 @@
     },
     {
       "id": "ac",
+      "name": "异常掌控",
       "label": "异常掌控 +36",
       "value": 36,
       "kind": "flat",
@@ -59,6 +68,7 @@
     },
     {
       "id": "am",
+      "name": "异常精通",
       "label": "异常精通 +54",
       "value": 54,
       "kind": "flat",
@@ -66,6 +76,7 @@
     },
     {
       "id": "pr",
+      "name": "穿透率",
       "label": "穿透率 +14.4%",
       "value": 14.4,
       "kind": "pct",
@@ -73,6 +84,7 @@
     },
     {
       "id": "am_90",
+      "name": "异常精通",
       "label": "异常精通 +90",
       "value": 90,
       "kind": "flat",
@@ -80,6 +92,7 @@
     },
     {
       "id": "atk_pct_21",
+      "name": "攻击力",
       "label": "攻击力 +21%",
       "value": 21,
       "kind": "pct",
@@ -89,6 +102,7 @@
   "disc4Options": [
     {
       "id": "atk_pct_30",
+      "name": "攻击力",
       "label": "攻击力 30%",
       "value": 30,
       "kind": "pct",
@@ -96,6 +110,7 @@
     },
     {
       "id": "hp_pct_30",
+      "name": "生命值",
       "label": "生命值 30%",
       "value": 30,
       "kind": "pct",
@@ -103,6 +118,7 @@
     },
     {
       "id": "def_pct_48",
+      "name": "防御力",
       "label": "防御力 48%",
       "value": 48,
       "kind": "pct",
@@ -110,6 +126,7 @@
     },
     {
       "id": "cr_24",
+      "name": "暴击率",
       "label": "暴击率 24%",
       "value": 24,
       "kind": "pct",
@@ -117,6 +134,7 @@
     },
     {
       "id": "cd_48",
+      "name": "暴击伤害",
       "label": "暴击伤害 48%",
       "value": 48,
       "kind": "pct",
@@ -124,6 +142,7 @@
     },
     {
       "id": "am_92",
+      "name": "异常精通",
       "label": "异常精通 92",
       "value": 92,
       "kind": "flat",
@@ -133,6 +152,7 @@
   "disc5Options": [
     {
       "id": "atk_pct_30",
+      "name": "攻击力",
       "label": "攻击力 30%",
       "value": 30,
       "kind": "pct",
@@ -140,6 +160,7 @@
     },
     {
       "id": "hp_pct_30",
+      "name": "生命值",
       "label": "生命值 30%",
       "value": 30,
       "kind": "pct",
@@ -147,6 +168,7 @@
     },
     {
       "id": "def_pct_48",
+      "name": "防御力",
       "label": "防御力 48%",
       "value": 48,
       "kind": "pct",
@@ -154,6 +176,7 @@
     },
     {
       "id": "pr_24",
+      "name": "穿透率",
       "label": "穿透率 24%",
       "value": 24,
       "kind": "pct",
@@ -161,6 +184,7 @@
     },
     {
       "id": "dmg_30",
+      "name": "增伤",
       "label": "增伤 30%",
       "value": 30,
       "kind": "pct",
@@ -170,6 +194,7 @@
   "disc6Options": [
     {
       "id": "atk_pct_30",
+      "name": "攻击力",
       "label": "攻击力 30%",
       "value": 30,
       "kind": "pct",
@@ -177,6 +202,7 @@
     },
     {
       "id": "hp_pct_30",
+      "name": "生命值",
       "label": "生命值 30%",
       "value": 30,
       "kind": "pct",
@@ -184,6 +210,7 @@
     },
     {
       "id": "def_pct_48",
+      "name": "防御力",
       "label": "防御力 48%",
       "value": 48,
       "kind": "pct",
@@ -191,6 +218,7 @@
     },
     {
       "id": "impact_pct_24",
+      "name": "冲击力",
       "label": "冲击力 24%",
       "value": 24,
       "kind": "pct",
@@ -198,6 +226,7 @@
     },
     {
       "id": "ac_pct_30",
+      "name": "异常掌控",
       "label": "异常掌控 30%",
       "value": 30,
       "kind": "pct",
@@ -205,6 +234,7 @@
     },
     {
       "id": "er_pct_60",
+      "name": "能量回复",
       "label": "能量回复 60%",
       "value": 60,
       "kind": "pct",
@@ -214,6 +244,7 @@
   "setOptions": [
     {
       "id": "hp_pct_10",
+      "name": "生命",
       "label": "生命 +10%",
       "value": 10,
       "kind": "pct",
@@ -221,6 +252,7 @@
     },
     {
       "id": "atk_pct_10",
+      "name": "攻击力",
       "label": "攻击力 +10%",
       "value": 10,
       "kind": "pct",
@@ -228,6 +260,7 @@
     },
     {
       "id": "def_pct_10",
+      "name": "防御力",
       "label": "防御力 +10%",
       "value": 10,
       "kind": "pct",
@@ -235,6 +268,7 @@
     },
     {
       "id": "def_pct_16",
+      "name": "防御力",
       "label": "防御力 +16%",
       "value": 16,
       "kind": "pct",
@@ -242,6 +276,7 @@
     },
     {
       "id": "cr_8",
+      "name": "暴击率",
       "label": "暴击率 +8%",
       "value": 8,
       "kind": "pct",
@@ -249,6 +284,7 @@
     },
     {
       "id": "cd_16",
+      "name": "暴击伤害",
       "label": "暴击伤害 +16%",
       "value": 16,
       "kind": "pct",
@@ -256,6 +292,7 @@
     },
     {
       "id": "impact_pct_6",
+      "name": "冲击力",
       "label": "冲击力 +6%",
       "value": 6,
       "kind": "pct",
@@ -263,6 +300,7 @@
     },
     {
       "id": "ac_pct_8",
+      "name": "异常掌控",
       "label": "异常掌控 +8%",
       "value": 8,
       "kind": "pct",
@@ -270,6 +308,7 @@
     },
     {
       "id": "er_pct_20",
+      "name": "能量回复",
       "label": "能量回复 +20%",
       "value": 20,
       "kind": "pct",
@@ -277,6 +316,7 @@
     },
     {
       "id": "dmg_10",
+      "name": "增伤",
       "label": "增伤 +10%",
       "value": 10,
       "kind": "pct",
@@ -284,6 +324,7 @@
     },
     {
       "id": "pr_8",
+      "name": "穿透率",
       "label": "穿透率 +8%",
       "value": 8,
       "kind": "pct",
@@ -291,6 +332,7 @@
     },
     {
       "id": "am_30",
+      "name": "异常精通",
       "label": "异常精通 +30",
       "value": 30,
       "kind": "flat",
@@ -300,6 +342,7 @@
   "subStats": [
     {
       "id": "hp_flat",
+      "name": "小生命",
       "label": "小生命",
       "value": 112,
       "kind": "flat",
@@ -307,6 +350,7 @@
     },
     {
       "id": "hp_pct",
+      "name": "大生命%",
       "label": "大生命%",
       "value": 3,
       "kind": "pct",
@@ -314,6 +358,7 @@
     },
     {
       "id": "atk_flat",
+      "name": "小攻击",
       "label": "小攻击",
       "value": 19,
       "kind": "flat",
@@ -321,6 +366,7 @@
     },
     {
       "id": "atk_pct",
+      "name": "大攻击%",
       "label": "大攻击%",
       "value": 3,
       "kind": "pct",
@@ -328,6 +374,7 @@
     },
     {
       "id": "def_flat",
+      "name": "小防御",
       "label": "小防御",
       "value": 15,
       "kind": "flat",
@@ -335,6 +382,7 @@
     },
     {
       "id": "def_pct",
+      "name": "大防御%",
       "label": "大防御%",
       "value": 4.8,
       "kind": "pct",
@@ -342,6 +390,7 @@
     },
     {
       "id": "cr",
+      "name": "暴击率",
       "label": "暴击率",
       "value": 2.4,
       "kind": "pct",
@@ -349,6 +398,7 @@
     },
     {
       "id": "cd",
+      "name": "暴击伤害",
       "label": "暴击伤害",
       "value": 4.8,
       "kind": "pct",
@@ -356,6 +406,7 @@
     },
     {
       "id": "pen_val",
+      "name": "穿透值",
       "label": "穿透值",
       "value": 9,
       "kind": "flat",
@@ -363,6 +414,7 @@
     },
     {
       "id": "am",
+      "name": "异常精通",
       "label": "异常精通",
       "value": 9,
       "kind": "flat",
@@ -372,21 +424,24 @@
   "discFixedStats": [
     {
       "slot": 1,
+      "name": "固定生命",
       "label": "固定生命",
       "value": 2200.0,
-      "target": "hp_flat"
+      "to": "hp_flat"
     },
     {
       "slot": 2,
+      "name": "固定攻击",
       "label": "固定攻击",
       "value": 316.0,
-      "target": "atk_flat"
+      "to": "atk_flat"
     },
     {
       "slot": 3,
+      "name": "固定防御",
       "label": "固定防御",
       "value": 184.0,
-      "target": "def_flat"
+      "to": "def_flat"
     }
   ]
 }

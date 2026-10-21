@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/orphie-magus/background.webp",
   "_meta": {
     "agentId": "ep-1501",
     "name": "奥菲丝&「鬼火」",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -39,7 +40,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "嚣枪喧焰",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-1586.png"
+          "icon": "/images/weapons/ep-1586.webp"
         }
       ],
       "note": "专武（WIKI 推荐表列奥菲丝/伊芙琳/「11号」）：60% 能量回复是吃满核心[准星聚焦]700 点加攻的关键（专武+6 号回能盘+回能 2 件套 = 局外 ER 3.74）；特效追加攻击造成火伤时无视敌人 15%~24% 防御（最多 2 层）并常驻暴击率 +20%~32%。"
@@ -79,12 +80,12 @@
         {
           "name": "牺牲洁纯",
           "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-1197.png"
+          "icon": "/images/weapons/ep-1197.webp"
         },
         {
           "name": "心弦夜响",
           "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
-          "icon": "/images/weapons/ep-1159.png"
+          "icon": "/images/weapons/ep-1159.webp"
         }
       ],
       "note": "牺牲洁纯的暴伤叠层可由她的火刀、前后台强特轻松吃满，综合约为专武的 90%；心弦夜响给暴击率 +24% 与暴伤 +50%（1 阶），连携/终结的无视火抗也契合。两者都没有回能词条，转模加攻会掉到约 520 点。"
@@ -95,7 +96,7 @@
         {
           "name": "强音热望",
           "stats": "A 级 · 基础攻击 594 · 暴击率 20%",
-          "icon": "/images/weapons/ep-995.png"
+          "icon": "/images/weapons/ep-995.webp"
         }
       ],
       "note": "活动免费音擎：强化特殊技或连携命中加攻（目标带属性异常时再提升）——她的[灼红旋涡]等追击杀招都算强化特殊技，覆盖率很高，胜在免费。"
@@ -106,17 +107,17 @@
         {
           "name": "加农转子",
           "stats": "A 级 · 基础攻击 594 · 暴击率 20%",
-          "icon": "/images/weapons/ep-221.png"
+          "icon": "/images/weapons/ep-221.webp"
         },
         {
           "name": "鎏金花信",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-744.png"
+          "icon": "/images/weapons/ep-744.webp"
         },
         {
           "name": "旋钻机-赤轴",
           "stats": "A 级 · 基础攻击 624 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-265.png"
+          "icon": "/images/weapons/ep-265.webp"
         }
       ],
       "note": "加农转子无条件加攻、鎏金花信强化特殊技增伤（她主打的本就是强化特殊技级追击）都可考虑，但需要更多双暴词条；旋钻机-赤轴特效对她提升一般，唯一价值是 50% 回能——纯辅助向玩法专用。"
@@ -129,18 +130,18 @@
         "name": "如影相随",
         "label": "追加攻击和冲刺攻击造成的伤害 +15%",
         "effect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每拥有1层增益效果，装备者的攻击力提升4%，暴击率提升4%，最多叠加3层，持续15秒，重复触发时刷新持续时间。",
-        "icon": "/images/discs/ep-1193.png"
+        "icon": "/images/discs/ep-1193.webp"
       },
       "set2": {
         "main": {
           "name": "月光骑士颂",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-1551.png"
+          "icon": "/images/discs/ep-1551.webp"
         },
         "alt": {
           "name": "摇摆爵士",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-231.png"
+          "icon": "/images/discs/ep-231.webp"
         }
       },
       "mainStats": [
@@ -195,12 +196,12 @@
           "agentId": "ep-1190",
           "name": "零号·安比",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1190.png",
+          "avatar": "/images/agents/ep-1190.webp",
           "note": "电属性追击主C，白雷三段追击全程触发奥菲丝的[准星聚焦]延长，自身暴伤与增伤也反哺奥菲丝的后台追击。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -208,16 +209,16 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "点击破，常驻易伤与专武减防；站位于安比之后，为追击队补失衡节奏。",
           "set4": [
             {
               "name": "震星迪斯科",
-              "icon": "/images/discs/ep-152.png"
+              "icon": "/images/discs/ep-152.webp"
             },
             {
               "name": "啄木鸟电音",
-              "icon": "/images/discs/ep-232.png"
+              "icon": "/images/discs/ep-232.webp"
             }
           ]
         },
@@ -225,16 +226,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "全队加攻 + 追加攻击无视 25% 防御 + 后台高频追击杀，补全追击队最后一块拼图。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -247,16 +248,16 @@
           "agentId": "ep-1499",
           "name": "「席德」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1499.png",
+          "avatar": "/images/agents/ep-1499.webp",
           "note": "站场主C；席德没有追击招式、无法延长[准星聚焦]，靠奥菲丝高频合轴与强特重新续上Buff并回复钢能。",
           "set4": [
             {
               "name": "拂晓生花",
-              "icon": "/images/discs/ep-1552.png"
+              "icon": "/images/discs/ep-1552.webp"
             },
             {
               "name": "啄木鸟电音",
-              "icon": "/images/discs/ep-232.png"
+              "icon": "/images/discs/ep-232.webp"
             }
           ]
         },
@@ -264,16 +265,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "后场挂件：长按[蓄热充能]可速切合轴，不占站场时间，为席德补真空期伤害。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -281,12 +282,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "全队增伤、护盾与喧响循环，双强攻队最稳的第三位；击破身份同时触发奥菲丝的额外能力。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }
@@ -299,12 +300,12 @@
           "agentId": "ep-1158",
           "name": "伊芙琳",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1158.png",
+          "avatar": "/images/agents/ep-1158.webp",
           "note": "火属性强攻驻场主C，失衡期爆发；奥菲丝的加攻与追加无视防御都直接放大她的输出。",
           "set4": [
             {
               "name": "河豚电音",
-              "icon": "/images/discs/ep-193.png"
+              "icon": "/images/discs/ep-193.webp"
             }
           ]
         },
@@ -312,16 +313,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "同阵营火属性，后台追击杀 + 加攻Buff；火伤盘与伊芙琳的火伤乘区互相成就。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -329,12 +330,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "增伤与喧响发动机，兼防护与回能；站位最前。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }

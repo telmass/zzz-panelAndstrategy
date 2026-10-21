@@ -4,7 +4,7 @@
     "entryPageId": 1300,
     "name": "潘引壶",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1300/detail",
-    "scrapedAt": "2026-10-18T05:17:03+00:00"
+    "scrapedAt": "2026-10-20T11:05:38+00:00"
   },
   "profile": {
     "name": "潘引壶",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】物理属性防护特性，贯穿力增伤拐、生命回复\n【角色详情】潘引壶可以通过强化特殊技命中敌人触发队伍中上一位角色的快速支援，并提供贯穿力加成；此外，快速支援切人后，潘引壶还能自动留场打完特殊技点穴手，提供增伤；最后，潘引壶还能利用终结技为全队回血。",
     "icons": {
-      "profession": "/images/icons/defense.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/defense.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8453,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 586,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 712,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 91,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1300.png",
+    "avatar": "/images/agents/ep-1300.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/26/73751405/7151eee6ba7f9ad07176f604b37d8799_4441778457614666765.png",
-    "tachie": "/images/strategy/pan-yinhu/tachie.png",
+    "tachie": "/images/strategy/pan-yinhu/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/29/158441880/56743048f303c586c001cedfdc6cb53a_8170618852091491585.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2532,7 +2480,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3097,7 +3045,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3106,8 +3054,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：脉中乾坤\n潘引壶发动[强化特殊技：贴山震脉靠]命中敌人触发[快速支援]的一段时间内，通过[快速支援]或[连携技]入场的代理人将会获得[通窍]效果。该效果提供潘引壶初始攻击力9%的贯穿力提升，该效果持续25秒。该效果提供的贯穿力最多不超过540点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：食铁纳金\n队伍中存在[命破]角色或与自身阵营相同的角色时触发：\n潘引壶发动[特殊技：断脉破穴手]命中敌人时对敌人施加[气绝]效果，使所有单位对其造成的伤害提升20%，[特殊技：断脉破穴手]命中敌人时将分别对敌人造成10秒[气绝]效果。\n该效果不可叠加，招式重复命中相同敌人时，该效果时长可延长。",
+          "title": "核心技：脉中乾坤",
+          "text": "潘引壶发动[强化特殊技：贴山震脉靠]命中敌人触发[快速支援]的一段时间内，通过[快速支援]或[连携技]入场的代理人将会获得[通窍]效果。该效果提供潘引壶攻击力18%的贯穿力提升，该效果持续25秒。该效果提供的贯穿力最多不超过540点。",
           "growth": [
             {
               "level": "A",
@@ -3176,9 +3124,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：食铁纳金",
+          "text": "队伍中存在[命破]角色或与自身阵营相同的角色时触发：\n潘引壶发动[特殊技：断脉破穴手]命中敌人时对敌人施加[气绝]效果，使所有单位对其造成的伤害提升20%，[特殊技：断脉破穴手]命中敌人时将分别对敌人造成10秒[气绝]效果。\n该效果不可叠加，招式重复命中相同敌人时，该效果时长可延长。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/30/158441880/72b87c735b46c309270096faf75209c9_8221690690280764634.png"
     }
   ],
@@ -3216,27 +3168,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/pan-yinhu/cinema-2.png",
+      "image": "/images/strategy/pan-yinhu/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/63c8fea6f3c5978582618eb1465f9a78_1116482556779686146.jpg"
     },
     "2": {
-      "image": "/images/strategy/pan-yinhu/cinema-2.png",
+      "image": "/images/strategy/pan-yinhu/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/63c8fea6f3c5978582618eb1465f9a78_1116482556779686146.jpg"
     },
     "3": {
-      "image": "/images/strategy/pan-yinhu/cinema-2.png",
+      "image": "/images/strategy/pan-yinhu/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/63c8fea6f3c5978582618eb1465f9a78_1116482556779686146.jpg"
     },
     "4": {
-      "image": "/images/strategy/pan-yinhu/cinema-3.png",
+      "image": "/images/strategy/pan-yinhu/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/198737d2cf1a2ae0abbd91ce9a6b355c_3399065716638049174.jpg"
     },
     "5": {
-      "image": "/images/strategy/pan-yinhu/cinema-3.png",
+      "image": "/images/strategy/pan-yinhu/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/198737d2cf1a2ae0abbd91ce9a6b355c_3399065716638049174.jpg"
     },
     "6": {
-      "image": "/images/strategy/pan-yinhu/cinema-3.png",
+      "image": "/images/strategy/pan-yinhu/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/198737d2cf1a2ae0abbd91ce9a6b355c_3399065716638049174.jpg"
     }
   }

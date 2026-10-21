@@ -26,6 +26,7 @@ from pathlib import Path
 import pytest
 
 from zzz_panel.presets import loader
+from zzz_panel.presets import manifest as presets_manifest
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "tools"))
@@ -97,7 +98,7 @@ def test_options_json_is_not_compiled(tmp_path: Path) -> None:
     compile_module(dest)
     text = dest.read_text(encoding="utf-8")
 
-    assert "options.json" not in text
+    assert "calculator-rules" not in text
     assert set(CONSTANTS) == {"AGENTS_JSON", "WEAPONS_JSON"}
 
 
@@ -152,8 +153,8 @@ def fake_bundled(
 def no_disk_data(monkeypatch: pytest.MonkeyPatch) -> None:
     """让磁盘这条路彻底走不通：既没有环境变量，也找不到仓库根。"""
     monkeypatch.delenv("ZZZ_PANEL_DATA_DIR", raising=False)
-    monkeypatch.setattr(loader, "_REPO_MARKER", "no-such-marker.toml")
-    monkeypatch.setattr(loader, "_data_dir", None)
+    monkeypatch.setattr(presets_manifest, "_REPO_MARKER", "no-such-marker.toml")
+    monkeypatch.setattr(presets_manifest, "_data_dir", None)
 
 
 def agent_item(name: str = "示例代理人") -> str:
@@ -164,7 +165,7 @@ def agent_item(name: str = "示例代理人") -> str:
     借用真源第一条，规则变化时本用例自动跟随。
     """
     items = json.loads(
-        (REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8")
+        (REPO_ROOT / "data" / "catalog" / "agents.json").read_text(encoding="utf-8")
     )
     item = dict(items[0])
     item["name"] = name
@@ -220,13 +221,25 @@ def test_env_override_still_wins_over_compiled_module(
     """环境变量优先级最高：编译产物只是兜底，不能反过来盖掉显式配置。"""
     fake_bundled(monkeypatch, agents=agent_item("编译产物里的"))
     explicit = tmp_path / "explicit"
-    explicit.mkdir()
-    (explicit / "agent-presets.json").write_text(
+    (explicit / "catalog").mkdir(parents=True)
+    (explicit / "manifest.json").write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "datasets": {
+                    "agents": {"path": "catalog/agents.json"},
+                    "weapons": {"path": "catalog/weapons.json"},
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    (explicit / "catalog" / "agents.json").write_text(
         agent_item("磁盘上的"), encoding="utf-8"
     )
-    (explicit / "weapon-presets.json").write_text("[]", encoding="utf-8")
+    (explicit / "catalog" / "weapons.json").write_text("[]", encoding="utf-8")
     monkeypatch.setenv("ZZZ_PANEL_DATA_DIR", str(explicit))
-    monkeypatch.setattr(loader, "_data_dir", None)
+    monkeypatch.setattr(presets_manifest, "_data_dir", None)
 
     assert [agent.name for agent in loader.load_agents()] == ["磁盘上的"]
 
@@ -236,12 +249,12 @@ def test_repo_data_wins_over_compiled_module(
 ) -> None:
     """仓库根的 ``data/`` 是唯一真实源。编译产物排在它后面正是为了不遮住它。"""
     fake_bundled(monkeypatch, agents=agent_item("编译产物里的"))
-    monkeypatch.setattr(loader, "_REPO_MARKER", "pyproject.toml")
+    monkeypatch.setattr(presets_manifest, "_REPO_MARKER", "pyproject.toml")
     monkeypatch.delenv("ZZZ_PANEL_DATA_DIR", raising=False)
-    monkeypatch.setattr(loader, "_data_dir", None)
+    monkeypatch.setattr(presets_manifest, "_data_dir", None)
 
-    agents = json.loads((REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8"))
-    weapons = json.loads((REPO_ROOT / "data" / "weapon-presets.json").read_text(encoding="utf-8"))
+    agents = json.loads(presets_manifest.dataset_path("agents").read_text(encoding="utf-8"))
+    weapons = json.loads(presets_manifest.dataset_path("weapons").read_text(encoding="utf-8"))
     assert len(loader.load_agents()) == len(agents)
     assert len(loader.load_weapons()) == len(weapons)
 
@@ -266,18 +279,18 @@ def test_compiled_module_matches_repo_data_when_present(
 
     monkeypatch.setattr(loader, "_EMBEDDED_MODULE", name)
     monkeypatch.setattr(loader, "_EMBEDDED", {})
-    monkeypatch.setattr(loader, "_REPO_MARKER", "no-such-marker.toml")
+    monkeypatch.setattr(presets_manifest, "_REPO_MARKER", "no-such-marker.toml")
     monkeypatch.delenv("ZZZ_PANEL_DATA_DIR", raising=False)
 
     from_compiled: list[tuple[str, str]] = []
     for loader_call in (loader.load_agents, loader.load_weapons):
-        monkeypatch.setattr(loader, "_data_dir", None)
+        monkeypatch.setattr(presets_manifest, "_data_dir", None)
         monkeypatch.setattr(loader, "_EMBEDDED", {})
         compiled = loader_call()
         monkeypatch.setattr(loader, "_EMBEDDED", {})
 
-        monkeypatch.setattr(loader, "_REPO_MARKER", "pyproject.toml")
-        monkeypatch.setattr(loader, "_data_dir", None)
+        monkeypatch.setattr(presets_manifest, "_REPO_MARKER", "pyproject.toml")
+        monkeypatch.setattr(presets_manifest, "_data_dir", None)
         on_disk = loader_call()
         from_compiled.append(
             ([item.name for item in compiled], [item.name for item in on_disk])

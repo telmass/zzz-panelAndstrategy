@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/nangong-yu/background.webp",
   "_meta": {
     "agentId": "ep-1852",
     "name": "南宫羽",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -30,7 +31,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -38,7 +39,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "霓虹妄想",
           "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
-          "icon": "/images/weapons/ep-1908.png"
+          "icon": "/images/weapons/ep-1908.webp"
         }
       ],
       "note": "专武：目前唯一异常掌控词条的击破音擎。副词条 30% 掌控经核心转化为冲击力，特效常驻 90 点精通（普攻/强化特殊技造成以太伤害叠满 2 层后再 +60，合计 150），并给全队 30% 增伤（15%×2 层、40 秒）。异常质量与失衡效率两头抓。"
@@ -78,17 +79,17 @@
         {
           "name": "拘缚者",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-219.png"
+          "icon": "/images/weapons/ep-219.webp"
         },
         {
           "name": "燃狱齿轮",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-220.png"
+          "icon": "/images/weapons/ep-220.webp"
         },
         {
           "name": "人为刀俎",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-157.png"
+          "icon": "/images/weapons/ep-157.webp"
         }
       ],
       "note": "拘缚者叠层只需攻击命中，蓄力二/三段可吃满失衡值加成，击破效率极高；燃狱齿轮强特后加冲击力、附带后台回能；人为刀俎玩具店可换，回能稳定，低配友好。"
@@ -99,17 +100,17 @@
         {
           "name": "炎炙沸釜",
           "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
-          "icon": "/images/weapons/ep-1922.png"
+          "icon": "/images/weapons/ep-1922.webp"
         },
         {
           "name": "贵重骨核",
           "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
-          "icon": "/images/weapons/ep-141.png"
+          "icon": "/images/weapons/ep-141.webp"
         },
         {
           "name": "左轮转子",
           "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
-          "icon": "/images/weapons/ep-155.png"
+          "icon": "/images/weapons/ep-155.webp"
         }
       ],
       "note": "炎炙沸釜为版本活动音擎（失衡值与伤害加成）；贵重骨核低练度即用；左轮转子回能触发失衡值加成。"
@@ -124,21 +125,21 @@
           "label": "异常掌控 +8%",
           "effect4": "队伍中任意角色发动[强化特殊技]时，装备者的异常精通提升 45 点，持续 8 秒；如果发动[强化特殊技]的角色不是装备者本人时，装备者造成的以太伤害提升 25%。",
           "scene": "配自由蓝调 2 件套。掌控+8% 直通核心「掌控转冲击力」与 6 号位掌控盘形成乘区，异常积蓄与失衡效率双收，泛用首选",
-          "icon": "/images/discs/ep-1194.png"
+          "icon": "/images/discs/ep-1194.webp"
         },
         {
           "name": "静听嘉音",
           "label": "攻击力 +10%",
           "effect4": "队伍中任意角色通过[快速支援]入场时，全队角色获得 1 层[嘉音]，最多叠加 3 层，持续 15 秒，重复触发时刷新持续时间，每拥有 1 层[嘉音]，通过[快速支援]入场的角色造成的伤害提升 8%，该效果全队唯一。",
           "scene": "配法厄同之歌 2 件套。速切队每人快支入场都能叠嘉音，契合她频繁触发的[快速支援]机制",
-          "icon": "/images/discs/ep-1001.png"
+          "icon": "/images/discs/ep-1001.webp"
         },
         {
           "name": "自由蓝调",
           "label": "异常精通 +30 点",
           "effect4": "[强化特殊技]命中敌人时，根据装备者的属性类型，使目标对应属性异常积蓄抗性降低 20%，持续 8 秒，相同属性的效果不可叠加。",
           "scene": "配法厄同之歌 2 件套。2 件套精通 + 4 件套降异常抗性，主打异常积蓄速度，适合与其他角色组紊乱队",
-          "icon": "/images/discs/ep-191.png"
+          "icon": "/images/discs/ep-191.webp"
         }
       ],
       "set2": {
@@ -146,24 +147,24 @@
           {
             "name": "自由蓝调",
             "label": "异常精通 +30 点",
-            "icon": "/images/discs/ep-191.png"
+            "icon": "/images/discs/ep-191.webp"
           },
           {
             "name": "法厄同之歌",
             "label": "异常掌控 +8%",
-            "icon": "/images/discs/ep-1194.png"
+            "icon": "/images/discs/ep-1194.webp"
           }
         ],
         "alt": [
           {
             "name": "震星迪斯科",
             "label": "冲击力 +6%",
-            "icon": "/images/discs/ep-152.png"
+            "icon": "/images/discs/ep-152.webp"
           },
           {
             "name": "山大王",
             "label": "失衡值 +6%",
-            "icon": "/images/discs/ep-1346.png"
+            "icon": "/images/discs/ep-1346.webp"
           }
         ]
       },
@@ -211,12 +212,12 @@
           "agentId": "ep-1793",
           "name": "爱芮",
           "role": "主 C",
-          "avatar": "/images/agents/ep-1793.png",
+          "avatar": "/images/agents/ep-1793.webp",
           "note": "以太异常主 C，失衡爆发输出；南宫羽为她提供极性紊乱与失衡易伤，两人互切合轴。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -224,12 +225,12 @@
           "agentId": "ep-1852",
           "name": "南宫羽",
           "role": "击破",
-          "avatar": "/images/agents/ep-1852.png",
+          "avatar": "/images/agents/ep-1852.webp",
           "note": "以太击破副 C，三段蓄力快速失衡，[踉跄]延长失衡 3 秒并加 30% 失衡易伤，极性紊乱补偿异常伤害。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -237,12 +238,12 @@
           "agentId": "ep-1791",
           "name": "千夏",
           "role": "支援",
-          "avatar": "/images/agents/ep-1791.png",
+          "avatar": "/images/agents/ep-1791.webp",
           "note": "物理支援，强化特殊技启动全队攻击加成与失衡易伤，同阵营凑满三人的妄想天使组合技。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -255,12 +256,12 @@
           "agentId": "ep-996",
           "name": "星见 雅",
           "role": "主 C",
-          "avatar": "/images/agents/ep-996.png",
+          "avatar": "/images/agents/ep-996.webp",
           "note": "烈霜异常主 C，失衡期落霜爆发；南宫羽的极性紊乱给她补落霜点数，延长的失衡期提高舒适度。",
           "set4": [
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         },
@@ -268,12 +269,12 @@
           "agentId": "ep-1852",
           "name": "南宫羽",
           "role": "击破",
-          "avatar": "/images/agents/ep-1852.png",
+          "avatar": "/images/agents/ep-1852.webp",
           "note": "以太击破副 C，用优质的以太异常给星见雅提供紊乱基底，三段蓄力必精准起手。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -281,12 +282,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "物理支援，攻击加成 + 补伤害，满足南宫羽额外能力的「队内异常角色」条件。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }

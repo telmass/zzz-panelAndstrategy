@@ -4,7 +4,7 @@
     "entryPageId": 997,
     "name": "浅羽 悠真",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/997/detail",
-    "scrapedAt": "2026-10-18T05:16:06+00:00"
+    "scrapedAt": "2026-10-20T10:59:02+00:00"
   },
   "profile": {
     "name": "浅羽 悠真",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】爆发输出、灵活作战、快速成型\n【角色介绍】浅羽悠真是一位能灵活切换形态作战的高爆发强攻代理人。他可以通过部分攻击在场上生成小球，长按普攻瞄准射击或长按特殊技按键后，小球会攻击敌人并施加标记。当敌人身上的标记满足数量，悠真便能切换至近战攻击，近战攻击会消耗标记层数，层数归零会切换回远程攻击；若队伍满足条件，不仅可以提高浅羽悠真的攻击造成的伤害，部分攻击还会为敌人施加标记。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7405,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 840,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 80,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-997.png",
+    "avatar": "/images/agents/ep-997.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/09/82500917/7477bdb2d366fd83b30671812c08e2eb_7866771727764017477.jpg",
-    "tachie": "/images/strategy/harumasa/tachie.png",
+    "tachie": "/images/strategy/harumasa/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/09/82500917/a2be54f9ab4fcb1a67b24fa5ab546e98_8039570205873872089.png"
   },
   "skills": [
@@ -1111,7 +1059,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1958,7 +1906,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2705,7 +2653,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3270,7 +3218,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3835,7 +3783,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3844,8 +3792,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：破晓\n[冲刺攻击：飞弦·斩]的暴击率提升10.6%，悠真的[冲刺攻击：飞弦·斩]命中敌人并触发暴击时，将获得1层[锋芒]，同一招式最多获得3层，[锋芒]最多叠加6层，持续5秒，重复触发时刷新持续时间；每层[锋芒]会使[冲刺攻击：飞弦·斩]造成的暴击伤害提升6%。\n额外能力：超频\n队伍中存在[击破]角色或[异常]角色时触发：\n悠真攻击命中处于失衡状态或属性异常状态下的敌人时，自身造成的伤害提升40%；悠真发射[落羽]命中处于失衡状态或属性异常状态下的敌人时，会为其施加2层[电囚]效果。",
+          "title": "核心技：破晓",
+          "text": "[冲刺攻击：飞弦·斩]的暴击率提升25%，悠真的[冲刺攻击：飞弦·斩]命中敌人并触发暴击时，将获得1层[锋芒]，同一招式最多获得3层，[锋芒]最多叠加6层，持续5秒，重复触发时刷新持续时间；每层[锋芒]会使[冲刺攻击：飞弦·斩]造成的暴击伤害提升12%。",
           "growth": [
             {
               "level": "A",
@@ -3914,9 +3862,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：超频",
+          "text": "队伍中存在[击破]角色或[异常]角色时触发：\n悠真攻击命中处于失衡状态或属性异常状态下的敌人时，自身造成的伤害提升40%；悠真发射[落羽]命中处于失衡状态或属性异常状态下的敌人时，会为其施加2层[电囚]效果。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/15/76099754/65f2f836e8142aa3b80bcfa8f9c218fe_7441355829466654034.png"
     }
   ],
@@ -3954,27 +3906,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/harumasa/cinema-2.png",
+      "image": "/images/strategy/harumasa/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/8f7e7ebd4f7eca8322b372662aae06fd_1114124982390728430.png"
     },
     "2": {
-      "image": "/images/strategy/harumasa/cinema-2.png",
+      "image": "/images/strategy/harumasa/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/8f7e7ebd4f7eca8322b372662aae06fd_1114124982390728430.png"
     },
     "3": {
-      "image": "/images/strategy/harumasa/cinema-2.png",
+      "image": "/images/strategy/harumasa/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/8f7e7ebd4f7eca8322b372662aae06fd_1114124982390728430.png"
     },
     "4": {
-      "image": "/images/strategy/harumasa/cinema-3.png",
+      "image": "/images/strategy/harumasa/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/34bc4d6a25bf4f50ebcc39dcee21ed0c_1706464985840756535.png"
     },
     "5": {
-      "image": "/images/strategy/harumasa/cinema-3.png",
+      "image": "/images/strategy/harumasa/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/34bc4d6a25bf4f50ebcc39dcee21ed0c_1706464985840756535.png"
     },
     "6": {
-      "image": "/images/strategy/harumasa/cinema-3.png",
+      "image": "/images/strategy/harumasa/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/34bc4d6a25bf4f50ebcc39dcee21ed0c_1706464985840756535.png"
     }
   }

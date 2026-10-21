@@ -4,7 +4,7 @@
     "entryPageId": 1793,
     "name": "爱芮",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1793/detail",
-    "scrapedAt": "2026-10-17T06:24:35+00:00"
+    "scrapedAt": "2026-10-20T10:57:17+00:00"
   },
   "profile": {
     "name": "爱芮",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】S级以太属性异常代理人，异常爆发主C，可快速蓄力输出，有着高频异放的爆发能力。\n【角色详情】爱芮是以太属性的异常特性代理人，她可以通过吸收资源条提供的应援能量，快速蓄力并提升蓄力段数，使攻击造成的以太异常积蓄值获得提升。若蓄力攻击命中处在异常状态的敌人，还会额外结算一次异放，提高敌人此次受到的伤害。若敌人在失衡期间触发异放，还会进一步提高此次异放的伤害倍率。\n若队友配置满足条件，爱芮不仅可以提高获得资源条的效率，还会提升敌人受到侵蚀效果时的持续时间。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ether.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ether.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7749,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 788,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 619,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 87,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 115,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 116,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1793.png",
+    "avatar": "/images/agents/ep-1793.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/26/82500917/dde785ff5c780c9becbb67ea546fbeed_2285385857539459915.png",
-    "tachie": "/images/strategy/aria/tachie.png",
+    "tachie": "/images/strategy/aria/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/24/82500917/bcad5627a44be53beba85c3da7db6843_4366709348911500850.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3088,7 +3036,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3653,7 +3601,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3662,8 +3610,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：控场核心\n爱芮的异常精通提升45点；，异常掌控提升36点，基础攻击力提升75点。（此处数据为满级数据）\n爱芮的第三段[普通攻击：绝对音准]重击命中处于以太异常状态、电属性异常状态、火属性异常状态、物理属性异常状态、冰属性异常状态、风属性异常状态的目标时，触发一次[异放]：额外结算一次属性异常伤害，相对于原属性异常伤害的比例为每10点初始异常掌控13.8%/7.2%/17.9%/1.25%/1.8%/0.7%，当目标处于失衡状态下时，该伤害比例额外提升50%。（此处数据为初始数据）\n\n额外能力：合作舞台\n队伍中存在[击破]、[支援]或与自身阵营相同的角色或其他[异常]角色时触发：\n当有[以太帷幕]开启时，会在场上生成4个[应援能量]，1秒内最多触发1次；\n队伍中任意角色对敌人施加[侵蚀]效果时，该效果的持续时间提升3秒。",
+          "title": "核心技：控场核心",
+          "text": "爱芮的异常精通提升90点；\n爱芮的第三段[普通攻击：绝对音准]重击命中处于以太异常状态、电属性异常状态、火属性异常状态、物理属性异常状态、冰属性异常状态、风属性异常状态的目标时，触发一次[异放]：额外结算一次属性异常伤害，相对于原属性异常伤害的比例为每10点初始异常掌控27.5%/14.3%/35.7%/2.5%/3.6%/1.4%，当目标处于失衡状态下时，该伤害比例额外提升50%。",
           "growth": [
             {
               "level": "A",
@@ -3732,9 +3680,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：合作舞台",
+          "text": "队伍中存在[击破]、[支援]或与自身阵营相同的角色或其他[异常]角色时触发：\n当有[以太帷幕]开启时，会在场上生成4个[应援能量]，1秒内最多触发1次；\n队伍中任意角色对敌人施加[侵蚀]效果时，该效果的持续时间提升3秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/24/82500917/b838de3e0b591d2b497466d0970fd69f_2663509378607461756.png"
     }
   ],
@@ -3772,27 +3724,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/aria/cinema-2.png",
+      "image": "/images/strategy/aria/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/21/76099754/308577c2d91f0130a3b5f894104fa28f_2973452464894300446.png"
     },
     "2": {
-      "image": "/images/strategy/aria/cinema-2.png",
+      "image": "/images/strategy/aria/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/21/76099754/308577c2d91f0130a3b5f894104fa28f_2973452464894300446.png"
     },
     "3": {
-      "image": "/images/strategy/aria/cinema-2.png",
+      "image": "/images/strategy/aria/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/21/76099754/308577c2d91f0130a3b5f894104fa28f_2973452464894300446.png"
     },
     "4": {
-      "image": "/images/strategy/aria/cinema-3.png",
+      "image": "/images/strategy/aria/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/03/04/15559334/cf4879bfe26a706cb1d1b4d0d42e91d5_2912038973003802971.png"
     },
     "5": {
-      "image": "/images/strategy/aria/cinema-3.png",
+      "image": "/images/strategy/aria/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/03/04/15559334/cf4879bfe26a706cb1d1b4d0d42e91d5_2912038973003802971.png"
     },
     "6": {
-      "image": "/images/strategy/aria/cinema-3.png",
+      "image": "/images/strategy/aria/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/03/04/15559334/cf4879bfe26a706cb1d1b4d0d42e91d5_2912038973003802971.png"
     }
   }

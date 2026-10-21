@@ -5,7 +5,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/104/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "物理伤害+10%。",
     "setEffect4": "队伍中任意角色对敌人施加[强击]效果时，装备者对目标造成的伤害提升35%，持续12秒。",
-    "image": "/images/discs/ep-104.png"
+    "image": "/images/discs/ep-104.webp",
+    "effect2": "dmg_10"
   },
   {
     "id": "ep-151",
@@ -13,7 +14,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/151/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "攻击力+10%。",
     "setEffect4": "成为接战状态下的当前操作角色时，装备者的攻击力提升25%，持续10秒，20秒内最多触发一次。",
-    "image": "/images/discs/ep-151.png"
+    "image": "/images/discs/ep-151.webp",
+    "effect2": "atk_pct_10"
   },
   {
     "id": "ep-152",
@@ -21,7 +23,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/152/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "冲击力+6%。",
     "setEffect4": "[普通攻击]、[冲刺攻击]、[闪避反击]对主要攻击目标造成的失衡值提升20%。",
-    "image": "/images/discs/ep-152.png"
+    "image": "/images/discs/ep-152.webp",
+    "effect2": "impact_pct_6"
   },
   {
     "id": "ep-153",
@@ -29,7 +32,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/153/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "电属性伤害+10%。",
     "setEffect4": "当场上存在处于[感电]状态下的敌人时，装备者的攻击力提升28%。",
-    "image": "/images/discs/ep-153.png"
+    "image": "/images/discs/ep-153.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-189",
@@ -37,7 +42,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/189/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "冰属性伤害+10%。",
     "setEffect4": "[普通攻击]和[冲刺攻击]造成的伤害提升20%，队伍中任意角色对敌人施加[冻结]或触发[碎冰]效果时，该增益额外提升20%，持续12秒。",
-    "image": "/images/discs/ep-189.png"
+    "image": "/images/discs/ep-189.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-191",
@@ -45,7 +52,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/191/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "异常精通+30点。",
     "setEffect4": "[强化特殊技]命中敌人时，根据装备者的属性类型，使目标对应属性异常积蓄抗性降低20%，持续8秒，相同属性的效果不可叠加。",
-    "image": "/images/discs/ep-191.png"
+    "image": "/images/discs/ep-191.webp",
+    "effect2": "am_30"
   },
   {
     "id": "ep-192",
@@ -53,7 +61,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/192/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "火属性伤害+10%。",
     "setEffect4": "攻击命中处于[灼烧]状态下的敌人时，装备者的暴击率提升28%，持续8秒。",
-    "image": "/images/discs/ep-192.png"
+    "image": "/images/discs/ep-192.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-193",
@@ -61,7 +71,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/193/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "穿透率+8%。",
     "setEffect4": "[终结技]造成的伤害提升20%；发动[终结技]时，装备者的攻击力提升15%，持续12秒。",
-    "image": "/images/discs/ep-193.png"
+    "image": "/images/discs/ep-193.webp",
+    "effect2": "pr_8"
   },
   {
     "id": "ep-231",
@@ -69,7 +80,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/231/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "能量自动回复+20%。",
     "setEffect4": "发动[连携技]或[终结技]时，全队角色造成的伤害提升15%，持续12秒，同名被动效果之间不可叠加。",
-    "image": "/images/discs/ep-231.png"
+    "image": "/images/discs/ep-231.webp",
+    "effect2": "er_pct_20"
   },
   {
     "id": "ep-232",
@@ -77,7 +89,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/232/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "暴击率+8%。",
     "setEffect4": "[普通攻击]、[闪避反击]或[强化特殊技]命中敌人并触发暴击时，分别为装备者提供1层增益效果，每层增益效果使装备者的攻击力提升9%，持续6秒，不同招式分别结算持续时间。",
-    "image": "/images/discs/ep-232.png"
+    "image": "/images/discs/ep-232.webp",
+    "effect2": "cr_8"
   },
   {
     "id": "ep-233",
@@ -85,7 +98,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/233/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "防御力+16%。",
     "setEffect4": "受到敌方攻击并损失生命值时，装备者受到的伤害降低40%，持续2.5秒，15秒内最多触发一次。",
-    "image": "/images/discs/ep-233.png"
+    "image": "/images/discs/ep-233.webp",
+    "effect2": "def_pct_16"
   },
   {
     "id": "ep-236",
@@ -93,7 +107,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/236/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "以太伤害+10%。",
     "setEffect4": "装备者的暴击伤害提升20%，队伍中任意角色触发[侵蚀]伤害时，该增益效果额外提升5.5%，最多叠加6层，持续8秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-236.png"
+    "image": "/images/discs/ep-236.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-798",
@@ -101,7 +117,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/798/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "施加的护盾值+15%。",
     "setEffect4": "队伍中任意角色发动[招架支援]和[回避支援]时，全队角色造成的伤害提升15%，持续10秒，同名被动效果之间不可叠加。",
-    "image": "/images/discs/ep-798.png"
+    "image": "/images/discs/ep-798.webp",
+    "effect2": null,
+    "effect2Note": "条件触发"
   },
   {
     "id": "ep-800",
@@ -109,7 +127,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/800/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "异常精通＋30点。",
     "setEffect4": "火属性伤害和电属性伤害提升15%；位于后场时，[强化特殊技]和[支援攻击]造成的伤害提升20%，换入前场后，该增益效果仍然保留，持续5秒，保留效果7.5秒内最多触发一次。",
-    "image": "/images/discs/ep-800.png"
+    "image": "/images/discs/ep-800.webp",
+    "effect2": "am_30"
   },
   {
     "id": "ep-1000",
@@ -117,7 +136,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1000/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "暴击伤害+16%。",
     "setEffect4": "异常掌控大于等于115点时，装备者的暴击伤害提升30%；队伍中任意角色对敌人施加[冻结]或触发[碎冰]效果时，装备者的暴击率提升12%，持续15秒。",
-    "image": "/images/discs/ep-1000.png"
+    "image": "/images/discs/ep-1000.webp",
+    "effect2": "cd_16"
   },
   {
     "id": "ep-1001",
@@ -125,7 +145,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1001/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "攻击力+10%。",
     "setEffect4": "队伍中任意角色通过[快速支援]入场时，全队角色获得1层[嘉音]，最多叠加3层，持续15秒，重复触发时刷新持续时间， 每拥有1层[嘉音]，通过[快速支援]入场的角色造成的伤害提升8%，该效果全队唯一。",
-    "image": "/images/discs/ep-1001.png"
+    "image": "/images/discs/ep-1001.webp",
+    "effect2": "atk_pct_10"
   },
   {
     "id": "ep-1193",
@@ -133,7 +154,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1193/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "[追加攻击]和[冲刺攻击]造成的伤害提升15%。",
     "setEffect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每拥有1层增益效果，装备者的攻击力提升4%，暴击率提升4%，最多叠加3层，持续15秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-1193.png"
+    "image": "/images/discs/ep-1193.webp",
+    "effect2": null,
+    "effect2Note": "条件触发"
   },
   {
     "id": "ep-1194",
@@ -141,7 +164,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1194/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "异常掌控+8%。",
     "setEffect4": "队伍中任意角色发动[强化特殊技]时，装备者的异常精通提升45点，持续8秒；如果发动[强化特殊技]的角色不是装备者本人时，装备者造成的以太伤害提升25%。",
-    "image": "/images/discs/ep-1194.png"
+    "image": "/images/discs/ep-1194.webp",
+    "effect2": "ac_pct_8"
   },
   {
     "id": "ep-1346",
@@ -149,7 +173,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1346/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "攻击造成的失衡值提升6%。",
     "setEffect4": "装备者为[击破]角色时，发动[强化特殊技]或[连携技]会使全队角色暴击伤害提升15%，装备者的暴击率大于等于50%时暴击伤害额外提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-    "image": "/images/discs/ep-1346.png"
+    "image": "/images/discs/ep-1346.webp",
+    "effect2": null,
+    "effect2Note": "条件触发"
   },
   {
     "id": "ep-1347",
@@ -157,7 +183,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1347/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "生命值+10%",
     "setEffect4": "发动[强化特殊技]、[连携技]、[终结技]时，暴击率提升4%，最多叠加3层，持续15秒，重复触发时刷新持续时间，拥有3层效果时，造成的贯穿伤害提升10%。",
-    "image": "/images/discs/ep-1347.png"
+    "image": "/images/discs/ep-1347.webp",
+    "effect2": "hp_pct_10"
   },
   {
     "id": "ep-1551",
@@ -165,7 +192,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1551/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "能量自动回复+20%。",
     "setEffect4": "装备者为[支援]角色时，发动[强化特殊技]或[终结技]会使全队角色造成的伤害提升18%，持续25秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-    "image": "/images/discs/ep-1551.png"
+    "image": "/images/discs/ep-1551.webp",
+    "effect2": "er_pct_20"
   },
   {
     "id": "ep-1552",
@@ -173,7 +201,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1552/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "[普通攻击]造成的伤害提升15%。",
     "setEffect4": "[普通攻击]造成的伤害提升20%，装备者为[强攻]角色时，发动[强化特殊技]或[终结技]会使[普通攻击]造成的伤害额外提升20%，持续25秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-1552.png"
+    "image": "/images/discs/ep-1552.webp",
+    "effect2": null,
+    "effect2Note": "条件触发"
   },
   {
     "id": "ep-1750",
@@ -181,7 +211,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1750/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "以太伤害+10%。",
     "setEffect4": "装备者发动[普通攻击]命中敌人时，自身异常精通提升36点，持续8秒，重复触发时刷新持续时间；当场上有敌人进入失衡状态时，装备者造成的伤害提升25%；持续18秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-1750.png"
+    "image": "/images/discs/ep-1750.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-1754",
@@ -189,7 +221,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1754/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "物理伤害+10%。",
     "setEffect4": "装备者处于任意[以太帷幕]中时，自身暴击率提高10%，离开[以太帷幕]后，该增益效果仍然保留，持续15秒；装备者为[强攻]角色时，开启[以太帷幕]或延长[以太帷幕]的持续时间会使自身暴击率提升10%和攻击力提升10%，持续30秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-1754.png"
+    "image": "/images/discs/ep-1754.webp",
+    "effect2": "dmg_10"
   },
   {
     "id": "ep-1906",
@@ -197,7 +230,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1906/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "冰属性伤害+10%。",
     "setEffect4": "装备者触发[异放]时，装备者异常精通提升48点，持续30秒；重复触发时刷新持续时间；装备者触发[冻结]效果时，装备者造成的所有属性异常伤害、[紊乱]伤害提升16%，持续30秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-1906.png"
+    "image": "/images/discs/ep-1906.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-1907",
@@ -205,7 +240,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1907/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "生命值+10%。",
     "setEffect4": "[防护]角色装备时：装备者发动[强化特殊技]或队伍中任意队友发动[招架支援]、[回避支援]时，全队角色造成伤害提升6%，最多叠加3层，持续25秒，层数逐层衰减，获得或者衰减时刷新持续时间，同名被动效果之间不可叠加。",
-    "image": "/images/discs/ep-1907.png"
+    "image": "/images/discs/ep-1907.webp",
+    "effect2": "hp_pct_10"
   },
   {
     "id": "ep-2029",
@@ -213,7 +249,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2029/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "以太伤害+10%。",
     "setEffect4": "装备者为以太属性代理人时，暴击伤害提升30%；装备者发动[强化特殊技]或[终结技]时，装备者的攻击力提升10%，持续30秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-2029.png"
+    "image": "/images/discs/ep-2029.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-2038",
@@ -221,7 +259,9 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2038/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "风属性伤害+10%。",
     "setEffect4": "装备者发动[强化特殊技]时，装备者异常精通提升25点，最多叠加2层，持续40秒，重复触发时刷新持续时间；装备者触发[风化]效果后，装备者造成的伤害提升18%，持续40秒，重复触发时刷新持续时间。",
-    "image": "/images/discs/ep-2038.png"
+    "image": "/images/discs/ep-2038.webp",
+    "effect2": null,
+    "effect2Note": "属性伤害"
   },
   {
     "id": "ep-2116",
@@ -229,7 +269,8 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2116/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "异常精通+30点。",
     "setEffect4": "装备者进入战场时，或被切换为当前操作中角色时，获得增益效果：异常精通提升50点，若装备者为流明属性，造成的属性异常伤害提升15%，持续15秒； 当装备者为非操作中角色时，则始终持有该增益效果。",
-    "image": "/images/discs/ep-2116.png"
+    "image": "/images/discs/ep-2116.webp",
+    "effect2": "am_30"
   },
   {
     "id": "ep-2121",
@@ -237,6 +278,7 @@
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2121/detail?mhy_presentation_style=fullscreen",
     "setEffect2": "防御力+16%。",
     "setEffect4": "装备者造成的伤害提升15%，装备者初始防御力大于等于1000/1800点时，暴击率提升8/16%",
-    "image": "/images/discs/ep-2121.png"
+    "image": "/images/discs/ep-2121.webp",
+    "effect2": "def_pct_16"
   }
 ]

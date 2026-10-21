@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/zhao/background.webp",
   "_meta": {
     "agentId": "ep-1686",
     "name": "照",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -39,7 +40,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 7,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "半糖雪兔",
           "stats": "S 级 · 基础攻击 713 · 生命值 30%",
-          "icon": "/images/weapons/ep-1753.png"
+          "icon": "/images/weapons/ep-1753.webp"
         }
       ],
       "note": "专武（WIKI 推荐代理人表仅列照）：目前唯一副词条为「生命值」的防护音擎，直接抬高局外面板生命、放大额外能力的增伤与核心的暴击转化；后场每 0.74 点/秒回能，全队攻击 +16% 与生命 +16%，开启或延长以太帷幕时全队暴击伤害 +48%（持续 60 秒）。"
@@ -79,7 +80,7 @@
         {
           "name": "正版变身器",
           "stats": "A 级 · 基础攻击 594 · 生命值 25%",
-          "icon": "/images/weapons/ep-139.png"
+          "icon": "/images/weapons/ep-139.webp"
         }
       ],
       "note": "唯一带生命值副词条的四星防护音擎，特效为生命上限 +12.5% 与受击时冲击力 +16%——生命上限部分同样计入局外面板，使它在无专武时成为堆 27000 的首选（比 S 级奔袭獠牙少 5% 生命、白值低 119）。"
@@ -90,7 +91,7 @@
         {
           "name": "奔袭獠牙",
           "stats": "S 级 · 基础攻击 713 · 冲击力 18%",
-          "icon": "/images/weapons/ep-799.png"
+          "icon": "/images/weapons/ep-799.webp"
         }
       ],
       "note": "S 级白值 713，但副词条是冲击力、没有任何生命加成，达标 27000 需要更多生命词条；特效偏向装备者自身输出，仅在完全不给生命词条时作过渡。"
@@ -102,23 +103,23 @@
         "name": "静听嘉音",
         "label": "攻击力 +10%",
         "effect4": "队伍中任意角色通过[快速支援]入场时，全队角色获得1层[嘉音]，最多叠加3层，持续15秒，重复触发时刷新持续时间，每拥有1层[嘉音]，通过[快速支援]入场的角色造成的伤害提升8%，该效果全队唯一。",
-        "icon": "/images/discs/ep-1001.png",
+        "icon": "/images/discs/ep-1001.webp",
         "alt4": {
           "name": "雪兔梦游仙境",
           "label": "生命值 +10%",
-          "icon": "/images/discs/ep-1907.png"
+          "icon": "/images/discs/ep-1907.webp"
         }
       },
       "set2": {
         "main": {
           "name": "云岿如我",
           "label": "生命值 +10%",
-          "icon": "/images/discs/ep-1347.png"
+          "icon": "/images/discs/ep-1347.webp"
         },
         "alt": {
           "name": "摇摆爵士",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-231.png"
+          "icon": "/images/discs/ep-231.webp"
         }
       },
       "mainStats": [
@@ -174,12 +175,12 @@
           "agentId": "ep-1687",
           "name": "叶瞬光",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1687.png",
+          "avatar": "/images/agents/ep-1687.webp",
           "note": "双形态主C，强攻身份触发照的额外能力；照反复开关以太帷幕为她回复[青溟剑势]，加快进入白发形态。",
           "set4": [
             {
               "name": "沧浪行歌",
-              "icon": "/images/discs/ep-1754.png"
+              "icon": "/images/discs/ep-1754.webp"
             }
           ]
         },
@@ -187,12 +188,12 @@
           "agentId": "ep-1791",
           "name": "千夏",
           "role": "支援",
-          "avatar": "/images/agents/ep-1791.png",
+          "avatar": "/images/agents/ep-1791.webp",
           "note": "支援身份同样触发照的额外能力；攻击力达标 3500 后全队加攻 1050 点，与照的加攻叠加，还能给敌人挂[猫的凝视]。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -200,12 +201,12 @@
           "agentId": "ep-1686",
           "name": "照",
           "role": "防护",
-          "avatar": "/images/agents/ep-1686.png",
+          "avatar": "/images/agents/ep-1686.webp",
           "note": "霜寒值满后速切登场开[以太帷幕·涌泉]，全队攻击力提升、生命值% +18%、基础攻击 +75；自身生命 27000 时额外能力给全队 40% 增伤。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }

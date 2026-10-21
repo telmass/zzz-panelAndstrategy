@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/pyrois/background.webp",
   "_meta": {
     "agentId": "ep-1958",
     "name": "佩洛伊斯",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -30,7 +31,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -38,7 +39,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "日冕遗蜕",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-2031.png"
+          "icon": "/images/weapons/ep-2031.webp"
         }
       ],
       "note": "专武：暴击率 +20% 直接补足面板；佩洛伊斯专属「日蚀」效果：终结技后无视 16~22% 以太抗性，持续 45 秒。无其他以太强攻音擎能触发专属被动。"
@@ -82,7 +83,7 @@
           "label": "以太伤害 +10%",
           "effect4": "装备者为以太属性代理人时，暴击伤害提升 30%；装备者发动[强化特殊技]或[终结技]时，装备者的攻击力提升 10%，持续 30 秒，重复触发时刷新持续时间。",
           "scene": "以太强攻专属：2 件套给以太伤害，4 件套给暴击伤害 + 攻击力，完美契合佩洛伊斯",
-          "icon": "/images/discs/ep-2029.png"
+          "icon": "/images/discs/ep-2029.webp"
         }
       ],
       "set2": {
@@ -90,24 +91,24 @@
           {
             "name": "河豚电音",
             "label": "穿透率 +8%",
-            "icon": "/images/discs/ep-193.png"
+            "icon": "/images/discs/ep-193.webp"
           }
         ],
         "alt": [
           {
             "name": "摇摆爵士",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-231.png"
+            "icon": "/images/discs/ep-231.webp"
           },
           {
             "name": "月光骑士颂",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-1551.png"
+            "icon": "/images/discs/ep-1551.webp"
           },
           {
             "name": "折枝剑歌",
             "label": "攻击力 +10%",
-            "icon": "/images/discs/ep-1000.png"
+            "icon": "/images/discs/ep-1000.webp"
           }
         ]
       },
@@ -163,12 +164,12 @@
           "agentId": "ep-1958",
           "name": "佩洛伊斯",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1958.png",
+          "avatar": "/images/agents/ep-1958.webp",
           "note": "主 C：以太强攻，靠喧响值/日珥循环打 4 种终结技，专武日蚀无视以太抗性。",
           "set4": [
             {
               "name": "拂晓行纪",
-              "icon": "/images/discs/ep-2029.png"
+              "icon": "/images/discs/ep-2029.webp"
             }
           ]
         },
@@ -176,12 +177,12 @@
           "agentId": "ep-1962",
           "name": "诺姆",
           "role": "击破",
-          "avatar": "/images/agents/ep-1962.png",
+          "avatar": "/images/agents/ep-1962.webp",
           "note": "副 C：火击破，山大王+摇摆爵士，失衡期打山大王额外暴伤；额外能力需队内强攻/命破/同阵营。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -189,12 +190,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "支援：提供全队增伤/护盾/回能，静听嘉音/自由蓝调 2 件套通用。",
           "set4": [
             {
               "name": "自由蓝调",
-              "icon": "/images/discs/ep-191.png"
+              "icon": "/images/discs/ep-191.webp"
             }
           ]
         }

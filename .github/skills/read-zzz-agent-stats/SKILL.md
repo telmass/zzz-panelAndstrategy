@@ -5,6 +5,9 @@ description: Read a named Zenless Zone Zero agent's level-60 base panel and full
 
 # Read ZZZ Agent Stats
 
+> 🧭 本 skill 是 `get-agent-strategy` 的子流程，通常由它编排调用；单独使用同样有效。
+> 共享规则见 [`_shared/naming.md`](../_shared/naming.md)。
+
 Use this skill when the user gives an agent's name and asks to read the two stat groups used by the panel calculators:
 
 1. The level-60 base panel, excluding core-skill bonuses.
@@ -65,7 +68,7 @@ Include a source link to the official agent detail page. Be explicit about any f
 carries the name and the 特性 tag, so a browser pass is not needed for them:
 
 - **评级 `grade`** — `role_base_info.grade`, verbatim. Agents only use `S` and `A`.
-  Write whatever the Wiki says: a new grade must reach `data/agent-presets.json` and be
+  Write whatever the Wiki says: a new grade must reach `data/catalog/agents.json` and be
   rejected by the backend whitelist, not vanish silently at scrape time.
   `GRADE_ORDER` in the script is for **sorting only** (S before A).
 - **属性 `role_attribute`** — an English slug, translated through the script's
@@ -102,29 +105,38 @@ every use instead of caching. Implementations, both unit-tested:
 - backend `backend/src/zzz_panel/presets/attributes.py` → `special_agent_attributes()`
 - frontend `frontend/src/composables/useAgentPreset.ts` → `specialAgentAttributes()`
 
-## Batch refresh of `data/agent-presets.json`
+## Batch refresh of `data/catalog/agents.json`
 
 `scripts/refresh_agent_presets.py` performs the same reads without a browser. It scans
 `entry_page_id=1..2600` on `https://act-api-takumi.mihoyo.com/hoyowiki/zzz/wapi/entry_page_v2?entry_page_id=<id>`
-and keeps every page that exposes a `role_base_info` component, which currently yields 60 agents.
+and keeps every page that exposes a `role_base_info` component, which currently yields 61 agents.
 
 Run from the repository root; the default `--config` and `--out` paths are repo-root relative.
 
 ```
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
-python tools/sync_presets.py --to-legacy
+python tools/sync_manifest.py
 python tools/bundle_worker_data.py
 ```
 
-`data/agent-presets.json` is the single source of truth for the whole repository. The
-parity fixture's `frontend/tests/fixtures/legacy-calculator/data/agent-presets.js` is
-generated from it by `sync_presets.py --to-legacy`; never write that file from this
-script. After a refresh, run that command so the fixture stays in sync, and
-`python tools/sync_presets.py --to-legacy --check` must exit 0.
+`data/catalog/agents.json` is the single source of truth for the whole repository, and
+its path is declared once in `data/manifest.json`.
+
+The second command, `python tools/sync_manifest.py`, refreshes the registry's derived
+fields (`count` and `sha256`). A refresh changes both, so **skipping it leaves the
+repository in a state that fails `sync_manifest.py --check` and turns CI red**. The
+registry is also what tells the backend, the Worker bundler and the Skill scripts
+where the file lives — a dataset that is not registered is invisible to all of them.
+
+The parity fixture's `frontend/tests/fixtures/legacy-calculator/data/agent-presets.js`
+is a **frozen snapshot** of the reference implementation's inputs, not a generated
+artifact; never write it from this script.
+`backend/tests/test_legacy_fixture_snapshot.py` asserts it stays semantically equal to
+the current dataset.
 
 The third command, `python tools/bundle_worker_data.py`, is the Cloudflare deploy gate
-and must be re-run after **any** change to `agent-presets.json` or
-`weapon-presets.json`. `pywrangler` uploads only `.py` files, so a refreshed preset
+and must be re-run after **any** change to `data/catalog/agents.json` or
+`data/catalog/weapons.json`. `pywrangler` uploads only `.py` files, so a refreshed preset
 that is not recompiled never reaches production: `pywrangler` silently drops the
 `.json`, `loader.py` falls back to the generated `zzz_panel._bundled_data` module, and
 the live `/api/presets/*` keeps serving the previous data. With no generated module at
@@ -140,8 +152,8 @@ regex parse fails silently.
 
 - The level-60 panel comes from the 晋升需求 slider rows 初始/满级, merged field by field.
 - Legacy labels are normalized (`生命/攻击/防御`, `暴击/暴伤`, `异常掌控`, `基础能量自动回复提升0.12点/秒`).
-- 命破 agents put `贯穿力` into `additionalBaseStats.penforce` and `闪能自动累积` into `additionalBaseStats.energyAccumulation`; missing `pr`/`er` are listed in `unavailableBaseStats`.
-- 锋御 agents put `锐能自动累积` into `base.er`. `锐暴伤害` is already modeled by the calculator: it is a fixed 150% intrinsic stat displayed only in the 锋御 final panel, never as a calculation input. The scraper still writes the Wiki label into `unmodeledBaseStats` for traceability, and the calculator filters it out via `MODELED_BASE_STAT_LABELS`; never describe it to the user as unmodeled. Only genuinely unmodelled attributes belong there.
+- 命破 agents put `贯穿力` into `baseExtra.penforce` and `闪能自动累积` into `baseExtra.energyAccumulation`. **Missing `pr` / `er` are simply absent from `base`** — absence *is* the fact, so there is no `unavailableBaseStats` list to keep in sync. Which omissions are legal is decided by the backend: `rupture` mode may omit `pr` / `er` (those slots are taken by 贯穿力 / 闪能自动累积), every other mode must have all ten.
+- 锋御 agents put `锐能自动累积` into `base.er`. `锐暴伤害` is already modeled by the calculator: it is a fixed 150% intrinsic stat displayed only in the 锋御 final panel, never as a calculation input. The scraper still writes the Wiki label into `baseUnmodeled` for traceability, and the calculator filters it out via `MODELED_BASE_STAT_LABELS`; never describe it to the user as unmodeled. Only genuinely unmodelled attributes belong there.
 - Core ranks are read per rank letter and only `A`–`F` are accepted; older pages also emit empty `2..6` entries.
 - Presets are written sorted by official grade (S before A) then by id. Serialization reuses `tools/sync_presets.py`, so the output is canonical and byte-deterministic: a rerun must reproduce the same file.
 

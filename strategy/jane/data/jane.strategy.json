@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/jane/background.webp",
   "_meta": {
     "agentId": "ep-759",
     "name": "简·杜",
@@ -16,7 +17,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -24,7 +25,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -32,7 +33,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -40,7 +41,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -48,7 +49,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -56,7 +57,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -69,7 +70,7 @@
         {
           "name": "淬锋钳刺",
           "stats": "S 级 · 基础攻击 713 · 异常精通 90",
-          "icon": "/images/weapons/ep-760.png"
+          "icon": "/images/weapons/ep-760.webp"
         }
       ],
       "note": "简·杜专武（WIKI 音擎页 double_col_table 推荐代理人表列简·杜）：S 级物理异常音擎，基础攻击 713、副词条异常精通 90；特效冲刺攻击叠物理伤害（每层 12.5%~24%、3 层），满层后异常积蓄效率 +40%~80%，与简·杜的冲刺攻击循环完全契合。"
@@ -80,12 +81,12 @@
         {
           "name": "嵌合编译器",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-214.png"
+          "icon": "/images/weapons/ep-214.webp"
         },
         {
           "name": "双生泣星",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-212.png"
+          "icon": "/images/weapons/ep-212.webp"
         }
       ],
       "note": "物理异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -96,12 +97,12 @@
         {
           "name": "触电唇彩",
           "stats": "A 级 · 基础攻击 594 · 异常精通 75",
-          "icon": "/images/weapons/ep-210.png"
+          "icon": "/images/weapons/ep-210.webp"
         },
         {
           "name": "轰鸣座驾",
           "stats": "S 级 · 基础攻击 624 · 攻击力 25%",
-          "icon": "/images/weapons/ep-494.png"
+          "icon": "/images/weapons/ep-494.webp"
         }
       ],
       "note": "备选物理异常音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -114,18 +115,18 @@
         "name": "獠牙重金属",
         "label": "物理伤害 +10%",
         "effect4": "队伍中任意角色对敌人施加[强击]效果时，装备者对目标造成的伤害提升35%，持续12秒，重复触发时刷新持续时间。",
-        "icon": "/images/discs/ep-104.png"
+        "icon": "/images/discs/ep-104.webp"
       },
       "set2": {
         "main": {
           "name": "法厄同之歌",
           "label": "异常掌控 +8%",
-          "icon": "/images/discs/ep-1194.png"
+          "icon": "/images/discs/ep-1194.webp"
         },
         "alt": {
           "name": "混沌爵士",
           "label": "异常精通 +30",
-          "icon": "/images/discs/ep-800.png"
+          "icon": "/images/discs/ep-800.webp"
         }
       },
       "mainStats": [
@@ -159,11 +160,11 @@
         },
         {
           "label": "攻击力",
-          "next": ">"
+          "next": "="
         },
         {
           "label": "穿透值",
-          "next": "="
+          "next": ""
         }
       ]
     }
@@ -176,16 +177,16 @@
           "agentId": "ep-759",
           "name": "简·杜",
           "role": "异常",
-          "avatar": "/images/agents/ep-759.png",
+          "avatar": "/images/agents/ep-759.webp",
           "note": "物理异常站场主 C，[啮咬]+[畏缩]触发[强击]暴击率随异常精通提升（最高叠满），[狂热]状态下异常精通>120时每点转+2攻击力（上限+600）。",
           "set4": [
             {
               "name": "獠牙重金属",
-              "icon": "/images/discs/ep-104.png"
+              "icon": "/images/discs/ep-104.webp"
             },
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -193,12 +194,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "彩糖花火染以太，加速以太积蓄，柚叶置于薇薇安/薇薇安之前染以太，与简·杜的物理异常形成双异常紊乱。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -206,12 +207,12 @@
           "agentId": "ep-1276",
           "name": "薇薇安",
           "role": "异常",
-          "avatar": "/images/agents/ep-1276.png",
+          "avatar": "/images/agents/ep-1276.webp",
           "note": "以太异常副 C，自身强击异放提高队伍输出；额外能力提升全队紊乱伤害，柚叶的快支方便她回豆。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         }
@@ -224,16 +225,16 @@
           "agentId": "ep-759",
           "name": "简·杜",
           "role": "异常",
-          "avatar": "/images/agents/ep-759.png",
+          "avatar": "/images/agents/ep-759.webp",
           "note": "物理异常站场主 C，耀嘉音补能与全队攻击增益，薇薇安补紊乱。",
           "set4": [
             {
               "name": "獠牙重金属",
-              "icon": "/images/discs/ep-104.png"
+              "icon": "/images/discs/ep-104.webp"
             },
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -241,12 +242,12 @@
           "agentId": "ep-1276",
           "name": "薇薇安",
           "role": "异常",
-          "avatar": "/images/agents/ep-1276.png",
+          "avatar": "/images/agents/ep-1276.webp",
           "note": "以太异常副 C，与简·杜互相结算紊乱，自身强击异放提高队伍输出。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -254,12 +255,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "支援回能与全队攻击增益，补齐简·杜的爆发轴真空期。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }

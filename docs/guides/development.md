@@ -79,8 +79,8 @@ uv run --group worker pywrangler dev
 ## 4. 测试
 
 ```powershell
-uv run pytest                          # 后端 310 项
-cd frontend; npm run test              # 前端 127 项
+uv run pytest                          # 后端 439 项
+cd frontend; npm run test              # 前端 185 项
 ```
 
 前端另外两个脚本：
@@ -94,9 +94,9 @@ npm run test:watch     # vitest 监听模式
 尤其 `test_fmt_parity.py`，它会因「node 不可用」以外的原因跳过，
 详见 [testing.md](testing.md)。看到 skip 要查原因，不要忽略。
 
-> ✅ **后端测试当前全绿（310 项）。** 此前 60 项失败集中在攻略数据命名 / UTF-8 编码
+> ✅ **后端测试当前全绿（439 项）。** 此前 60 项失败集中在攻略数据命名 / UTF-8 编码
 > （`test_strategy_data.py`）与音擎数量从 100 变 101 后的硬编码断言，已分别通过
-> 数据归一 / 重新抓取与动态读取修复。回归守卫见 [structure-review.md](structure-review.md) P0-1 ～ P0-3。
+> 数据归一 / 重新抓取与动态读取修复。回归守卫见 [structure-review.md](../completeds/structure-review.md) P0-1 ～ P0-3。
 
 > ⚠️ **不要并行跑 `uv run pytest` 与 `npm run test`。** 后者会拉起真实 uvicorn，
 > 两者同时触发 `uv` 重装本包时 uvicorn 20 秒内报不出端口，表现为 4 个对拍用例
@@ -117,20 +117,24 @@ npm run test:watch     # vitest 监听模式
 ## 6. 数据管线
 
 `data/` 下的 JSON 是**唯一真实源**，但其中四个是生成物，改了源头要重新生成；
-`data/agent-name-mapping.json` 是手工维护的规范 slug 表，不是生成物，不要用抓取脚本覆盖。
+`data/catalog/agent-index.json` 是手工维护的规范 slug 表，不是生成物，不要用抓取脚本覆盖。
 
 ```
 Skill 抓取脚本                  core/options.py
 （网络 → 官方Wiki）              （规则表权威源）
         │                              │
         ▼                              ▼
-data/agent-presets.json      data/options.json
-data/weapon-presets.json            │
+data/catalog/agents.json      data/rules/calculator-rules.json
+data/catalog/weapons.json            │
         │                            │
-        │ sync_presets.py --to-legacy│ 前端 @data 别名直接 import
+        │ sync_manifest.py（登记表）  │ 前端 @data 别名直接 import
         ▼                            ▼
-tests/fixtures/legacy-calculator/  frontend/src/constants/
-  data/*.js（对拍夹具）             calculatorOptions.ts
+data/manifest.json              frontend/src/constants/
+  （数据集路径的唯一真源）          calculatorOptions.ts
+
+        （对拍夹具是**冻结的快照**，不在任何生成链路上：）
+tests/fixtures/legacy-calculator/
+  data/*.js（参照实现输入，语义等值由测试断言）
 
         （上面两个预设 JSON 还有第三条分支：部署到 Cloudflare 时）
         │  tools/bundle_worker_data.py
@@ -143,11 +147,12 @@ Cloudflare Worker → GET /api/presets/*
         （另有一条独立分支，不走上面任何一条链路：）
         │  .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
         ▼
-data/drive-disc-presets.json（30 套 2/4 件套效果）
-frontend/public/images/discs/ep-<id>.png（套装图标）
+data/catalog/drive-discs.json（30 套 2/4 件套效果）
+frontend/public/images/discs/ep-<id>.webp（套装图标）
         │
-        └─ 不进 to-legacy、不进 bundle；消费者是攻略页（/images/discs/…），
-           计算器 UI 接入图标属待做
+        └─ 不进 bundle（不进 Worker 产物）；但**要**跑 sync_manifest.py；
+           消费者：攻略页（/images/discs/…）与计算器的「按套装」选择器；
+           不编译进 Worker 产物
 ```
 
 ### 刷新预设数据
@@ -155,11 +160,12 @@ frontend/public/images/discs/ep-<id>.png（套装图标）
 ```powershell
 python .github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
-python tools/sync_presets.py --to-legacy        # 必须再跑，否则夹具漂移
+python tools/sync_manifest.py                  # 必须再跑，否则登记表的 count / sha256 漂移
+python tools/bundle_worker_data.py             # Worker 产物（部署前）
 ```
 
 抓取脚本的输出是**整体覆盖**，不是增量。前两个脚本会打印
-`next: python tools/sync_presets.py --to-legacy`。
+`next: python tools/sync_manifest.py`。
 
 ### 刷新驱动盘套装效果
 
@@ -168,13 +174,14 @@ python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
 ```
 
 只收录 2 件套与 4 件套效果（`setEffect2` / `setEffect4`），并把 30 张套装图标
-写到 `frontend/public/images/discs/ep-<entry_page_id>.png`。**不触发**
-`sync_presets.py --to-legacy`，也不进 `_bundled_data.py`——计算器不消费它
-（当前消费者是攻略页的驱动盘卡）。重跑幂等：JSON 字节不变，图片仅在内容变化时才重写。
+写到 `frontend/public/images/discs/ep-<entry_page_id>.webp`。**不进**
+`_bundled_data.py`——计算器不消费它（当前消费者是攻略页的驱动盘卡）。
+但它**同样登记在 `data/manifest.json` 里**，所以抓完仍要跑
+`python tools/sync_manifest.py`。重跑幂等：JSON 字节不变，图片仅在内容变化时才重写。
 
 ### 归一攻略页数据
 
-攻略页目录、数据文件名与图片引用必须统一到 `data/agent-name-mapping.json` 的 slug：
+攻略页目录、数据文件名与图片引用必须统一到 `data/catalog/agent-index.json` 的 slug：
 
 ```powershell
 python tools/normalize_strategy.py --check          # 只报告漂移，退出码 1
@@ -191,7 +198,7 @@ Skill 文档里的示例路径。页面模板已统一迁入 Vue，新增代理�
 
 ### 改了预设数据、且要部署到 Cloudflare
 
-刷新或改过 `data/agent-presets.json` / `data/weapon-presets.json` 之后，必须再编译一次：
+刷新或改过 `data/catalog/agents.json` / `data/catalog/weapons.json` 之后，必须再编译一次：
 
 ```powershell
 python tools/bundle_worker_data.py             # 生成包内镜像（gitignored）
@@ -202,29 +209,30 @@ python tools/bundle_worker_data.py --check     # 漂移闸：产物与源不一�
 `/api/presets/*` 返回 503（干净 clone 因为压根没有产物，也一定是 503）。
 细节见 [deployment.md](deployment.md) 5.3。
 
-`data/options.json` **不参与**这一步——它由前端在构建期经 `@data` 读真实源。
+`data/rules/calculator-rules.json` **不参与**这一步——它由前端在构建期经 `@data` 读真实源。
 
 ### 改了规则表
 
 规则表的唯一权威源在 `backend/src/zzz_panel/core/options.py` 与 `core/constants.py`：
 
 ```powershell
-python tools/sync_presets.py --options       # 重新生成 data/options.json
+python tools/sync_presets.py --options       # 重新生成 data/rules/calculator-rules.json
 ```
 
 改完必须跑 `uv run pytest`。`backend/tests/test_options_json.py` 会断言 JSON
 与 Python 当前值一致——忘了重新生成就会失败，这是设计意图。
 
-### 同步脚本的四个模式
+### 数据同步脚本
 
 | 命令 | 方向 | 用途 |
 | --- | --- | --- |
-| `--from-legacy` | 夹具 `data/*.js` → `data/*.json` | 一次性引导，现已退化 |
-| `--to-legacy` | `data/*.json` → 夹具 `data/*.js` | **常规流程**，抓取后必跑 |
-| `--options` | `core/*.py` → `data/options.json` | 单向，改规则表后跑 |
-| `--check` | 只比对不写，有漂移退出码 1 | CI 门禁 |
+| `sync_manifest.py` | 数据集 → 登记表派生字段（`count` / `sha256`） | **抓取后必跑**；漏了 CI 直接红 |
+| `sync_presets.py --options` | `core/*.py` → `data/rules/calculator-rules.json` | 单向，改规则表后跑 |
+| `bundle_worker_data.py` | `data/catalog/*.json` → `_bundled_data.py` | 部署前跑；`--check` 是 CI 门禁 |
+| 各自 `--check` | 只比对不写，有漂移退出码 1 | CI 门禁 |
 
-`--to-legacy` 与 `--from-legacy` 的往返是**字节一致**的，因此可用来证明转换无损。
+对拍夹具**不在任何生成链路上**：它已冻结为快照，由
+`backend/tests/test_legacy_fixture_snapshot.py` 断言与当前数据集语义等值。
 
 数据抓取脚本**刻意不放 `tools/`**——它们是 Skill 契约的一部分，
 必须留在 `.github/skills/*/scripts/`。
@@ -318,7 +326,7 @@ pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该�
 
 ### 修改夹具的路径会连带三处
 
-夹具从 `frontend/legacy/` 移到 `tests/fixtures/legacy-calculator/` 时，
+夹具从 `frontend/tests/fixtures/legacy-calculator/` 移到 `tests/fixtures/legacy-calculator/` 时，
 以下位置都改了路径，一起搬才不会出现「三方对拍静默skip」：
 
 | 文件 | 引用 |
@@ -327,7 +335,7 @@ pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该�
 | `frontend/tools/dump_legacy_cases.mjs` | `LEGACY_ROOT` |
 | `frontend/tools/diff_breakdown.mjs` | `LEGACY_ROOT` |
 | `backend/tests/test_fmt_parity.py` | `LEGACY_JS` |
-| `tools/sync_presets.py` | `LEGACY_DIR` |
+| `tools/sync_manifest.py` | `data/manifest.json`（数据集路径的唯一真源） |
 | `.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py` | `--config` 默认值 |
 
 ## 9. 诊断工具
@@ -346,16 +354,17 @@ pywrangler 用 Python 的**本地编码**（中文 Windows 是 GBK）解析该�
 ## 10. 提交前检查
 
 ```powershell
-uv run pytest                      # 后端 310 项，0 skip
+uv run pytest                      # 后端 439 项，0 skip
 cd frontend
 npm run typecheck                  # 类型
-npm run test                       # 127 项，含三方对拍（与 pytest 串行跑）
+npm run test                       # 146 项，含三方对拍（与 pytest 串行跑）
 cd ..
-python tools/sync_presets.py --to-legacy --check
+python tools/sync_manifest.py --check
 python tools/sync_presets.py --options --check
 python tools/bundle_worker_data.py --check
 python tools/normalize_strategy.py --check
 python tools/gen_strategy_guides.py --check
+python .github/skills/agent-strategy/scripts/calc_graduation_panel.py --check  # 参考实例实算
 git diff --check
 ```
 
@@ -367,12 +376,12 @@ git diff --check
 
 ## 11. 相关文档
 
-- [requirements.md](requirements.md) —— 项目做什么、约束与已知限制
-- [architecture.md](architecture.md) —— 分层与依赖方向
-- [api-reference.md](api-reference.md) —— HTTP 接口
-- [data-schema.md](data-schema.md) —— 预设与选项表结构
-- [calculation-rules.md](calculation-rules.md) —— 计算公式
-- [directory-layout.md](directory-layout.md) —— 目录职责
+- [requirements.md](../overview/requirements.md) —— 项目做什么、约束与已知限制
+- [architecture.md](../design/architecture.md) —— 分层与依赖方向
+- [api-reference.md](../reference/api-reference.md) —— HTTP 接口
+- [data-schema.md](../design/data-schema.md) —— 预设与选项表结构
+- [calculation-rules.md](../design/calculation-rules.md) —— 计算公式
+- [directory-layout.md](../overview/directory-layout.md) —— 目录职责
 - [testing.md](testing.md) —— 测试策略
 - [deployment.md](deployment.md) —— 部署
-- [changelog.md](changelog.md) —— 变更记录
+- [changelog.md](../changelog.md) —— 变更记录

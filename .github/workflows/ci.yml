@@ -31,7 +31,7 @@ jobs:
 
       - name: Data drift gates
         run: |
-          python tools/sync_presets.py --to-legacy --check
+          python tools/sync_manifest.py --check
           python tools/sync_presets.py --options --check
           python tools/bundle_worker_data.py
           python tools/bundle_worker_data.py --check
@@ -40,6 +40,12 @@ jobs:
           python tools/seed_main_stat_notes.py --check
           python tools/check_docs.py
           python .github/skills/agent-strategy/scripts/calc_graduation_panel.py --check-all
+          python .github/skills/agent-strategy/scripts/calc_graduation_panel.py --check
+
+      - name: UI gates
+        run: |
+          python tools/check_ui_contrast.py --check
+          python tools/check_ui_scale.py --check
 
       - name: Backend tests
         run: uv run pytest

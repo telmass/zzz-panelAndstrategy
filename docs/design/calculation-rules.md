@@ -76,7 +76,7 @@
 
 **后端不设上限。** `core/modifiers.py` 只做 `max(0, floor(count))`，
 即负数归零、小数向下取整。这是有意的契约差异，详见
-[requirements.md](requirements.md) 的已知限制。
+[requirements.md](../overview/requirements.md) 的已知限制。
 
 **毕业面板的词条展示口径**：计算仍按完整词条实算，展示时拆成「大词条 + 小词条」：
 
@@ -91,7 +91,7 @@
 
 共 **3 个组**，每组可选 1 个二件套效果，也可全不选。
 
-**三个组共用同一张 12 条的候选池**（`data/options.json` 的 `setOptions`），
+**三个组共用同一张 12 条的候选池**（`data/rules/calculator-rules.json` 的 `setOptions`），
 前端三个下拉框的选项完全相同，差别只在选中了哪几条：
 
 | id | label | 数值 | `kind` | `to` |
@@ -161,7 +161,7 @@
   非锋御模式下面板不显示该项。
 - 实现位置：Python 在 `modeStats` 返回 `fengyu_blast_dmg: 150`，
   并在响应顶层给出别名 `blastDmg`（前端结果面板读顶层，明细生成读 `modeStats` 内的键）。
-- 抓取脚本为可追溯仍会把该 Wiki 标签写进 `unmodeledBaseStats`，
+- 抓取脚本为可追溯仍会把该 Wiki 标签写进 `baseUnmodeled`，
   但前端载入时会过滤掉，详见 [data-schema.md](data-schema.md) 第 5.3 节。
 
 ### 锋御文案替换
@@ -216,11 +216,11 @@
 > 公式与参照实现冲突时，**以参照实现的输出为准**：它代表用户已经习惯的数字。
 > 确需变更行为时，先确认是有意改动，再更新期望值，**绝不能反向修改夹具**。
 
-逐项差异与迁移过程见 [completeds/migration-vue3.md](completeds/migration-vue3.md)。
+逐项差异与迁移过程见 [completeds/migration-vue3.md](../completeds/migration-vue3.md)。
 
 ## 11. 相关文档
 
-- [api-reference.md](api-reference.md) —— 请求/响应结构、模式专属字段
+- [api-reference.md](../reference/api-reference.md) —— 请求/响应结构、模式专属字段
 - [data-schema.md](data-schema.md) —— 选项表与预设的字段定义
-- [requirements.md](requirements.md) —— 已知限制
-- [testing.md](testing.md) —— 规则如何被守住
+- [requirements.md](../overview/requirements.md) —— 已知限制
+- [testing.md](../guides/testing.md) —— 规则如何被守住

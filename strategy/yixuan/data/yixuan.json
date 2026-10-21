@@ -4,7 +4,7 @@
     "entryPageId": 1299,
     "name": "仪玄",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1299/detail",
-    "scrapedAt": "2026-10-16T04:43:02+00:00"
+    "scrapedAt": "2026-10-20T11:03:25+00:00"
   },
   "profile": {
     "name": "仪玄",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】玄墨属性，长轴驻场主C，无视防御造成贯穿伤害，双大招爆发。\n【角色详情】仪玄的攻击均使用贯穿力作为招式倍率，贯穿力可无视敌人防御，有能量时通过长按攻击发动任一强化特殊技，造成伤害的同时消耗能量积攒太极进度条，太极进度条满后，能优先释放特殊大招，点亮太极图，此时长按闪避可以发动玄墨极阵，可以持续为特殊技回复能量。",
     "icons": {
-      "profession": "/images/icons/rupture.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/auric-ink.png",
-      "title": "/images/strategy/yixuan/title.png"
+      "profession": "/images/icons/rupture.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/auric-ink.webp",
+      "title": "/images/strategy/yixuan/title.webp"
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7953,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 872,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 441,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 92,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "贯穿力",
-      "value": 104,
-      "unit": ""
-    },
-    {
-      "label": "闪能自动累积",
-      "value": 2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1299.png",
+    "avatar": "/images/agents/ep-1299.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/04/76099754/0e23c7bada797f49d626181c8d3e169c_2545105937304446730.png",
-    "tachie": "/images/strategy/yixuan/tachie.png",
+    "tachie": "/images/strategy/yixuan/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/28/15559334/2b105076fc7b408c3214f0b3349afede_2954897288856944924.png"
   },
   "skills": [
@@ -1207,7 +1155,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1780,7 +1728,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2527,7 +2475,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3648,7 +3596,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/21/82232455/4c0f24030dcbf14ba91505c60ced058a_2093243001397726662.png"
     },
     {
@@ -4491,7 +4439,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -4500,8 +4448,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：术法宗师\n仪玄会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；\n仪玄发动招式造成的玄墨伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n仪玄累积玄墨异常积蓄值时，具有独立的属性异常积蓄槽，触发属性异常效果时，额外回复10点闪能，每10秒最多触发一次；\n仪玄进入战斗时即可恢复全部闪能，在勘域模式中此效果180秒内最多触发一次，触发极限闪避时额外回复5点闪能，每1秒最多触发一次；\n消耗闪能时，仪玄会积累[术法值]，每消耗一点闪能，积累0.667点[术法值]，[术法值]足够时，可额外释放终结技：[终结技：符法千重]，[术法值]上限为120点；\n仪玄施展[普通攻击：玄墨极阵]、[普通攻击：青溟震击]、[强化特殊技]、[支援突击]、[连携技]、[终结技]造成的伤害提升30%；，暴击率提升14.4%，基础生命值提升420点。（此处数据为满级数据）\n释放[终结技：符法千重]后，仪玄获得一点[玄墨值]，仪玄可消耗一点[玄墨值]，释放[普通攻击：玄墨极阵]。\n\n额外能力：玄墨暗涌\n队伍中存在[击破]角色或[支援]角色或[防护]角色时触发：\n队友释放终结技时，仪玄持续回复2点闪能，持续10秒；仪玄被极限支援换下场时，仪玄会自动追加一道落雷，造成等同于仪玄225%贯穿力的伤害并额外回复5点闪能；\n[强化特殊技：凝云术]与[强化特殊技：墨烬影消]命中处于失衡状态下的敌人时，伤害提升30%；\n发动[终结技]后，仪玄进入[凝神]状态，[凝神]状态下，仪玄的暴击伤害提升40%，持续15秒。",
+          "title": "核心技：术法宗师",
+          "text": "仪玄会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；\n仪玄发动招式造成的玄墨伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n仪玄累积玄墨异常积蓄值时，具有独立的属性异常积蓄槽，触发属性异常效果时，额外回复10点闪能，每10秒最多触发一次；\n仪玄进入战斗时即可恢复全部闪能，在勘域模式中此效果180秒内最多触发一次，触发极限闪避时额外回复5点闪能，每1秒最多触发一次；\n消耗闪能时，仪玄会积累[术法值]，每消耗一点闪能，积累0.67点[术法值]，[术法值]足够时，可额外释放终结技：[终结技：符法千重]；\n仪玄施展[普通攻击：玄墨极阵]、[普通攻击：青溟震击]、[强化特殊技]、[支援突击]、[连携技]、[终结技]造成的伤害提升60%；\n释放[终结技：符法千重]后，仪玄获得一点[玄墨值]，仪玄可消耗一点[玄墨值]，释放[普通攻击：玄墨极阵]。",
           "growth": [
             {
               "level": "A",
@@ -4570,9 +4518,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：玄墨暗涌",
+          "text": "队伍中存在[击破]角色或[支援]角色或[防护]角色时触发：\n队友释放终结技时，仪玄持续回复2点闪能，持续10秒；仪玄被极限支援换下场时，仪玄会自动追加一道落雷，造成等同于仪玄225%贯穿力的伤害并额外回复5点闪能；\n[强化特殊技：凝云术]与[强化特殊技：墨烬影消]命中处于失衡状态下的敌人时，伤害提升30%；\n发动[终结技]后，仪玄进入[凝神]状态，[凝神]状态下，仪玄的暴击伤害提升40%，持续15秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/29/15559334/72b87c735b46c309270096faf75209c9_152057251476812511.png"
     }
   ],
@@ -4610,27 +4562,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/yixuan/cinema-2.png",
+      "image": "/images/strategy/yixuan/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/0ff1a5943cafcf4990e9f6e17761fc5c_5015942380547295154.jpg"
     },
     "2": {
-      "image": "/images/strategy/yixuan/cinema-2.png",
+      "image": "/images/strategy/yixuan/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/0ff1a5943cafcf4990e9f6e17761fc5c_5015942380547295154.jpg"
     },
     "3": {
-      "image": "/images/strategy/yixuan/cinema-2.png",
+      "image": "/images/strategy/yixuan/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/0ff1a5943cafcf4990e9f6e17761fc5c_5015942380547295154.jpg"
     },
     "4": {
-      "image": "/images/strategy/yixuan/cinema-3.png",
+      "image": "/images/strategy/yixuan/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/1749e54da2ecf9c909577b9ab3ed479d_717285368809051707.jpg"
     },
     "5": {
-      "image": "/images/strategy/yixuan/cinema-3.png",
+      "image": "/images/strategy/yixuan/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/1749e54da2ecf9c909577b9ab3ed479d_717285368809051707.jpg"
     },
     "6": {
-      "image": "/images/strategy/yixuan/cinema-3.png",
+      "image": "/images/strategy/yixuan/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/06/06/141353238/1749e54da2ecf9c909577b9ab3ed479d_717285368809051707.jpg"
     }
   }

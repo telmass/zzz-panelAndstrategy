@@ -6,13 +6,13 @@
 >
 > 📌 **文中所有数字都是迁移完成时（2026-10-03）的历史快照**——测试项数、
 > 构建产物体积等此后均有增补，**不要当作现状引用**。现状以
-> `backend/tests/README.md`、`frontend/tests/README.md`、`docs/testing.md`
+> `backend/tests/README.md`、`frontend/tests/README.md`、`docs/guides/testing.md`
 > 为准。
 >
 > 想了解项目现在是什么样，请看：
-> [requirements.md](../requirements.md)（范围与已知限制）、
-> [architecture.md](../architecture.md)（架构与设计决策）、
-> [development.md](../development.md)（开发流程）。
+> [requirements.md](../overview/requirements.md)（范围与已知限制）、
+> [architecture.md](../design/architecture.md)（架构与设计决策）、
+> [development.md](../guides/development.md)（开发流程）。
 >
 > **本文仍有价值的部分**：`legacy-parity.spec.ts` 的 jsdom 作用域两个坑至今生效，
 > 改对拍测试前必读第 2 节「测试中的两个坑」。
@@ -95,7 +95,7 @@ src/
   数字输入框无法表示，沿用 legacy 的 `type="text"`。
 
 通用组件最终落在 `components/common/` 而非 `components/ui/`——按
-`docs/directory-layout.md` 的规范分层，并去掉了多余的 `ui/` 嵌套。
+`docs/overview/directory-layout.md` 的规范分层，并去掉了多余的 `ui/` 嵌套。
 `constants/placeholderOptions.ts` 是第 1 步的占位选项，第 2 步接入真实数据后
 已替换为 `constants/calculatorOptions.ts`。
 
@@ -155,7 +155,7 @@ URL 请求的模式，非法 `mode` 参数回落 `standard`。
 
 ### 已验证
 
-`vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 42 项全绿：
+`vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 146 项全绿：
 
 - `tests/calculator-view.spec.ts` 13 项渲染断言。其中两条随第 2 步的行为更新：
   副词条按钮不再是「全部禁用」，而是条数为 0 时减号禁用、加号可用；
@@ -210,7 +210,7 @@ backend/
 `backend/src/zzz_panel/core/options.py` 为唯一权威来源，前端
 `src/constants/calculatorOptions.ts` 只是过渡期副本。本步**没有**加接口来
 暴露选项表——去重归入第 4 步第 20 条，与预设 JSON 改造同批做，方案是让
-`core/options.py` 单向生成本地 `data/options.json`，前端读文件而非走 HTTP。
+`core/options.py` 单向生成本地 `data/rules/calculator-rules.json`，前端读文件而非走 HTTP。
 
 legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DISC4_OPTIONS[i]` …）。
 后端保留这个顺序不变，另加稳定字符串 `id`，避免跨端按下标对齐。
@@ -239,12 +239,12 @@ legacy 的选项是**数组**，用下标表达含义（`CORE_OPTIONS[i]`、`DIS
 
 ### 已验证
 
-后端 `pytest` 51 项全绿：`test_panel` 覆盖加成链路与边界，
+后端 `pytest` 389 项全绿：`test_panel` 覆盖加成链路与边界，
 `test_legacy_parity` 对 `legacy_cases.json` 逐条比对数值，
 `test_fmt_parity` 用 Node 驱动 legacy 的取整与千分位函数对齐 Python 侧格式，
 `test_api` 校验路由与 CORS。
 
-前端 `vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 48 项全绿：
+前端 `vue-tsc --noEmit` 与 `npm run build` 通过；`npm run test` 146 项全绿：
 
 - `tests/calculator-view.spec.ts` 13 项渲染断言。
 - `tests/panel-interactions.spec.ts` 31 项交互行为。
@@ -270,7 +270,7 @@ data/
 | 数据 | 通路 | 理由 |
 | --- | --- | --- |
 | 代理人/音擎预设 | 抓取脚本 → `data/*.json` → 后端 `GET /api/presets/*` → 前端 | 数据量大、需刷新，走接口便于统一缓存与失效 |
-| 配装规则表 | `core/*.py` → `data/options.json` → 前端 `@data` 直接 import | 规则表要求瞬时可用，下拉框不能等一次 HTTP 往返 |
+| 配装规则表 | `core/*.py` → `data/rules/calculator-rules.json` → 前端 `@data` 直接 import | 规则表要求瞬时可用，下拉框不能等一次 HTTP 往返 |
 | legacy 的 `.js` 包装 | `data/*.json` → `sync_presets.py --to-legacy` | legacy 页面在第 5 步删除前一直要能用 |
 
 预设走接口、规则表走本地 JSON 是**故意不对称**，不是遗漏。
@@ -286,7 +286,7 @@ data/
 
 ### 已验证
 
-后端 `pytest` 87 项、前端 `vue-tsc --noEmit` 与 `npm run test` 48 项全绿。
+后端 `pytest` 389 项、前端 `vue-tsc --noEmit` 与 `npm run test` 146 项全绿。
 `--to-legacy --check` 与 `--options --check` 均退出 0，重跑写入不产生 diff。
 
 17. 写 `tools/sync_presets.py`：把 `legacy/data/*.js` 转为根 `data/*.json`。
@@ -308,7 +308,7 @@ data/
 19. 抓取脚本（`refresh_*_presets.py`）输出目标改为 `data/*.json`；
     legacy 页面所需的 JS 包装由同步脚本反向生成。
     **已完成**：两个脚本的 `render()` 改为输出规范化 JSON，`--out` 默认
-    指向 `data/agent-presets.json` / `data/weapon-presets.json`，
+    指向 `data/catalog/agents.json` / `data/catalog/weapons.json`，
     docstring 与两个 `SKILL.md`、根 README 同步更新。
     两个脚本复用 `tools/sync_presets.py` 的序列化而非各写一套——
     否则重新抓取后 `--check` 永远报漂移且原因极难定位。
@@ -316,21 +316,21 @@ data/
     否则 JSON 会写成浮点字面量而与既有文件不一致。
     `--from-legacy` 由此退化为一次性引导/回归用途，不再是常规流程。
 20. **删除前端 `src/constants/calculatorOptions.ts` 选项表副本**，
-    改读 `data/options.json`。本项原属第 3 步的收尾，
+    改读 `data/rules/calculator-rules.json`。本项原属第 3 步的收尾，
     因与预设 JSON 改造共用同一套「静态副本 → 单一 JSON 数据源」的模式，
     合并到本步一次做完，避免同一文件在两个步骤间反复改动。
     **已完成**：`sync_presets.py --options` 从 `core/options.py` 与
-    `core/constants.py` 单向生成 `data/options.json`；前端加 `@data` 别名
+    `core/constants.py` 单向生成 `data/rules/calculator-rules.json`；前端加 `@data` 别名
     直接读该文件，`calculatorOptions.ts` 只留类型与纯枚举。
     七张表迁移前已逐条比对确认等价（含 `DISC_FIXED_STATS` 的 `target`→`to`改名）。
     副词条上限 36/54 未迁——后端只对条数向下取整，不设上限，无对应表。
 
     选项表**不走接口**，与预设不同：下拉框要瞬时可用，不能等一次 HTTP 往返，
-    也不能因为接口不可用就让整个计算器瘫掉。`data/options.json` 是派生产物而非副本。
+    也不能因为接口不可用就让整个计算器瘫掉。`data/rules/calculator-rules.json` 是派生产物而非副本。
 
     验收三条：
     - 规则表只存在于 `core/options.py` 与 `core/constants.py` 两处，
-      `data/options.json` 为生成物，带 `_generated` 声明勿手改。
+      `data/rules/calculator-rules.json` 为生成物，带 `_generated` 声明勿手改。
       `backend/tests/test_options_json.py` 断言 JSON 与 Python 当前值一致，
       改了 Python 忘了重新生成即失败。
     - 前端构建产物不含任何手写的选项常量。

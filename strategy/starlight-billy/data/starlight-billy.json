@@ -4,7 +4,7 @@
     "entryPageId": 1927,
     "name": "星徽·比利·奇德",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1927/detail",
-    "scrapedAt": "2026-10-17T05:15:06+00:00"
+    "scrapedAt": "2026-10-20T11:02:26+00:00"
   },
   "profile": {
     "name": "星徽·比利·奇德",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】S级物理属性命破代理人，驻场主C，消耗生命提升输出，骑乘摩托攻击敌人。\n【角色详情】星徽·比利是物理属性的命破特性代理人，他可以通过自身最大生命值来提高贯穿力，招式造成的物理伤害均为贯穿伤害。通过施放特殊技消耗生命值，他还能提高自身暴击伤害，骑乘摩托攻击敌人。星徽·比利用各种攻击命中敌人会积攒[决意]，以便通过长按普通攻击消耗[决意]对敌人造成伤害。若队友满足条件，还能使星徽·比利部分招式造成的伤害获得提升。",
     "icons": {
-      "profession": "/images/icons/rupture.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/rupture.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8497,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 784,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 445,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 89,
-      "unit": ""
-    },
-    {
-      "label": "贯穿力",
-      "value": 105,
-      "unit": ""
-    },
-    {
-      "label": "闪能自动累积",
-      "value": 2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1927.png",
+    "avatar": "/images/agents/ep-1927.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/21/15559334/096a1b3c9321c446263f165b35096697_6834757068364362263.png",
-    "tachie": "/images/strategy/starlight-billy/tachie.png",
+    "tachie": "/images/strategy/starlight-billy/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/20/15559334/36fcf71c7dc09206aed4a7c14e3e884a_3170791978934860335.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1502,7 +1450,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2249,7 +2197,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3648,7 +3596,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -4213,7 +4161,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -4222,8 +4170,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：骑士决心\n星徽·比利会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；发动招式造成的物理伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n星徽·比利进入战场时即可回复60点闪能，在勘域模式中此效果180秒内最多触发一次；\n生命值大于25%时，可以点按消耗生命值发动[特殊技：动力压制]，且接战状态下，每次发动该招式时，自身暴击伤害提升45%，持续45秒，重复触发刷新持续时间；生命值小于或等于25%时，受到的伤害减少50%；，暴击率提升14.4%，基础攻击力提升75点。（此处数据为满级数据）\n星徽·比利攻击命中敌人时，会获得[决意]，回复量根据招式变化，[决意]上限为120点，处于接战状态下，会缓慢回复[决意]；[强化特殊技：孤轮特技]命中时、发动[连携技：骑士漫步]时或触发格挡时，额外回复[决意]；任意方式触发[极限闪避]时，回复3点[决意]，此效果0.5秒内最多触发一次；\n当[决意]大于等于100点时，长按会消耗100点[决意]发动[普通攻击：最高马力星光]；\n[普通攻击：骑士斗技]命中敌人时，回复少量生命值；通过[极限闪避]发动[闪避反击：决斗之王]命中敌人时，回复生命值；发动[强化特殊技：抓地轮毂]或[强化特殊技：摇曳步伐]时，回复生命值。\n\n额外能力：炽热星辉\n队伍中存在[击破]或[防护]或[支援]角色时触发：\n[强化特殊技：孤轮特技]、[普通攻击：骑士斗技]第四段、[连携技]、[终结技]命中敌人时获得一层[星辉]，同一招式至多获得一层，持续45秒，至多叠加2层，每层[星辉]会使[连携技]、[终结技]、[强化特殊技]和[普通攻击：最高马力星光]造成的伤害提升20%。",
+          "title": "核心技：骑士决心",
+          "text": "星徽·比利会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；发动招式造成的物理伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n星徽·比利进入战场时即可回复60点闪能，在勘域模式中此效果180秒内最多触发一次；\n生命值大于25%时，可以点按消耗生命值发动[特殊技：动力压制]，且接战状态下，每次发动该招式时，自身暴击伤害提升90%，持续45秒，重复触发刷新持续时间；生命值小于或等于25%时，受到的伤害减少50%；\n星徽·比利攻击命中敌人时，会获得[决意]，回复量根据招式变化，[决意]上限为120点，处于接战状态下，会缓慢回复[决意]；[强化特殊技：孤轮特技]命中时、发动[连携技：骑士漫步]时或触发格挡时，额外回复[决意]；任意方式触发[极限闪避]时，回复3点[决意]，此效果0.5秒内最多触发一次；\n当[[决意]大于等于100点时，长按会消耗100点[决意]发动[普通攻击：最高马力星光]；\n[普通攻击：骑士斗技]命中敌人时，回复少量生命值；通过[极限闪避]发动[闪避反击：决斗之王]命中敌人时，回复生命值；发动[强化特殊技：抓地轮毂]或[强化特殊技：摇曳步伐]时，回复生命值。",
           "growth": [
             {
               "level": "A",
@@ -4292,9 +4240,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：炽热星辉",
+          "text": "队伍中存在[击破]或[防护]或[支援]角色时触发：\n[强化特殊技：孤轮特技]、[普通攻击：骑士斗技]第四段、[连携技]、[终结技]命中敌人时获得一层[星辉]，同一招式至多获得一层，持续45秒，至多叠加2层，每层[星辉]会使[连携技]、[终结技]、[强化特殊技]和[普通攻击：最高马力星光]造成的伤害提升20%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/20/15559334/7155b2751e381798eced11400e75f9d0_6323976346954460972.png"
     }
   ],
@@ -4332,27 +4284,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/starlight-billy/cinema-2.png",
+      "image": "/images/strategy/starlight-billy/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/27/76099754/76c253a5575003ef3f6ebb987ef83eba_4912059660656004138.png"
     },
     "2": {
-      "image": "/images/strategy/starlight-billy/cinema-2.png",
+      "image": "/images/strategy/starlight-billy/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/27/76099754/76c253a5575003ef3f6ebb987ef83eba_4912059660656004138.png"
     },
     "3": {
-      "image": "/images/strategy/starlight-billy/cinema-2.png",
+      "image": "/images/strategy/starlight-billy/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/27/76099754/76c253a5575003ef3f6ebb987ef83eba_4912059660656004138.png"
     },
     "4": {
-      "image": "/images/strategy/starlight-billy/cinema-3.png",
+      "image": "/images/strategy/starlight-billy/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/27/76099754/1633e659b5e45c66e02f2591014de5dd_4288870407555026713.png"
     },
     "5": {
-      "image": "/images/strategy/starlight-billy/cinema-3.png",
+      "image": "/images/strategy/starlight-billy/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/27/76099754/1633e659b5e45c66e02f2591014de5dd_4288870407555026713.png"
     },
     "6": {
-      "image": "/images/strategy/starlight-billy/cinema-3.png",
+      "image": "/images/strategy/starlight-billy/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/27/76099754/1633e659b5e45c66e02f2591014de5dd_4288870407555026713.png"
     }
   }

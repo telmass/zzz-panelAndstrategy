@@ -19,7 +19,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -28,7 +28,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -40,7 +40,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -66,7 +66,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -75,7 +75,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -87,7 +87,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -113,7 +113,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -122,7 +122,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -134,7 +134,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -160,7 +160,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -169,7 +169,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -181,7 +181,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -207,7 +207,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -216,7 +216,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -228,7 +228,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -254,7 +254,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -263,7 +263,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -275,7 +275,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -299,15 +299,11 @@
       "ac": 92,
       "am": 90
     },
-    "unavailableBaseStats": [
-      "pr",
-      "er"
-    ],
-    "additionalBaseStats": {
+    "baseExtra": {
       "penforce": 104,
       "energyAccumulation": 2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -316,7 +312,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -328,7 +324,7 @@
           "F"
         ],
         "label": "基础生命值",
-        "perRankValue": 140,
+        "perRank": 140,
         "totalValue": 420,
         "unit": ""
       }
@@ -354,7 +350,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -363,7 +359,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -375,7 +371,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -401,7 +397,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -410,7 +406,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -422,7 +418,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -448,7 +444,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -457,7 +453,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -469,7 +465,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -495,7 +491,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cd",
         "ranks": [
@@ -504,7 +500,7 @@
           "E"
         ],
         "label": "暴击伤害",
-        "perRankValue": 9.6,
+        "perRank": 9.6,
         "totalValue": 28.799999999999997,
         "unit": "%"
       },
@@ -516,7 +512,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -542,7 +538,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -551,7 +547,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -563,7 +559,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -589,7 +585,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -598,7 +594,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -610,7 +606,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -636,7 +632,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -645,7 +641,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -657,7 +653,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -681,15 +677,11 @@
       "ac": 87,
       "am": 90
     },
-    "unavailableBaseStats": [
-      "pr",
-      "er"
-    ],
-    "additionalBaseStats": {
+    "baseExtra": {
       "penforce": 105,
       "energyAccumulation": 2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -698,7 +690,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -710,7 +702,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -736,7 +728,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -745,7 +737,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -757,7 +749,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -781,15 +773,11 @@
       "ac": 90,
       "am": 89
     },
-    "unavailableBaseStats": [
-      "pr",
-      "er"
-    ],
-    "additionalBaseStats": {
+    "baseExtra": {
       "penforce": 105,
       "energyAccumulation": 2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -798,7 +786,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -810,7 +798,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -836,7 +824,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "hp_pct",
         "ranks": [
@@ -845,7 +833,7 @@
           "E"
         ],
         "label": "生命值百分比",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": "%"
       },
@@ -857,7 +845,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -883,7 +871,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -892,7 +880,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -904,7 +892,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -930,7 +918,7 @@
       "pr": 0,
       "er": 1
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "atk_pct_21",
         "ranks": [
@@ -939,7 +927,7 @@
           "E"
         ],
         "label": "攻击力百分比",
-        "perRankValue": 7,
+        "perRank": 7,
         "totalValue": 21,
         "unit": "%"
       },
@@ -951,7 +939,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -977,7 +965,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -986,7 +974,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -998,7 +986,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1024,7 +1012,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -1033,7 +1021,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -1045,7 +1033,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1071,7 +1059,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -1080,7 +1068,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -1092,7 +1080,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1118,7 +1106,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -1127,7 +1115,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -1139,7 +1127,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1163,15 +1151,11 @@
       "ac": 90,
       "am": 89
     },
-    "unavailableBaseStats": [
-      "pr",
-      "er"
-    ],
-    "additionalBaseStats": {
+    "baseExtra": {
       "penforce": 105,
       "energyAccumulation": 2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1180,7 +1164,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1192,7 +1176,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1218,7 +1202,7 @@
       "pr": 0,
       "er": 1
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1227,7 +1211,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1239,7 +1223,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1265,7 +1249,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "am",
         "ranks": [
@@ -1274,7 +1258,7 @@
           "E"
         ],
         "label": "异常精通",
-        "perRankValue": 18,
+        "perRank": 18,
         "totalValue": 54,
         "unit": ""
       },
@@ -1286,7 +1270,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1312,7 +1296,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1321,7 +1305,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1333,7 +1317,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1359,7 +1343,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "am",
         "ranks": [
@@ -1368,7 +1352,7 @@
           "E"
         ],
         "label": "异常精通",
-        "perRankValue": 18,
+        "perRank": 18,
         "totalValue": 54,
         "unit": ""
       },
@@ -1380,7 +1364,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1406,7 +1390,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1415,7 +1399,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1427,7 +1411,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1453,14 +1437,14 @@
       "pr": 0,
       "er": 1.5
     },
-    "unmodeledBaseStats": [
+    "baseUnmodeled": [
       {
         "label": "锐暴伤害",
         "value": 150,
         "unit": ""
       }
     ],
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "optionCount": 2,
@@ -1473,7 +1457,7 @@
           "F"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 28.799999999999997,
         "unit": "%"
       }
@@ -1499,7 +1483,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1508,7 +1492,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1520,7 +1504,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1546,7 +1530,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -1555,7 +1539,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -1567,7 +1551,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1593,7 +1577,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "pr",
         "ranks": [
@@ -1602,7 +1586,7 @@
           "E"
         ],
         "label": "穿透率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1614,7 +1598,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1640,7 +1624,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1649,7 +1633,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1661,7 +1645,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1687,7 +1671,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -1696,7 +1680,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -1708,7 +1692,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1734,7 +1718,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1743,7 +1727,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1755,7 +1739,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1781,7 +1765,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cd",
         "ranks": [
@@ -1790,7 +1774,7 @@
           "E"
         ],
         "label": "暴击伤害",
-        "perRankValue": 9.6,
+        "perRank": 9.6,
         "totalValue": 28.799999999999997,
         "unit": "%"
       },
@@ -1802,7 +1786,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1828,7 +1812,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -1837,7 +1821,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -1849,7 +1833,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1875,7 +1859,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -1884,7 +1868,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -1896,7 +1880,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1922,7 +1906,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -1931,7 +1915,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -1943,7 +1927,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -1969,7 +1953,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -1978,7 +1962,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -1990,7 +1974,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2016,7 +2000,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -2025,7 +2009,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -2037,7 +2021,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2063,7 +2047,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2072,7 +2056,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2084,7 +2068,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2110,7 +2094,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "ac",
         "ranks": [
@@ -2119,7 +2103,7 @@
           "E"
         ],
         "label": "异常掌控",
-        "perRankValue": 12,
+        "perRank": 12,
         "totalValue": 36,
         "unit": ""
       },
@@ -2131,7 +2115,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2157,7 +2141,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -2166,7 +2150,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -2178,7 +2162,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2204,7 +2188,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "am_90",
         "ranks": [
@@ -2213,7 +2197,7 @@
           "E"
         ],
         "label": "异常精通",
-        "perRankValue": 30,
+        "perRank": 30,
         "totalValue": 90,
         "unit": ""
       },
@@ -2225,7 +2209,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2251,7 +2235,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -2260,7 +2244,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -2272,7 +2256,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2298,7 +2282,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -2307,7 +2291,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -2319,7 +2303,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2345,7 +2329,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2354,7 +2338,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2366,7 +2350,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2392,7 +2376,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -2401,7 +2385,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -2413,7 +2397,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2437,15 +2421,11 @@
       "ac": 87,
       "am": 90
     },
-    "unavailableBaseStats": [
-      "pr",
-      "er"
-    ],
-    "additionalBaseStats": {
+    "baseExtra": {
       "penforce": 94,
       "energyAccumulation": 0
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "hp_pct",
         "ranks": [
@@ -2454,7 +2434,7 @@
           "E"
         ],
         "label": "生命值百分比",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": "%"
       },
@@ -2466,7 +2446,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2492,7 +2472,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2501,7 +2481,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2513,7 +2493,7 @@
           "E"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2539,7 +2519,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cd",
         "ranks": [
@@ -2548,7 +2528,7 @@
           "E"
         ],
         "label": "暴击伤害",
-        "perRankValue": 9.6,
+        "perRank": 9.6,
         "totalValue": 28.799999999999997,
         "unit": "%"
       },
@@ -2560,7 +2540,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2586,7 +2566,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2595,7 +2575,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2607,7 +2587,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2633,7 +2613,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "cr",
         "ranks": [
@@ -2642,7 +2622,7 @@
           "E"
         ],
         "label": "暴击率",
-        "perRankValue": 4.8,
+        "perRank": 4.8,
         "totalValue": 14.399999999999999,
         "unit": "%"
       },
@@ -2654,7 +2634,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2680,7 +2660,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "impact_base",
         "ranks": [
@@ -2689,7 +2669,7 @@
           "E"
         ],
         "label": "基础冲击力",
-        "perRankValue": 6,
+        "perRank": 6,
         "totalValue": 18,
         "unit": ""
       },
@@ -2701,7 +2681,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2727,7 +2707,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2736,7 +2716,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2748,7 +2728,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2774,7 +2754,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2783,7 +2763,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2795,7 +2775,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2821,7 +2801,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2830,7 +2810,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2842,7 +2822,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }
@@ -2868,7 +2848,7 @@
       "pr": 0,
       "er": 1.2
     },
-    "coreBonuses": [
+    "core": [
       {
         "optionId": "er_base",
         "ranks": [
@@ -2877,7 +2857,7 @@
           "E"
         ],
         "label": "基础能量自动回复",
-        "perRankValue": 0.12,
+        "perRank": 0.12,
         "totalValue": 0.36,
         "unit": ""
       },
@@ -2889,7 +2869,7 @@
           "F"
         ],
         "label": "基础攻击力",
-        "perRankValue": 25,
+        "perRank": 25,
         "totalValue": 75,
         "unit": ""
       }

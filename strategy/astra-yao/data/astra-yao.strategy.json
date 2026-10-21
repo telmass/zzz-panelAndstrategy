@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/astra-yao/background.webp",
   "_meta": {
     "agentId": "ep-1109",
     "name": "耀嘉音",
@@ -16,7 +17,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -24,7 +25,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -32,7 +33,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -40,7 +41,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -48,7 +49,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -56,7 +57,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -69,12 +70,12 @@
         {
           "name": "狸法七变化",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-1463.png"
+          "icon": "/images/weapons/ep-1463.webp"
         },
         {
           "name": "思络成歌",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-1826.png"
+          "icon": "/images/weapons/ep-1826.webp"
         }
       ],
       "note": "耀嘉音无专武预设（weapon-presets.json 无 agentId=ep-1109），首选 ER 音擎：狸法七变化 / 思络成歌（S 713，能量自动回复 60%），缩短快速支援与终结技的循环，提升[和弦]触发频率。"
@@ -85,7 +86,7 @@
         {
           "name": "玲珑妆匣",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-1107.png"
+          "icon": "/images/weapons/ep-1107.webp"
         }
       ],
       "note": "支援音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -96,7 +97,7 @@
         {
           "name": "逍遥游球",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-213.png"
+          "icon": "/images/weapons/ep-213.webp"
         }
       ],
       "note": "备选支援音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -109,18 +110,18 @@
         "name": "如影相随",
         "label": "追加攻击伤害 +15%",
         "effect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每层增益效果使装备者的攻击力提升4%和暴击率提升4%，最多叠加3层，持续8秒，重复触发时刷新持续时间。",
-        "icon": "/images/discs/ep-1193.png"
+        "icon": "/images/discs/ep-1193.webp"
       },
       "set2": {
         "main": {
           "name": "静听嘉音",
           "label": "攻击力 +10%",
-          "icon": "/images/discs/ep-1001.png"
+          "icon": "/images/discs/ep-1001.webp"
         },
         "alt": {
           "name": "月光骑士颂",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-1551.png"
+          "icon": "/images/discs/ep-1551.webp"
         }
       },
       "mainStats": [
@@ -175,12 +176,12 @@
           "agentId": "ep-1158",
           "name": "伊芙琳",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1158.png",
+          "avatar": "/images/agents/ep-1158.webp",
           "note": "火强攻站场主 C，高频爆发与连携技体系，耀嘉音为支援满足额外能力条件并补能增伤。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -188,16 +189,16 @@
           "agentId": "ep-950",
           "name": "莱特",
           "role": "击破",
-          "avatar": "/images/agents/ep-950.png",
+          "avatar": "/images/agents/ep-950.webp",
           "note": "火击破副 C，减冰抗+延长失衡，为伊芙琳爆发窗口创造失衡条件。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "摇摆爵士",
-              "icon": "/images/discs/ep-231.png"
+              "icon": "/images/discs/ep-231.webp"
             }
           ]
         },
@@ -205,12 +206,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "以太支援，[咏叹华彩]全队伤害+9%/暴伤+8.5%，额外能力需队内强攻/异常/命破，伊芙琳/莱特均满足条件。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         }
@@ -223,12 +224,12 @@
           "agentId": "ep-1158",
           "name": "伊芙琳",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1158.png",
+          "avatar": "/images/agents/ep-1158.webp",
           "note": "火强攻站场主 C，与扳机后台击破形成双输出轴，耀嘉音补能增伤。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -236,12 +237,12 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "后台击破，[绝意]值追加攻击，失衡易伤+35%，额外能力需队内击破/支援，耀嘉音为支援满足条件。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -249,12 +250,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "以太支援，[咏叹华彩]全队增益与快速支援脱手伤害，补齐爆发轴真空期。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         }
@@ -267,12 +268,12 @@
           "agentId": "ep-1499",
           "name": "「席德」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1499.png",
+          "avatar": "/images/agents/ep-1499.webp",
           "note": "物理强攻站场主 C，双强攻输出窗口，奥菲丝补真空期，耀嘉音补能增伤。",
           "set4": [
             {
               "name": "拂晓生花",
-              "icon": "/images/discs/ep-1552.png"
+              "icon": "/images/discs/ep-1552.webp"
             }
           ]
         },
@@ -280,16 +281,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "站场强攻，[准星聚焦]下追加攻击无视 25% 防御，与席德双强攻输出。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -297,12 +298,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "以太支援，[咏叹华彩]全队伤害+9%/暴伤+8.5%，额外能力需队内强攻/异常/命破，席德/奥菲丝均满足条件。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         }

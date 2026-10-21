@@ -4,7 +4,7 @@
     "entryPageId": 1499,
     "name": "「席德」",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1499/detail",
-    "scrapedAt": "2026-10-17T10:14:11+00:00"
+    "scrapedAt": "2026-10-20T11:01:49+00:00"
   },
   "profile": {
     "name": "「席德」",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】电属性强攻、双强攻机制\n【角色详情】席德是S级电属性强攻特性代理人，她具有独特的“双强攻组队体系”，即席德的核心被动与额外能力都需要在队伍中搭配另一位强攻特性代理人时才能触发，此时，席德和强攻队友可互相提供攻击力与暴击伤害增益。此外，另一位强攻队友消耗能量、或席德自己招式命中敌人时，可为席德回复“钢能”。当钢能达到一定量后，席德可发动更强力的普通攻击招式。综上，实战中席德能与另一位强攻队友交替输出提供增益，并在回复一定量钢能后释放超级普攻，将敌人锤入地心。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 854,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1499.png",
+    "avatar": "/images/agents/ep-1499.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/30/439466880/90e7d7b87f30e735ce89c2321035db49_42538056491852002.png",
-    "tachie": "/images/strategy/seed/tachie.png",
+    "tachie": "/images/strategy/seed/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/29/15559334/58d7883b316a985582aa69c235913247_5888273447169287986.png"
   },
   "skills": [
@@ -929,7 +877,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1498,7 +1446,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2245,7 +2193,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3088,7 +3036,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3653,7 +3601,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3662,7 +3610,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：花链协议",
+          "title": "核心技：花链协议",
           "text": "「席德」将初始攻击力最高的[强攻]队友视为[正兵]；\n[正兵]释放[强化特殊技]时，使「席德」获得[强袭]状态，提升「席德」1000点攻击力和30%暴击伤害，「席德」释放[强化特殊技]时，使[正兵]获得[明攻]状态，提升[正兵]1000点攻击力和30%暴击伤害；\n[明攻][强袭]同时存在时，「席德」与[正兵]同时获得[围杀]状态，造成的伤害提升25%；\n[强袭]，[明攻]与[围杀]的增益效果可在角色为当前操作中角色时生效，角色切换为非当前操作角色时，增益效果依然生效，直到角色退场或增益效果维持3秒后，增益效果失效，角色切换为当前操作角色时，重新使增益效果生效；\n进入战场时若存在[正兵]，「席德」立刻获得[强袭]与[围杀]状态，[正兵]立刻获得[明攻]与[围杀]状态；\n[明攻]与[强袭]状态持续40秒，重复获得刷新持续时间；\n[正兵]作为操作中角色消耗能量时或「席德」消耗能量时，每消耗1点能量，可为「席德」回复0.5点[钢能]。",
           "growth": [
             {
@@ -3732,9 +3680,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：奇兵轰临",
+          "text": "队伍中存在其他[强攻]角色时触发：\n「席德」作为操作中角色造成伤害时，为[正兵]回复2点能量，1秒内最多触发一次；\n「席德」[普通攻击：落华·重戮]，「普通攻击：落华·崩坠]与[终结技：机芯花园·绽放！]造成的伤害提升30%，且无视敌人25%电属性伤害抗性。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/28/15559334/ecc24550bbdeeac70aeb72ee49b87719_5346125236368318974.png"
     }
   ],
@@ -3772,27 +3724,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/seed/cinema-2.png",
+      "image": "/images/strategy/seed/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/04/141353238/bb6d4377231250927a0145089c6d0b19_6994283036359566567.png"
     },
     "2": {
-      "image": "/images/strategy/seed/cinema-2.png",
+      "image": "/images/strategy/seed/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/04/141353238/bb6d4377231250927a0145089c6d0b19_6994283036359566567.png"
     },
     "3": {
-      "image": "/images/strategy/seed/cinema-2.png",
+      "image": "/images/strategy/seed/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/04/141353238/bb6d4377231250927a0145089c6d0b19_6994283036359566567.png"
     },
     "4": {
-      "image": "/images/strategy/seed/cinema-3.png",
+      "image": "/images/strategy/seed/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/04/141353238/a91d1c8cc145c7da490fbdb4d41fb33d_8930642118752991202.png"
     },
     "5": {
-      "image": "/images/strategy/seed/cinema-3.png",
+      "image": "/images/strategy/seed/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/04/141353238/a91d1c8cc145c7da490fbdb4d41fb33d_8930642118752991202.png"
     },
     "6": {
-      "image": "/images/strategy/seed/cinema-3.png",
+      "image": "/images/strategy/seed/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/04/141353238/a91d1c8cc145c7da490fbdb4d41fb33d_8930642118752991202.png"
     }
   }

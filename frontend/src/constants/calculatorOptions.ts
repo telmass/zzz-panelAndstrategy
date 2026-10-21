@@ -3,42 +3,55 @@
  *
  * **规则表本身不在这里。** 七张表（CORE / DISC4 / DISC5 / DISC6 / SET / SUB_STATS
  * 与驱动盘固定值）由 `backend/src/zzz_panel/core/options.py` 与
- * `core/constants.py` 单向生成到 `data/options.json`，本文件只做类型标注与读取。
+ * `core/constants.py` 单向生成到 `data/rules/calculator-rules.json`，本文件只做类型标注与读取。
  *
  * 规则表**不走接口**：下拉框要瞬时可用，不能等一次 HTTP 往返，
- * 也不能因为后端不可用就让整个计算器瘫掉。`data/options.json` 是派生产物而非
- * 副本，改了 Python 侧规则表要跑 `python tools/sync_presets.py --options` 重新生成。
+ * 也不能因为后端不可用就让整个计算器瘫掉。该 JSON 是派生产物而非副本，
+ * 改了 Python 侧规则表要跑 `python tools/sync_presets.py --options` 重新生成。
  *
- * `id` 为选项标识，`value` 为加成数值，`kind` 决定明细中的单位后缀，
- * `to` 指明该加成累加到哪个修正量。
+ * `id` 为选项标识，`name` 为规范名（只含词条本身），`label` 为展示串
+ * （含数值，各表格式不统一），`value` 为加成数值，`kind` 决定明细中的
+ * 单位后缀，`to` 指明该加成累加到哪个修正量。
  */
 
-import generated from '@data/options.json';
+import generated from '@data/rules/calculator-rules.json';
 import type { AgentPreset } from '@/types/agentPresets';
 
+/**
+ * 可被配装修正的量。
+ *
+ * **先有数组，再由数组推类型**——这样「类型」与「运行时可枚举的清单」是
+ * 同一份东西，不会各自漂移。数组内容与 Python 侧 `core/options.py` 的
+ * `modifier_keys()` 必须一致，由 `tests/rule-keys.spec.ts` 断言：规则表
+ * 里出现了一个前端不认识的 `to`，或前端多了一个没人用的键，测试会指名道姓
+ * 地失败。
+ */
+export const MODIFIER_KEYS = [
+  'hp_pct',
+  'atk_pct',
+  'def_pct',
+  'hp_flat',
+  'atk_flat',
+  'def_flat',
+  'hp_base',
+  'atk_base',
+  'def_base',
+  'cr',
+  'cd',
+  'dmg',
+  'pr',
+  'pen_val',
+  'am',
+  'ac_flat',
+  'ac_pct',
+  'impact_flat',
+  'impact_pct',
+  'er_flat',
+  'er_pct',
+] as const;
+
 /** 可被配装修正的量。与 `usePanelCalc` 的累加器一一对应。 */
-export type ModifierKey =
-  | 'hp_pct'
-  | 'atk_pct'
-  | 'def_pct'
-  | 'hp_flat'
-  | 'atk_flat'
-  | 'def_flat'
-  | 'hp_base'
-  | 'atk_base'
-  | 'def_base'
-  | 'cr'
-  | 'cd'
-  | 'dmg'
-  | 'pr'
-  | 'pen_val'
-  | 'am'
-  | 'ac_flat'
-  | 'ac_pct'
-  | 'impact_flat'
-  | 'impact_pct'
-  | 'er_flat'
-  | 'er_pct';
+export type ModifierKey = (typeof MODIFIER_KEYS)[number];
 
 /** 加成种类。`base` 进入基础面板参与乘法，`pct` 带 % 参与乘法，其余为纯加法。 */
 export type ModifierKind = 'base' | 'pct' | 'flat';
@@ -46,6 +59,9 @@ export type ModifierKind = 'base' | 'pct' | 'flat';
 /** 一条配装规则。 */
 export interface RuleOption {
   id: string;
+  /** 规范名：只含词条本身（「暴击伤害」），不含数值。 */
+  name: string;
+  /** 展示串：含数值（「暴击伤害 +28.8%」）。 */
   label: string;
   value: number;
   kind: ModifierKind;
@@ -55,6 +71,7 @@ export interface RuleOption {
 /** 驱动盘 1/2/3 号固定主词条。 */
 interface DiscFixedStat {
   slot: number;
+  name: string;
   label: string;
   value: number;
   to: ModifierKey;
@@ -63,7 +80,8 @@ interface DiscFixedStat {
 /**
  * JSON 里的 `kind` / `to` 是 string，TS 侧需要收窄到联合类型。
  * 直接断言而非逐条校验：这份 JSON 由上面的脚本从 Python 规则表生成，
- * 类型漂移只可能来自手改，而手改会先被后端的漂移测试拦下。
+ * 类型漂移只可能来自手改，而手改会先被后端的漂移测试与前端的
+ * `tests/rule-keys.spec.ts` 拦下。
  */
 function table<K extends string>(key: K): RuleOption[] {
   return (generated as Record<K, RuleOption[]>)[key];
@@ -81,7 +99,7 @@ export const DISC5_OPTIONS: RuleOption[] = table('disc5Options');
 /** 6 号主词条，6 选 1。 */
 export const DISC6_OPTIONS: RuleOption[] = table('disc6Options');
 
-/** 二件套效果 10 种。 */
+/** 二件套效果 12 种。 */
 export const SET_OPTIONS: RuleOption[] = table('setOptions');
 
 /** 副词条 10 种。`value` 为单条数值，按条数折算。 */
@@ -90,17 +108,12 @@ export const SUB_STATS: RuleOption[] = table('subStats');
 /**
  * 驱动盘 1/2/3 号固定主词条。
  *
- * Python 侧字段名是 `target`（`DiscFixedStat.target`），这里转成前端统一的 `to`，
- * 免得同一概念在两个层里叫不同名字。
+ * 字段名与 Python 侧的 `DiscFixedStat` 一致（都是 `to`），前端不再做
+ * `target → to` 的手工翻译。
  */
 export const DISC_FIXED_STATS: DiscFixedStat[] = (
-  generated as { discFixedStats: { slot: number; label: string; value: number; target: ModifierKey }[] }
-).discFixedStats.map((stat) => ({
-  slot: stat.slot,
-  label: stat.label,
-  value: stat.value,
-  to: stat.target,
-}));
+  generated as { discFixedStats: DiscFixedStat[] }
+).discFixedStats;
 
 /** 主词条选项 ID → 对应被排除的副词条 id（主副不重复规则） */
 export const MAIN_STAT_OPTION_ID_TO_EXCLUDED_SUB_STAT: Record<string, string | null> = {
@@ -191,7 +204,7 @@ export const MODELED_BASE_STAT_LABELS: ReadonlySet<string> = new Set(['锐暴伤
  *
  * 中英对照：强攻Attack、击破Stun、异常Anomaly、支援Support、防护Defense、
  * 命破Rupture、锋御Armorer。取值保持中文（与后端 `AGENT_ROLE_TAGS` 同源），
- * 英文仅用于图标文件名（`attack.png` 等，小写 slug）与展示转换。
+ * 英文仅用于图标文件名（`attack.webp` 等，小写 slug）与展示转换。
  */
 export const AGENT_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护', '命破', '锋御'] as const;
 

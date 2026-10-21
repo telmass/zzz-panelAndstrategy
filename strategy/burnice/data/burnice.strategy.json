@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/burnice/background.webp",
   "_meta": {
     "agentId": "ep-840",
     "name": "柏妮思·怀特",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -31,7 +32,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -39,7 +40,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -73,17 +74,17 @@
         {
           "name": "嵌合编译器",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-214.png"
+          "icon": "/images/weapons/ep-214.webp"
         },
         {
           "name": "灼心摇壶",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-841.png"
+          "icon": "/images/weapons/ep-841.webp"
         },
         {
           "name": "轰鸣座驾",
           "stats": "S 级 · 基础攻击 624 · 攻击力 25%",
-          "icon": "/images/weapons/ep-494.png"
+          "icon": "/images/weapons/ep-494.webp"
         }
       ],
       "note": "异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -94,12 +95,12 @@
         {
           "name": "触电唇彩",
           "stats": "A 级 · 基础攻击 594 · 异常精通 75",
-          "icon": "/images/weapons/ep-210.png"
+          "icon": "/images/weapons/ep-210.webp"
         },
         {
           "name": "双生泣星",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-212.png"
+          "icon": "/images/weapons/ep-212.webp"
         }
       ],
       "note": "备选异常音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -112,18 +113,18 @@
         "name": "混沌爵士",
         "label": "异常精通 +30",
         "effect4": "火属性伤害和电属性伤害提升15%；位于后场时，[强化特殊技]和[支援攻击]造成的伤害提升20%。",
-        "icon": "/images/discs/ep-800.png"
+        "icon": "/images/discs/ep-800.webp"
       },
       "set2": {
         "main": {
           "name": "自由蓝调",
           "label": "异常精通 +30",
-          "icon": "/images/discs/ep-191.png"
+          "icon": "/images/discs/ep-191.webp"
         },
         "alt": {
           "name": "炎狱重金属",
           "label": "火属性伤害 +10%",
-          "icon": "/images/discs/ep-104.png"
+          "icon": "/images/discs/ep-104.webp"
         }
       },
       "mainStats": [
@@ -157,11 +158,11 @@
         },
         {
           "label": "攻击力",
-          "next": ">"
+          "next": "="
         },
         {
           "label": "穿透值",
-          "next": "="
+          "next": ""
         }
       ]
     }
@@ -174,12 +175,12 @@
           "agentId": "ep-2076",
           "name": "蕾米埃尔",
           "role": "异常",
-          "avatar": "/images/agents/ep-2076.png",
+          "avatar": "/images/agents/ep-2076.webp",
           "note": "流明异常后台耀变引擎，与柏妮思同为三异常队底座，维琳娜为风异常。",
           "set4": [
             {
               "name": "谶羽之誓",
-              "icon": "/images/discs/ep-2116.png"
+              "icon": "/images/discs/ep-2116.webp"
             }
           ]
         },
@@ -187,12 +188,12 @@
           "agentId": "ep-1960",
           "name": "维琳娜",
           "role": "异常",
-          "avatar": "/images/agents/ep-1960.png",
+          "avatar": "/images/agents/ep-1960.webp",
           "note": "风异常后场副 C，风暴眼触发快支并染色减抗，三异常队让柏妮思的灼烧频繁结算紊乱。",
           "set4": [
             {
               "name": "呼啸沙龙",
-              "icon": "/images/discs/ep-2038.png"
+              "icon": "/images/discs/ep-2038.webp"
             }
           ]
         },
@@ -200,12 +201,12 @@
           "agentId": "ep-840",
           "name": "柏妮思",
           "role": "异常",
-          "avatar": "/images/agents/ep-840.png",
+          "avatar": "/images/agents/ep-840.webp",
           "note": "火异常后台耀变引擎，[漂流]持续灼烧与[余烬]协同攻击；混沌爵士 4 件 + 自由蓝调 2 件。",
           "set4": [
             {
               "name": "混沌爵士",
-              "icon": "/images/discs/ep-800.png"
+              "icon": "/images/discs/ep-800.webp"
             }
           ]
         }
@@ -218,16 +219,16 @@
           "agentId": "ep-759",
           "name": "简·杜",
           "role": "异常",
-          "avatar": "/images/agents/ep-759.png",
+          "avatar": "/images/agents/ep-759.webp",
           "note": "物理异常主 C，极性强击自紊乱；柏妮思的后台灼烧与物理异常互相结算紊乱，双异常体系。",
           "set4": [
             {
               "name": "獠牙重金属",
-              "icon": "/images/discs/ep-104.png"
+              "icon": "/images/discs/ep-104.webp"
             },
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -235,12 +236,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "支援回能与全队攻击增益，满足柏妮思额外能力的支援条件，补齐爆发轴真空期。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         },
@@ -248,12 +249,12 @@
           "agentId": "ep-840",
           "name": "柏妮思",
           "role": "异常",
-          "avatar": "/images/agents/ep-840.png",
+          "avatar": "/images/agents/ep-840.webp",
           "note": "火异常后台耀变引擎，与爱丽丝的物理异常互相结算紊乱；混沌爵士 4 件 + 自由蓝调 2 件。",
           "set4": [
             {
               "name": "混沌爵士",
-              "icon": "/images/discs/ep-800.png"
+              "icon": "/images/discs/ep-800.webp"
             }
           ]
         }

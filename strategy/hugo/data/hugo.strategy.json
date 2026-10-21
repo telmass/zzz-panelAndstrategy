@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/hugo/background.webp",
   "_meta": {
     "agentId": "ep-1290",
     "name": "雨果·维拉德",
@@ -16,7 +17,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -24,7 +25,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -32,7 +33,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -40,7 +41,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -48,7 +49,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -56,7 +57,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -69,7 +70,7 @@
         {
           "name": "千面日陨",
           "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
-          "icon": "/images/weapons/ep-1305.png"
+          "icon": "/images/weapons/ep-1305.webp"
         }
       ],
       "note": "雨果专武（WIKI 音擎页 double_col_table 推荐代理人表列雨果）：S 级强攻音擎，基础攻击 713、副词条暴击率 24%。雨果失衡时自身暴击率+12%、爆伤+25%（暗渊回响），专武暴击率副词条可显著降低面板暴击率压力。"
@@ -80,12 +81,12 @@
         {
           "name": "骁骑礼赞",
           "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-2162.png"
+          "icon": "/images/weapons/ep-2162.webp"
         },
         {
           "name": "防暴者Ⅵ型",
           "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-211.png"
+          "icon": "/images/weapons/ep-211.webp"
         }
       ],
       "note": "强攻音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -96,12 +97,12 @@
         {
           "name": "牺牲洁纯",
           "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-1197.png"
+          "icon": "/images/weapons/ep-1197.webp"
         },
         {
           "name": "硫磺石",
           "stats": "S 级 · 基础攻击 684 · 攻击力 30%",
-          "icon": "/images/weapons/ep-223.png"
+          "icon": "/images/weapons/ep-223.webp"
         }
       ],
       "note": "备选强攻音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -114,18 +115,18 @@
         "name": "拂晓生花",
         "label": "普通攻击伤害 +15%",
         "effect4": "[普通攻击]造成的伤害提升20%，装备者为[强攻]角色时，发动[强化特殊技]或[终结技]会使全队角色造成的伤害提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-        "icon": "/images/discs/ep-1552.png"
+        "icon": "/images/discs/ep-1552.webp"
       },
       "set2": {
         "main": {
           "name": "折枝剑歌",
           "label": "暴击伤害 +16%",
-          "icon": "/images/discs/ep-1000.png"
+          "icon": "/images/discs/ep-1000.webp"
         },
         "alt": {
           "name": "啄木鸟电音",
           "label": "暴击率 +8%",
-          "icon": "/images/discs/ep-232.png"
+          "icon": "/images/discs/ep-232.webp"
         }
       },
       "mainStats": [
@@ -176,12 +177,12 @@
           "agentId": "ep-1290",
           "name": "雨果",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1290.png",
+          "avatar": "/images/agents/ep-1290.webp",
           "note": "冰强攻爆发型速切主C，失衡时暗渊回响给暴击率+12%/爆伤+25%，强特/终结终结一击对剩余失衡时间结算（决算×500%）。",
           "set4": [
             {
               "name": "拂晓生花",
-              "icon": "/images/discs/ep-1552.png"
+              "icon": "/images/discs/ep-1552.webp"
             }
           ]
         },
@@ -189,16 +190,16 @@
           "agentId": "ep-950",
           "name": "莱特",
           "role": "击破",
-          "avatar": "/images/agents/ep-950.png",
+          "avatar": "/images/agents/ep-950.webp",
           "note": "火击破副C，减冰抗+延长失衡，为雨果的冰伤爆发创造失衡窗口。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "摇摆爵士",
-              "icon": "/images/discs/ep-231.png"
+              "icon": "/images/discs/ep-231.webp"
             }
           ]
         },
@@ -206,16 +207,16 @@
           "agentId": "ep-65",
           "name": "莱卡恩",
           "role": "击破",
-          "avatar": "/images/agents/ep-65.png",
+          "avatar": "/images/agents/ep-65.webp",
           "note": "冰击破副C，冻结/碎冰配合雨果的冰伤，大招爆发与雨果强特/终结衔接。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "震星迪斯科",
-              "icon": "/images/discs/ep-152.png"
+              "icon": "/images/discs/ep-152.webp"
             }
           ]
         }

@@ -4,7 +4,7 @@
     "entryPageId": 1791,
     "name": "千夏",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1791/detail",
-    "scrapedAt": "2026-10-15T03:39:21+00:00"
+    "scrapedAt": "2026-10-20T11:02:34+00:00"
   },
   "profile": {
     "name": "千夏",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】多次开启以太帷幕、速切辅助、队友增伤、失衡易伤提升\n【角色详情】千夏是S级物理属性支援型代理人，其可多次开启以太帷幕，且核心被动与额外能力可能提升队友的攻击力与失衡易伤倍率，此外千夏还能给敌人挂上[猫的凝视]效果，让队友可对敌人造成额外伤害。实战中，千夏在释放强化特殊技后切至后场，队友在增益加持下于前场输出，并可通过[猫的凝视]给敌人造成额外伤害。此外如队友可收到开启以太帷幕带来的增益，则千夏多次开启以太帷幕的机制可大幅提升队友输出能力。",
     "icons": {
-      "profession": "/images/icons/support.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/support.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8477,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 675,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 98,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 96,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1791.png",
+    "avatar": "/images/agents/ep-1791.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/02/15559334/8fce0ceee85d57e5fda2b2db7d36204e_3586351240444152860.png",
-    "tachie": "/images/strategy/sunna/tachie.png",
+    "tachie": "/images/strategy/sunna/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/01/31/15559334/175e7914ea81ab07858524deb23fc090_7796006176451730904.png"
   },
   "skills": [
@@ -555,7 +503,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1124,7 +1072,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1871,7 +1819,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2714,7 +2662,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3279,7 +3227,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3288,7 +3236,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：可爱即正义",
+          "title": "核心技：可爱即正义",
           "text": "处于[天使协律]状态下的角色的攻击力提升，提升数值等同于千夏30%初始攻击力，最高不超过1050点；当千夏的初始攻击力达到3500点时，为全队角色提供的攻击力增益效果达到最大值；\n[普通攻击：坏猫出没]、[强化特殊技：泡泡糖轰炸]、[强化特殊技：特别拍照技巧]、[连携技：别惹猫咪]、[终结技：通通砸碎！]攻击命中敌人时，为目标添加[猫的凝视]，持续12秒，千夏在前场时，会不断刷新[猫的凝视]的持续时间；持有[猫的凝视]的部分普通怪物对千夏的攻击欲望降低；\n队伍中的[强攻]或[异常]角色持续攻击命中持有[猫的凝视]的敌人时，会触发并清除[猫的凝视]：\n[强攻]角色触发时，对范围内敌人造成300%攻击力的代理人属性伤害；\n[异常]角色触发时，对范围内敌人造成480%攻击力的代理人属性伤害，此次伤害必定暴击，且暴击伤害增加150%；\n[猫的凝视]造成的伤害，视为由[触发代理人]造成的伤害；\n场上存在多名持有[猫的凝视]的怪物时，只会触发主要攻击目标的[猫的凝视]，触发时会清除全场的[猫的凝视]；\n敌人处于失衡状态下时，[猫的凝视]触发所需的攻击次数大幅减少。",
           "growth": [
             {
@@ -3358,9 +3306,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：白日梦对位法",
+          "text": "队伍中存在[强攻]或与自身阵营相同的角色时触发：\n处于[以太帷幕·妄想重奏]内的角色攻击命中敌人时，目标的失衡易伤倍率提升30%，持续40秒；\n千夏进入战场时，回复15能量，在勘域模式中此效果180秒内最多触发一次。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/01/31/15559334/b838de3e0b591d2b497466d0970fd69f_8045968230863284157.png"
     }
   ],
@@ -3398,27 +3350,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/sunna/cinema-2.png",
+      "image": "/images/strategy/sunna/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/678ec37569e3aafa48fc331efa588083_8657973623905433233.png"
     },
     "2": {
-      "image": "/images/strategy/sunna/cinema-2.png",
+      "image": "/images/strategy/sunna/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/678ec37569e3aafa48fc331efa588083_8657973623905433233.png"
     },
     "3": {
-      "image": "/images/strategy/sunna/cinema-2.png",
+      "image": "/images/strategy/sunna/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/678ec37569e3aafa48fc331efa588083_8657973623905433233.png"
     },
     "4": {
-      "image": "/images/strategy/sunna/cinema-3.png",
+      "image": "/images/strategy/sunna/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/06/76099754/13666dd20b2da8f2721bef43c6fd2e2b_8488383116535685613.png"
     },
     "5": {
-      "image": "/images/strategy/sunna/cinema-3.png",
+      "image": "/images/strategy/sunna/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/06/76099754/13666dd20b2da8f2721bef43c6fd2e2b_8488383116535685613.png"
     },
     "6": {
-      "image": "/images/strategy/sunna/cinema-3.png",
+      "image": "/images/strategy/sunna/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/02/06/76099754/13666dd20b2da8f2721bef43c6fd2e2b_8488383116535685613.png"
     }
   }

@@ -4,7 +4,7 @@
     "entryPageId": 1276,
     "name": "薇薇安·班希",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1276/detail",
-    "scrapedAt": "2026-10-17T14:36:03+00:00"
+    "scrapedAt": "2026-10-20T11:02:55+00:00"
   },
   "profile": {
     "name": "薇薇安·班希",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】以太属性异常特性代理人，速切后台型紊乱队友\n【角色详情】薇薇安具有在后台提供异常积蓄的能力，她可以通过进入[裙裾浮游]后，高效为队伍提供脱手、后台形式的以太异常积蓄；此外，薇薇安可以后台命中处于各种异常状态敌人时，额外结算异常伤害；最后，薇薇安能够使以太异常，以及其被结算的紊乱伤害提升。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ether.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ether.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 805,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 108,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1276.png",
+    "avatar": "/images/agents/ep-1276.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/17/15559334/ff1a8df24b61a379f46ff3e739e4b312_3615697079972716080.png",
-    "tachie": "/images/strategy/vivian/tachie.png",
+    "tachie": "/images/strategy/vivian/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/17/15559334/486f350b5cca582574f2af44cf347434_6270411401173772141.png"
   },
   "skills": [
@@ -1111,7 +1059,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1684,7 +1632,7 @@
           "text": "[淑女礼仪]状态下即将受到攻击时，会进行自动闪避，期间拥有无敌效果，但不会触发[极限闪避]；\n每次进入[淑女礼仪]状态仅能触发一次。"
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2431,7 +2379,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2996,7 +2944,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3561,7 +3509,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3570,7 +3518,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：命运悲歌",
+          "title": "核心技：命运悲歌",
           "text": "[普通攻击：落羽生花]命中处于以太异常状态、电属性异常状态、火属性异常状态、物理属性异常状态、冰属性异常状态、风属性异常状态的目标时，触发一次[异放]：额外结算一次属性异常伤害，相对于原属性异常伤害的比例为每10点异常精通6.15%/3.2%/8%/0.75%/1.08%/0.32%；\n[普通攻击：裙裾浮游·悬落]或[普通攻击：落羽生花]命中处于任意属性异常状态的目标时，使目标陷入[薇薇安的预言]，每0.55秒受到薇薇安55%攻击力的以太伤害，该伤害可以触发属性异常效果的额外伤害；当目标不再处于属性异常状态时，[薇薇安的预言]结束；\n进入战场时，薇薇安获得2点[飞羽]。",
           "growth": [
             {
@@ -3640,9 +3588,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：预言之泪",
+          "text": "队伍中存在其他[异常]角色或与自身属性相同的角色时触发：\n队伍中其他角色对敌人施加属性异常效果时，薇薇安会消耗1点[护羽]并对目标发动一次[普通攻击：落羽生花]，0.5秒内至多触发一次；\n全队造成的[侵蚀]伤害和[侵蚀]状态被结算的[紊乱]伤害提升12%。（此处数据为初始数据）"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/18/15559334/f3eb64130e4e17aea46bec8a96762dff_2049171332109640543.png"
     }
   ],
@@ -3680,27 +3632,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/vivian/cinema-2.png",
+      "image": "/images/strategy/vivian/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/23/76099754/7d4ddc2d97ace4bda74ba02fabf74c6c_3980830210559386063.png"
     },
     "2": {
-      "image": "/images/strategy/vivian/cinema-2.png",
+      "image": "/images/strategy/vivian/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/23/76099754/7d4ddc2d97ace4bda74ba02fabf74c6c_3980830210559386063.png"
     },
     "3": {
-      "image": "/images/strategy/vivian/cinema-2.png",
+      "image": "/images/strategy/vivian/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/23/76099754/7d4ddc2d97ace4bda74ba02fabf74c6c_3980830210559386063.png"
     },
     "4": {
-      "image": "/images/strategy/vivian/cinema-3.png",
+      "image": "/images/strategy/vivian/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/23/76099754/44a0b002562b649bb686f35542bf33b0_100700600916513283.png"
     },
     "5": {
-      "image": "/images/strategy/vivian/cinema-3.png",
+      "image": "/images/strategy/vivian/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/23/76099754/44a0b002562b649bb686f35542bf33b0_100700600916513283.png"
     },
     "6": {
-      "image": "/images/strategy/vivian/cinema-3.png",
+      "image": "/images/strategy/vivian/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/23/76099754/44a0b002562b649bb686f35542bf33b0_100700600916513283.png"
     }
   }

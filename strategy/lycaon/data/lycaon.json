@@ -4,7 +4,7 @@
     "entryPageId": 65,
     "name": "冯·莱卡恩",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/65/detail",
-    "scrapedAt": "2026-10-18T05:16:36+00:00"
+    "scrapedAt": "2026-10-20T10:59:58+00:00"
   },
   "profile": {
     "name": "冯·莱卡恩",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】快速击破、蓄力攻击、操作灵活、站场输出\n【角色详情】莱卡恩是一名近战冰属性击破角色，在具有较强的击破能力的同时还兼具较高的灵活性，可站场输出并快速将敌人攻击至失衡状态。莱卡恩的普通攻击、强化特殊技可进行多段蓄力攻击，其中普通攻击还可触发核心被动的失衡值增益，进而快速将敌人击破。之后在敌人失衡状态下，莱卡恩结合其额外能力与队友一同对敌人进行一波强力输出。值得一提的是，即使队友先将敌人击破，换上莱卡恩后攻击敌人依然可触发其额外能力，进一步提升敌人的易伤倍率。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ice.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ice.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8416,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 653,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 119,
-      "unit": ""
-    },
-    {
-      "label": "异常掌控",
-      "value": 91,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    },
-    {
-      "label": "暴击",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴伤",
-      "value": 50,
-      "unit": "%"
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-65.png",
+    "avatar": "/images/agents/ep-65.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/25/76099754/66038988b3920216f826555eb31ec7d3_1374786350678823683.png",
-    "tachie": "/images/strategy/lycaon/tachie.png",
+    "tachie": "/images/strategy/lycaon/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/25/76099754/a2f0f3a5d589fb64192b8300737e04d1_8233581365025181282.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/160824341/e180f078d7badf3e8c104556f2ce3397_4093813406100714574.png"
     },
     {
@@ -2254,7 +2202,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -2819,7 +2767,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -2828,8 +2776,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：金属狼足\n莱卡恩在[普通攻击]中完成蓄力时，招式造成的失衡值提升40%，基础冲击力提升18点，基础攻击力提升75点。（此处数据为满级数据）\n[强化特殊技：狂猎时刻]或[支援突击：复仇反扑]命中敌人时，目标的冰属性伤害抗性降低25%，持续30秒。\n\n额外能力：优雅猎群\n队伍中存在与自身属性或阵营相同的角色时触发：\n莱卡恩攻击命中处于失衡状态下的敌人时，目标的失衡易伤倍率提升35%（全队只能触发一次）。",
+          "title": "核心技：金属狼足",
+          "text": "莱卡恩在[普通攻击]中完成蓄力时，招式造成的失衡值提升80％；\n[强化特殊技：狂猎时刻]或者[支援突击：复仇反扑]命中敌人时，目标的冰属性伤害抗性降低25％，持续30秒。",
           "growth": [
             {
               "level": "A",
@@ -2898,9 +2846,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：优雅猎群",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发：\n莱卡恩攻击命中处于失衡状态下的敌人时，目标的失衡易伤倍率提升35%（全队只能触发一次）。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/160824341/9d05677658ff150b2a0dcfe50bd81c61_3493369628893131081.png"
     }
   ],
@@ -2938,27 +2890,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/lycaon/cinema-2.png",
+      "image": "/images/strategy/lycaon/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/110289248/8550ae70f074e374dacf282e7ec5bd30_190568629220740627.png"
     },
     "2": {
-      "image": "/images/strategy/lycaon/cinema-2.png",
+      "image": "/images/strategy/lycaon/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/110289248/8550ae70f074e374dacf282e7ec5bd30_190568629220740627.png"
     },
     "3": {
-      "image": "/images/strategy/lycaon/cinema-2.png",
+      "image": "/images/strategy/lycaon/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/110289248/8550ae70f074e374dacf282e7ec5bd30_190568629220740627.png"
     },
     "4": {
-      "image": "/images/strategy/lycaon/cinema-3.png",
+      "image": "/images/strategy/lycaon/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/110289248/f1e65fe919be4d76bc295bc46659fefb_1662460898966229590.png"
     },
     "5": {
-      "image": "/images/strategy/lycaon/cinema-3.png",
+      "image": "/images/strategy/lycaon/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/110289248/f1e65fe919be4d76bc295bc46659fefb_1662460898966229590.png"
     },
     "6": {
-      "image": "/images/strategy/lycaon/cinema-3.png",
+      "image": "/images/strategy/lycaon/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/110289248/f1e65fe919be4d76bc295bc46659fefb_1662460898966229590.png"
     }
   }

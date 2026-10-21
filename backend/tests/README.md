@@ -1,6 +1,6 @@
 # backend/tests — Python 测试
 
-pytest 回归测试，**310 项全部通过**。运行：
+pytest 回归测试，**439 项全部通过**。运行：
 
 ```powershell
 uv run pytest
@@ -11,20 +11,25 @@ uv run pytest
 > **必须 0 skip。** 任何 skip 都意味着某道护栏没真正执行，`test_fmt_parity.py` 尤其如此。
 > 此前 60 项失败的主因是攻略数据文件名 / UTF-8 编码漂移，以及音擎数量从 100 变 101 后
 > 的硬编码断言；已通过数据归一 / 重新抓取与动态读取修复，详见
-> [../../docs/structure-review.md](../../docs/structure-review.md)。
+> [../../docs/completeds/structure-review.md](../../docs/completeds/structure-review.md)。
 
-## 8 个测试模块 + 全局夹具
+## 13 个测试模块 + 全局夹具
 
 | 文件 | 项数 | 覆盖内容 |
 | --- | --- | --- |
 | `test_panel.py` | 41 | `core/panel.py` 及模式专属计算。以重构前 `main.py` 的 `EXAMPLE` 为锚点锁定 12 项数值，另覆盖基础公式、音擎副词条、命破贯穿力、锋御实际暴击率与固定锐暴伤害，以及**逐条二件套选项**（11 条参数化，断言每条都加到自己的累加器键上——缺失不会报错，只表现为「下拉里选不到」） |
-| `test_presets.py` | 32 | `presets/` 的加载与结构校验：真实数据可通过、重复 id / 未知 roleTag / 未知 panelMode / 无法表示的核心加成 / 每级数值不一致 / 核心槽位数不等于 2 一律被拒。另含**防漂移**：抓取脚本须能逐字节重现已提交的 `data/*.json`，且复用 `sync_presets.py` 的序列化器 |
-| `test_strategy_data.py` | 188 | 攻略抓取产物（`strategy/<slug>/data/<slug>.json`）的**命名与基础面板口径**：短字段名归一、`basePanel` 不重复、与 `agent-presets.json` 同名字段同值、驱动盘方案不重复。按 60 个目录参数化；当前大量失败源于旧文件名与 UTF-8 编码，见结构审查 |
+| `test_presets.py` | 32 | `presets/` 的加载与结构校验：真实数据可通过、重复 id / 未知 roleTag / 未知 panelMode / 无法表示的核心加成 / 每级数值不一致 / 核心槽位数不等于 2 一律被拒。另含**防漂移**：抓取脚本须能逐字节重现已提交的 `data/catalog/*.json`，且复用 `sync_presets.py` 的序列化器 |
+| `test_strategy_data.py` | 参数化 × 61 | 攻略抓取产物（`strategy/<slug>/data/<slug>.json`）的**命名与基础面板口径**：短字段名归一、**攻略 JSON 不再自带 `basePanel`**（由代理人预设派生）、`meta.agentId` 必须对应已发布预设、驱动盘套装组形状合法（`set4` 可空或为候选数组、`set2`/`set2b`/`set2c` 各是一个组对象、组数 ≤3、有 4 件套组时只能有一组 2 件套）、同套不重复计 2 件套效果 |
 | `test_api.py` | 13 | FastAPI 路由契约：`/api/health`、空请求返回 12 行、命破/锋御专属行、非法 mode 被拒、明细片段可渲染、副词条钳制落在 core 层、CORS 白名单、预设损坏返回 503 而非 500、路由已注册进 OpenAPI |
-| `test_options_json.py` | 11 | `data/options.json` 的**防漂移**：规则表真源是 `core/options.py` 与 `core/constants.py`，改了 Python 侧却忘了跑 `python tools/sync_presets.py --options` 时本测试失败 |
+| `test_options_json.py` | 11 | `data/rules/calculator-rules.json` 的**防漂移**：规则表真源是 `core/options.py` 与 `core/constants.py`，改了 Python 侧却忘了跑 `python tools/sync_presets.py --options` 时本测试失败 |
 | `test_legacy_parity.py` | 8 | Python 与**未经改动的 legacy 页面**抽样用例对拍。期望值由 `frontend/tools/dump_legacy_cases.mjs` 从 legacy 夹具导出；四组场景与 `frontend/tests/legacy-parity.spec.ts` 一一对应 |
 | `test_fmt_parity.py` | 2 | 前后端 `fmt` 一致性：同一组输入下 Node 前端与 Python 输出逐字符相同（跨语言对拍的失效方式）。把该栏换成假绿灯，是比信息更糟的失败 |
-| `test_worker_bundle.py` | 15 | Cloudflare Worker 部署形态：`bundle_worker_data.py` 的逐字节还原、幂等、check 模式、`options.json` 不入产物；`loader.py` 的编译产物回退分支（含校验同样生效、缺模块/缺常量的报错文案、环境变量与仓库根优先级）；两侧模块名必须对得上 |
+| `test_data_manifest.py` | 8 | 数据集登记表 `data/manifest.json`：登记的数据集都存在、条目数与 `count` 一致、内容摘要与 `sha256` 一致、`data/` 下无未登记的孤儿文件、角色与维护方式声明齐备、要进 Worker 的数据集常量名可推导、攻略树根与索引已登记 |
+| `test_legacy_fixture_snapshot.py` | 6 | **对拍夹具是冻结的快照**：夹具里的代理人与音擎必须与当前数据集**语义等值**（基础面板逐项、核心加成的选项与每级数值、面板模式），且夹具不再由脚本生成 |
+| `test_import_flow.py` | 4 | **导入链路端到端**：在临时副本上模拟「导入一位新代理人 / 一件新音擎 / 一套新套装」——登记表漂移闸报红 → 刷新后转绿 → Worker 产物含新条目 → 后端能加载并通过语义校验 → 体检会先报「登记表过期」直到刷新 |
+| `test_skill_instructions.py` | 37 | **Skill 指令漂移闸**：文档里提到的命令必须**真的能跑**（把参数换成 `--help` 实际执行一遍，抓「参数不再被接受」）、脚本必须存在、文档里的数据路径必须与登记表一致、抓取脚本的 `OUTPUT` 必须指向登记项 |
+| `test_graduation_panel_groups.py` | 3 | 毕业面板的**装备组**逻辑：4 件套组与 2 件套组同套时重复的组被并掉（同一套的 2 件套效果只生效一次）、不同的套都保留、2+2+2 三组都在 |
+| `test_worker_bundle.py` | 15 | Cloudflare Worker 部署形态：`bundle_worker_data.py` 的逐字节还原、幂等、check 模式、`data/rules/calculator-rules.json` 不入产物；`loader.py` 的编译产物回退分支（含校验同样生效、缺模块/缺常量的报错文案、环境变量与仓库根优先级）；两侧模块名必须对得上 |
 
 ## 全局夹具
 

@@ -4,7 +4,7 @@
     "entryPageId": 317,
     "name": "艾莲·乔",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/317/detail",
-    "scrapedAt": "2026-10-18T05:15:48+00:00"
+    "scrapedAt": "2026-10-20T10:58:44+00:00"
   },
   "profile": {
     "name": "艾莲·乔",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】爆发输出、操作灵活、站场输出\n【角色详情】艾莲是一名强力的近战冰属性强攻角色，具有很强的操作灵活性，长按冲刺键进入“巡游”状态后可拉开与敌人的距离并伺机选择攻击时机，而后发动冲刺攻击，并累计急冻充能。艾莲的输出手法为，通过冲刺攻击与强化特殊技积累一定量的急冻充能后，进行一波普攻冰属性输出，在核心被动暴击增伤与额外能力冰属性增伤的加持下，短时间内造成可观的冰属性伤害。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ice.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ice.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 863,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-317.png",
+    "avatar": "/images/agents/ep-317.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/28/160132993/b7f945843942bc32064f240317ae7beb_617780162075671896.png",
-    "tachie": "/images/strategy/ellen/tachie.png",
+    "tachie": "/images/strategy/ellen/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/25/76099754/a972a1d8d91df313f43a2bc26e1d1342_5637677391158651824.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1780,7 +1728,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -2527,7 +2475,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/160132993/e180f078d7badf3e8c104556f2ce3397_675913545223178013.png"
     },
     {
@@ -3370,7 +3318,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3935,7 +3883,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3944,8 +3892,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：凌牙厉齿\n艾莲在[冲刺攻击：冰渊潜袭]中发动蓄力剪击，或消耗[急冻充能]发动[普通攻击：急冻修剪法]时，招式的暴击伤害提升50%，暴击率提升14.4%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：风暴潮\n队伍中存在与自身属性或阵营相同的角色时触发：\n艾莲造成冰属性伤害时，后继冰属性伤害提升3%，持续10秒，最多叠加10层，重复触发时刷新持续时间。",
+          "title": "核心技：凌牙厉齿",
+          "text": "艾莲在[冲刺攻击：冰渊潜袭]中发动蓄力剪击，或消耗[急冻充能]发动[普通攻击：急冻修剪法]时，招式的暴击伤害提升100%。",
           "growth": [
             {
               "level": "A",
@@ -4014,9 +3962,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：风暴潮",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发：\n艾莲造成冰属性伤害时，后继冰属性伤害提升3%，持续10秒，最多叠加10层，重复触发时刷新持续时间。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/28/160132993/9d05677658ff150b2a0dcfe50bd81c61_6476415229827588970.png"
     }
   ],
@@ -4054,27 +4006,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/ellen/cinema-2.png",
+      "image": "/images/strategy/ellen/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/4859366/a9a9d0aa8c7220885d841c76405e8267_5997427104781664921.png"
     },
     "2": {
-      "image": "/images/strategy/ellen/cinema-2.png",
+      "image": "/images/strategy/ellen/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/4859366/a9a9d0aa8c7220885d841c76405e8267_5997427104781664921.png"
     },
     "3": {
-      "image": "/images/strategy/ellen/cinema-2.png",
+      "image": "/images/strategy/ellen/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/4859366/a9a9d0aa8c7220885d841c76405e8267_5997427104781664921.png"
     },
     "4": {
-      "image": "/images/strategy/ellen/cinema-3.png",
+      "image": "/images/strategy/ellen/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/4859366/a2b8afcbef8b57736457a633a3444076_4415096551351034473.png"
     },
     "5": {
-      "image": "/images/strategy/ellen/cinema-3.png",
+      "image": "/images/strategy/ellen/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/4859366/a2b8afcbef8b57736457a633a3444076_4415096551351034473.png"
     },
     "6": {
-      "image": "/images/strategy/ellen/cinema-3.png",
+      "image": "/images/strategy/ellen/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/03/4859366/a2b8afcbef8b57736457a633a3444076_4415096551351034473.png"
     }
   }

@@ -4,7 +4,7 @@
     "entryPageId": 1626,
     "name": "般岳",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1626/detail",
-    "scrapedAt": "2026-10-12T16:45:19+00:00"
+    "scrapedAt": "2026-10-20T10:57:34+00:00"
   },
   "profile": {
     "name": "般岳",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】火属性命破特性代理人，定位为驻场输出、大量无敌帧、自拐能力优秀\n【角色详情】般岳是命破体系的火属性驻场输出代理人，他可以通过两套不同的普攻模组，打出特殊连招，从而在战斗中配合各种技能搭配，派生出多种无敌帧状态；通过发动支援突击或频繁发动强化特殊技，般岳还能给自身提供近乎永久的贯穿力、暴击伤害和火属性加成。\n若队友配置满足条件，般岳的部分攻击，还能获得提高自身造成火属性伤害的增益效果，每层5%，持续8秒，最多可叠加3层，且重复触发刷新持续时间。",
     "icons": {
-      "profession": "/images/icons/rupture.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/rupture.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8497,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 784,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 445,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 89,
-      "unit": ""
-    },
-    {
-      "label": "贯穿力",
-      "value": 105,
-      "unit": ""
-    },
-    {
-      "label": "闪能自动累积",
-      "value": 2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1626.png",
+    "avatar": "/images/agents/ep-1626.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/28/15559334/4b304a386778c3dfc088f292e7104d8b_627540316584296659.png",
-    "tachie": "/images/strategy/banyue/tachie.png",
+    "tachie": "/images/strategy/banyue/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/30/82500917/909f90495351b65217123e6db691f343_2565992729849528901.png"
   },
   "skills": [
@@ -1489,7 +1437,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -2244,7 +2192,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -3269,7 +3217,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -4950,7 +4898,7 @@
           "text": "当般岳通过快速键入指令的方式派生[强化特殊技]时，可以打断正在发动的[强化特殊技]，每一种[强化特殊技]都存在特殊的完美打断节点，在完美打断节点之后打断[强化特殊技]，被打断的[强化特殊技]的攻击效果将不会受到影响，在完美打断节点时打断[强化特殊技]，被视为触发了[完美取消]；\n处于[怒相]状态且拥有[山威]时，更容易触发[完美取消]。"
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -5515,7 +5463,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -5524,8 +5472,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：群山如我\n般岳会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；\n般岳发动招式造成的火属性伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n般岳进入战场时即可回复60闪能，在勘域模式中此效果180秒内最多触发一次。\n般岳可以通过以下方式回复[嗔火]：\n每消耗1点闪能，回复0.5点[嗔火]；\n发动[招架支援]时，回复4点[嗔火]；\n通过[闪避：不动如山]成功招架敌人攻击时，回复4点[嗔火]，若触发完美格挡，则改为回复6点[嗔火]，每1秒最多触发一次；\n触发[极限闪避]时，回复4点[嗔火]，每1秒最多触发一次。\n般岳最多拥有150点[嗔火]，拥有120点[嗔火]时，般岳可以通过发动[普通攻击：焚身]进入[怒相]状态，处于[怒相]状态时，般岳无法再获得[嗔火]，当般岳发动[普通攻击：倾山]后，会退出[怒相]状态；\n进入[怒相]状态时，般岳会获得4点[山威]，若般岳拥有[山威]，则发动[强化特殊技]时，不再消耗闪能，转而消耗1点[山威]并回复10点闪能，否则仍会消耗闪能，退出[怒相]状态时，会清空[山威]；\n处于[怒相]状态且有[山威]时，可以长按按固定顺序自动打出四种[强化特殊技]及[普通攻击：倾山]；\n般岳发动[强化特殊技]或[支援突击]时，贯穿力提升150点，造成的火属性伤害提升18%，暴击伤害提升18%，持续30秒，重复触发时刷新持续时间，暴击率提升14.4%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：绝巅\n队伍中存在[支援]或[击破]角色时触发：\n处于[怒相]状态时，若通过普通攻击派生或者快速键入指令的方式消耗[山威]发动[强化特殊技]时，般岳会获得一层[明王]，每层[明王]会使自身造成的火属性伤害提升5%，最多叠加3层，持续8秒，重复触发时刷新持续时间。",
+          "title": "核心技：群山如我",
+          "text": "般岳会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；\n般岳发动招式造成的火属性伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n般岳进入战场时即可回复60闪能，在勘域模式中此效果180秒内最多触发一次。\n般岳可以通过以下方式回复[嗔火]：\n每消耗1点闪能，回复0.5点[嗔火]；\n发动[招架支援]时，回复4点[嗔火]；\n通过[闪避：不动如山]成功招架敌人攻击时，回复4点[嗔火]，若触发完美格挡，则改为回复6点[嗔火]，每1秒最多触发一次；\n触发[极限闪避]时，回复4点[嗔火]，每1秒最多触发一次。\n般岳最多拥有150点[嗔火]，拥有120点[嗔火]时，般岳可以通过发动[普通攻击：焚身]进入[怒相]状态，处于[怒相]状态时，般岳无法再获得[嗔火]，当般岳发动[普通攻击：倾山]后，会退出[怒相]状态；\n进入[怒相]状态时，般岳会获得4点[山威]，若般岳拥有[山威]，则发动[强化特殊技]时，不再消耗闪能，转而消耗1点[山威]并回复10点闪能，否则仍会消耗闪能，退出[怒相]状态时，会清空[山威]；\n处于[怒相]状态且有[山威]时，可以长按按固定顺序自动打出四种[强化特殊技]及[普通攻击：倾山]；\n般岳发动[强化特殊技]或[支援突击]时，贯穿力提升300点，造成的火属性伤害提升36%，暴击伤害提升36%，持续30秒，重复触发时刷新持续时间。",
           "growth": [
             {
               "level": "A",
@@ -5594,9 +5542,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：绝巅",
+          "text": "队伍中存在[支援]或[击破]角色时触发：\n处于[怒相]状态时，若通过普通攻击派生或者快速键入指令的方式消耗[山威]发动[强化特殊技]时，般岳会获得一层[明王]，每层[明王]会使自身造成的火属性伤害提升5%，最多叠加3层，持续8秒，重复触发时刷新持续时间。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/30/82500917/72b87c735b46c309270096faf75209c9_1101855223429590089.png"
     }
   ],
@@ -5634,27 +5586,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/banyue/cinema-2.png",
+      "image": "/images/strategy/banyue/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/17/76099754/4cea6fe9c700fe35cca9016c932b4040_6760544739452297560.png"
     },
     "2": {
-      "image": "/images/strategy/banyue/cinema-2.png",
+      "image": "/images/strategy/banyue/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/17/76099754/4cea6fe9c700fe35cca9016c932b4040_6760544739452297560.png"
     },
     "3": {
-      "image": "/images/strategy/banyue/cinema-2.png",
+      "image": "/images/strategy/banyue/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/17/76099754/4cea6fe9c700fe35cca9016c932b4040_6760544739452297560.png"
     },
     "4": {
-      "image": "/images/strategy/banyue/cinema-3.png",
+      "image": "/images/strategy/banyue/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/17/76099754/9449be0d80ce81a2c3a42b2bc229303d_3411196958003040703.png"
     },
     "5": {
-      "image": "/images/strategy/banyue/cinema-3.png",
+      "image": "/images/strategy/banyue/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/17/76099754/9449be0d80ce81a2c3a42b2bc229303d_3411196958003040703.png"
     },
     "6": {
-      "image": "/images/strategy/banyue/cinema-3.png",
+      "image": "/images/strategy/banyue/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/17/76099754/9449be0d80ce81a2c3a42b2bc229303d_3411196958003040703.png"
     }
   }

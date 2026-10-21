@@ -4,7 +4,7 @@
     "entryPageId": 1960,
     "name": "维琳娜·艾嘉德",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1960/detail",
-    "scrapedAt": "2026-10-17T04:45:28+00:00"
+    "scrapedAt": "2026-10-20T11:02:49+00:00"
   },
   "profile": {
     "name": "维琳娜·艾嘉德",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】S级风属性属性异常代理人，后台副c，操作轮椅，可聚怪和降低敌人的积蓄抗性。\n【角色详情】维琳娜是风属性的异常特性代理人，她可以通过一定的初始能量自动回复，来提高自身伤害与异常掌控。当资源条风华满足一定的点数时，维琳娜可以通过长按强化特殊技发动连招，召唤出气旋攻击敌人并降低其风属性积蓄抗性，若气旋被染色，还会降低敌人所染色属性的积蓄抗性。若队友满足条件，还能使维琳娜部分招式造成的伤害、气旋对敌人的积蓄抗性降低效果均会获得提升。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/wind.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/wind.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7788,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 797,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 112,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 111,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1960.png",
+    "avatar": "/images/agents/ep-1960.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/15/76099754/11878922b3ca137a99bf3906b74cb5df_3794220973506474405.png",
-    "tachie": "/images/strategy/velina/tachie.png",
+    "tachie": "/images/strategy/velina/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/11/15559334/63bf635cf1326fec26c643d664b363ef_4254601896102355120.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3366,7 +3314,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3931,7 +3879,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3940,7 +3888,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：风华盈袖",
+          "title": "核心技：风华盈袖",
           "text": "维琳娜初始能量自动回复大于1.2时，超过部分每超过0.01，造成的伤害提升0.21%，最多提升35%，异常掌控提升0.5点，最多提升84点；\n维琳娜进入战场时，获得45点[风华]，在勘域模式中此效果180秒内最多触发一次，维琳娜发动[强化特殊技：风切变·扬清]或[强化特殊技：风切变·三重绝息]都会获得45点[风华]，[风华]上限为135点；\n维琳娜触发[乱流]时，会获得1点[风蚀]并召唤[微域气旋]，造成风属性伤害，该效果每3秒最多触发一次，当维琳娜拥有2点[风蚀]时，维琳娜下一次触发[乱流]时，会消耗2点[风蚀]使此时[乱流]的伤害倍率提升150%，并且不再召唤[微域气旋]转而召唤[广域气旋]，此时不会获得[风蚀]；\n当维琳娜召唤的[广域气旋]首次命中处于[浸染]状态下的敌人，会触发[赋彩]效果，转化为相应属性的[广域气旋]，并会造成相应属性的伤害，[广域气旋]攻击命中敌人时，会使敌人的风属性异常积蓄抗性降低7%，持续35秒，重复触发时刷新持续时间，若[赋彩]后的[广域气旋]攻击命中敌人，则敌人的相应属性异常积蓄抗性也会降低7%，持续35秒，重复触发时刷新持续时间；\n受到[广域气旋]影响的敌人被击败时，会使该[广域气旋]的持续时间延长5秒，该效果对同一[广域气旋]仅能触发一次，同一时间只能存在一个[广域气旋]；\n[微域气旋]和[广域气旋]会在消散时触发一次爆炸，该次爆炸命中处于风属性异常状态下的敌人时，都会对目标造成一次[异放]伤害：额外结算一次属性异常伤害，固定结算145%和255%倍率的风属性异常伤害。",
           "growth": [
             {
@@ -4010,9 +3958,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：茶会礼仪",
+          "text": "队伍中存在其他[异常]角色或同属性角色时触发：\n维琳娜造成的[风化]和[乱流]伤害提升10%，[终结技]重击命中处于风属性异常状态下的敌人时，会对目标造成一次[异放]伤害：额外结算一次属性异常伤害，固定结算680%倍率的风属性异常伤害；\n[核心被动：风华盈袖]中，[广域气旋]造成的属性异常积蓄抗性降低效果额外提升7%，造成的失衡值提升30%，累积的属性异常积蓄值提升15%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/12/15559334/5e03782467ec465f7877ff5252b00615_5884210449183052005.png"
     }
   ],
@@ -4050,27 +4002,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/velina/cinema-2.png",
+      "image": "/images/strategy/velina/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/17/79697369/41f520a5a2874263d4415e53abb2957f_5875902117472210403.png"
     },
     "2": {
-      "image": "/images/strategy/velina/cinema-2.png",
+      "image": "/images/strategy/velina/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/17/79697369/41f520a5a2874263d4415e53abb2957f_5875902117472210403.png"
     },
     "3": {
-      "image": "/images/strategy/velina/cinema-2.png",
+      "image": "/images/strategy/velina/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/17/79697369/41f520a5a2874263d4415e53abb2957f_5875902117472210403.png"
     },
     "4": {
-      "image": "/images/strategy/velina/cinema-3.png",
+      "image": "/images/strategy/velina/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/17/79697369/82d936b971d395923f48e4b42d3dade5_4456545679303717527.png"
     },
     "5": {
-      "image": "/images/strategy/velina/cinema-3.png",
+      "image": "/images/strategy/velina/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/17/79697369/82d936b971d395923f48e4b42d3dade5_4456545679303717527.png"
     },
     "6": {
-      "image": "/images/strategy/velina/cinema-3.png",
+      "image": "/images/strategy/velina/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/17/79697369/82d936b971d395923f48e4b42d3dade5_4456545679303717527.png"
     }
   }

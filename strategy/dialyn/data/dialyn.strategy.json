@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/dialyn/background.webp",
   "_meta": {
     "agentId": "ep-1624",
     "name": "琉音",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -39,7 +40,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "昨夜来电",
           "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
-          "icon": "/images/weapons/ep-1689.png"
+          "icon": "/images/weapons/ep-1689.webp"
         }
       ],
       "note": "专武（WIKI 推荐表仅列琉音）：唯一给暴击率的击破音擎，24% 暴击把满暴词条需求从 21 条压到约 14 条，直接喂满核心被动的冲击转化；后场每 1.5 点/秒回能，发动强化特殊技造成物理伤害后自身失衡值 +9%（最多 3 层），叠满 3 层再给全队暴击伤害 +30%——石头剪刀布三连即可吃满。"
@@ -79,7 +80,7 @@
         {
           "name": "燃狱齿轮",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-220.png"
+          "icon": "/images/weapons/ep-220.webp"
         }
       ],
       "note": "常驻 S 级，后场同样有回能（每 0.6 点/秒），发动强化特殊技可叠局内冲击力加成（最多 2 层），强特释放频繁的她能轻松吃满；但没有暴击副词条，满暴词条压力回到 20 条以上。"
@@ -90,7 +91,7 @@
         {
           "name": "人为刀俎",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-157.png"
+          "icon": "/images/weapons/ep-157.webp"
         }
       ],
       "note": "玩具店可高精炼的 A 级：副词条回能 50%，特效每消耗 10 点能量叠加冲击力（最多 8 层），与石头剪刀布的耗能节奏契合，性价比较高；白值与暴击都不如 S 级。"
@@ -101,7 +102,7 @@
         {
           "name": "贵重骨核",
           "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
-          "icon": "/images/weapons/ep-141.png"
+          "icon": "/images/weapons/ep-141.webp"
         }
       ],
       "note": "纯冲击力副词条，既能转冲击也能撑失衡倍率，但没有任何回能与暴击，会显著加重驱动盘词条压力，仅在凹分与危局 BOSS 战考虑。"
@@ -114,25 +115,25 @@
         "name": "山大王",
         "label": "攻击造成的失衡值 +6%",
         "effect4": "装备者为[击破]角色时，发动[强化特殊技]或[连携技]会使全队角色暴击伤害提升15%，装备者的暴击率大于等于50%时暴击伤害额外提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-        "icon": "/images/discs/ep-1346.png"
+        "icon": "/images/discs/ep-1346.webp"
       },
       "set2": {
         "main": [
           {
             "name": "摇摆爵士",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-231.png"
+            "icon": "/images/discs/ep-231.webp"
           },
           {
             "name": "月光骑士颂",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-1551.png"
+            "icon": "/images/discs/ep-1551.webp"
           }
         ],
         "alt": {
           "name": "啄木鸟电音",
           "label": "暴击率 +8%",
-          "icon": "/images/discs/ep-232.png"
+          "icon": "/images/discs/ep-232.webp"
         }
       },
       "mainStats": [
@@ -179,16 +180,16 @@
           "agentId": "ep-1299",
           "name": "仪玄",
           "role": "命破",
-          "avatar": "/images/agents/ep-1299.png",
+          "avatar": "/images/agents/ep-1299.webp",
           "note": "玄墨命破主C，一个失衡期内可打出多次大招；琉音把她的连携强制升级为终结技，是「仪玄三大」流程的核心。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             },
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         },
@@ -196,16 +197,16 @@
           "agentId": "ep-1624",
           "name": "琉音",
           "role": "击破",
-          "avatar": "/images/agents/ep-1624.png",
+          "avatar": "/images/agents/ep-1624.webp",
           "note": "命破身份触发她的额外能力：石头剪刀布重击额外造成仪玄 400% 贯穿力伤害；[好评如潮]给全队 40% 增伤。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "摇摆爵士",
-              "icon": "/images/discs/ep-231.png"
+              "icon": "/images/discs/ep-231.webp"
             }
           ]
         },
@@ -213,16 +214,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "支援",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "命破体系核心辅助，以太帷幕给全队生命上限、贯穿力、增伤与暴伤，让仪玄安心站场输出。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         }
@@ -235,12 +236,12 @@
           "agentId": "ep-1687",
           "name": "叶瞬光",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1687.png",
+          "avatar": "/images/agents/ep-1687.webp",
           "note": "双形态主C；强攻身份触发琉音额外能力（石头剪刀布重击额外造成 320% 攻击力伤害），失衡期多打一次大招。",
           "set4": [
             {
               "name": "沧浪行歌",
-              "icon": "/images/discs/ep-1754.png"
+              "icon": "/images/discs/ep-1754.webp"
             }
           ]
         },
@@ -248,16 +249,16 @@
           "agentId": "ep-1624",
           "name": "琉音",
           "role": "击破",
-          "avatar": "/images/agents/ep-1624.png",
+          "avatar": "/images/agents/ep-1624.webp",
           "note": "快速积累失衡、延长失衡 2 秒并给 15% 失衡易伤，为叶瞬光创造输出窗口；连携升大招让她在失衡期多一轮爆发。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "摇摆爵士",
-              "icon": "/images/discs/ep-231.png"
+              "icon": "/images/discs/ep-231.webp"
             }
           ]
         },
@@ -265,12 +266,12 @@
           "agentId": "ep-1791",
           "name": "千夏",
           "role": "支援",
-          "avatar": "/images/agents/ep-1791.png",
+          "avatar": "/images/agents/ep-1791.webp",
           "note": "攻击力达标 3500 后全队加攻 1050 点，与卢西娅/耀嘉音同位的攻击拐；[猫的凝视]在失衡期触发次数大幅减少，与琉音的失衡节奏互相成就。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }

@@ -7,6 +7,7 @@ import {
   agentTagSegments,
 } from '@/constants/calculatorOptions';
 import { AGENT_ROLE_TAGS } from '@/constants/calculatorOptions';
+import { strategyGuides } from '@/constants/strategyGuides';
 import { displayEnergyAttributeLabel, isPanelMode } from '@/composables/usePanelMode';
 import { usePanelStore, type AgentNote } from '@/stores/panelStore';
 import { usePresetStore } from '@/stores/presetStore';
@@ -16,6 +17,14 @@ import type { PanelMode } from '@/types/panel';
 
 /** 基础面板会从预设写入的键。对应 legacy 的 `baseFields`。 */
 const BASE_KEYS = ['hp', 'atk', 'def', 'impact', 'cr', 'cd', 'ac', 'am', 'pr', 'er'] as const;
+
+/**
+ * 命破模式**允许缺失**的基础键：官方基础面板里本来就不列这两个
+ * （它们被贯穿力 / 闪能自动累积取代）。其余模式十项必须齐全。
+ *
+ * 与后端 `zzz_panel.presets.validate.RUPTURE_OPTIONAL_BASE_KEYS` 同源。
+ */
+const RUPTURE_OPTIONAL_BASE_KEYS = ['pr', 'er'] as const;
 
 /** 命破专属的基础面板键。对应 legacy 的 `extraBaseFields`。 */
 const EXTRA_BASE_KEYS = ['penforce', 'energyAccumulation'] as const;
@@ -88,6 +97,16 @@ export function validateAgentPresetData(): void {
 }
 
 /**
+ * 官方未提供的基础属性键。
+ *
+ * 「没写到的键」本身就是那份事实——数据里不再另存一个 `unavailableBaseStats`
+ * 数组（同一件事存两份，就得靠校验器去证明它们没漂移）。
+ */
+function unavailableBaseKeys(agent: AgentPreset): string[] {
+  return BASE_KEYS.filter((key) => !Number.isFinite(agent.base?.[key]));
+}
+
+/**
  * 单条预设的可载入性校验。逐条移植 legacy 的 `applyAgentPreset` 中的 try 块。
  *
  * 校验通过返回填入两个核心下拉的选项 id；不通过则抛出带代理人名称的错误，
@@ -95,14 +114,18 @@ export function validateAgentPresetData(): void {
  * 第 4 步改为后端下发后需与 `backend/src/zzz_panel/presets/validate.py` 对齐。
  */
 function resolveCoreIndexes(agent: AgentPreset): string[] {
-  const baseStatKeys = new Set(agent.unavailableBaseStats ?? []);
   for (const key of BASE_KEYS) {
-    if (!Number.isFinite(agent.base?.[key]) && !baseStatKeys.has(key)) {
+    if (Number.isFinite(agent.base?.[key])) {
+      continue;
+    }
+    const legitimate =
+      agent.panelMode === 'rupture' && RUPTURE_OPTIONAL_BASE_KEYS.includes(key as never);
+    if (!legitimate) {
       throw new Error(`${agent.name}的基础面板缺少有效的${key}数值。`);
     }
   }
 
-  const additional = agent.additionalBaseStats ?? {};
+  const additional = agent.baseExtra ?? {};
   for (const [key, value] of Object.entries(additional)) {
     if (!(EXTRA_BASE_KEYS as readonly string[]).includes(key) || !Number.isFinite(value)) {
       throw new Error(`${agent.name}包含无法识别的额外基础属性“${key}”。`);
@@ -115,7 +138,7 @@ function resolveCoreIndexes(agent: AgentPreset): string[] {
     throw new Error(`${agent.name}的命破基础面板缺少官方基础贯穿力或闪能自动累积数值。`);
   }
 
-  if (!Array.isArray(agent.coreBonuses) || agent.coreBonuses.length === 0) {
+  if (!Array.isArray(agent.core) || agent.core.length === 0) {
     throw new Error(`${agent.name}缺少有效的核心加成数据。`);
   }
   if (!Object.hasOwn(PANEL_MODE_LABELS, agent.panelMode)) {
@@ -123,7 +146,7 @@ function resolveCoreIndexes(agent: AgentPreset): string[] {
   }
 
   const coreIndexes: string[] = [];
-  for (const bonus of agent.coreBonuses) {
+  for (const bonus of agent.core) {
     const option = CORE_OPTIONS.find((candidate) => candidate.id === bonus.optionId);
     const optionCount = bonus.optionCount ?? 1;
     if (
@@ -138,8 +161,8 @@ function resolveCoreIndexes(agent: AgentPreset): string[] {
     if (
       !Array.isArray(bonus.ranks) ||
       bonus.ranks.length === 0 ||
-      !Number.isFinite(bonus.perRankValue) ||
-      Math.abs(bonus.perRankValue * bonus.ranks.length - bonus.totalValue) > EPSILON
+      !Number.isFinite(bonus.perRank) ||
+      Math.abs(bonus.perRank * bonus.ranks.length - bonus.totalValue) > EPSILON
     ) {
       throw new Error(`${agent.name}的核心加成“${bonus.label}”数据不一致。`);
     }
@@ -151,7 +174,7 @@ function resolveCoreIndexes(agent: AgentPreset): string[] {
     throw new Error(`${agent.name}的核心加成无法准确填入两个计算器核心选项。`);
   }
 
-  const rawUnmodeled = agent.unmodeledBaseStats ?? [];
+  const rawUnmodeled = agent.baseUnmodeled ?? [];
   if (
     !Array.isArray(rawUnmodeled) ||
     rawUnmodeled.some(
@@ -177,12 +200,16 @@ export function agentTagLabel(agent: AgentPreset): string {
 /** 载入预设后的提示文案。对应 legacy 的 `note.replaceChildren(...)` 部分。 */
 function buildSuccessNote(agent: AgentPreset): AgentNote {
   // 结构校验覆盖全部条目；仅在生成提示文案时剔除已建模的同名属性。
-  const unmodeled = (agent.unmodeledBaseStats ?? []).filter(
+  const unmodeled = (agent.baseUnmodeled ?? []).filter(
     (stat) => !MODELED_BASE_STAT_LABELS.has(stat.label),
   );
 
-  const unavailableVisible = (agent.unavailableBaseStats ?? []).filter(
-    (key) => agent.panelMode !== 'rupture' || !['pr', 'er'].includes(key),
+  // 命破模式缺 pr/er 是官方如此（这两个位置被贯穿力 / 闪能自动累积取代），
+  // 不必在提示里说「官方未提供」。
+  const unavailableVisible = unavailableBaseKeys(agent).filter(
+    (key) =>
+      agent.panelMode !== 'rupture' ||
+      !RUPTURE_OPTIONAL_BASE_KEYS.includes(key as never),
   );
   const unavailableSummary = unavailableVisible.length
     ? `官方基础面板未提供${unavailableVisible
@@ -196,10 +223,10 @@ function buildSuccessNote(agent: AgentPreset): AgentNote {
         .join('、')}。`
     : '';
 
-  const coreSummary = agent.coreBonuses
+  const coreSummary = agent.core
     .map(
       (bonus) =>
-        `${bonus.ranks.join('/')}：${bonus.label}每级 +${fmt(bonus.perRankValue)}${bonus.unit}，合计 +${fmt(bonus.totalValue)}${bonus.unit}`,
+        `${bonus.ranks.join('/')}：${bonus.label}每级 +${fmt(bonus.perRank)}${bonus.unit}，合计 +${fmt(bonus.totalValue)}${bonus.unit}`,
     )
     .join('；');
 
@@ -210,7 +237,9 @@ function buildSuccessNote(agent: AgentPreset): AgentNote {
     : '';
 
   return {
-    text: `已载入${agent.name}（${agentTagLabel(agent)}）的60级基础面板（不含核心）及满级核心加成。${coreSummary}。${unavailableSummary}${unmodeledSummary}数据来源：`,
+      // 词组内的不换行空格：「数据<nbsp>来源：<链接>」是一个整体，
+      // 否则中文换行会把它折成「数据」+「来源：米游社官方WIKI」。
+      text: `已载入${agent.name}（${agentTagLabel(agent)}）的60级基础面板（不含核心）及满级核心加成。${coreSummary}。${unavailableSummary}${unmodeledSummary}`,
     tone: 'neutral',
     source: agent.source,
   };
@@ -262,18 +291,17 @@ export function useAgentPreset() {
       const coreIndexes = resolveCoreIndexes(agent);
 
       // 写入基础面板：缺失的键留空，与 legacy 的 `Number.isFinite(...) ? ... : ''` 一致。
-      const unavailable = new Set(agent.unavailableBaseStats ?? []);
       const nextBase = { ...panel.base };
       for (const key of BASE_KEYS) {
         const value = agent.base?.[key];
-        nextBase[key] = !unavailable.has(key) && Number.isFinite(value) ? (value as number) : 0;
+        nextBase[key] = Number.isFinite(value) ? (value as number) : 0;
       }
       panel.base = nextBase;
 
       for (const key of EXTRA_BASE_KEYS) {
         panel.base[key] = 0;
       }
-      for (const [key, value] of Object.entries(agent.additionalBaseStats ?? {})) {
+      for (const [key, value] of Object.entries(agent.baseExtra ?? {})) {
         if ((EXTRA_BASE_KEYS as readonly string[]).includes(key) && Number.isFinite(value)) {
           panel.base[key as (typeof EXTRA_BASE_KEYS)[number]] = value as number;
         }
@@ -302,13 +330,45 @@ export function useAgentPreset() {
   }
 
   /**
-   * 初始化时按 URL 的 `?mode=` 参数确定初始面板模式。
-   * 对应 legacy 的 `let activePanelMode = new URLSearchParams(...)`。
+   * 初始化时按 URL 的 `?mode=` 参数确定初始面板模式，
+   * 并可按 `?agent=` 直接载入某名代理人的预设。
+   *
+   * `?agent=` 接受两种写法：
+   *
+   * - **slug**（`ye-shunguang`）——与 `/strategy/<slug>` 一致，人写的链接；
+   * - **预设 id**（`ep-1109`）——预设数据自身的稳定标识。
+   *
+   * 有了它，一条链接就能复现某位代理人的整套面板——既是**分享**需求，
+   * 也是 UI 验收清单里「状态由 URL 决定」那条要求的前提。
    */
-  function initFromQueryParam(raw: string | null): void {
+  function initFromQueryParam(raw: string | null, agentRef?: string | null): void {
     const mode: PanelMode = isPanelMode(raw) ? raw : 'standard';
     panel.requestedMode = mode;
     panel.panelMode = mode;
+
+    const ref = (agentRef ?? '').trim();
+    if (!ref) {
+      return;
+    }
+    const agentId = ref.startsWith('ep-') ? ref : slugToAgentId(ref);
+    if (!agentId) {
+      fail(`代理人预设加载失败：找不到“${ref}”对应的代理人。`);
+      return;
+    }
+    const agent = usePresetStore().agentById.get(agentId);
+    if (!agent) {
+      fail(`代理人预设加载失败：找不到“${ref}”的数据。`);
+      return;
+    }
+    // 载入预设要求角色标签与代理人对得上；URL 直载时标签还没选过，
+    // 按预设自身的标签补上，否则必然被判成「不属于当前标签」。
+    panel.agent.roleTag = agent.roleTag;
+    applyAgentPreset(agent.id);
+  }
+
+  /** slug → 预设 id。slug 表是攻略登记表，代理人 id 与之同一套。 */
+  function slugToAgentId(slug: string): string {
+    return strategyGuides.find((guide) => guide.slug === slug)?.agentId ?? '';
   }
 
   return { applyAgentPreset, initFromQueryParam };

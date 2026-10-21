@@ -11,7 +11,7 @@ Vue3 迁移前的原生 HTML 实现（`frontend/legacy/`）在第 5 步已整体
 | `backend/tests/test_fmt_parity.py` | Python 的 `core.fmt.fmt` 与 legacy 的 `fmt` 对同一组数值产出相同字符串 |
 | `frontend/tools/diff_breakdown.mjs` | 排查对拍差异时，按 DOM 层级归类逐行 diff |
 | `frontend/tools/dump_legacy_cases.mjs` | 导出抽样用例为 `backend/tests/legacy_cases.json` |
-| `tools/sync_presets.py --to-legacy` | 由 `data/*.json` 反向生成本目录的 `data/*.js` |
+| `backend/tests/test_legacy_fixture_snapshot.py` | 断言本目录 `data/*.js` 与 `data/catalog/*.json` **语义等值** |
 
 删掉它等于删掉项目最强的一道正确性护栏，且 `test_fmt_parity.py` 会因
 `pytest.skip` 变成**假绿灯**——不报错，但检查已失效。
@@ -26,9 +26,10 @@ Vue3 迁移前的原生 HTML 实现（`frontend/legacy/`）在第 5 步已整体
 - **禁止修改任何文件。** 一旦修改，参照基准就变成了新实现本身，
   三方对拍退化为「自己和自己比」，永远不会失败，也就失去了意义。
 - **禁止给legacy 补功能。** 新需求一律实现在 Vue3 侧。
-- `data/agent-presets.js`、`data/weapon-presets.js` 由
-  `python tools/sync_presets.py --to-legacy` 从 `data/*.json` 生成，勿手工编辑；
-  改动预设后跑 `--to-legacy --check`，退出码非 0 即表示两侧漂移。
+- `data/agent-presets.js`、`data/weapon-presets.js` 是**冻结的快照**，
+  不再由任何脚本生成，勿手工编辑。改动预设不会改动它们；
+  `backend/tests/test_legacy_fixture_snapshot.py` 断言两者**语义等值**——
+  若有人手工改了夹具，那条测试会失败。
 - `scripts/calculator-config.js` 是 Skill 抓取脚本的**正则解析源**，格式不可随意改动。
 
 ## 已删除的 legacy 页面

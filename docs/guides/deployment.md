@@ -46,7 +46,7 @@ dist/
 ├── assets/
 │   ├── index-<hash>.js
 │   └── index-<hash>.css
-├── images/                  # public/images/ 原样拷贝（当前 398 张 PNG）
+├── images/                  # public/images/ 原样拷贝（当前 522 张 webp）
 └── strategy/<slug>/data/    # 每页仅两份 JSON（<slug>.json / <slug>.strategy.json）
 ```
 
@@ -245,7 +245,7 @@ uv run --group worker pywrangler deploy
 uv run python tools/bundle_worker_data.py
 ```
 
-生成。它把 `data/agent-presets.json` 与 `data/weapon-presets.json` 的原文按
+生成。它把 `data/catalog/agents.json` 与 `data/catalog/weapons.json` 的原文按
 「每行一个相邻字符串字面量」存进两个常量，因此：
 
 - 与源文件**逐字节**一致，可被 `--check` 校验，也不需要 `importlib.resources`
@@ -344,7 +344,7 @@ catch { "被 Access 挡住 -> " + $_.Exception.Response.Headers["Location"] }
 | 风险 | 说明与对策 |
 | --- | --- |
 | 免费额度被消耗 | Workers 免费版有每日请求上限，别人刷流量会吃掉你的额度。计算是毫秒级的纯函数，CPU 不是瓶颈，瓶颈是请求数。真被刷了再上 WAF 限速（`Cloudflare → 你的域 → Security → WAF → Rate limiting rules`），不必提前加 |
-| 503 的 `detail` 会回显路径 | 预设加载失败时，响应里带文件路径。现在只是包内生成物的模块名，不会泄露你的本机目录；但**不要把用户目录写进任何错误信息**（见 [api-reference.md](api-reference.md)） |
+| 503 的 `detail` 会回显路径 | 预设加载失败时，响应里带文件路径。现在只是包内生成物的模块名，不会泄露你的本机目录；但**不要把用户目录写进任何错误信息**（见 [api-reference.md](../reference/api-reference.md)） |
 
 #### 如果哪天想改成私有
 
@@ -358,7 +358,7 @@ catch { "被 Access 挡住 -> " + $_.Exception.Response.Headers["Location"] }
 为什么不用「Worker 内自己加 Basic Auth」：我们的 `run_worker_first` 只放行
 `/api/*` 等少数路径，其余静态资源由资源层直接返回、**根本不进 Worker**，
 脚本里的鉴权拦不住 `/` 和 `/assets/*`。改 `run_worker_first: true` 能解决，
-但每个 `.png`、每个 `.js` 都要过一次 Worker（略增延迟，且静态资源请求开始计入
+但每个 `.webp`、每个 `.js` 都要过一次 Worker（略增延迟，且静态资源请求开始计入
 请求数与 CPU）。Access 挡在 Worker 外面，官方说明它同时保护 Worker 与静态资源。
 
 两个坑：别选 **Email domain** 规则（那会允许整个邮箱域名的人通过）；
@@ -439,8 +439,8 @@ cd frontend; npm ci; npm run build; cd ..
 若这次更新动了规则表或预设，记得先跑同步：
 
 ```powershell
-python tools/sync_presets.py --options
-python tools/sync_presets.py --to-legacy
+python tools/sync_presets.py --options    # 规则表
+python tools/sync_manifest.py            # 数据集登记表
 ```
 
 形态 D（Cloudflare Workers）没有「重启」这一步，重新 deploy 即覆盖，
@@ -478,12 +478,12 @@ uv run --group worker pywrangler deploy
 `/api/presets/*` 只读公开的游戏数据。若放到公网，A/B 形态在反代上加 Basic Auth
 或 IP 白名单即可；D 形态用 Cloudflare Access。
 
-无论哪种形态，都请先看 [api-reference.md](api-reference.md) 里 503 响应会回显
+无论哪种形态，都请先看 [api-reference.md](../reference/api-reference.md) 里 503 响应会回显
 文件路径这一点——无鉴权意味着任何人都能读到你的目录结构。
 
 ## 10. 相关文档
 
-- [api-reference.md](api-reference.md) —— 接口与状态码
+- [api-reference.md](../reference/api-reference.md) —— 接口与状态码
 - [development.md](development.md) —— 构建与本地运行
-- [architecture.md](architecture.md) —— 分层与依赖方向
-- [requirements.md](requirements.md) —— 非目标与已知限制
+- [architecture.md](../design/architecture.md) —— 分层与依赖方向
+- [requirements.md](../overview/requirements.md) —— 非目标与已知限制

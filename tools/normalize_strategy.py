@@ -9,7 +9,7 @@
 2. 把 JSON / JS / HTML 里指向旧 slug 的 ``/images/strategy/<old>/``、``data/<old>.json``
    等引用改成当前目录的 slug；
 3. ``--rescrape-invalid``：对不是合法 UTF-8 的抓取产物，按 ``meta.entryPageId`` 重新抓取；
-4. ``--remove-legacy``：删除不在 ``data/agent-name-mapping.json`` 里的攻略目录。
+4. ``--remove-legacy``：删除不在 ``data/catalog/agent-index.json`` 里的攻略目录。
 
 用法（仓库根）::
 
@@ -27,12 +27,24 @@ import re
 import shutil
 import subprocess
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STRATEGY_ROOT = REPO_ROOT / "strategy"
 SCRAPER = REPO_ROOT / ".github" / "skills" / "agent-strategy" / "scripts" / "scrape_agent_guide.py"
-MAPPING_PATH = REPO_ROOT / "data" / "agent-name-mapping.json"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from data_paths import dataset_path  # noqa: E402
+
+#: 数据集路径由 ``data/manifest.json`` 统一登记，此处只取用。
+MAPPING_PATH = dataset_path("agent-index")
 
 IMAGE_PREFIX_RE = re.compile(r"/images/strategy/([^/\"']+)/")
 ENTRY_PAGE_RE = re.compile(rb'"entryPageId"\s*:\s*(\d+)')
@@ -65,7 +77,7 @@ def image_slugs(text: str) -> set[str]:
 
 
 def rewrite_references(text: str, slug: str, old_stems: set[str]) -> str:
-    """把旧 slug 的图片 / 数据引用改成当前 slug；不碰 ``data/options.json`` 等共享文件。"""
+    """把旧 slug 的图片 / 数据引用改成当前 slug；不碰规则表等共享文件。"""
     text = IMAGE_PREFIX_RE.sub(f"/images/strategy/{slug}/", text)
     for old in sorted(old_stems - {slug}):
         text = text.replace(f"strategy/{old}/data/{old}.strategy.json", f"strategy/{slug}/data/{slug}.strategy.json")

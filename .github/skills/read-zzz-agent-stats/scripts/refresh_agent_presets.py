@@ -1,4 +1,4 @@
-"""Refresh data/agent-presets.json from the official HoYoLAB ZZZ Wiki.
+"""Refresh data/catalog/agents.json from the official HoYoLAB ZZZ Wiki.
 
 Scans the whole entry_page_id space through the public content API, keeps every
 page carrying a `role_base_info` component (only agent pages have one), and
@@ -11,10 +11,12 @@ writes one preset per agent with:
     both read straight off the same ``role_base_info`` component;
   * the official 特性 tag and the matching calculator panel mode.
 
-``data/agent-presets.json`` 是全仓库唯一真实源；参照实现夹具所需的
-``frontend/tests/fixtures/legacy-calculator/data/agent-presets.js`` 由
-``tools/sync_presets.py --to-legacy`` 从本文件反向生成，不要直接写它。
-序列化复用 sync_presets 的规范化实现。
+``data/catalog/agents.json`` 是全仓库唯一真实源，路径登记在
+``data/manifest.json``。序列化复用 sync_presets 的规范化实现。
+
+基础面板里**没写到的键表示官方未提供该属性**——不再另存一个
+``unavailableBaseStats`` 数组：缺键本身就是那份事实，「哪几项缺是合法的」
+由后端 ``presets/validate.py`` 按规则判定（命破模式缺 ``pr`` 与 ``er``）。
 
 Default paths are relative to the repository root; run from there:
 
@@ -26,6 +28,13 @@ import argparse
 import json
 import re
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -85,9 +94,8 @@ BASE_ALIASES = {
     "闪能自动积累": "energyAccumulation",
     "闪能自动累计": "energyAccumulation",
 }
-#: 默认输出。仓库根 ``data/`` 是唯一真实源；legacy 的 JS 包装由
-#: ``tools/sync_presets.py --to-legacy`` 反向生成，不在本脚本的职责内。
-OUTPUT = "data/agent-presets.json"
+#: 默认输出。仓库根 ``data/`` 是唯一真实源，路径登记在 ``data/manifest.json``。
+OUTPUT = "data/catalog/agents.json"
 
 BASE_FIELDS = ("hp", "atk", "def", "impact", "cr", "cd", "ac", "am", "pr", "er")
 EXTRA_FIELDS = {"penforce": "penforce", "energyAccumulation": "energyAccumulation"}
@@ -214,7 +222,7 @@ def core_bonuses(ranks, core_options):
             "label": label,
             # num() 把 420.0 收敛成 420：JSON 里整值就该是整数，
             # 否则与既有 data/*.json 的字面量不一致，--check 会一直报漂移。
-            "perRankValue": num(value),
+            "perRank": num(value),
             "totalValue": num(total),
             "unit": entry["unit"],
         }
@@ -252,8 +260,8 @@ def load_sync_presets():
     """导入 ``tools/sync_presets.py`` 以复用其规范化与 JSON 序列化。
 
     刻意不复制一份序列化逻辑：预设 JSON 的键序与缩进由该脚本单一定义，
-    ``sync_presets.py --to-legacy --check`` 依赖两侧字节一致。这里若各写一套，
-    重新抓取后 ``--check`` 就会一直报漂移，而漂移原因极难定位。
+    重新抓取产出的文件与已提交文件逐字节一致。这里若各写一套，
+    重新抓取后就会一直报漂移，而漂移原因极难定位。
     """
     if str(REPO_ROOT / "tools") not in sys.path:
         sys.path.insert(0, str(REPO_ROOT / "tools"))
@@ -272,7 +280,7 @@ def build(agent, core_options):
     if attribute is None:
         raise ValueError("未登记的属性 slug：{}".format(slug))
     merged = agent["base"]
-    base, additional, unmodeled, unavailable = {}, {}, [], []
+    base, additional, unmodeled = {}, {}, []
     for label, value in merged.items():
         field = BASE_ALIASES.get(label)
         if field in BASE_FIELDS:
@@ -281,9 +289,6 @@ def build(agent, core_options):
             additional[field] = num(value)
         else:
             unmodeled.append({"label": label, "value": num(value), "unit": "%" if "%" in label else ""})
-    for field in BASE_FIELDS:
-        if field not in base:
-            unavailable.append(field)
     preset = {
         "id": "ep-{}".format(agent["id"]),
         "name": agent["name"],
@@ -294,13 +299,11 @@ def build(agent, core_options):
         "source": agent["source"],
         "base": base,
     }
-    if unavailable:
-        preset["unavailableBaseStats"] = unavailable
     if additional:
-        preset["additionalBaseStats"] = additional
+        preset["baseExtra"] = additional
     if unmodeled:
-        preset["unmodeledBaseStats"] = unmodeled
-    preset["coreBonuses"] = core_bonuses(agent["core"], core_options)
+        preset["baseUnmodeled"] = unmodeled
+    preset["core"] = core_bonuses(agent["core"], core_options)
     return preset
 
 
@@ -340,11 +343,11 @@ def render(presets):
     """序列化为规范化的预设 JSON。
 
     键序与缩进由 ``tools/sync_presets.py`` 单一定义，因此重新抓取后
-    ``sync_presets.py --to-legacy --check`` 仍能通过。
+    产出的文件与已提交文件逐字节一致。
     """
     sync_presets = load_sync_presets()
     normalized = [sync_presets.order_preset(preset, agent=True) for preset in presets]
-    sync_presets.check_ids(normalized, "data/agent-presets.json")
+    sync_presets.check_ids(normalized, OUTPUT)
     return sync_presets.dump_json(normalized)
 
 
@@ -372,7 +375,7 @@ def main():
     out.write_text(render(presets), encoding="utf-8", newline="\n")
     print("agents found: {}".format(len(agents)))
     print("presets written: {} -> {}".format(len(presets), args.out))
-    print("next: python tools/sync_presets.py --to-legacy")
+    print("next: python tools/sync_manifest.py")
     for problem in problems:
         print("SKIPPED:", problem)
 

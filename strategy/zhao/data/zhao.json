@@ -4,7 +4,7 @@
     "entryPageId": 1686,
     "name": "照",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1686/detail",
-    "scrapedAt": "2026-10-16T20:00:55+00:00"
+    "scrapedAt": "2026-10-20T11:03:38+00:00"
   },
   "profile": {
     "name": "照",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】以太帷幕、速切辅助、泛用增益、生命回复\n【角色详情】照是S级冰属性防护类代理人，可为队友提供多种增益，还可开启以太帷幕。照的技能核心是[寒霜值]，在实战中，前台队友的持续攻击及照自身的部分技能均可积攒[寒霜值]，积攒足够后切换照登场并开启以太帷幕，在核心被动与额外能力的加持下为队友提供攻击力提升与伤害提升buff。除此之外，照的强化特殊技还可为全队回血，因此照是一位适用性非常广泛的辅助类代理人。",
     "icons": {
-      "profession": "/images/icons/defense.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ice.png",
+      "profession": "/images/icons/defense.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ice.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 9117,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 690,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 701,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 96,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1686.png",
+    "avatar": "/images/agents/ep-1686.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/25/15559334/5f737d17039cca6100258feb10db508f_5171486392907610568.png",
-    "tachie": "/images/strategy/zhao/tachie.png",
+    "tachie": "/images/strategy/zhao/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/25/15559334/aee345609d2579b0a2661a315f253c72_4429180116252645317.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2245,7 +2193,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3002,7 +2950,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3567,7 +3515,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3576,8 +3524,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：最佳同事\n照会额外根据初始最大生命值提高暴击率，每1000点初始最大生命值提高0.8%暴击率；\n进入战场时，照获得100点[霜寒值]，在勘域模式中此效果180秒内最多触发一次，[霜寒值]的上限为100点；\n当前操作中角色攻击命中敌人时，照积攒6点[霜寒值]，每3秒最多触发一次；\n[霜寒值]满时，如果处于接战状态下，将照换入前场可以发动[登场技]；\n照发动[登场技]时，消耗所有[霜寒值]，开启[以太帷幕·涌泉]；\n[以太帷幕·涌泉]生效期间，全队角色最大生命值提升5%，持续40秒，照重复开启[以太帷幕·涌泉]前，将关闭已有的[以太帷幕·涌泉]；\n照开启[以太帷幕·涌泉]时，使全队角色的攻击力提升100点，持续50秒，生命值百分比提升18%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：凝聚力\n队伍中存在[强攻]或[异常]或[支援]角色时触发：\n照处于任意[以太帷幕]中时，使全队造成的伤害提升10%，照的初始最大生命值高于15000点时，每超过400点初始最大生命值，可使增伤效果额外提升1%，初始效果与额外提升最大总共提升至40%，当初始最大生命值达到27000点时，上述增益效果达到最大值。",
+          "title": "核心技：最佳同事",
+          "text": "照会额外根据初始最大生命值提高暴击率，每1000点初始最大生命值提高1.4%暴击率；\n进入战场时，照获得100点[霜寒值]，在勘域模式中此效果180秒内最多触发一次，[霜寒值]的上限为100点；\n当前操作中角色攻击命中敌人时，照积攒6点[霜寒值]，每3秒最多触发一次；\n[霜寒值]满时，如果处于接战状态下，将照换入前场可以发动[登场技]；\n照发动[登场技]时，消耗所有[霜寒值]，开启[以太帷幕·涌泉]；\n[以太帷幕·涌泉]生效期间，全队角色最大生命值提升5%，持续40秒，照重复开启[以太帷幕·涌泉]前，将关闭已有的[以太帷幕·涌泉]；\n照开启[以太帷幕·涌泉]时，使全队角色的攻击力提升1000点，持续50秒。",
           "growth": [
             {
               "level": "A",
@@ -3646,9 +3594,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：凝聚力",
+          "text": "队伍中存在[强攻]或[异常]或[支援]角色时触发：\n照处于任意[以太帷幕]中时，使全队造成的伤害提升10%，照的初始最大生命值高于15000点时，每超过400点初始最大生命值，可使增伤效果额外提升1%，初始效果与额外提升最大总共提升至40%，当初始最大生命值达到27000点时，上述增益效果达到最大值。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/26/141353238/c827ad19008885ae29116f0759998854_2576060423478396014.png"
     }
   ],
@@ -3686,27 +3638,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/zhao/cinema-2.png",
+      "image": "/images/strategy/zhao/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/01ecaf8128426ff67a1cc19dc9a78db6_2555909039261322175.png"
     },
     "2": {
-      "image": "/images/strategy/zhao/cinema-2.png",
+      "image": "/images/strategy/zhao/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/01ecaf8128426ff67a1cc19dc9a78db6_2555909039261322175.png"
     },
     "3": {
-      "image": "/images/strategy/zhao/cinema-2.png",
+      "image": "/images/strategy/zhao/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/01ecaf8128426ff67a1cc19dc9a78db6_2555909039261322175.png"
     },
     "4": {
-      "image": "/images/strategy/zhao/cinema-3.png",
+      "image": "/images/strategy/zhao/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/ab4c755b9275b4cf27a2878544a6f752_1972604269313426166.png"
     },
     "5": {
-      "image": "/images/strategy/zhao/cinema-3.png",
+      "image": "/images/strategy/zhao/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/ab4c755b9275b4cf27a2878544a6f752_1972604269313426166.png"
     },
     "6": {
-      "image": "/images/strategy/zhao/cinema-3.png",
+      "image": "/images/strategy/zhao/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/ab4c755b9275b4cf27a2878544a6f752_1972604269313426166.png"
     }
   }

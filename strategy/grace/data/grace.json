@@ -4,7 +4,7 @@
     "entryPageId": 150,
     "name": "格莉丝·霍华德",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/150/detail",
-    "scrapedAt": "2026-10-18T05:16:00+00:00"
+    "scrapedAt": "2026-10-20T10:58:56+00:00"
   },
   "profile": {
     "name": "格莉丝·霍华德",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】清杂优秀、范围输出、快速异常\n【角色详情】格莉丝是一名电属性远程角色，具有较强的清杂能力，特殊技和终结技均可造成一定范围的电属性伤害。格莉丝具有不错的异常积蓄效率和远程输出手段，可对敌方进行削弱以及触发感电效果。格莉丝的输出手法为普通攻击后衔接特殊技进行输出或清杂，然后可切换其他角色进行进一步输出。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7482,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 750,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 83,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 115,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 116,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-150.png",
+    "avatar": "/images/agents/ep-150.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/21/160824341/e16ac4c5e1f06ba44b1fd48539916be3_3243900714756554770.png",
-    "tachie": "/images/strategy/grace/tachie.png",
+    "tachie": "/images/strategy/grace/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/25/76099754/d98501189911794e65a7bbcb205e65ed_6543737891696181009.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1511,7 +1459,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/01/160824341/e180f078d7badf3e8c104556f2ce3397_1436970544190706143.png"
     },
     {
@@ -2076,7 +2024,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -2641,7 +2589,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -2650,8 +2598,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：预驱动撞针\n格莉丝[普通攻击]或[冲刺攻击]命中敌人并造成物理伤害时，获得一层[电能](上限8层)；[电能]层数到达上限后，发动[特殊技]或[强化特殊技]时，消耗所有[电能]，使招式聚积的电属性异常积蓄值提升65%，异常掌控提升36点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：技术支持班组\n队伍中存在与自身属性或阵营相同的角色时触发：\n格莉丝[强化特殊技]命中敌人时，目标下次被施加[感电]效果时，受到的[感电]伤害提升18%，最多叠加2层，同一招式内每个敌人最多触发一次效果，[感电]状态结束时效果重置。",
+          "title": "核心技：预驱动撞针",
+          "text": "格莉丝发动[普通攻击]或[冲刺攻击]命中敌人并造成物理伤害时，获得一层[电能]（上限8层）；[电能]层数到达上限后，发动[特殊技]或[强化特殊技]时，会消耗所有[电能]，使招式聚积的电属性异常积蓄值提升130%。",
           "growth": [
             {
               "level": "A",
@@ -2720,9 +2668,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：技术支持班组",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发：\n格莉丝[强化特殊技]命中敌人时，目标下次被施加[感电]效果时，受到的[感电]伤害提升18%，最多叠加2层，同一招式内每个敌人最多触发一次效果，[感电]状态结束时效果重置。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/01/160824341/9d05677658ff150b2a0dcfe50bd81c61_820301627695547681.png"
     }
   ],
@@ -2760,27 +2712,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/grace/cinema-2.png",
+      "image": "/images/strategy/grace/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/e910c26f02091bbd6cadc9f9dbe2cd1b_6541882785613702267.png"
     },
     "2": {
-      "image": "/images/strategy/grace/cinema-2.png",
+      "image": "/images/strategy/grace/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/e910c26f02091bbd6cadc9f9dbe2cd1b_6541882785613702267.png"
     },
     "3": {
-      "image": "/images/strategy/grace/cinema-2.png",
+      "image": "/images/strategy/grace/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/e910c26f02091bbd6cadc9f9dbe2cd1b_6541882785613702267.png"
     },
     "4": {
-      "image": "/images/strategy/grace/cinema-3.png",
+      "image": "/images/strategy/grace/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/8af1af9191d1cd30ff43e1e0174963f0_3794055921226975825.png"
     },
     "5": {
-      "image": "/images/strategy/grace/cinema-3.png",
+      "image": "/images/strategy/grace/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/8af1af9191d1cd30ff43e1e0174963f0_3794055921226975825.png"
     },
     "6": {
-      "image": "/images/strategy/grace/cinema-3.png",
+      "image": "/images/strategy/grace/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/8af1af9191d1cd30ff43e1e0174963f0_3794055921226975825.png"
     }
   }

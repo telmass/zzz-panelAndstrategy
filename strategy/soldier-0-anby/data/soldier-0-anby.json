@@ -4,7 +4,7 @@
     "entryPageId": 1190,
     "name": "零号·安比",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1190/detail",
-    "scrapedAt": "2026-10-17T15:20:17+00:00"
+    "scrapedAt": "2026-10-20T11:02:09+00:00"
   },
   "profile": {
     "name": "零号·安比",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】追加攻击、高速战斗、操作灵活\n【角色详情】零号安比是S级电属性「强攻」代理人，定位是追加体系的核心主c，她可以通过攻击为敌人添加标记，攻击被标记的敌人不仅会提高此次伤害，还能为标记充能，充能最多3层，当敌人身上拥有充能层数时，点按特殊技可消耗一层充能，攻击敌人并触发一次追加攻击，如果对同一名敌人持续消耗3层充能，还会触发一次范围伤害的追加攻击。此外，被标记的敌人受到的暴击伤害，会基于零号安比的暴击伤害获得提升；若能量充足，长按强化特殊技可以立刻为标记充满层数。当队伍满足要求，在提高零号安比暴击率的同时，任意角色发动追加攻击命中被标记的敌人，提高此次伤害。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 854,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1190.png",
+    "avatar": "/images/agents/ep-1190.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/04/82500917/872039fa61fc5348cfe6698d23075485_2310563306785088355.png",
-    "tachie": "/images/strategy/soldier-0-anby/tachie.png",
+    "tachie": "/images/strategy/soldier-0-anby/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/01/82500917/62b75a19b9ff329eb329d55e47aa3a58_2640061280332736251.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2810,7 +2758,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3375,7 +3323,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3384,8 +3332,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：电位差\n零号·安比对拥有[银星]标记的敌人造成的伤害提升12.5%；敌方单位被施加[银星]标记后，受到的[追加攻击]暴击伤害额外提升，提升效果等同于零号·安比暴击伤害的15%，暴击率提升14.4%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：电极化\n队伍中存在[击破]角色或[支援]角色时触发：\n零号·安比的暴击率提升10%；当前操作中的角色为零号·安比时，全队角色[追加攻击]对拥有[银星]标记的敌人造成的伤害提升25%。",
+          "title": "核心技：电位差",
+          "text": "零号·安比对拥有[银星]标记的敌人造成的伤害提升25%；敌方单位被施加[银星]标记后，受到的[追加攻击]暴击伤害额外提升，提升效果等同于零号·安比暴击伤害的30%。",
           "growth": [
             {
               "level": "A",
@@ -3454,9 +3402,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：电极化",
+          "text": "队伍中存在[击破]角色或[支援]角色时触发：\n零号·安比的暴击率提升10%；当前操作中的角色为零号·安比时，全队角色[追加攻击]对拥有[银星]标记的敌人造成的伤害提升25%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/05/82500917/94ffc82877a862a55daf555c6e514d79_361537178464592695.png"
     }
   ],
@@ -3494,27 +3446,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/soldier-0-anby/cinema-2.png",
+      "image": "/images/strategy/soldier-0-anby/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/ac0fdafe0bcf9afb73045e8222e06558_6970556059190006579.jpg"
     },
     "2": {
-      "image": "/images/strategy/soldier-0-anby/cinema-2.png",
+      "image": "/images/strategy/soldier-0-anby/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/ac0fdafe0bcf9afb73045e8222e06558_6970556059190006579.jpg"
     },
     "3": {
-      "image": "/images/strategy/soldier-0-anby/cinema-2.png",
+      "image": "/images/strategy/soldier-0-anby/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/ac0fdafe0bcf9afb73045e8222e06558_6970556059190006579.jpg"
     },
     "4": {
-      "image": "/images/strategy/soldier-0-anby/cinema-3.png",
+      "image": "/images/strategy/soldier-0-anby/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/a40bd3e7cc879eb969e8b01b590d3f2c_6850515742842836522.jpg"
     },
     "5": {
-      "image": "/images/strategy/soldier-0-anby/cinema-3.png",
+      "image": "/images/strategy/soldier-0-anby/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/a40bd3e7cc879eb969e8b01b590d3f2c_6850515742842836522.jpg"
     },
     "6": {
-      "image": "/images/strategy/soldier-0-anby/cinema-3.png",
+      "image": "/images/strategy/soldier-0-anby/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/a40bd3e7cc879eb969e8b01b590d3f2c_6850515742842836522.jpg"
     }
   }

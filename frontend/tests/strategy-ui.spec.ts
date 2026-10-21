@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createPinia, setActivePinia, type Pinia } from 'pinia';
-import { enableAutoUnmount, mount } from '@vue/test-utils';
+import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils';
 import { defineComponent, nextTick } from 'vue';
 
 import type { VueWrapper } from '@vue/test-utils';
@@ -291,24 +291,34 @@ describe('结果区操作按钮', () => {
     expect(wrapper.find('.result-hint').text()).toBe('已复制');
   });
 
-  it('重置一键还原全部输入', async () => {
-    const wrapper = mountCalculator();
-    const panel = usePanelStore();
+    it('重置需要二次确认，确认后还原全部输入', async () => {
+      const wrapper = mountCalculator();
+      const panel = usePanelStore();
 
-    panel.base.hp = 12345;
-    panel.core.core1 = 'atk_flat';
-    panel.setEffects.set0 = 'atk_pct_10';
-    panel.discMain.disc4 = 'atk_pct_30';
-    await nextTick();
+      panel.base.hp = 12345;
+      panel.core.core1 = 'atk_flat';
+      panel.setEffects.set0 = 'atk_pct_10';
+      panel.discMain.disc4 = 'atk_pct_30';
+      await nextTick();
 
-    await wrapper.findAll('.result-action')[1].trigger('click');
+      // 重置是破坏性操作：点一下只会弹出确认框，输入不该被动过。
+      await wrapper.findAll('.result-action')[1].trigger('click');
+      await nextTick();
+      expect(panel.base.hp).toBe(12345);
 
-    expect(panel.base.hp).toBe(8000);
-    expect(panel.core.core1).toBe('');
-    expect(panel.setEffects.set0).toBe('');
-    expect(panel.discMain.disc4).toBe('');
-    expect(panel.agent.presetId).toBe('');
-  });
+      // 确认框的「确定」按钮在 naive-ui 的浮层里，按文案找。
+      const confirm = document.querySelector<HTMLElement>('.n-popconfirm__action .n-button--primary-type');
+      expect(confirm, '未弹出重置确认框').not.toBeNull();
+      confirm!.click();
+      await nextTick();
+      await flushPromises();
+
+      expect(panel.base.hp).toBe(8000);
+      expect(panel.core.core1).toBe('');
+      expect(panel.setEffects.set0).toBe('');
+      expect(panel.discMain.disc4).toBe('');
+      expect(panel.agent.presetId).toBe('');
+    });
 });
 
 describe('启动页顶部导航与卡片', () => {

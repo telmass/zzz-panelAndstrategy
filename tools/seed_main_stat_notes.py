@@ -19,6 +19,13 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

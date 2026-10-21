@@ -4,7 +4,7 @@
     "entryPageId": 1861,
     "name": "希希芙",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1861/detail",
-    "scrapedAt": "2026-10-17T05:50:02+00:00"
+    "scrapedAt": "2026-10-20T10:58:10+00:00"
   },
   "profile": {
     "name": "希希芙",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】S级电属性强攻代理人，速切爆发副C，可提升自身失衡能力，拥有脱手后台电伤，可为队友提供暴击伤害和无视防御等增益。\n【角色详情】希希芙是电属性的强攻特性代理人，她可以通过自身获得的毒素资源来生成蛇影，从而通过长按普通攻击发动蛇吻触发蚀骨，对敌人造成电属性伤害的同时，为自身提供暴击率增益。有毒素时，希希芙不仅会每隔5秒触发一次蚀骨，还能给全队的电属性伤害，提供一定比例的无视防御效果，这个效果还会基于希希芙自身的能量自动回复获得提升。\n若队友满足条件，希希芙的蚀骨造成的失衡值还会获得提升；若拥有毒素且队友满足条件，希希芙还会使全队的暴击伤害获得提升，自身暴击伤害获得额外提升。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 863,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1861.png",
+    "avatar": "/images/agents/ep-1861.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/03/25/76099754/c0201856aafd51cad4e01b386d172af8_6170469607651397940.png",
-    "tachie": "/images/strategy/cissia/tachie.png",
+    "tachie": "/images/strategy/cissia/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/09/233874762/b94f143badf8a1fa16e11b577304c4ab_2261627978200173158.png"
   },
   "skills": [
@@ -929,7 +877,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1498,7 +1446,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2245,7 +2193,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2810,7 +2758,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3375,7 +3323,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3384,7 +3332,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：致命私酿",
+          "title": "核心技：致命私酿",
           "text": "进入战场时，获得3点[毒素]，在勘域模式中此效果180秒内最多触发一次。\n拥有[毒素]时，接战状态下每5秒消耗1点[毒素]，触发一次[蚀骨]，造成电属性伤害；\n拥有[毒素]时，使全队角色对敌人造成的电属性伤害无视敌人6%防御力，初始能量自动回复大于1.4时，超过部分每超过0.12，额外无视敌人1%防御力，至多无视敌人25%防御力，持续至[毒素]耗尽后30秒。\n[蚀骨]额外附加自身335%攻击力的电属性伤害；\n队伍中有1/2名电属性角色时，[蚀骨]造成的失衡值提升40%/60%；\n获得[毒素]时，每溢出1点[毒素]，触发一次[蚀骨]。",
           "growth": [
             {
@@ -3454,9 +3402,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：毒素发酵",
+          "text": "队伍中存在[击破]或与自身属性相同的角色时触发：\n拥有[毒素]时，使全队角色暴击伤害提高40%，自身额外提高10%，持续至[毒素]耗尽后30秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/09/233874762/3f9e11ad1ea98d6201adde1d322dac85_1486880698576917442.png"
     }
   ],
@@ -3494,27 +3446,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/cissia/cinema-2.png",
+      "image": "/images/strategy/cissia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/16/439466880/22c341e009ae81a690ed896c2a343de6_3777537388339391028.png"
     },
     "2": {
-      "image": "/images/strategy/cissia/cinema-2.png",
+      "image": "/images/strategy/cissia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/16/439466880/22c341e009ae81a690ed896c2a343de6_3777537388339391028.png"
     },
     "3": {
-      "image": "/images/strategy/cissia/cinema-2.png",
+      "image": "/images/strategy/cissia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/16/439466880/22c341e009ae81a690ed896c2a343de6_3777537388339391028.png"
     },
     "4": {
-      "image": "/images/strategy/cissia/cinema-3.png",
+      "image": "/images/strategy/cissia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/15/76099754/ac2b92f6d5b936c06d56aff5f3bfdb9d_2922335594929204113.png"
     },
     "5": {
-      "image": "/images/strategy/cissia/cinema-3.png",
+      "image": "/images/strategy/cissia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/15/76099754/ac2b92f6d5b936c06d56aff5f3bfdb9d_2922335594929204113.png"
     },
     "6": {
-      "image": "/images/strategy/cissia/cinema-3.png",
+      "image": "/images/strategy/cissia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/15/76099754/ac2b92f6d5b936c06d56aff5f3bfdb9d_2922335594929204113.png"
     }
   }

@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/trigger/background.webp",
   "_meta": {
     "agentId": "ep-1230",
     "name": "「扳机」",
@@ -16,7 +17,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -24,7 +25,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -32,7 +33,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -40,7 +41,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -48,7 +49,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -56,7 +57,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -69,7 +70,7 @@
         {
           "name": "索魂影眸",
           "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
-          "icon": "/images/weapons/ep-1243.png"
+          "icon": "/images/weapons/ep-1243.webp"
         }
       ],
       "note": "扳机专武（WIKI 音擎页 double_col_table 推荐代理人表列扳机）：击破音擎中唯一提供暴击率的音擎，副词条暴击率 24% 显著降低面板暴击率压力；特效给敌人减防，等同常驻减防乘区，提升全队伤害。"
@@ -80,12 +81,12 @@
         {
           "name": "拘缚者",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-219.png"
+          "icon": "/images/weapons/ep-219.webp"
         },
         {
           "name": "玉壶青冰",
           "stats": "S 级 · 基础攻击 713 · 冲击力 18%",
-          "icon": "/images/weapons/ep-678.png"
+          "icon": "/images/weapons/ep-678.webp"
         }
       ],
       "note": "击破音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -96,12 +97,12 @@
         {
           "name": "燃狱齿轮",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-220.png"
+          "icon": "/images/weapons/ep-220.webp"
         },
         {
           "name": "贵重骨核",
           "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
-          "icon": "/images/weapons/ep-141.png"
+          "icon": "/images/weapons/ep-141.webp"
         }
       ],
       "note": "备选击破音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -114,18 +115,18 @@
         "name": "如影相随",
         "label": "追加攻击伤害 +15%",
         "effect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每层增益效果使装备者的攻击力提升4%和暴击率提升4%，最多叠加3层，持续8秒，重复触发时刷新持续时间。",
-        "icon": "/images/discs/ep-1193.png"
+        "icon": "/images/discs/ep-1193.webp"
       },
       "set2": {
         "main": {
           "name": "震星迪斯科",
           "label": "冲击力 +6%",
-          "icon": "/images/discs/ep-152.png"
+          "icon": "/images/discs/ep-152.webp"
         },
         "alt": {
           "name": "啄木鸟电音",
           "label": "暴击率 +8%",
-          "icon": "/images/discs/ep-232.png"
+          "icon": "/images/discs/ep-232.webp"
         }
       },
       "mainStats": [
@@ -176,12 +177,12 @@
           "agentId": "ep-1190",
           "name": "零号·安比",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1190.png",
+          "avatar": "/images/agents/ep-1190.webp",
           "note": "站场强攻主 C，追击队核心，与扳机的追加攻击形成完整追击轴。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -189,12 +190,12 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "后台击破，[绝意]值追加攻击，核心被动追加攻击命中时目标失衡易伤+35%，额外能力暴击转失衡值。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -202,16 +203,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "站场强攻，[准星聚焦]下追加攻击无视 25% 防御，与扳机的减防易伤形成双强攻输出窗口。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -224,12 +225,12 @@
           "agentId": "ep-1158",
           "name": "伊芙琳",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1158.png",
+          "avatar": "/images/agents/ep-1158.webp",
           "note": "火强攻站场主 C，与扳机的电伤追击形成双属性输出，耀嘉音补能与增伤。",
           "set4": [
             {
               "name": "河豚电音",
-              "icon": "/images/discs/ep-193.png"
+              "icon": "/images/discs/ep-193.webp"
             }
           ]
         },
@@ -237,12 +238,12 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "后台击破，提供失衡与追加攻击，额外能力需队内击破/支援，伊芙琳为强攻身份不直接满足，耀嘉音为支援满足条件。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -250,12 +251,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "支援回能与全队攻击增益，满足扳机额外能力的支援条件，补齐爆发轴真空期。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }
@@ -268,12 +269,12 @@
           "agentId": "ep-1190",
           "name": "零号·安比",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1190.png",
+          "avatar": "/images/agents/ep-1190.webp",
           "note": "站场强攻主 C，扳机后台击破辅助，波可娜补喧响与减防。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -281,12 +282,12 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "后台击破，[绝意]值追加攻击，失衡易伤+35%，额外能力暴击转失衡值。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -294,7 +295,7 @@
           "agentId": "ep-1191",
           "name": "波可娜",
           "role": "支援",
-          "avatar": "/images/agents/ep-1191.png",
+          "avatar": "/images/agents/ep-1191.webp",
           "note": "支援回能与减防，补齐扳机额外能力条件，提升队伍整体输出。",
           "set4": []
         }

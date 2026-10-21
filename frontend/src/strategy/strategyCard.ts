@@ -1,5 +1,7 @@
 /**
- * 「保存攻略」导出的攻略缩略图（一图流卡片）。
+ * 「保存攻略」/「复制攻略」导出的攻略卡（数据驱动的缩略图）。
+ *
+ * 两个按钮共用同一张图，差别只在**怎么交付**：下载 vs 进系统剪贴板。
  *
  * 与整页截图不同，这张图完全由 `strategy/<slug>/data/*.json` 生成：
  * 代理人立绘 + 技能加点 / 命座 / 武器 / 驱动盘 / 队伍 / 毕业面板 / 文字攻略
@@ -165,41 +167,96 @@ function driveSetTag(sets: unknown): string {
   return Array.from(new Set(labels)).join(' / ');
 }
 
+/**
+ * 驱动盘的**装备组**：`set2` / `set2b` / `set2c`——第 1/2/3 组 2 件套。
+ *
+ * **组**（并列，都要装）与**候选**（组内二选一）是两条轴：
+ *
+ * - 组：这一层。2+2+2 的配装有三组，`set2b` / `set2c` 装的是另外两套；
+ * - 候选：组内的 `main`（首选）/ `alt`（备选），`main` 本身还可以是
+ *   「多套同效果的候选」数组（如「物理伤害 +10%」有獠牙重金属与沧浪行歌两套）。
+ */
+function driveSetGroups(build: Json): Json[][] {
+  return ['set2', 'set2b', 'set2c']
+    .map((key) => build[key])
+    .filter((group) => group && typeof group === 'object')
+    .map((group) => list(group.main));
+}
+
 function driveBuildHtml(build: Json): string {
   const set4 = list(build.set4);
-  const set2 = build.set2 && typeof build.set2 === 'object' ? build.set2 : {};
-  const set2Main = list(set2.main);
-  const set2Tag = driveSetTag(set2Main);
+  const groups = driveSetGroups(build);
+  const blocks: string[] = [];
+
+  // 没有 4 件套组时（2+2+2），**整个「4 件套」栏不渲染**——
+  // 留一个空栏会让人以为漏了内容。
+  if (set4.length) {
+    blocks.push(
+      `<span class="strategy-card__set">
+        ${driveSetIcons(set4)}
+        <b>4 ${driveSetNames(set4) || '件套'}</b>
+      </span>`,
+    );
+  }
+
+  groups.forEach((main, index) => {
+    // 单组时沿用旧口径：写**效果名**——一组候选常常同效果，名字反而没用。
+    // 多组时（2+2+2）组内的效果可能一样（两组都是「能量回复 +20%」），
+    // 靠**套装名**才分得清，于是编号 + 名字。
+    const label =
+      groups.length > 1
+        ? `2 件套 ${'①②③④'[index] || index + 1}${driveSetNames(main) ? ' ' + driveSetNames(main) : ''}`
+        : `2 ${driveSetTag(main) || driveSetNames(main) || '件套'}`;
+    blocks.push(
+      `<span class="strategy-card__set">
+        ${driveSetIcons(main)}
+        <b>${label}</b>
+      </span>`,
+    );
+  });
+
   return `<span class="strategy-card__build">
     <span class="strategy-card__build-label">${esc(buildName(build) || '推荐配装')}</span>
     <span class="strategy-card__build-sets">
-      <span class="strategy-card__set">
-        ${driveSetIcons(set4)}
-        <b>4 ${driveSetNames(set4) || '件套'}</b>
-      </span>
-      <span class="strategy-card__set">
-        ${driveSetIcons(set2Main)}
-        <b>2 ${set2Tag || driveSetNames(set2Main) || '件套'}</b>
-      </span>
+      ${blocks.join('')}
     </span>
   </span>`;
 }
 
-function driveMainsHtml(strategy: Json): string {
-  const build = driveBuilds(strategy).find((item) => list(item.mainStats).length);
-  const stats = build ? list(build.mainStats).filter((stat) => stat && typeof stat === 'object') : [];
+function statName(raw: unknown): string {
+  return text(raw)
+    .split('/')
+    .map((part) => part.replace(/\s*[+＋]?\s*\d+(?:\.\d+)?\s*%?\s*$/, '').trim())
+    .filter(Boolean)
+    .join(' / ');
+}
+
+function buildMainStats(build: Json): Json[] {
+  return list(build.mainStats).filter((stat) => stat && typeof stat === 'object');
+}
+
+/** 主词条签名：同一套主词条的不同方案归为一组（比较原始值，避免语义不同的方案被合并）。 */
+function mainStatsSignature(stats: Json[]): string {
+  return stats
+    .map((stat) => `${text(stat.slot).trim()}|${text(stat.main).trim()}|${text(stat.alt).trim()}`)
+    .join(';');
+}
+
+function mainsRowHtml(label: string, stats: Json[]): string {
   if (!stats.length) return '';
   return `<span class="strategy-card__mains-row">
-    <span class="strategy-card__mains-label">主词条</span>
+    <span class="strategy-card__mains-label">${esc(label)}</span>
     <span class="strategy-card__mains">${stats
       .map((stat) => {
-        const alt = text(stat.alt).trim();
-        const altText = alt.replace(/\s*\/\s*/g, ' / ');
+        const mainText = statName(stat.main) || '—';
+        const altText = statName(stat.alt);
         const hasAlt = altText && altText !== '无' && altText !== '—';
         return `<span class="strategy-card__main"${stat.note ? ` title="${esc(stat.note)}"` : ''}>
           <span class="strategy-card__main-slot">${esc(stat.slot || '')}</span>
-          <b>${esc(stat.main || '—')}</b>
-          ${hasAlt ? `<small><em>备选</em>${esc(altText)}</small>` : ''}
+          <span class="strategy-card__main-text">
+            <b>${esc(mainText)}</b>
+            ${hasAlt ? `<small class="strategy-card__main-alt"><em>备选</em>${esc(altText)}</small>` : ''}
+          </span>
         </span>`;
       })
       .join('')}</span>
@@ -209,9 +266,43 @@ function driveMainsHtml(strategy: Json): string {
 function drivesHtml(strategy: Json): string {
   const builds = driveBuilds(strategy);
   if (!builds.length) return '';
-  return `<span class="strategy-card__builds">
+
+  // 按主词条分组：同一套主词条的多个方案合并显示，方案之间主词条不同则各自成组。
+  const groups: Array<{ stats: Json[]; builds: Json[] }> = [];
+  for (const build of builds) {
+    const stats = buildMainStats(build);
+    const signature = mainStatsSignature(stats);
+    const existing = groups.find((group) => mainStatsSignature(group.stats) === signature);
+    if (existing) existing.builds.push(build);
+    else groups.push({ stats, builds: [build] });
+  }
+  const withStats = groups.filter((group) => group.stats.length);
+
+  // 所有方案共用同一套主词条（或只有一套有）：保持「配装行 + 一行主词条」的紧凑排版。
+  if (withStats.length <= 1) {
+    return `<span class="strategy-card__builds">
     ${builds.map(driveBuildHtml).join('')}
-    ${driveMainsHtml(strategy)}
+    ${withStats.length ? mainsRowHtml('主词条', withStats[0].stats) : ''}
+  </span>`;
+  }
+
+  // 主词条不同时：主词条紧跟在使用它的那组方案下方，行首列出方案名。
+  return `<span class="strategy-card__builds">
+    ${groups
+      .map(
+        (group) => `<span class="strategy-card__build-group">
+      ${group.builds.map(driveBuildHtml).join('')}
+      ${
+        group.stats.length
+          ? mainsRowHtml(
+              group.builds.map((build) => buildName(build) || '推荐配装').join(' / '),
+              group.stats,
+            )
+          : ''
+      }
+    </span>`,
+      )
+      .join('')}
   </span>`;
 }
 
@@ -303,7 +394,7 @@ function cardHtml(guide: Json): string {
     ${rowHtml('武器推荐', weaponGroups(strategy) || placeholder())}
     ${rowHtml('驱动盘推荐', drivesHtml(strategy) || placeholder())}
     ${rowHtml('队伍推荐', teamsHtml(strategy) || placeholder())}
-    ${rowHtml('毕业面板需求', graduationHtml(strategy))}
+    ${rowHtml('面板参考', graduationHtml(strategy))}
   </div>`;
 }
 
@@ -360,8 +451,13 @@ function downloadBlob(blob: Blob, filename: string): void {
   URL.revokeObjectURL(url);
 }
 
-/** 由攻略 JSON 生成缩略图并下载（替代「保存攻略」的整页截图）。 */
-export async function saveStrategyCard(guide: Json, filename: string): Promise<void> {
+/**
+ * 由攻略 JSON 渲染出攻略卡的 PNG 二进制。
+ *
+ * 「保存攻略」（下载）与「复制攻略」（进剪贴板）共用这一段——两个按钮
+ * 的差别只在**怎么交付**这张图，不在图长什么样。
+ */
+export async function renderStrategyCardBlob(guide: Json): Promise<Blob> {
   const root = buildStrategyCard(guide);
   root.style.cssText = 'position:fixed;top:0;left:0;z-index:-1;pointer-events:none;';
   document.body.appendChild(root);
@@ -376,14 +472,43 @@ export async function saveStrategyCard(guide: Json, filename: string): Promise<v
       windowWidth: root.scrollWidth,
       windowHeight: root.scrollHeight,
     });
-    const blob = await new Promise<Blob>((resolve, reject) => {
+    return await new Promise<Blob>((resolve, reject) => {
       canvas.toBlob((result: Blob | null) => {
         if (result) resolve(result);
         else reject(new Error('生成攻略图失败'));
       }, 'image/png');
     });
-    downloadBlob(blob, filename);
   } finally {
     root.remove();
+  }
+}
+
+/** 由攻略 JSON 生成缩略图并下载（替代「保存攻略」的整页截图）。 */
+export async function saveStrategyCard(guide: Json, filename: string): Promise<void> {
+  const blob = await renderStrategyCardBlob(guide);
+  downloadBlob(blob, filename);
+}
+
+/**
+ * 把攻略卡复制到**系统剪贴板**，可直接粘贴（聊天窗口 / 笔记）。
+ *
+ * 剪贴板写图片需要安全上下文（https 或 localhost）与 `ClipboardItem`。
+ * 环境不支持时**退回下载**——图必须拿到手，不能因为剪贴板不可用就白生成一次。
+ *
+ * @returns 是否真的进了剪贴板（false 表示已改为下载）。
+ */
+export async function copyStrategyCard(guide: Json, filename: string): Promise<boolean> {
+  const blob = await renderStrategyCardBlob(guide);
+  const clipboard = navigator.clipboard;
+  if (!clipboard || !clipboard.write || typeof ClipboardItem === 'undefined') {
+    downloadBlob(blob, filename);
+    return false;
+  }
+  try {
+    await clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    return true;
+  } catch {
+    downloadBlob(blob, filename);
+    return false;
   }
 }

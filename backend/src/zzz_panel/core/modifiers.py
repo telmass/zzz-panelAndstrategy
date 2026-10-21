@@ -162,7 +162,7 @@ def build_modifiers(sel: PanelSelection, label_fn=lambda text: text) -> Modifier
     _apply_weapon_substat(acc, sel, label_fn)
     # 驱动盘 1/2/3 号固定
     for stat in DISC_FIXED_STATS:
-        acc.add(stat.target, stat.value, f"{stat.slot}号固定{stat.label}+{_trim(stat.value)}")
+        acc.add(stat.to, stat.value, f"{stat.slot}号固定{stat.label}+{_trim(stat.value)}")
     # 4/5/6 号主词条
     _apply_disc_main(acc, sel.disc_main, label_fn)
     # 副词条

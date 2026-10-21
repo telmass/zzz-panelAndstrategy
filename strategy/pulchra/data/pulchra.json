@@ -4,7 +4,7 @@
     "entryPageId": 1191,
     "name": "波可娜·费雷尼",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1191/detail",
-    "scrapedAt": "2026-10-18T05:17:16+00:00"
+    "scrapedAt": "2026-10-20T11:01:14+00:00"
   },
   "profile": {
     "name": "波可娜·费雷尼",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】追加攻击、后台击破、速切副c\n【角色详情】波可娜是A级物理属性「击破」代理人，定位是追击体系的速切后台击破副C，她可以通过通过发动强化特殊技、支援突击、连携技及终结技进入特殊状态，通过切换队伍中的其他角色发动特殊技及强化特殊技能的重击后，波可娜会跟随场上角色的任意攻击命中敌人时触发追加攻击，协同队友让目标快速失衡；当波可娜的追加攻击、强化特殊技、支援突击、连携技、终结技命中敌人时，队伍中全部单位造成的追加攻击伤害会得到提升。一般来说，波可娜上场后使用强化特殊技或者大招进入特殊状态，然后切主C上场后第一时间使用强化特殊技，触发波可娜的追加攻击，接着持续输出至波可娜的追加攻击次数消耗完毕，进入下一循环。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7612,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 590,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 92,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1191.png",
+    "avatar": "/images/agents/ep-1191.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/04/15559334/2eed660d804ceaca13addf5c034fa673_852495036099493718.png",
-    "tachie": "/images/strategy/pulchra/tachie.png",
+    "tachie": "/images/strategy/pulchra/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/04/15559334/2ba6ca9465dca27c6991fa3088ae4c5d_4172437867593322414.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1789,7 +1737,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2632,7 +2580,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3197,7 +3145,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3206,8 +3154,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：猎手本能\n波可娜发动[强化特殊技]、[支援突击]、[连携技]、[终结技]时，将会进入[猎步]状态，使自身造成的失衡值提升15%，持续6秒；切换至其他角色后，若波可娜仍处于[猎步]状态下，则其持续时间会改为切换回波可娜时；进入[猎步]状态后，自身为当前操作中的角色时，波可娜重击命中敌人，能够触发队伍中上一位角色的[快速支援]，基础冲击力提升18点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：业务搭档\n队伍中存在[强攻]或[命破]角色或与自身阵营相同的角色时触发：\n波可娜发动[特殊技：噬爪·噩梦袭影]、[强化特殊技：噬爪·瞬步]、[支援突击：单独计价]、[连携技：嗨，想不到吧]、[终结技：噢，游戏时间]命中敌人时，将对敌人施加[困迹]效果，持续15秒；被施加[困迹]效果后，所有单位发动[追加攻击]对目标造成的伤害提升30%。",
+          "title": "核心技：猎手本能",
+          "text": "波可娜发动[强化特殊技]、[支援突击]、[连携技]、[终结技]时，将会进入[猎步]状态，使自身造成的失衡值提升30%，持续6秒；切换至其他角色后，若波可娜仍处于[猎步]状态下，则其持续时间会改为切换回波可娜时；进入[猎步]状态后，自身为当前操作中的角色时，波可娜重击命中敌人，能够触发队伍中上一位角色的[快速支援]。",
           "growth": [
             {
               "level": "A",
@@ -3276,9 +3224,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：业务搭档",
+          "text": "队伍中存在[强攻]或[命破]角色或与自身阵营相同的角色时触发：\n波可娜发动[特殊技：噬爪·噩梦袭影]、[强化特殊技：噬爪·瞬步]、[支援突击：单独计价]、[连携技：嗨，想不到吧]、[终结技：噢，游戏时间]命中敌人时，将对敌人施加[困迹]效果，持续15秒；被施加[困迹]效果后，所有单位发动[追加攻击]对目标造成的伤害提升30%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/04/15559334/4a4143ecc60ca031485bd73429bcc5c1_8295863896992113430.png"
     }
   ],
@@ -3316,27 +3268,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/pulchra/cinema-2.png",
+      "image": "/images/strategy/pulchra/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/8cd29dfa2fbe6b444e56263814914bdc_2310020042702550377.png"
     },
     "2": {
-      "image": "/images/strategy/pulchra/cinema-2.png",
+      "image": "/images/strategy/pulchra/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/8cd29dfa2fbe6b444e56263814914bdc_2310020042702550377.png"
     },
     "3": {
-      "image": "/images/strategy/pulchra/cinema-2.png",
+      "image": "/images/strategy/pulchra/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/8cd29dfa2fbe6b444e56263814914bdc_2310020042702550377.png"
     },
     "4": {
-      "image": "/images/strategy/pulchra/cinema-3.png",
+      "image": "/images/strategy/pulchra/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/9a8bd2bf8bf5d3565e7954fe8807273e_1268317287413353361.png"
     },
     "5": {
-      "image": "/images/strategy/pulchra/cinema-3.png",
+      "image": "/images/strategy/pulchra/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/9a8bd2bf8bf5d3565e7954fe8807273e_1268317287413353361.png"
     },
     "6": {
-      "image": "/images/strategy/pulchra/cinema-3.png",
+      "image": "/images/strategy/pulchra/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/12/76099754/9a8bd2bf8bf5d3565e7954fe8807273e_1268317287413353361.png"
     }
   }

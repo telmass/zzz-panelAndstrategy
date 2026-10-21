@@ -4,7 +4,7 @@
     "entryPageId": 1926,
     "name": "普罗米娅",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1926/detail",
-    "scrapedAt": "2026-10-17T05:41:20+00:00"
+    "scrapedAt": "2026-10-20T11:01:06+00:00"
   },
   "profile": {
     "name": "普罗米娅",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】冰属性异常、异放、驻场输出、全队异放增益\n【角色详情】普罗米亚是冰属性S级异常代理人，可释放【异放】效果对敌人造成大量伤害，此外还可增加全队的异放伤害，是异放体系中的关键角色。在实战中，先使用普罗米亚驻场持续普攻积累【寒蚀值】与【霜刑】，而后根据同为异放体系内队友的技能特性，在合适的时机选择释放强化特殊技打出连招，配合队友打出大量的【异放】伤害。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ice.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ice.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7788,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 797,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 112,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 114,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1926.png",
+    "avatar": "/images/agents/ep-1926.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/02/34600917/92e74d05f5a68b8a84b3d35bc79fca9e_1342197640853565616.png",
-    "tachie": "/images/strategy/promeia/tachie.png",
+    "tachie": "/images/strategy/promeia/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/29/82500917/a5f9ab89d89eee8d7b2684a99ab36cce_5996301513173757028.png"
   },
   "skills": [
@@ -655,7 +603,7 @@
           "text": "普罗米娅在释放部分招式时会将披风扔出，持续切割敌人，造成冰属性伤害，命中敌人时不累积[寒蚀值]；\n扔出披风期间，普罗米娅可缓慢行走；\n期间点按可直接衔接[普通攻击：偏锋]第五段攻击；\n期间受到攻击可自动触发[极限闪避]，闪避效果每20秒最多触发一次。"
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1224,7 +1172,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1971,7 +1919,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3278,7 +3226,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3843,7 +3791,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3852,7 +3800,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：盗火",
+          "title": "核心技：盗火",
           "text": "若普罗米娅的初始异常掌控大于150点，每超过1点初始异常掌控会提升自身1.5点异常精通，提升0.35%全队造成的[异放]伤害；\n普罗米娅的不同攻击命中敌人时回复一定[寒蚀值]，队伍中角色触发[冻结]效果、[紊乱]效果、敌人被触发[乱流]效果、自身触发[强化特殊技：处刑式·匿影]时，额外回复5/5/5/10点[寒蚀值]，最多积累100点[寒蚀值]；\n队友触发[异放]效果命中敌人时，普罗米娅额外回复15点[寒蚀值]；\n若[寒蚀值]大于等于50点，则消耗50点[寒蚀值]，转化为1点[霜刑]，最多获得2点［霜刑]；\n进入战场时，普罗米娅获得2点[霜刑]；\n发动[强化特殊技：处刑式·绝裁]的终结一击命中处于冰属性异常状态、以太异常状态、电属性异常状态、火属性异常状态、物理属性异常状态、风属性异常状态的敌人时，消耗1点[霜刑]触发1次[异放]效果，固定结算635%倍率的对应属性的属性异常伤害；\n普罗米娅触发[异放]效果命中敌人时额外回复100点喧响值，0.5秒内最多触发一次，发动[终结技：彻骨磔罚]时获得[寒誓]效果，拥有[寒誓]效果时，发动[强化特殊技：处刑式·绝裁]、[连携技：倒悬清算]、[终结技：彻骨磔罚]后点按或长按可消耗[寒誓]效果直接衔接[特殊技：处刑式·重霜]，[寒誓]效果最多获得1层。",
           "growth": [
             {
@@ -3922,9 +3870,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：饮冰",
+          "text": "队伍中存在其他[异常]角色或[支援]角色时触发：\n发动[强化特殊技]时，普罗米娅的冰异常积蓄效率提升30%，持续30秒，重复触发时刷新持续时间；\n队伍中任意角色对敌人施加[霜寒]效果时，该效果的持续时间提升3秒；\n普罗米娅发动[强化特殊技]命中敌人时，敌人获得[有罪推定]状态，全队角色对[有罪推定]状态的敌人造成[异放]效果时无视40%防御力，[有罪推定]状态持续30秒，重复触发时刷新持续时间。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/30/82500917/f3eb64130e4e17aea46bec8a96762dff_7533653793549539838.png"
     }
   ],
@@ -3962,27 +3914,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/promeia/cinema-2.png",
+      "image": "/images/strategy/promeia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/06/322740211/7339c7b19d4260802b105eb8c87659ed_8699435183159407469.png"
     },
     "2": {
-      "image": "/images/strategy/promeia/cinema-2.png",
+      "image": "/images/strategy/promeia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/06/322740211/7339c7b19d4260802b105eb8c87659ed_8699435183159407469.png"
     },
     "3": {
-      "image": "/images/strategy/promeia/cinema-2.png",
+      "image": "/images/strategy/promeia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/06/322740211/7339c7b19d4260802b105eb8c87659ed_8699435183159407469.png"
     },
     "4": {
-      "image": "/images/strategy/promeia/cinema-3.png",
+      "image": "/images/strategy/promeia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/06/322740211/d56804e4e435acb81bfb89da8c639d1d_2540812567820924423.png"
     },
     "5": {
-      "image": "/images/strategy/promeia/cinema-3.png",
+      "image": "/images/strategy/promeia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/06/322740211/d56804e4e435acb81bfb89da8c639d1d_2540812567820924423.png"
     },
     "6": {
-      "image": "/images/strategy/promeia/cinema-3.png",
+      "image": "/images/strategy/promeia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/05/06/322740211/d56804e4e435acb81bfb89da8c639d1d_2540812567820924423.png"
     }
   }

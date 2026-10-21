@@ -8,7 +8,7 @@
 这里守两层：
 - 抓取函数：短名必须归一后覆盖（合成 page，不联网）
 - 已提交数据：六个攻略页的 basePanel 不得出现重复口径，且与
-  ``data/agent-presets.json`` 的同名字段同值（面板口径唯一真源）
+  ``data/catalog/agents.json`` 的同名字段同值（面板口径唯一真源）
 """
 
 from __future__ import annotations
@@ -186,37 +186,43 @@ def test_merged_set4_array_entries_carry_a_scene(slug: str) -> None:
     "slug",
     sorted(p.name for p in (REPO_ROOT / "strategy").iterdir() if p.is_dir()),
 )
-def test_base_panel_matches_agent_presets(slug: str) -> None:
-    """攻略页 basePanel 必须是 60 级口径，且与 preset 同值。
+def test_strategy_json_does_not_carry_its_own_base_panel(slug: str) -> None:
+    """攻略 JSON 不再自带基础面板——那份数据的唯一真实源是代理人预设。
 
-    这条断言会在两种坏味道上报警：字段重复列出（柚叶的 13 项），以及
-    攻略页与计算器预设口径不一致。
+    同一批数字曾在 61 份攻略 JSON 与预设数据里各存一份，已经发生过漂移
+    （三名代理人的属性名口径在两处不一致）。基础面板现由前端从预设派生
+    （``frontend/src/strategy/basePanel.ts``），这里守住「不再各存一份」。
     """
-    data = json.loads((REPO_ROOT / "strategy" / slug / "data" / f"{slug}.json").read_text(encoding="utf-8"))
+    path = REPO_ROOT / "strategy" / slug / "data" / f"{slug}.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    assert "basePanel" not in data, (
+        f"{slug} 的攻略 JSON 仍带 basePanel——基础面板应从代理人预设派生"
+    )
+
+
+@pytest.mark.parametrize(
+    "slug",
+    sorted(p.name for p in (REPO_ROOT / "strategy").iterdir() if p.is_dir()),
+)
+def test_strategy_agent_id_resolves_to_a_published_preset(slug: str) -> None:
+    """攻略页的 agentId 必须对应一个已发布的预设。
+
+    攻略页的基础面板从预设派生，因此这条关联是硬依赖——没有预设就没有面板。
+    """
+    path = REPO_ROOT / "strategy" / slug / "data" / f"{slug}.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
     presets = {
         preset["id"]: preset
-        for preset in json.loads((REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8"))
+        for preset in json.loads(
+            (REPO_ROOT / "data" / "catalog" / "agents.json").read_text(encoding="utf-8")
+        )
     }
-    panel = data.get("basePanel")
-    assert panel, f"{slug} 缺 basePanel（抓取产物结构可能已改版）"
-
-    labels = [field["label"] for field in panel]
-    assert len(labels) == len(set(labels)), f"{slug} 基础面板字段重复：{labels}"
-    assert not (set(labels) & set(SHORT_LABELS)), f"{slug} 残留满级行短字段名：{labels}"
-
     agent_id = (data.get("meta") or {}).get("agentId")
-    preset = presets.get(agent_id)
-    assert preset is not None, (
-        f"{slug}（agentId={agent_id}）不在 agent-presets.json 中——"
+    assert agent_id in presets, (
+        f"{slug}（agentId={agent_id}）不在 agents.json 中——"
         "每个攻略页的 agentId 都必须对应一个已发布的预设；"
         "未发布代理人不应有攻略页目录"
     )
-    base = preset["base"]
-    for field in panel:
-        key = PANEL_TO_BASE.get(field["label"])
-        if key is None or key not in base:
-            continue  # 专属字段（贯穿力 / 锐暴伤害 …）不参与比对
-        assert field["value"] == base[key], f"{slug}.{field['label']} 与 preset.base.{key} 不一致"
 
 
 def _strategy_dirs() -> list[str]:
@@ -224,7 +230,7 @@ def _strategy_dirs() -> list[str]:
 
 
 def _mapping_slugs() -> set[str]:
-    mapping = json.loads((REPO_ROOT / "data" / "agent-name-mapping.json").read_text(encoding="utf-8"))
+    mapping = json.loads((REPO_ROOT / "data" / "catalog" / "agent-index.json").read_text(encoding="utf-8"))
     return {item["slug"] for item in mapping}
 
 
@@ -275,12 +281,12 @@ def test_icon_references_point_to_existing_lowercase_files() -> None:
     missing: list[str] = []
     for path in files:
         text = path.read_text(encoding="utf-8")
-        for ref in re.findall(r"/images/(?:attributes|icons)/[a-z0-9-]+\.png", text):
+        for ref in re.findall(r"/images/(?:attributes|icons)/[a-z0-9-]+\.webp", text):
             if not (public / ref.lstrip("/")).exists():
                 missing.append(f"{path.relative_to(REPO_ROOT)} -> {ref}")
     # 渲染器的 roleTag 回退路径（profile.icons.profession 为空时使用）
     for slug in ("attack", "stun", "anomaly", "support", "defense", "rupture", "armorer"):
-        ref = f"/images/icons/{slug}.png"
+        ref = f"/images/icons/{slug}.webp"
         if not (public / ref.lstrip("/")).exists():
             missing.append(f"渲染器回退 -> {ref}")
     assert not missing, "\n".join(missing)
@@ -296,7 +302,7 @@ def test_all_strategy_image_references_exist() -> None:
     missing: list[str] = []
     for path in files:
         text = path.read_text(encoding="utf-8")
-        for ref in re.findall(r"/images/[A-Za-z0-9_./-]+\.png", text):
+        for ref in re.findall(r"/images/[A-Za-z0-9_./-]+\.webp", text):
             if not (public / ref.lstrip("/")).exists():
                 missing.append(f"{path.relative_to(REPO_ROOT)} -> {ref}")
     assert not missing, "\n".join(missing)
@@ -316,6 +322,167 @@ def test_every_main_stat_has_a_string_note_field() -> None:
     assert not problems, "\n".join(problems)
 
 
+def test_drive_build_set_groups_are_well_formed() -> None:
+    """驱动盘套装组的形状必须合法。
+
+    **驱动盘不一定只有「4+2」。** 6 个槽位也可以是 2+2+2（三组 2 件套）。
+    契约分**两条轴**，不能混：
+
+    - **组**（并列，都要装）：``set2`` / ``set2b`` / ``set2c``——第 1/2/3 组
+      2 件套，每组是 ``{main, alt}``。最多三组（6 个槽位最多三组 2 件套）。
+    - **候选**（二选一）：组内的 ``main`` / ``alt``，各自可以是单个套装对象，
+      也可以是**多个同效果的候选套装**（如「物理伤害 +10%」有獠牙重金属与
+      沧浪行歌两套）。
+
+    ``set4`` 是另一条轴：4 件套的**候选**列表（三选一，各带 ``scene``
+    说明什么场景用哪个），**不是**「同时生效多个 4 件套」——一个代理人最多
+    生效一个 4 件套，4+4 也装不下（8 片 > 6 槽）。
+
+    形状写错时页面会静默少渲染一栏——所以在这里拦住。
+    """
+    problems: list[str] = []
+
+    def check_set_pick(name: str, value: object, where: str) -> None:
+        """一个「首选 / 备选」：套装对象或候选套装数组，元素要有 name。"""
+        if value is None:
+            return
+        items = value if isinstance(value, list) else [value]
+        if not items:
+            problems.append(f"{where}.{name} 是空数组")
+        for index, item in enumerate(items):
+            if not isinstance(item, dict) or not item.get("name"):
+                problems.append(f"{where}.{name}[{index}] 缺 name")
+
+    def check_set4(value: object, where: str) -> None:
+        """4 件套候选：对象或数组，元素要有 name。"""
+        if value is None:
+            return
+        items = value if isinstance(value, list) else [value]
+        for index, item in enumerate(items):
+            if not isinstance(item, dict) or not item.get("name"):
+                problems.append(f"{where}.set4[{index}] 缺 name")
+
+    def check_set2_group(group: object, where: str) -> None:
+        if not isinstance(group, dict):
+            problems.append(f"{where} 的 2 件套组不是对象")
+            return
+        if "main" not in group:
+            problems.append(f"{where} 的 2 件套组缺 main")
+        check_set_pick("main", group.get("main"), where)
+        check_set_pick("alt", group.get("alt"), where)
+
+    for path in sorted((REPO_ROOT / "strategy").glob("*/data/*.strategy.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for build_index, build in enumerate(data.get("driveBuilds") or []):
+            where = f"{path.relative_to(REPO_ROOT)} driveBuilds[{build_index}]"
+            check_set4(build.get("set4"), where)
+            groups = 0
+            for key in ("set2", "set2b", "set2c"):
+                group = build.get(key)
+                if group is None:
+                    continue
+                groups += 1
+                # 「组」是一个对象——不是数组。写成数组是把它当成了「候选」，
+                # 那是 main / alt 内部的维度，两条轴不能混。
+                if isinstance(group, list):
+                    problems.append(f"{where}.{key} 写成了数组：组是一个对象，候选在 main / alt 里")
+                    continue
+                check_set2_group(group, f"{where}.{key}")
+            if groups > 3:
+                problems.append(f"{where} 有 {groups} 组 2 件套，6 个槽位最多三组")
+            # 4 件套组必然带来它自己的 2 件套效果，而 4+2+2 是 8 片 > 6 槽——
+            # 有 4 件套组时就只能再有一组 2 件套。
+            if build.get("set4") is not None and groups > 1:
+                problems.append(
+                    f"{where} 同时有 4 件套组与 {groups} 组 2 件套："
+                    "4+2+2 需要 8 片，6 个槽位装不下"
+                )
+
+    assert not problems, "\n".join(problems)
+
+#: 修正量 -> 展示标签。只列**毕业面板可能展示的行**（``TOTAL_LABELS`` 的口径）。
+#:
+#: 用来判断「某个 2 件套效果被多算一次时，会不会落到展示行上」。
+MODIFIER_TO_LABEL = {
+    "hp_pct": "生命值",
+    "hp_flat": "生命值",
+    "hp_base": "生命值",
+    "atk_pct": "攻击力",
+    "atk_flat": "攻击力",
+    "atk_base": "攻击力",
+    "def_pct": "防御力",
+    "def_flat": "防御力",
+    "cr": "暴击率",
+    "cd": "暴击伤害",
+    "impact_pct": "冲击力",
+    "ac_pct": "异常掌控",
+    "dmg": "增伤",
+    "pr": "穿透率",
+    "pen_val": "穿透值",
+    "am": "异常精通",
+    "er_pct": "能量回复",
+    "er_flat": "能量回复",
+}
+
+
+def test_graduation_build_never_double_counts_one_set() -> None:
+    """4 件套与 2 件套同套时，多算的那份 2 件套效果不许落在展示行上。
+
+    **6 件全来自同一套**（4 件套组 + 同一套的 2 件套组）是合法配装，但此时
+    实际生效的是**一组 2 件套效果 + 一个 4 件套效果**——同一套的 2 件套效果
+    不会因为多穿两件而叠加。
+
+    ``calc_graduation_panel.py`` 遇到这种配装会**把重复的 2 件套组并掉**
+    （不额外占槽位），所以算出来的面板是对的。这条守的是**已发布的面板**：
+    如果多算的那份 2 件套效果会落在某个展示行上，那一行的数值就偏大了。
+
+    判据：从规则表取该套装的 ``effect2`` -> 它的 ``to``（修正量）-> 展示标签；
+    那个标签**不能**出现在面板的展示行里。
+    """
+    rules = json.loads(
+        (REPO_ROOT / "data" / "rules" / "calculator-rules.json").read_text(encoding="utf-8")
+    )
+    set_targets = {option["id"]: option["to"] for option in rules["setOptions"]}
+    discs = {
+        item["name"]: item
+        for item in json.loads(
+            (REPO_ROOT / "data" / "catalog" / "drive-discs.json").read_text(encoding="utf-8")
+        )
+    }
+
+    problems: list[str] = []
+    for path in sorted((REPO_ROOT / "strategy").glob("*/data/*.strategy.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for key in ("graduationPanel", "graduationPanelAlt"):
+            panel = data.get(key)
+            if not panel:
+                continue
+            build = panel.get("build") or {}
+            four = build.get("set4")
+            two = build.get("set2")
+            twos = two if isinstance(two, list) else ([two] if two else [])
+            if not four or four not in twos:
+                continue
+            # 同套：4 件套组带来的 2 件套效果 + 2 件套组带来的 2 件套效果
+            # 本来就是同一个，只算一次。面板的展示行里不能有受它影响的行。
+            effect2 = discs.get(four, {}).get("effect2")
+            if not effect2:
+                continue
+            target = set_targets.get(effect2)
+            if target is None:
+                continue
+            label = MODIFIER_TO_LABEL.get(target)
+            if label is None:
+                continue
+            shown = {field.get("label") for field in panel.get("totals") or []}
+            if label in shown:
+                problems.append(
+                    f"{path.relative_to(REPO_ROOT)} {key}：4 件套 {four} 与 2 件套同套，"
+                    f"「{label}」被多算了一次"
+                )
+    assert not problems, "\n".join(problems)
+
+
 def test_skill_doc_strategy_paths_exist() -> None:
     """Skill 文档里的 ``strategy/<slug>/`` 示例必须指向真实目录。"""
     actual = set(_strategy_dirs())
@@ -331,9 +498,9 @@ def test_skill_doc_strategy_paths_exist() -> None:
 
 def test_strategy_cross_references_resolve() -> None:
     """攻略 JSON 的交叉引用完整性：武器名/图标、队伍 agentId、驱动盘名/图标。"""
-    agents = json.loads((REPO_ROOT / "data" / "agent-presets.json").read_text(encoding="utf-8"))
-    weapons = json.loads((REPO_ROOT / "data" / "weapon-presets.json").read_text(encoding="utf-8"))
-    discs = json.loads((REPO_ROOT / "data" / "drive-disc-presets.json").read_text(encoding="utf-8"))
+    agents = json.loads((REPO_ROOT / "data" / "catalog" / "agents.json").read_text(encoding="utf-8"))
+    weapons = json.loads((REPO_ROOT / "data" / "catalog" / "weapons.json").read_text(encoding="utf-8"))
+    discs = json.loads((REPO_ROOT / "data" / "catalog" / "drive-discs.json").read_text(encoding="utf-8"))
     by_agent_id = {a["id"]: a for a in agents}
     by_weapon_name = {w["name"]: w for w in weapons}
     by_disc_name = {d["name"]: d for d in discs}
@@ -351,8 +518,8 @@ def test_strategy_cross_references_resolve() -> None:
                 name = item.get("name", "")
                 weapon = by_weapon_name.get(name)
                 if weapon is None:
-                    problems.append(f"{slug}: 音擎「{name}」不在 weapon-presets.json 中")
-                elif item.get("icon") and item["icon"] != f"/images/weapons/{weapon['id']}.png":
+                    problems.append(f"{slug}: 音擎「{name}」不在 weapons.json 中")
+                elif item.get("icon") and item["icon"] != f"/images/weapons/{weapon['id']}.webp":
                     problems.append(f"{slug}: 音擎「{name}」图标 id 不匹配")
 
         # 队伍成员：agentId 必须在 agent-presets 中；avatar 有值时要对应
@@ -360,9 +527,9 @@ def test_strategy_cross_references_resolve() -> None:
             for member in team.get("members") or []:
                 aid = member.get("agentId", "")
                 if aid not in by_agent_id:
-                    problems.append(f"{slug}: 队伍成员 agentId={aid} 不在 agent-presets.json 中")
+                    problems.append(f"{slug}: 队伍成员 agentId={aid} 不在 agents.json 中")
                 avatar = member.get("avatar", "")
-                if avatar and avatar != f"/images/agents/{aid}.png":
+                if avatar and avatar != f"/images/agents/{aid}.webp":
                     problems.append(f"{slug}: 队伍成员 {aid} avatar 路径不匹配")
 
         # 驱动盘方案：set4/set2 名称必须在 drive-disc-presets 中
@@ -372,17 +539,17 @@ def test_strategy_cross_references_resolve() -> None:
                 for s in set4:
                     name = (s or {}).get("name", "")
                     if name and name not in by_disc_name:
-                        problems.append(f"{slug}: 4 件套「{name}」不在 drive-disc-presets.json 中")
+                        problems.append(f"{slug}: 4 件套「{name}」不在 drive-discs.json 中")
             else:
                 name = (set4 or {}).get("name", "")
                 if name and name not in by_disc_name:
-                    problems.append(f"{slug}: 4 件套「{name}」不在 drive-disc-presets.json 中")
+                    problems.append(f"{slug}: 4 件套「{name}」不在 drive-discs.json 中")
             set2 = build.get("set2") or {}
             if isinstance(set2, dict):
                 for key in ("main", "alt"):
                     sub = set2.get(key)
                     if isinstance(sub, dict) and sub.get("name") and sub["name"] not in by_disc_name:
-                        problems.append(f"{slug}: 2 件套「{sub['name']}」不在 drive-disc-presets.json 中")
+                        problems.append(f"{slug}: 2 件套「{sub['name']}」不在 drive-discs.json 中")
 
     assert not problems, "\n".join(sorted(set(problems)))
 

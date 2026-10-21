@@ -4,7 +4,7 @@
     "entryPageId": 179,
     "name": "可琳·威克斯",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/179/detail",
-    "scrapedAt": "2026-10-18T05:15:40+00:00"
+    "scrapedAt": "2026-10-20T11:05:19+00:00"
   },
   "profile": {
     "name": "可琳·威克斯",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】物理近战、爆发输出、短时上场\n【角色详情】可琳是一名物理属性强攻代理人。由于小可琳“手短脚短”，操作灵活性与攻击范围的限制使其无法长时间站场输出，但她的短时爆发输出弥补了这一点。在敌人进入失衡状态后，切换可琳上场并长按强化特殊技，借助可琳核心被动与额外能力的加成，可以在短时间给敌人造成大量物理输出。一轮强化特殊技的输出后将可琳换下，等待下一次攻击机会。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 6976,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 732,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 604,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 96,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-179.png",
+    "avatar": "/images/agents/ep-179.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/28/110289248/90abac5b57bd5b48fa79e9efb5254360_7680652488792868823.png",
-    "tachie": "/images/strategy/corin/tachie.png",
+    "tachie": "/images/strategy/corin/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/25/76099754/407e55256a9482ff329b8ae083624e68_2977543372525146934.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/11/76099754/e180f078d7badf3e8c104556f2ce3397_7221191990547581014.png"
     },
     {
@@ -2254,7 +2202,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -2819,7 +2767,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -2828,8 +2776,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：专注\n连点或长按后，可琳使用电锯持续斩击敌人时，招式造成的伤害提升18.7%。（此处数据为原始数据）\n\n额外能力：扫除帮手\n队伍中存在与自身属性或阵营相同的角色时触发:\n可琳攻击命中处于失衡状态下的敌人时，自身造成的伤害提升35%。",
+          "title": "核心技：专注",
+          "text": "连点或长按后，可琳使用电锯持续斩击敌人时，招式造成的伤害提升37.5%。",
           "growth": [
             {
               "level": "A",
@@ -2898,9 +2846,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：扫除帮手",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发:\n可琳攻击命中处于失衡状态下的敌人时，自身造成的伤害提升35%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/28/110289248/9d05677658ff150b2a0dcfe50bd81c61_68219038598677776.png"
     }
   ],
@@ -2938,27 +2890,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/corin/cinema-2.png",
+      "image": "/images/strategy/corin/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/294465423/b73961517180808d29aceb1588ee749e_5928241223816779268.png"
     },
     "2": {
-      "image": "/images/strategy/corin/cinema-2.png",
+      "image": "/images/strategy/corin/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/294465423/b73961517180808d29aceb1588ee749e_5928241223816779268.png"
     },
     "3": {
-      "image": "/images/strategy/corin/cinema-2.png",
+      "image": "/images/strategy/corin/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/294465423/b73961517180808d29aceb1588ee749e_5928241223816779268.png"
     },
     "4": {
-      "image": "/images/strategy/corin/cinema-3.png",
+      "image": "/images/strategy/corin/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/294465423/fb1b196b18de8e830209a74296abeda9_1714378063647665753.png"
     },
     "5": {
-      "image": "/images/strategy/corin/cinema-3.png",
+      "image": "/images/strategy/corin/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/294465423/fb1b196b18de8e830209a74296abeda9_1714378063647665753.png"
     },
     "6": {
-      "image": "/images/strategy/corin/cinema-3.png",
+      "image": "/images/strategy/corin/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/294465423/fb1b196b18de8e830209a74296abeda9_1714378063647665753.png"
     }
   }

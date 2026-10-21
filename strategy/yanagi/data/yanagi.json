@@ -4,7 +4,7 @@
     "entryPageId": 916,
     "name": "月城柳",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/916/detail",
-    "scrapedAt": "2026-10-18T05:17:39+00:00"
+    "scrapedAt": "2026-10-20T11:03:02+00:00"
   },
   "profile": {
     "name": "月城柳",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】快速异常、爆发输出、操作灵活、紊乱\n【角色介绍】月城柳是S级电属性异常代理人。她可以通过频繁切换特殊技持续获得电伤和穿透双重增益。强化特殊技和终结技的下落攻击命中处于属性异常状态下的敌人时，会触发月城柳特有的[极性紊乱]效果，基于月城柳的异常精通附加高额的伤害且不会清除原本异常状态。发动强化特殊技后，月城柳的普攻将从第3段开始，全程电属性普攻，快速打出电属性异常。当队伍满足条件，月城柳的普攻在切换架势后，命中敌人的电属性异常积蓄值会获得提升。通过这些机制，月城柳可以配合队友利用属性异常及[紊乱]效果对敌人造成高额的伤害，高效完成战斗攻克。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7788,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 797,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 112,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 114,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-916.png",
+    "avatar": "/images/agents/ep-916.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/29/76099754/dc3af8ec666a63e03d49b88aac5bb044_8292939597769078774.png",
-    "tachie": "/images/strategy/yanagi/tachie.png",
+    "tachie": "/images/strategy/yanagi/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/29/15559334/6f8ec347995064543a8e8eaa14e1c844_3875711123797291729.png"
   },
   "skills": [
@@ -565,7 +513,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1134,7 +1082,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1881,7 +1829,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2446,7 +2394,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3011,7 +2959,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3020,7 +2968,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：月蚀",
+          "title": "核心技：月蚀",
           "text": "月城柳发动[强化特殊技]后，队伍中任意角色对敌人施加[紊乱]效果时，[紊乱]效果的伤害倍率提升250%，持续15秒；[强化特殊技]命中敌人时，月城柳对目标造成的电属性伤害提升20%，持续15秒。",
           "growth": [
             {
@@ -3090,9 +3038,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：月相",
+          "text": "队伍中存在其他[异常]角色或与自身属性相同的角色时触发：\n架势切换后，月城柳发动[普通攻击：夜见尊神乐]命中敌人时累积的电属性异常积蓄值提升45%，持续8秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/29/76099754/d44515bdbbfb429c6018a91070c04881_8181884139586186405.png"
     }
   ],
@@ -3130,27 +3082,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/yanagi/cinema-2.png",
+      "image": "/images/strategy/yanagi/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/06/76099754/e51bcc759474d43ae98cf242ece9be48_4445129622536388897.png"
     },
     "2": {
-      "image": "/images/strategy/yanagi/cinema-2.png",
+      "image": "/images/strategy/yanagi/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/06/76099754/e51bcc759474d43ae98cf242ece9be48_4445129622536388897.png"
     },
     "3": {
-      "image": "/images/strategy/yanagi/cinema-2.png",
+      "image": "/images/strategy/yanagi/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/06/76099754/e51bcc759474d43ae98cf242ece9be48_4445129622536388897.png"
     },
     "4": {
-      "image": "/images/strategy/yanagi/cinema-3.png",
+      "image": "/images/strategy/yanagi/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/06/76099754/93171af7d069601a30c8129ebbfaff34_7755247229681328322.png"
     },
     "5": {
-      "image": "/images/strategy/yanagi/cinema-3.png",
+      "image": "/images/strategy/yanagi/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/06/76099754/93171af7d069601a30c8129ebbfaff34_7755247229681328322.png"
     },
     "6": {
-      "image": "/images/strategy/yanagi/cinema-3.png",
+      "image": "/images/strategy/yanagi/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/06/76099754/93171af7d069601a30c8129ebbfaff34_7755247229681328322.png"
     }
   }

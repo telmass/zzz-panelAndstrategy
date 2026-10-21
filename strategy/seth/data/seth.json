@@ -4,7 +4,7 @@
     "entryPageId": 758,
     "name": "赛斯·洛威尔",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/758/detail",
-    "scrapedAt": "2026-10-18T05:17:24+00:00"
+    "scrapedAt": "2026-10-20T11:09:36+00:00"
   },
   "profile": {
     "name": "赛斯·洛威尔",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】生存辅助、精通拐、主动切人\n【角色介绍】赛斯是一位给队友提供护盾和异常精通的防护代理人。他能通过招式对敌人造成伤害积累[意气]，施放[强化特殊技]还能获得基于自身初始攻击力的护盾；赛斯施放蓄力普攻会消耗[意气]发动终结一击，触发上一个角色的快速支援，当角色通过快速支援或支援突击入场，会获得基于赛斯初始攻击力的护盾，同时提高护盾持有者的异常精通；若队伍满足条件，赛斯发动连携技命中敌人或蓄力普攻的终结一击命中敌人时，会降低目标的全属性积蓄抗性。",
     "icons": {
-      "profession": "/images/icons/defense.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/defense.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8701,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 568,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 746,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    },
-    {
-      "label": "暴伤",
-      "value": 50,
-      "unit": "%"
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-758.png",
+    "avatar": "/images/agents/ep-758.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/26/82500917/a99297e48c27c1c09ccee2f8cf3d4745_8604815710532543749.png",
-    "tachie": "/images/strategy/seth/tachie.png",
+    "tachie": "/images/strategy/seth/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/31/82500917/65638e28a79aff9f7520b14b72d8c7ee_1586378991603962836.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2532,7 +2480,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3097,7 +3045,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3106,8 +3054,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：守望者\n赛斯发动[强化特殊技：电光盾冲-高伏特]时，会获得等同于自身40%初始攻击力的护盾[匪石之盾]，最高不超过3,000点，持续25秒，10秒内最多触发一次；队伍内其他角色通过[普通攻击：雷霆击-感电]或[支援突击：治安裁决]所触发的[快速支援]或[连携技]入场时，会为该队友提供等同于赛斯40%初始攻击力的护盾[匪石之盾]，最高不超过3,000点，持续25秒，10秒内最多触发一次；拥有[匪石之盾]时，持有者的异常精通提升50点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：意气风发\n队伍中存在与自身属性或阵营相同的角色时触发：\n赛斯发动[连携技：最终制裁]命中敌人或在[普通攻击：雷霆击-感电]中发动终结一击命中敌人时，目标的全属性积蓄抗性降低20%，持续20秒。",
+          "title": "核心技：守望者",
+          "text": "赛斯发动[强化特殊技：电光盾冲-高伏特]时，会获得等同于自身80%初始攻击力的护盾[匪石之盾]，最高不超过3,000点，持续25秒，10秒内最多触发一次；队伍内其他角色通过[普通攻击：雷霆击-感电]或[支援突击：治安裁决]所触发的[快速支援]或[连携技]入场时，会为该队友提供等同于赛斯80%初始攻击力的护盾[匪石之盾]，最高不超过3,000点，持续25秒，10秒内最多触发一次；拥有[匪石之盾]时，持有者的异常精通提升100点。（此处数据为满级数据）",
           "growth": [
             {
               "level": "A",
@@ -3176,9 +3124,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：意气风发",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发：\n赛斯发动[连携技：最终制裁]命中敌人或在[普通攻击：雷霆击-感电]中发动终结一击命中敌人时，目标的全属性积蓄抗性降低20%，持续20秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/16/82500917/5be71eec59127493dce7bc5965788aed_4069967882646439194.png"
     }
   ],
@@ -3216,27 +3168,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/seth/cinema-2.png",
+      "image": "/images/strategy/seth/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/04/76099754/362d56e640fb6d5f716aa2094b1b58c1_4638520842470142037.png"
     },
     "2": {
-      "image": "/images/strategy/seth/cinema-2.png",
+      "image": "/images/strategy/seth/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/04/76099754/362d56e640fb6d5f716aa2094b1b58c1_4638520842470142037.png"
     },
     "3": {
-      "image": "/images/strategy/seth/cinema-2.png",
+      "image": "/images/strategy/seth/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/04/76099754/362d56e640fb6d5f716aa2094b1b58c1_4638520842470142037.png"
     },
     "4": {
-      "image": "/images/strategy/seth/cinema-3.png",
+      "image": "/images/strategy/seth/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/04/76099754/1d3c85ac7079a8260194bd2f3336c8cd_2125944580863083692.png"
     },
     "5": {
-      "image": "/images/strategy/seth/cinema-3.png",
+      "image": "/images/strategy/seth/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/04/76099754/1d3c85ac7079a8260194bd2f3336c8cd_2125944580863083692.png"
     },
     "6": {
-      "image": "/images/strategy/seth/cinema-3.png",
+      "image": "/images/strategy/seth/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/04/76099754/1d3c85ac7079a8260194bd2f3336c8cd_2125944580863083692.png"
     }
   }

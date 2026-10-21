@@ -1975,7 +1975,7 @@ CSS 类名 `.weapon-option-icon` 相应改为中性的 `.cascader-option-icon`�
 | 前端删除 `src/data/*.ts` | 数据不再有前端副本 |
 
 > 预设走接口、规则表走本地是**故意不对称**：前者数据量大且需刷新，
-> 后者要瞬时可用。理由与论证见 [architecture.md](../architecture.md)。
+> 后者要瞬时可用。理由与论证见 [architecture.md](../design/architecture.md)。
 
 ## 2026-10-02 · 计算下沉到 Python（第 3 步）
 
@@ -1997,13 +1997,13 @@ CSS 类名 `.weapon-option-icon` 相应改为中性的 `.cascader-option-icon`�
 
 ## 后续计划
 
-见 [requirements.md](../requirements.md) 第 7 节「已知限制」——
+见 [requirements.md](../overview/requirements.md) 第 7 节「已知限制」——
 那里列出的死代码与不一致项都是可清理的重构候选。
 
 ## 相关文档
 
-- [requirements.md](../requirements.md) —— 项目范围与已知限制
-- [architecture.md](../architecture.md) —— 架构与设计决策
+- [requirements.md](../overview/requirements.md) —— 项目范围与已知限制
+- [architecture.md](../design/architecture.md) —— 架构与设计决策
 - [completeds/migration-vue3.md](../completeds/migration-vue3.md) —— 迁移全过程记录
 
 ---

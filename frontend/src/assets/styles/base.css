@@ -41,16 +41,25 @@ html {
 }
 
 h1 {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
   color: var(--color-text-strong);
   margin-bottom: var(--space-1);
 }
 
 .subtitle {
   color: var(--color-text-muted);
-  font-size: 14px;
+  font-size: var(--text-base);
   margin-bottom: var(--space-6);
+}
+
+/*
+ * 副标题是**题引**，不是正文：一到两句、紧跟标题，不该受正文的行长上限约束。
+ * 加上限会把一句 52 字的副标题折成「40 字 + 12 字」的碎块，第二行只剩几个字。
+ * 题引按整句换行即可——它的行宽由容器决定，窄屏自然更短。
+ */
+.page-hero .subtitle {
+  max-width: none;
 }
 
 /* ====== 页面骨架 ====== */
@@ -72,7 +81,7 @@ h1 {
 .grid-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 14px;
+  gap: 12px 12px;
 }
 
 /* 副词条步进器单独用 2 列：一行要放下 − / 输入框 / + / 累加值，
@@ -81,14 +90,14 @@ h1 {
 .sub-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 14px;
+  gap: 12px 12px;
 }
 
 .base-grid,
 .agent-selector-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 12px;
+  gap: 12px 12px;
 }
 
 .disc-main-grid,
@@ -96,10 +105,13 @@ h1 {
 .set-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 12px;
+  gap: 12px 12px;
 }
 
-/* ====== 响应式 ====== */
+/* ====== 响应式 ======
+ * 窄屏不是桌面布局「折叠」来的——三列栅格在 375px 下每格只有约 90px，
+ * 而「攻击力 30%」这样的选项需要约 105px，会被裁切。因此每个多列栅格
+ * 都要有自己的折叠点。 */
 
 @media (width <= 960px) {
   .layout {
@@ -117,11 +129,31 @@ h1 {
   .weapon-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  /* 4/5/6 号主词条与二件套：3 列 → 2 列。 */
+  .disc-main-grid,
+  .set-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* 单列时累加值仍能与步进器同行：375px 视口下格仔约 303px > 所需的 208px。 */
 @media (width <= 480px) {
   .sub-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 基础面板与代理人选择器：2 列 → 1 列。 */
+  .base-grid,
+  .agent-selector-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (width <= 420px) {
+  /* 再窄就一列到底：两列各约 140px，「生命值百分比」这类标签会挤。 */
+  .disc-main-grid,
+  .set-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }

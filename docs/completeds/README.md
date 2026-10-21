@@ -9,8 +9,8 @@
 
 | 文档 | 归档原因 | 替代它的当前文档 |
 | --- | --- | --- |
-| [migration-vue3.md](migration-vue3.md) | Vue3 迁移 6 个步骤全部完成（2026-10-03） | [requirements.md](../requirements.md)、[architecture.md](../architecture.md) |
-| [legacy-pages.md](legacy-pages.md) | `frontend/legacy/` 与根目录 6 个重定向页已全部删除（2026-10-03） | [directory-layout.md](../directory-layout.md) 第 4 节 |
+| [migration-vue3.md](migration-vue3.md) | Vue3 迁移 6 个步骤全部完成（2026-10-03） | [requirements.md](../overview/requirements.md)、[architecture.md](../design/architecture.md) |
+| [legacy-pages.md](legacy-pages.md) | `frontend/legacy/` 与根目录 6 个重定向页已全部删除（2026-10-03） | [directory-layout.md](../overview/directory-layout.md) 第 4 节 |
 
 ## 各文档的价值
 
@@ -52,4 +52,4 @@
 
 - [../README.md](../README.md) —— 文档总索引
 - [../changelog.md](../changelog.md) —— 变更记录
-- [../requirements.md](../requirements.md) —— 当前项目范围与已知限制
+- [../requirements.md](../overview/requirements.md) —— 当前项目范围与已知限制

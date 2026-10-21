@@ -148,12 +148,12 @@ describe('音 cascader 分组与回填', () => {
     // 一级项带 children，value 即职业标签
     const group = usePanelStore().weaponPresetGroups[0];
     const groupIcon = renderPrefix({ option: group });
-    expect(groupIcon?.props.src).toBe('/images/icons/attack.png');
+    expect(groupIcon?.props.src).toBe('/images/icons/attack.webp');
 
     // 二级项是叶子，value 即音擎 id
     const weapon = allWeapons()[0];
     const leafIcon = renderPrefix({ option: group.children?.[0] });
-    expect(leafIcon?.props.src).toBe(`/images/weapons/${weapon.id}.png`);
+    expect(leafIcon?.props.src).toBe(`/images/weapons/${weapon.id}.webp`);
     // 图标是纯装饰，不参与 filterable 的匹配，故 alt 必须为空
     expect(groupIcon?.props.alt).toBe('');
 
@@ -197,7 +197,7 @@ describe('音 cascader 分组与回填', () => {
 
     expect(panel.weapon.roleTag).toBe(weapon.roleTag);
     expect(panel.weapon.grade).toBe(weapon.grade);
-    expect(panel.weapon.baseValue).toBe(weapon.baseKind === 'def' ? weapon.baseDefense : weapon.baseAttack);
+    expect(panel.weapon.baseValue).toBe(weapon.base.value);
     expect(panel.weapon.subType).toBe(weapon.substat.label);
     expect(panel.weapon.subValue).toBe(weapon.substat.value);
   });
@@ -228,7 +228,7 @@ describe('音 cascader 分组与回填', () => {
     expect(card.get('.weapon-card-name').text()).toBe(weapon.name);
     expect(card.get('.weapon-card-meta').text()).toBe(`${weapon.roleTag} / ${weapon.grade}级`);
     // public/ 原样拷贝到 dist 根，故按 URL 取而非 import
-    expect(card.get('.weapon-card-avatar').attributes('src')).toBe(`/images/weapons/${weapon.id}.png`);
+    expect(card.get('.weapon-card-avatar').attributes('src')).toBe(`/images/weapons/${weapon.id}.webp`);
   });
 
   it('清除选择后 preset、职业标签、等级与回填区一并复位', async () => {
@@ -251,15 +251,15 @@ describe('音 cascader 分组与回填', () => {
     expect(wrapper.find('.weapon-card').exists()).toBe(false);
   });
 
-  it('锋御音擎（baseKind=def）回填基础防御力', () => {
+  it('锋御音擎（base.kind=def）回填基础防御力', () => {
     const panel = usePanelStore();
-    const defWeapon = allWeapons().find((w) => w.baseKind === 'def');
+    const defWeapon = allWeapons().find((w) => w.base.kind === 'def');
     if (!defWeapon) {
       return;
     }
     panel.selectWeaponPreset(defWeapon.id, (text) => text);
     expect(panel.weapon.baseLabel).toBe('基础防御力');
-    expect(panel.weapon.baseValue).toBe(defWeapon.baseDefense);
+    expect(panel.weapon.baseValue).toBe(defWeapon.base.value);
   });
 });
 
@@ -525,11 +525,11 @@ describe('代理人 cascader 分组与载入', () => {
     ) => { props: Record<string, unknown> } | null;
 
     const group = usePanelStore().agentPresetGroups[0];
-    expect(renderPrefix({ option: group })?.props.src).toBe('/images/icons/attack.png');
+    expect(renderPrefix({ option: group })?.props.src).toBe('/images/icons/attack.webp');
 
     const agent = usePresetStore().agents.find((item) => item.roleTag === group.label);
     expect(renderPrefix({ option: group.children?.[0] })?.props.src).toBe(
-      `/images/agents/${agent?.id}.png`,
+      `/images/agents/${agent?.id}.webp`,
     );
     // 装饰性图标不参与 filterable 的匹配，故 alt 必须为空
     expect(renderPrefix({ option: group })?.props.alt).toBe('');
@@ -616,7 +616,7 @@ describe('代理人 cascader 分组与载入', () => {
       `${agent?.roleTag} / ${agent?.attribute} / ${agent?.grade}级`,
     );
     // public/ 原样拷贝到 dist 根，故按 URL 取而非 import
-    expect(card.get('.agent-card-avatar').attributes('src')).toBe(`/images/agents/${agent?.id}.png`);
+    expect(card.get('.agent-card-avatar').attributes('src')).toBe(`/images/agents/${agent?.id}.webp`);
   });
 
   it('通用代理人不显示「通用」二字，命破/锋御照常显示', async () => {
@@ -771,7 +771,7 @@ describe('后端对接', () => {
     await flushCalc();
 
     const last = requests[requests.length - 1];
-    expect(last.weapon.baseKind).toBe(preset.baseKind ?? 'atk');
+    expect(last.weapon.baseKind).toBe(preset.base.kind);
     expect(last.weapon.baseValue).toBe(panel.weapon.baseValue);
     expect(last.weapon.substat).toMatchObject({
       value: preset.substat.value,

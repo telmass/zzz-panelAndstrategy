@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/soldier-0-anby/background.webp",
   "_meta": {
     "agentId": "ep-1190",
     "name": "零号·安比",
@@ -16,7 +17,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -24,7 +25,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -32,7 +33,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -40,7 +41,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -48,7 +49,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -56,7 +57,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -69,7 +70,7 @@
         {
           "name": "云霓孤光",
           "stats": "S 级 · 基础攻击 743 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-1751.png"
+          "icon": "/images/weapons/ep-1751.webp"
         }
       ],
       "note": "强攻 S 级音擎（叶瞬光专武）：基础攻击 743、副词条暴击伤害 48%。零号安比追加攻击主 C，暴击伤害直接提升追加攻击与[追加攻击]暴击伤害。"
@@ -80,12 +81,12 @@
         {
           "name": "骁骑礼赞",
           "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-2162.png"
+          "icon": "/images/weapons/ep-2162.webp"
         },
         {
           "name": "防暴者Ⅵ型",
           "stats": "S 级 · 基础攻击 713 · 暴击伤害 48%",
-          "icon": "/images/weapons/ep-211.png"
+          "icon": "/images/weapons/ep-211.webp"
         }
       ],
       "note": "强攻音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -96,17 +97,17 @@
         {
           "name": "心弦夜响",
           "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
-          "icon": "/images/weapons/ep-1159.png"
+          "icon": "/images/weapons/ep-1159.webp"
         },
         {
           "name": "千面日陨",
           "stats": "S 级 · 基础攻击 713 · 暴击率 24%",
-          "icon": "/images/weapons/ep-1305.png"
+          "icon": "/images/weapons/ep-1305.webp"
         },
         {
           "name": "硫磺石",
           "stats": "S 级 · 基础攻击 684 · 攻击力 30%",
-          "icon": "/images/weapons/ep-223.png"
+          "icon": "/images/weapons/ep-223.webp"
         }
       ],
       "note": "备选强攻音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -119,18 +120,18 @@
         "name": "如影相随",
         "label": "追加攻击伤害 +15%",
         "effect4": "[追加攻击]或[冲刺攻击]命中敌人时，若造成的伤害与装备者的属性一致，则获得1层增益效果，同一招式内最多触发一次；每层增益效果使装备者的攻击力提升4%和暴击率提升4%，最多叠加3层，持续8秒，重复触发时刷新持续时间。",
-        "icon": "/images/discs/ep-1193.png"
+        "icon": "/images/discs/ep-1193.webp"
       },
       "set2": {
         "main": {
           "name": "折枝剑歌",
           "label": "暴击伤害 +16%",
-          "icon": "/images/discs/ep-1000.png"
+          "icon": "/images/discs/ep-1000.webp"
         },
         "alt": {
           "name": "啄木鸟电音",
           "label": "暴击率 +8%",
-          "icon": "/images/discs/ep-232.png"
+          "icon": "/images/discs/ep-232.webp"
         }
       },
       "mainStats": [
@@ -181,12 +182,12 @@
           "agentId": "ep-1190",
           "name": "零号·安比",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1190.png",
+          "avatar": "/images/agents/ep-1190.webp",
           "note": "电强攻追加攻击主 C，对[银星]标记敌人伤害+12.5%，[追加攻击]暴击伤害额外+暴击伤害的15%。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -194,12 +195,12 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "后台击破，[绝意]值追加攻击，核心被动追加攻击命中时目标失衡易伤+35%，与安比的追加攻击体系完美互补。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -207,16 +208,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "站场强攻，[准星聚焦]下追加攻击无视 25% 防御，与安比同为电属性，追击队旗舰。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -229,12 +230,12 @@
           "agentId": "ep-1190",
           "name": "零号·安比",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1190.png",
+          "avatar": "/images/agents/ep-1190.webp",
           "note": "电强攻追加攻击主 C，额外能力需队内击破/支援，耀嘉音为支援满足条件。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -242,16 +243,16 @@
           "agentId": "ep-1501",
           "name": "奥菲丝&「鬼火」",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1501.png",
+          "avatar": "/images/agents/ep-1501.webp",
           "note": "站场强攻，双强攻输出窗口，奥菲丝补安比的真空期。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             },
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -259,12 +260,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "支援回能与全队攻击增益，满足安比额外能力的支援条件，补齐爆发轴真空期。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }
@@ -277,12 +278,12 @@
           "agentId": "ep-1190",
           "name": "零号·安比",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1190.png",
+          "avatar": "/images/agents/ep-1190.webp",
           "note": "电强攻追加攻击主 C，扳机后台击破提供失衡与追加攻击，耀嘉音补能增伤。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -290,12 +291,12 @@
           "agentId": "ep-1230",
           "name": "「扳机」",
           "role": "击破",
-          "avatar": "/images/agents/ep-1230.png",
+          "avatar": "/images/agents/ep-1230.webp",
           "note": "后台击破，[绝意]值追加攻击，失衡易伤+35%，额外能力需队内击破/支援，耀嘉音为支援满足条件。",
           "set4": [
             {
               "name": "如影相随",
-              "icon": "/images/discs/ep-1193.png"
+              "icon": "/images/discs/ep-1193.webp"
             }
           ]
         },
@@ -303,12 +304,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "支援回能与全队攻击增益，满足安比额外能力的支援条件。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }

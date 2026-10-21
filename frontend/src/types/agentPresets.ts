@@ -12,8 +12,10 @@ export type { PanelMode };
 /**
  * 60 级基础面板（不含核心）。
  *
- * 全部键均为可选：`unavailableBaseStats` 列出的项在官方面板中本就缺失，
- * 例如部分命破代理人不提供穿透率与能量自动回复。
+ * 全部键均为可选：**没写到的键表示官方未提供该属性**。例如命破模式的代理人
+ * 不提供穿透率与能量自动回复（这两个位置被贯穿力 / 闪能自动累积取代），
+ * 其余模式十项齐全。哪些键缺失是合法的由后端 `presets/validate.py` 判定，
+ * 前端不再另读一份「未提供项列表」——缺键本身就是那份事实。
  */
 export type AgentBaseStats = Partial<{
   hp: number;
@@ -48,7 +50,7 @@ export interface AgentCoreBonus {
   optionId: string;
   ranks: string[];
   label: string;
-  perRankValue: number;
+  perRank: number;
   totalValue: number;
   unit: string;
   optionCount?: number;
@@ -67,11 +69,12 @@ export interface AgentPreset {
   /** 米游社官方 WIKI 出处，载入预设时以链接形式展示。 */
   source: string;
   base: AgentBaseStats;
-  additionalBaseStats?: AgentAdditionalBaseStats;
-  /** `base` 中官方未提供、需要留空的键。 */
-  unavailableBaseStats?: string[];
-  unmodeledBaseStats?: UnmodeledBaseStat[];
-  coreBonuses: AgentCoreBonus[];
+  /** 命破模式专属的额外基础属性。 */
+  baseExtra?: AgentAdditionalBaseStats;
+  /** 官方列出但当前未建模的基础属性。 */
+  baseUnmodeled?: UnmodeledBaseStat[];
+  /** 核心加成，展开后恰好填满两个核心槽位。 */
+  core: AgentCoreBonus[];
 }
 
 /**

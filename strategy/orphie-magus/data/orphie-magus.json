@@ -4,7 +4,7 @@
     "entryPageId": 1501,
     "name": "奥菲丝&「鬼火」",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1501/detail",
-    "scrapedAt": "2026-10-17T09:49:45+00:00"
+    "scrapedAt": "2026-10-20T11:00:47+00:00"
   },
   "profile": {
     "name": "奥菲丝&「鬼火」",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】火属性强攻特性代理人，后场输出、追击副c、辅助队友\n【角色详情】奥菲丝&「鬼火」是一位机制独特、强度可观的火属性追击副C。她兼顾了后台自动输出和前台爆发能力，并能给全队提供不俗的攻击力加成。当获得攻击加成的队友对敌人造成追加攻击伤害时，奥菲丝&「鬼火」还能使其追加攻击的伤害无视敌人一定的防御力。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7788,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 854,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 92,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1501.png",
+    "avatar": "/images/agents/ep-1501.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/10/439466880/c609e84014fb1fc270b7cd6d6c62d2ef_8915699429557942577.png",
-    "tachie": "/images/strategy/orphie-magus/tachie.png",
+    "tachie": "/images/strategy/orphie-magus/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/21/15559334/d72236a13a2700d9138453e9eb87f6bb_8469882886386154695.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3366,7 +3314,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3931,7 +3879,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3940,8 +3888,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：衔风驭火\n奥菲丝&「鬼火」的暴击率提升12.5%，[追加攻击]造成的伤害提升42.5%；\n奥菲丝&「鬼火」初始获得100点[蓄炎]，最多获得125点；\n奥菲丝&「鬼火」处于后台时，若可释放[特殊技：蚀光一闪]且能量大于等于60点时，改为消耗30点能量自动释放[强化特殊技：灼红旋涡]；\n[强化特殊技：蓄热充能]的激光命中敌人时，使全队角色获得[准星聚焦]效果，持续12秒，重复触发时刷新持续时间，代理人拥有[准星聚焦]效果时，攻击力提升130点，当奥菲丝&「鬼火」的初始能量自动回复大于等于1.6点时，超过的部分每拥有0.1点初始能量自动回复，攻击力额外提升20点，初始提升与额外提升总共不超过340点，拥有[准星聚焦]的代理人发动[追加攻击]时，将会使自身的[准星聚焦]效果延长4秒，最多延长20秒；，基础攻击力提升75点。（此处数据为满级数据）\n[普通攻击：高压火枪]的火刀攻击、[强化特殊技：小心脚下]、[强化特殊技：灼红旋涡]、[强化特殊技：蓄热充能]、[强化特殊技：燥焰迸射]、[连携技：枪管过热]、[终结技：与火共舞]造成的伤害均视为追加攻击伤害，发动上述招式视为发动[追加攻击]。\n\n额外能力：熔炉所铸\n队伍中存在[击破]角色或[支援]角色时触发：\n拥有[准星聚焦]的代理人攻击造成的[追加攻击]伤害无视25%防御力。",
+          "title": "核心技：衔风驭火",
+          "text": "奥菲丝&「鬼火」的暴击率提升25%，[追加攻击]造成的伤害提升85%；\n奥菲丝&「鬼火」初始获得100点[蓄炎]，最多获得125点；\n奥菲丝&「鬼火」处于后台时，若可释放[特殊技：蚀光一闪]且能量大于等于60点时，改为消耗30点能量自动释放[强化特殊技：灼红旋涡]；\n[强化特殊技：蓄热充能]的激光命中敌人时，使全队角色获得[准星聚焦]效果，持续12秒，重复触发时刷新持续时间，代理人拥有[准星聚焦]效果时，攻击力提升280点，当奥菲丝&「鬼火」的初始能量自动回复大于等于1.6点时，超过的部分每拥有0.1点初始能量自动回复，攻击力额外提升20点，初始提升与额外提升总共不超过700点，拥有[准星聚焦]的代理人发动[追加攻击]时，将会使自身的[准星聚焦]效果延长4秒，最多延长20秒；\n[普通攻击：高压火枪]的火刀攻击、[强化特殊技：小心脚下]、[强化特殊技：灼红旋涡]、[强化特殊技：蓄热充能]、[强化特殊技：燥焰迸射]、[连携技：枪管过热]、[终结技：与火共舞]造成的伤害均视为追加攻击伤害，发动上述招式视为发动[追加攻击]。",
           "growth": [
             {
               "level": "A",
@@ -4010,9 +3958,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：熔炉所铸",
+          "text": "队伍中存在[击破]角色或[支援]角色时触发：\n拥有[准星聚焦]的代理人攻击造成的[追加攻击]伤害无视25%防御力。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/21/15559334/7b2ef8e7757a1bd927fa050d82cc234f_1084176371104532741.png"
     }
   ],
@@ -4050,27 +4002,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/orphie-magus/cinema-2.png",
+      "image": "/images/strategy/orphie-magus/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/24/76099754/1ae06777195e6ac2865b710484441b0d_4447300513858634431.png"
     },
     "2": {
-      "image": "/images/strategy/orphie-magus/cinema-2.png",
+      "image": "/images/strategy/orphie-magus/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/24/76099754/1ae06777195e6ac2865b710484441b0d_4447300513858634431.png"
     },
     "3": {
-      "image": "/images/strategy/orphie-magus/cinema-2.png",
+      "image": "/images/strategy/orphie-magus/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/24/76099754/1ae06777195e6ac2865b710484441b0d_4447300513858634431.png"
     },
     "4": {
-      "image": "/images/strategy/orphie-magus/cinema-3.png",
+      "image": "/images/strategy/orphie-magus/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/24/76099754/fd9886fc08cb2c1c49df38ff540e9740_8456236238066491113.png"
     },
     "5": {
-      "image": "/images/strategy/orphie-magus/cinema-3.png",
+      "image": "/images/strategy/orphie-magus/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/24/76099754/fd9886fc08cb2c1c49df38ff540e9740_8456236238066491113.png"
     },
     "6": {
-      "image": "/images/strategy/orphie-magus/cinema-3.png",
+      "image": "/images/strategy/orphie-magus/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/09/24/76099754/fd9886fc08cb2c1c49df38ff540e9740_8456236238066491113.png"
     }
   }

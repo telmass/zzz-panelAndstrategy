@@ -2,11 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { createPinia, setActivePinia, type Pinia } from 'pinia';
 
 import StrategyView from '@/views/StrategyView.vue';
 import { strategyGuides } from '@/constants/strategyGuides';
 import { renderStrategy } from '@/strategy/renderStrategy';
-import { mockApi } from './support/api';
+import { loadPresets, mockApi } from './support/api';
 
 const REPO_ROOT = resolve(__dirname, '../..');
 
@@ -15,11 +16,19 @@ const REPO_ROOT = resolve(__dirname, '../..');
  * - 数据从 `/strategy/<slug>/data/` 拉取并渲染出完整区块；
  * - 不再出现 iframe；
  * - 数据缺失时显示错误态而不是白屏。
+ *
+ * 攻略页的基础面板**从代理人预设派生**（不再由攻略 JSON 自带），因此本页
+ * 依赖 ``presetStore``——测试须像生产一样先装载预设。
  */
 enableAutoUnmount(afterEach);
 
-beforeEach(() => {
+let pinia: Pinia;
+
+beforeEach(async () => {
   mockApi();
+  pinia = createPinia();
+  setActivePinia(pinia);
+  await loadPresets();
 });
 
 afterEach(() => {
@@ -27,7 +36,11 @@ afterEach(() => {
 });
 
 async function mountStrategy(slug: string) {
-  const wrapper = mount(StrategyView, { props: { slug }, attachTo: document.body });
+  const wrapper = mount(StrategyView, {
+    props: { slug },
+    attachTo: document.body,
+    global: { plugins: [pinia] },
+  });
   await flushPromises();
   await new Promise((resolve) => setTimeout(resolve, 0));
   await flushPromises();
@@ -124,7 +137,7 @@ describe('StrategyView', () => {
     const wrapper = await mountStrategy('roxy');
     expect(wrapper.find('.page-bg').exists()).toBe(true);
     expect(wrapper.get('.strategy-detail .app').attributes('style')).toContain(
-      '/images/strategy/roxy/background.png',
+      '/images/strategy/roxy/background.webp',
     );
     expect(wrapper.get('.sidebar__brand-name').text()).toBe('洛克茜');
     expect(wrapper.get('.hero__name').text()).toContain('洛克茜·');
@@ -216,5 +229,195 @@ describe('StrategyView', () => {
       cleanup();
       host.remove();
     }
+  });
+});
+
+/**
+ * 驱动盘不一定只有「4+2」。
+ *
+ * 6 个槽位也可以是 **2+2+2**（三组 2 件套）——比如 4 件套的效果对某角色没有
+ * 增益，或需要三套不同属性的 2 件套。现有 61 个攻略页都是 4+2，但契约要能
+ * 表达 2+2+2，否则下一个遇到这种配装的代理人只能把信息塞进备注里。
+ *
+ * 契约（`strategy/README.md`）分两条轴，**不能混**：
+ *
+ * - **组**（并列，都要装）：`set2` / `set2b` / `set2c`——第 1/2/3 组 2 件套；
+ * - **候选**（二选一）：组内的 `main` / `alt`，各自还可以是「多套同效果的候选」。
+ *
+ * 另外 `set4` 是 4 件套的**候选**列表（三选一），不是「同时生效多个」——
+ * 一个代理人最多生效一个 4 件套，4+4 也装不下（8 片 > 6 槽）。
+ */
+describe('驱动盘的 2+2+2 结构', () => {
+  /** 用一份真实攻略数据当底，只替换 driveBuilds——渲染器要读 profile 等字段。 */
+  function renderBuild(build: Record<string, unknown>, graduation?: Record<string, unknown>) {
+    const host = document.createElement('div');
+    document.body.append(host);
+    const dataDir = resolve(REPO_ROOT, 'strategy', 'ye-shunguang', 'data');
+    const scraped = JSON.parse(readFileSync(resolve(dataDir, 'ye-shunguang.json'), 'utf-8'));
+    scraped.strategy = JSON.parse(
+      readFileSync(resolve(dataDir, 'ye-shunguang.strategy.json'), 'utf-8'),
+    );
+    scraped.strategy.driveBuilds = [build];
+    if (graduation) {
+      scraped.strategy.graduationPanel = {
+        ...scraped.strategy.graduationPanel,
+        ...graduation,
+      };
+      // 非满配面板也带一份 build 块；这里一并换掉，否则它仍写着 4 件套。
+      scraped.strategy.graduationPanelAlt = {
+        ...scraped.strategy.graduationPanelAlt,
+        ...graduation,
+      };
+    }
+
+    const cleanup = renderStrategy({
+      root: host,
+      guide: scraped,
+      slug: 'ye-shunguang',
+    });
+    return { host, cleanup };
+  }
+
+  const group1 = { main: { name: '混沌重金属', label: '以太伤害 +10%', icon: '/images/discs/a.webp' } };
+  const group2 = { main: { name: '流光咏叹', label: '以太伤害 +10%', icon: '/images/discs/b.webp' } };
+  const group3 = { main: { name: '拂晓行纪', label: '以太伤害 +10%', icon: '/images/discs/c.webp' } };
+
+  it('2+2+2：没有 4 件套栏，三组 2 件套各占一栏', () => {
+    const { host, cleanup } = renderBuild({
+      name: '属性伤害三件套',
+      set4: null,
+      set2: group1,
+      set2b: group2,
+      set2c: group3,
+      mainStats: [],
+      subPriority: [],
+    });
+
+    expect(host.querySelector('.drive-spec__set4')).toBeNull();
+    const groups = host.querySelectorAll('.drive-spec__set2');
+    expect(groups.length).toBe(3);
+    expect(groups[0].textContent).toContain('2 件套 ①');
+    expect(groups[1].textContent).toContain('2 件套 ②');
+    expect(groups[2].textContent).toContain('2 件套 ③');
+    expect(host.textContent).toContain('混沌重金属');
+    expect(host.textContent).toContain('拂晓行纪');
+
+    cleanup();
+    host.remove();
+  });
+
+  it('2+2+2：方案名缺省时按三组套装自动生成', () => {
+    const { host, cleanup } = renderBuild({
+      set4: null,
+      set2: group1,
+      set2b: group2,
+      set2c: group3,
+      mainStats: [],
+      subPriority: [],
+    });
+
+    const title = host.querySelector('.drive-group__title');
+    expect(title?.textContent).toContain('混沌重金属');
+    expect(title?.textContent).toContain('2 件套');
+    expect(title?.textContent).not.toContain('4 件套');
+
+    cleanup();
+    host.remove();
+  });
+
+  it('单组 2 件套（对象写法）仍按现状渲染，标题不带编号', () => {
+    const { host, cleanup } = renderBuild({
+      name: '沧浪行歌 4 件套 + 折枝剑歌 2 件套',
+      set4: { name: '沧浪行歌', label: '物理伤害 +10%', effect4: '…', icon: '/images/discs/d.webp' },
+      set2: { main: { name: '折枝剑歌', label: '暴击伤害 +16%', icon: '/images/discs/e.webp' } },
+      mainStats: [],
+      subPriority: [],
+    });
+
+    expect(host.querySelector('.drive-spec__set4')).not.toBeNull();
+    const groups = host.querySelectorAll('.drive-spec__set2');
+    expect(groups.length).toBe(1);
+    expect(groups[0].textContent).toContain('2 件套');
+    expect(groups[0].textContent).not.toContain('①');
+
+    cleanup();
+    host.remove();
+  });
+
+  it('毕业面板的套装名支持多组（2+2+2 时 set2 是数组）', () => {
+    const { host, cleanup } = renderBuild(
+      {
+        name: '属性伤害三件套',
+        set4: null,
+        set2: group1,
+        set2b: group2,
+        set2c: group3,
+        mainStats: [],
+        subPriority: [],
+      },
+      {
+        build: {
+          agent: '叶瞬光',
+          weapon: '云霓孤光',
+          core: '暴击率 +14.4%、基础攻击力 +75',
+          set4: null,
+          set2: ['混沌重金属', '流光咏叹', '拂晓行纪'],
+          mainStats: '4 号位暴击伤害 +48%',
+          subStats: '54 条满配：暴击率 ×13、暴击伤害 ×16、攻击力% ×16、攻击力 ×5、穿透值 ×4',
+        },
+      },
+    );
+
+    const rows = Array.from(host.querySelectorAll('#guide-graduation .build-row'));
+    const set2Row = rows.find((row) => row.textContent?.includes('2 件套'));
+    expect(set2Row?.textContent).toContain('混沌重金属');
+    expect(set2Row?.textContent).toContain('流光咏叹');
+    expect(set2Row?.textContent).toContain('拂晓行纪');
+    // 没有 4 件套组时不应出现「4 件套」这一行（set4 为 null 也不渲染空行）
+    expect(rows.some((row) => row.textContent?.includes('4 件套'))).toBe(false);
+
+    cleanup();
+    host.remove();
+  });
+
+  it('真实数据：洛克茜的第三种配装是 2+2+2，渲染出三组且无 4 件套栏', () => {
+    // 洛克茜（roxy）实测有第三种配装「2 月光 + 2 摇摆 + 2 啄木鸟」——
+    // 没有 4 件套组，三组 2 件套，其中两组效果相同（能量自动回复 +20%）。
+    // 这是契约的真实用例，不该只靠 mock 守着。
+    const host = document.createElement('div');
+    document.body.append(host);
+    const dataDir = resolve(REPO_ROOT, 'strategy', 'roxy', 'data');
+    const scraped = JSON.parse(readFileSync(resolve(dataDir, 'roxy.json'), 'utf-8'));
+    scraped.strategy = JSON.parse(readFileSync(resolve(dataDir, 'roxy.strategy.json'), 'utf-8'));
+
+    const cleanup = renderStrategy({ root: host, guide: scraped, slug: 'roxy' });
+
+    // 三个方案 tab
+    const tabs = host.querySelectorAll('.drive-tab');
+    expect(tabs.length).toBe(3);
+    expect(tabs[2].textContent).toContain('2 月光');
+
+    // 点开第三种。
+    // 注意：所有面板都留在 DOM 里（只有激活的那个可见），所以断言必须**限定在
+    // 激活面板内**——否则会数到另外两个方案的面板。
+    tabs[2].dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    const active = host.querySelector('.drive-panel.is-active') as HTMLElement;
+    expect(active).not.toBeNull();
+    expect(active.id).toBe('drive-panel-2');
+
+    const groups = active.querySelectorAll('.drive-spec__set2');
+    expect(groups.length).toBe(3);
+    expect(groups[0].textContent).toContain('2 件套 ①');
+    expect(groups[1].textContent).toContain('2 件套 ②');
+    expect(groups[2].textContent).toContain('2 件套 ③');
+    // 没有 4 件套组
+    expect(active.querySelector('.drive-spec__set4')).toBeNull();
+    // 三组各是一套
+    expect(active.textContent).toContain('月光骑士颂');
+    expect(active.textContent).toContain('摇摆爵士');
+    expect(active.textContent).toContain('啄木鸟电音');
+
+    cleanup();
+    host.remove();
   });
 });

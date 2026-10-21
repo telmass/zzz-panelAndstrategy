@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/yuzuha/background.webp",
   "_meta": {
     "agentId": "ep-1386",
     "name": "柚叶",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -30,7 +31,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -38,7 +39,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 7,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "狸法七变化",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-1463.png"
+          "icon": "/images/weapons/ep-1463.webp"
         }
       ],
       "note": "专武：强化特殊技 / 终结技造成物理伤害时自身异常掌控提升 48 点，追加攻击命中敌人时为全队提供异常精通 +96，与柚叶的追加攻击和染色机制完全契合。"
@@ -78,7 +79,7 @@
         {
           "name": "思络成歌",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-1826.png"
+          "icon": "/images/weapons/ep-1826.webp"
         }
       ],
       "note": "同为 713 白值的五星音擎：思络成歌以强化特殊技的物理伤害触发全队增伤，叠满 2 层后额外加攻击，是柚叶最好用的非专武选择。"
@@ -89,7 +90,7 @@
         {
           "name": "啜泣摇篮",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-218.png"
+          "icon": "/images/weapons/ep-218.webp"
         }
       ],
       "note": "位于后场时提升能量自动回复，命中敌人后为全队提供持续成长的增伤；无上述音擎时的五星备选。"
@@ -100,12 +101,12 @@
         {
           "name": "逍遥游球",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-213.png"
+          "icon": "/images/weapons/ep-213.webp"
         },
         {
           "name": "好斗的阿炮",
           "stats": "A 级 · 基础攻击 624 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-486.png"
+          "icon": "/images/weapons/ep-486.webp"
         }
       ],
       "note": "零成本过渡：两者都补能量自动回复，保证强化特殊技与终结技的循环；好斗的阿炮还能在友方命中时叠全队攻击力。成型后换 S 级。"
@@ -121,28 +122,28 @@
           "label": "能量自动回复 +20%",
           "effect4": "装备者为[支援]角色时，发动[强化特殊技]或[终结技]会使全队角色造成的伤害提升18%，持续25秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
           "scene": "默认选择。发动强化特殊技 / 终结技即给全队增伤，不挑队伍也不挑染色，毕业面板的实算口径就是这一套。",
-          "icon": "/images/discs/ep-1551.png"
+          "icon": "/images/discs/ep-1551.webp"
         },
         {
           "name": "静听嘉音",
           "label": "攻击力 +10%",
           "effect4": "队伍中任意角色通过[快速支援]入场时，全队角色获得1层[嘉音]，最多叠加3层，持续15秒，重复触发时刷新持续时间， 每拥有1层[嘉音]，通过[快速支援]入场的角色造成的伤害提升8%，该效果全队唯一。",
           "scene": "快速支援流。靠队友频繁入场叠层，切人越密的队伍收益越高；偏站场输出的队伍会明显吃不满。",
-          "icon": "/images/discs/ep-1001.png"
+          "icon": "/images/discs/ep-1001.webp"
         },
         {
           "name": "自由蓝调",
           "label": "异常精通 +30",
           "effect4": "[强化特殊技]命中敌人时，根据装备者的属性类型，使目标对应属性异常积蓄抗性降低20%，持续8秒，相同属性的效果不可叠加。",
           "scene": "物理异常队。柚叶自身为物理属性，染色打出物理攻击时降低目标物理异常积蓄抗性，加快异常出伤。",
-          "icon": "/images/discs/ep-191.png"
+          "icon": "/images/discs/ep-191.webp"
         }
       ],
       "set2": {
         "main": {
           "name": "法厄同之歌",
           "label": "异常掌控 +8%",
-          "icon": "/images/discs/ep-1194.png"
+          "icon": "/images/discs/ep-1194.webp"
         }
       },
       "mainStats": [
@@ -189,12 +190,12 @@
           "agentId": "ep-1385",
           "name": "爱丽丝",
           "role": "异常",
-          "avatar": "/images/agents/ep-1385.png",
+          "avatar": "/images/agents/ep-1385.webp",
           "note": "物理属性异常角色，队伍主要伤害来源；柚叶的染色攻击与异常增益为她的属性异常加速积蓄。",
           "set4": [
             {
               "name": "獠牙重金属",
-              "icon": "/images/discs/ep-104.png"
+              "icon": "/images/discs/ep-104.webp"
             }
           ]
         },
@@ -202,12 +203,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "物理属性支援，[甜蜜惊吓]染色后按队友属性打出属性攻击，并提供攻击力加成、增伤与异常积蓄增益。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -215,12 +216,12 @@
           "agentId": "ep-1276",
           "name": "薇薇安",
           "role": "异常",
-          "avatar": "/images/agents/ep-1276.png",
+          "avatar": "/images/agents/ep-1276.webp",
           "note": "以太属性异常角色，与爱丽丝构成双属性异常，触发[紊乱]结算伤害。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         }

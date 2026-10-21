@@ -4,7 +4,7 @@
     "entryPageId": 1958,
     "name": "佩洛伊斯",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1958/detail",
-    "scrapedAt": "2026-10-17T05:00:02+00:00"
+    "scrapedAt": "2026-10-20T11:01:19+00:00"
   },
   "profile": {
     "name": "佩洛伊斯",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】独立等级的以太属性强攻代理人，驻场主c，拥有独一份的4类终结技，多增益可快速启动。\n【角色详情】佩洛伊斯是以太属性的强攻特性代理人，他可以通过不同的攻击回复资源条来打出强化普攻；佩洛伊斯喧响值满2000点便可施放终结技，通过施放上下左右四种终结技，他能获得不同的战斗增益，以此对敌人造成高额伤害。若队友满足条件，还能使佩洛伊斯的暴击伤害获得提升，在施放连携技时，获得一定点数的喧响值。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ether.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ether.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 849,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1958.png",
+    "avatar": "/images/agents/ep-1958.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/06/76099754/961895e79017cefda565737d4af89e1f_4013112206228241335.png",
-    "tachie": "/images/strategy/pyrois/tachie.png",
+    "tachie": "/images/strategy/pyrois/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/12/72175806/575a5dcde6db7590e58cb1d0aedecd8e_2180386182988178583.png"
   },
   "skills": [
@@ -515,7 +463,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -944,7 +892,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1511,7 +1459,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2078,7 +2026,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3137,7 +3085,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3146,7 +3094,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：煊赫车辇",
+          "title": "核心技：煊赫车辇",
           "text": "进入战场时，佩洛伊斯获得30点[日珥]，在勘域模式中此效果180秒内最多触发一次，且不同攻击命中敌人时回复一定[日珥]，处于接战状态下，每秒回复0.5点[日珥]，最多获得60点；\n佩洛伊斯发动不同[终结技]时，分别可获得如下效果：\n上分支-[终结技：万军诛绝]：获得30点[日珥]，并获得[阳炎]状态，[阳炎]状态下，佩洛伊斯发动[终结技]对处于失衡状态下的敌人造成的暴击伤害提升40%，[日珥]大于等于30点时，[普通攻击：天光]的第四段攻击期间长按可直接衔接[普通攻击：天光]的第三段攻击；持续21秒，重复触发时可刷新持续时间；\n下分支-[终结技：凯旋坦途]：获得[耀斑]状态，[耀斑]状态下，能量获得效率提升15%，造成的伤害提升40%，发动[强化特殊技]触发完美格挡时回复10点[日珥]，持续200秒，重复触发时刷新持续时间；\n左分支-[终结技：无拘剑势]：重击命中[浸染]状态中的敌人时，额外造成等同于900%攻击力的伤害；\n右分支-[终结技：永陷幽囚]：重击命中失衡敌人触发[决算]效果，额外造成等同于2250%攻击力的伤害，招式发动时，使所有处于失衡状态的敌人失衡持续时间提升3秒，终结一击命中时敌人失衡结束。",
           "growth": [
             {
@@ -3216,9 +3164,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：辉煌军势",
+          "text": "队伍中存在[击破]或[支援]角色时触发：\n佩洛伊斯的暴击伤害提升40%；\n发动[连携技]时回复自身300点[喧响值]。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/12/72175806/e3b7d2882f80b10c1c0bfb9b9481e786_1887252292991969054.png"
     }
   ],

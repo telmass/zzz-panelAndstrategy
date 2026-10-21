@@ -4,7 +4,7 @@
     "entryPageId": 1230,
     "name": "「扳机」",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1230/detail",
-    "scrapedAt": "2026-10-17T14:43:06+00:00"
+    "scrapedAt": "2026-10-20T11:02:42+00:00"
   },
   "profile": {
     "name": "「扳机」",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】后台击破、强力失衡、上手容易\n【角色详情】扳机是S级电属性「击破」代理人，属于泛用性后台击破位。她的连续射击或蓄力反击命中敌人时会获得绝意值，前场角色进行输出时，她在后场可以通过消耗绝意值对敌人发动追加攻击，利用暴击转失衡值的特性，完成对敌人失衡值的快速积累；在一定的失衡易伤的加持下，辅助站场代理人完成对敌人的高效收割。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7923,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 675,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 113,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 96,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1230.png",
+    "avatar": "/images/agents/ep-1230.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/13/82500917/ba2daa1aecb62503215a1e0ef5711ba1_2157824041282199096.jpg",
-    "tachie": "/images/strategy/trigger/tachie.png",
+    "tachie": "/images/strategy/trigger/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/20/82500917/216ff57fb2971a18b056fbab2bf478b9_4186847892366999108.png"
   },
   "skills": [
@@ -1207,7 +1155,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1776,7 +1724,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2523,7 +2471,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3088,7 +3036,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3653,7 +3601,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3662,7 +3610,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：破隙幽瞳",
+          "title": "核心技：破隙幽瞳",
           "text": "「扳机」发动[追加攻击]命中敌人时，目标的失衡易伤倍率提升35%，持续5秒，通过这种途径施加的失衡易伤倍率提升效果，在目标未进入失衡状态时亦可生效。",
           "growth": [
             {
@@ -3732,9 +3680,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：灵目银灯",
+          "text": "队伍中存在[强攻]角色或与自身属性相同的角色时触发：\n「扳机」的暴击率高于40%时，每超过1%暴击率会使自身发动[追加攻击]造成的失衡值提升1.5%，最多提升75%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/03/20/82500917/94ffc82877a862a55daf555c6e514d79_1035286496364886225.png"
     }
   ],
@@ -3772,27 +3724,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/trigger/cinema-2.png",
+      "image": "/images/strategy/trigger/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/02/76099754/65fd2dd41e386755d6049ddd7cb6cbc8_8067710465517812227.png"
     },
     "2": {
-      "image": "/images/strategy/trigger/cinema-2.png",
+      "image": "/images/strategy/trigger/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/02/76099754/65fd2dd41e386755d6049ddd7cb6cbc8_8067710465517812227.png"
     },
     "3": {
-      "image": "/images/strategy/trigger/cinema-2.png",
+      "image": "/images/strategy/trigger/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/02/76099754/65fd2dd41e386755d6049ddd7cb6cbc8_8067710465517812227.png"
     },
     "4": {
-      "image": "/images/strategy/trigger/cinema-3.png",
+      "image": "/images/strategy/trigger/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/02/76099754/cdcf8e92f26cf2f3e2f65a5767d8b535_8135397900960636679.png"
     },
     "5": {
-      "image": "/images/strategy/trigger/cinema-3.png",
+      "image": "/images/strategy/trigger/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/02/76099754/cdcf8e92f26cf2f3e2f65a5767d8b535_8135397900960636679.png"
     },
     "6": {
-      "image": "/images/strategy/trigger/cinema-3.png",
+      "image": "/images/strategy/trigger/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/04/02/76099754/cdcf8e92f26cf2f3e2f65a5767d8b535_8135397900960636679.png"
     }
   }

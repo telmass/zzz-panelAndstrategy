@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/promeia/background.webp",
   "_meta": {
     "agentId": "ep-1926",
     "name": "普罗米娅",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -30,7 +31,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -38,7 +39,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "朔月裁霜",
           "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
-          "icon": "/images/weapons/ep-1964.png"
+          "icon": "/images/weapons/ep-1964.webp"
         }
       ],
       "note": "专武：冰属性伤害 +35% 常驻；发动强化特殊技造成冰属性伤害后，自身属性异常伤害 +15%（最多 2 层、持续 30 秒），完美契合她强化特殊技起手的输出循环。"
@@ -78,12 +79,12 @@
         {
           "name": "壳中之灵",
           "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
-          "icon": "/images/weapons/ep-1883.png"
+          "icon": "/images/weapons/ep-1883.webp"
         },
         {
           "name": "嵌合编译器",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-214.png"
+          "icon": "/images/weapons/ep-214.webp"
         }
       ],
       "note": "壳中之灵副词条同为异常掌控 30%（强化核心转化）；嵌合编译器为通用异常音擎，强化特殊技叠精通。"
@@ -94,12 +95,12 @@
         {
           "name": "触电唇彩",
           "stats": "A 级 · 基础攻击 594 · 异常精通 75",
-          "icon": "/images/weapons/ep-210.png"
+          "icon": "/images/weapons/ep-210.webp"
         },
         {
           "name": "双生泣星",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-212.png"
+          "icon": "/images/weapons/ep-212.webp"
         }
       ],
       "note": "触电唇彩副词条直接给 75 点精通、敌人有异常即触发；双生泣星队内有第二名异常角色即可叠满精通，玩具店可兑换。"
@@ -114,7 +115,7 @@
           "label": "冰属性伤害 +10%",
           "effect4": "装备者触发[异放]时，装备者异常精通提升 48 点，持续 30 秒；重复触发时刷新持续时间；装备者触发[冻结]效果时，装备者造成的所有属性异常伤害、[紊乱]伤害提升 16%，持续 30 秒，重复触发时刷新持续时间。",
           "scene": "冰异常专属：她高频触发异放与冻结，48 点精通近乎常驻，16% 异常伤害同步覆盖；2 件套冰伤选项表无对应项，计算器不建模",
-          "icon": "/images/discs/ep-1906.png"
+          "icon": "/images/discs/ep-1906.webp"
         }
       ],
       "set2": {
@@ -122,14 +123,14 @@
           {
             "name": "法厄同之歌",
             "label": "异常掌控 +8%",
-            "icon": "/images/discs/ep-1194.png"
+            "icon": "/images/discs/ep-1194.webp"
           }
         ],
         "alt": [
           {
             "name": "摇摆爵士",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-231.png"
+            "icon": "/images/discs/ep-231.webp"
           }
         ]
       },
@@ -181,12 +182,12 @@
           "agentId": "ep-1926",
           "name": "普罗米娅",
           "role": "主 C",
-          "avatar": "/images/agents/ep-1926.png",
+          "avatar": "/images/agents/ep-1926.webp",
           "note": "冰异常驻场主 C，寒蚀值/霜刑循环打绝裁异放（635% 固定倍率），全队异放伤害加成核心。",
           "set4": [
             {
               "name": "囚徒手记",
-              "icon": "/images/discs/ep-1906.png"
+              "icon": "/images/discs/ep-1906.webp"
             }
           ]
         },
@@ -194,12 +195,12 @@
           "agentId": "ep-1852",
           "name": "南宫羽",
           "role": "击破",
-          "avatar": "/images/agents/ep-1852.png",
+          "avatar": "/images/agents/ep-1852.webp",
           "note": "以太击破，蓄力普攻快速破韧，失衡期为普罗米娅创造安全爆发窗口；核心按掌控转冲击力。",
           "set4": [
             {
               "name": "流光咏叹",
-              "icon": "/images/discs/ep-1750.png"
+              "icon": "/images/discs/ep-1750.webp"
             }
           ]
         },
@@ -207,12 +208,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "物理支援，攻击加成 + 补伤害，可置普罗米娅之前更快染冰累积冰异常积蓄值。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -225,12 +226,12 @@
           "agentId": "ep-1926",
           "name": "普罗米娅",
           "role": "主 C",
-          "avatar": "/images/agents/ep-1926.png",
+          "avatar": "/images/agents/ep-1926.webp",
           "note": "冰异常驻场主 C，同普南柚。",
           "set4": [
             {
               "name": "囚徒手记",
-              "icon": "/images/discs/ep-1906.png"
+              "icon": "/images/discs/ep-1906.webp"
             }
           ]
         },
@@ -238,12 +239,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "物理支援，提供攻击加成与增伤，兼顾失衡期易伤。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -251,12 +252,12 @@
           "agentId": "ep-1276",
           "name": "薇薇安",
           "role": "异常",
-          "avatar": "/images/agents/ep-1276.png",
+          "avatar": "/images/agents/ep-1276.webp",
           "note": "以太异常副 C，后台异放伤害为主，飞羽/护羽机制可打冻结紊乱配合。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         }

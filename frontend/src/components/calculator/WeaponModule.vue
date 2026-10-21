@@ -28,7 +28,7 @@ const cascaderValue = computed<string | null>(() => panel.weapon.preset || null)
 
 /** 头像路径。`public/` 原样拷贝到 `dist/` 根，故按 URL 取而非 import。 */
 const avatarSrc = computed(() =>
-  panel.selectedWeapon ? `/images/weapons/${panel.selectedWeapon.id}.png` : '',
+  panel.selectedWeapon ? `/images/weapons/${panel.selectedWeapon.id}.webp` : '',
 );
 
 /** 卡片副信息：`职业 / 等级`。 */

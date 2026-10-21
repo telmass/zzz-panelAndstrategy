@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/lighter/background.webp",
   "_meta": {
     "agentId": "ep-950",
     "name": "莱特",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": "="
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -30,7 +31,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -38,7 +39,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "焰心桂冠",
           "stats": "S 级 · 基础攻击 713 · 冲击力 18%",
-          "icon": "/images/weapons/ep-951.png"
+          "icon": "/images/weapons/ep-951.webp"
         }
       ],
       "note": "专武：发动快速支援/极限支援提冲击力，普攻命中叠[萎靡]抬全队冰火暴击伤害，与莱特的减伤辅助定位完全契合。"
@@ -78,17 +79,17 @@
         {
           "name": "玉壶青冰",
           "stats": "S 级 · 基础攻击 713 · 冲击力 18%",
-          "icon": "/images/weapons/ep-678.png"
+          "icon": "/images/weapons/ep-678.webp"
         },
         {
           "name": "燃狱齿轮",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-220.png"
+          "icon": "/images/weapons/ep-220.webp"
         },
         {
           "name": "拘缚者",
           "stats": "S 级 · 基础攻击 684 · 冲击力 18%",
-          "icon": "/images/weapons/ep-219.png"
+          "icon": "/images/weapons/ep-219.webp"
         }
       ],
       "note": "同为击破 S 级音擎，玉壶青冰兼带全队增伤、燃狱齿轮补能量循环、拘缚者提普攻失衡值；击破角色只能用击破音擎。"
@@ -99,12 +100,12 @@
         {
           "name": "人为刀俎",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-157.png"
+          "icon": "/images/weapons/ep-157.webp"
         },
         {
           "name": "贵重骨核",
           "stats": "A 级 · 基础攻击 594 · 冲击力 15%",
-          "icon": "/images/weapons/ep-141.png"
+          "icon": "/images/weapons/ep-141.webp"
         }
       ],
       "note": "零成本获取：人为刀俎按能量抬冲击力且大幅补回能（士气靠队伍耗能积累），贵重骨核对高血量敌人提失衡值。"
@@ -117,24 +118,24 @@
         "name": "山大王",
         "label": "失衡值 +6%",
         "effect4": "装备者为「击破」角色时，发动「强化特殊技」或「连携技」会使全队角色暴击伤害提升15%，装备者的暴击率大于等于50%时暴击伤害额外提升15%，持续15秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-        "icon": "/images/discs/ep-1346.png"
+        "icon": "/images/discs/ep-1346.webp"
       },
       "set2": {
         "main": {
           "name": "震星迪斯科",
           "label": "冲击力 +6%",
-          "icon": "/images/discs/ep-152.png"
+          "icon": "/images/discs/ep-152.webp"
         },
         "alt": [
           {
             "name": "摇摆爵士",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-231.png"
+            "icon": "/images/discs/ep-231.webp"
           },
           {
             "name": "月光骑士颂",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-1551.png"
+            "icon": "/images/discs/ep-1551.webp"
           }
         ]
       },
@@ -183,25 +184,25 @@
         "name": "摇摆爵士",
         "label": "能量自动回复 +20%",
         "effect4": "发动[连携技]或[终结技]时，全队角色造成的伤害提升15%，持续12秒，同名被动效果之间不可叠加。",
-        "icon": "/images/discs/ep-231.png"
+        "icon": "/images/discs/ep-231.webp"
       },
       "set2": {
         "main": [
           {
             "name": "震星迪斯科",
             "label": "冲击力 +6%",
-            "icon": "/images/discs/ep-152.png"
+            "icon": "/images/discs/ep-152.webp"
           },
           {
             "name": "山大王",
             "label": "失衡值 +6%",
-            "icon": "/images/discs/ep-1346.png"
+            "icon": "/images/discs/ep-1346.webp"
           }
         ],
         "alt": {
           "name": "月光骑士颂",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-1551.png"
+          "icon": "/images/discs/ep-1551.webp"
         }
       },
       "mainStats": [
@@ -252,12 +253,12 @@
           "agentId": "ep-1158",
           "name": "伊芙琳",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1158.png",
+          "avatar": "/images/agents/ep-1158.webp",
           "note": "火属性强攻主C，吃到莱特的火抗降低与冰火增伤。",
           "set4": [
             {
               "name": "河豚电音",
-              "icon": "/images/discs/ep-193.png"
+              "icon": "/images/discs/ep-193.webp"
             }
           ]
         },
@@ -265,12 +266,12 @@
           "agentId": "ep-950",
           "name": "莱特",
           "role": "击破",
-          "avatar": "/images/agents/ep-950.png",
+          "avatar": "/images/agents/ep-950.webp",
           "note": "火属性击破，[士气喷发]期间降低目标冰火抗性 15% 并延长失衡时间。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -278,12 +279,12 @@
           "agentId": "ep-1109",
           "name": "耀嘉音",
           "role": "支援",
-          "avatar": "/images/agents/ep-1109.png",
+          "avatar": "/images/agents/ep-1109.webp",
           "note": "以太支援，提供增伤与喧响支援，加快失衡循环。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         }
@@ -296,16 +297,16 @@
           "agentId": "ep-1290",
           "name": "雨果",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1290.png",
+          "avatar": "/images/agents/ep-1290.webp",
           "note": "冰属性强攻，失衡后爆发，吃到莱特的冰抗降低与失衡延长。",
           "set4": [
             {
               "name": "河豚电音",
-              "icon": "/images/discs/ep-193.png"
+              "icon": "/images/discs/ep-193.webp"
             },
             {
               "name": "啄木鸟电音",
-              "icon": "/images/discs/ep-232.png"
+              "icon": "/images/discs/ep-232.webp"
             }
           ]
         },
@@ -313,16 +314,16 @@
           "agentId": "ep-950",
           "name": "莱特",
           "role": "击破",
-          "avatar": "/images/agents/ep-950.png",
+          "avatar": "/images/agents/ep-950.webp",
           "note": "火属性击破，[士气喷发]期间降低目标冰火抗性 15% 并延长失衡时间。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "摇摆爵士",
-              "icon": "/images/discs/ep-231.png"
+              "icon": "/images/discs/ep-231.webp"
             }
           ]
         },
@@ -330,16 +331,16 @@
           "agentId": "ep-65",
           "name": "莱卡恩",
           "role": "击破",
-          "avatar": "/images/agents/ep-65.png",
+          "avatar": "/images/agents/ep-65.webp",
           "note": "冰属性击破，积蓄失衡并提供冰抗降低，双击破加速失衡循环。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             },
             {
               "name": "震星迪斯科",
-              "icon": "/images/discs/ep-152.png"
+              "icon": "/images/discs/ep-152.webp"
             }
           ]
         }

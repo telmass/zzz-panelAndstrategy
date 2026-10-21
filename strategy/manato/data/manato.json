@@ -4,7 +4,7 @@
     "entryPageId": 1536,
     "name": "狛野 真斗",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1536/detail",
-    "scrapedAt": "2026-10-16T11:30:53+00:00"
+    "scrapedAt": "2026-10-20T11:00:04+00:00"
   },
   "profile": {
     "name": "狛野 真斗",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】火属性命破、烧血输出、无视防御、自行回血\n【角色详情】狛野真斗是A级火属性命破代理人，其独特的烧血输出模式会以降低自身生命值为代价提升其输出能力。实战时柏野真斗可通过多种方式积累【炽心】值并进入【熔锋】状态，在此状态下狛野真斗暴击率与火属性伤害提高，并在核心被动的加成下提升暴击伤害与闪能回复效率。但需要注意核心被动触发的前提是狛野真斗的生命值在30%以上，因此在战斗中需要合理控制血量。",
     "icons": {
-      "profession": "/images/icons/rupture.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/rupture.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7724,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 680,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 443,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 87,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "贯穿力",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "闪能自动积累",
-      "value": 0,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1536.png",
+    "avatar": "/images/agents/ep-1536.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/11/76099754/82df09f43bd8804d3864c1084bbb37e0_8368316693595572980.png",
-    "tachie": "/images/strategy/manato/tachie.png",
+    "tachie": "/images/strategy/manato/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/08/72175806/91b743b4b3f408c2bf946e09eabda3d0_4598649546324362550.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -2063,7 +2011,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2632,7 +2580,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3197,7 +3145,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3206,8 +3154,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：熔锋之势\n真斗会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；\n真斗发动招式造成的火属性伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n真斗发动[特殊技：归烬·舍身]或[招架支援]时，会累积[炽心]，最多累积100点；当[炽心]累积至75点时，真斗将进入[熔锋]状态，[熔锋]状态下，真斗每秒消耗3.3点[炽心]，[炽心]耗尽时，退出[熔锋]状态；\n[熔锋]状态下，真斗的[普通攻击]获得强化，并可以发动[强化特殊技：归烬·天坠]；\n真斗在[普通攻击：炽风·胧切]或[支援突击]的连续斩击中消耗生命值时，使此次攻击的暴击伤害提升25%，闪能回复效率提升100%；\n[熔锋]状态下，真斗的暴击率提升10%，火属性伤害提升10%，生命值百分比提升18%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：复燃之心\n队伍中存在[支援]或[击破]角色时触发：\n真斗发动终结技时，获得8层[残焰]，发动连携技时，获得4层[残焰]，持续60秒，最多叠加20层，重复触发时刷新持续时间；真斗发动[普通攻击：炽风·胧切]或[支援突击]的连续斩击时，如果生命值低于100%最大生命值，则消耗一层[残焰]，回复2%最大生命值。",
+          "title": "核心技：熔锋之势",
+          "text": "真斗会额外根据自身最大生命值提高贯穿力，每1点最大生命值将提高0.1点贯穿力；\n真斗发动招式造成的火属性伤害均为贯穿伤害，无视敌人防御，使用贯穿力作为招式伤害倍率；\n真斗发动[特殊技：归烬·舍身]或[招架支援]时，会累积[炽心]，最多累积100点；当[炽心]累积至75点时，真斗将进入[熔锋]状态，[熔锋]状态下，真斗每秒消耗3.3点[炽心]，[炽心]耗尽时，退出[熔锋]状态；\n[熔锋]状态下，真斗的[普通攻击]获得强化，并可以发动[强化特殊技：归烬·天坠]；\n真斗在[普通攻击：炽风·胧切]或[支援突击]的连续斩击中消耗生命值时，使此次攻击的暴击伤害提升50%，闪能回复效率提升100%；\n[熔锋]状态下，真斗的暴击率提升10%，火属性伤害提升20%。",
           "growth": [
             {
               "level": "A",
@@ -3276,9 +3224,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：复燃之心",
+          "text": "队伍中存在[支援]或[击破]角色时触发：\n真斗发动终结技时，获得8层[残焰]，发动连携技时，获得4层[残焰]，持续60秒，最多叠加20层，重复触发时刷新持续时间；真斗发动[普通攻击：炽风·胧切]或[支援突击]的连续斩击时，如果生命值低于100%最大生命值，则消耗一层[残焰]，回复2%最大生命值。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/09/72175806/06ae05c447f1ed34b8c8fd744bb74921_9172130982856327171.png"
     }
   ],
@@ -3316,27 +3268,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/manato/cinema-2.png",
+      "image": "/images/strategy/manato/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/cb67cda5c841d4ef0ae37cd048dba714_8031795832075445219.png"
     },
     "2": {
-      "image": "/images/strategy/manato/cinema-2.png",
+      "image": "/images/strategy/manato/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/cb67cda5c841d4ef0ae37cd048dba714_8031795832075445219.png"
     },
     "3": {
-      "image": "/images/strategy/manato/cinema-2.png",
+      "image": "/images/strategy/manato/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/cb67cda5c841d4ef0ae37cd048dba714_8031795832075445219.png"
     },
     "4": {
-      "image": "/images/strategy/manato/cinema-3.png",
+      "image": "/images/strategy/manato/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/c124dd99a53a80a0a566db83fb76aaec_7753989695555737960.png"
     },
     "5": {
-      "image": "/images/strategy/manato/cinema-3.png",
+      "image": "/images/strategy/manato/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/c124dd99a53a80a0a566db83fb76aaec_7753989695555737960.png"
     },
     "6": {
-      "image": "/images/strategy/manato/cinema-3.png",
+      "image": "/images/strategy/manato/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/c124dd99a53a80a0a566db83fb76aaec_7753989695555737960.png"
     }
   }

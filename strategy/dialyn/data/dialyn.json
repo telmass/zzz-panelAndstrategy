@@ -4,7 +4,7 @@
     "entryPageId": 1624,
     "name": "琉音",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1624/detail",
-    "scrapedAt": "2026-10-17T09:28:41+00:00"
+    "scrapedAt": "2026-10-20T11:05:25+00:00"
   },
   "profile": {
     "name": "琉音",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】触发队友终结技、触发连携、失衡延长、失衡增伤、全队增伤\n【角色详情】琉音是S级物理属性击破类代理人，她可通过积累与消耗“好评”值提前触发队友终结技或在未将敌人打至失衡时打开连携窗口。此外，琉音可快速多次释放强化特殊技，并为敌人施加失衡时间延长与失衡受击增伤的效果，额外能力还可提高全队伤害，是具有优秀辅助能力的击破类代理人。实战中，琉音主要进行“好评”值的积累与能量积累，并在上场后连续释放至第三个强化特殊技，为敌人施加debuff，为队友带来伤害增益，以及促进队友提前释放终结技。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8250,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 683,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 110,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1624.png",
+    "avatar": "/images/agents/ep-1624.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/20/15559334/4322c8c041aac8bf33efca8959aad130_1613198233010883533.png",
-    "tachie": "/images/strategy/dialyn/tachie.png",
+    "tachie": "/images/strategy/dialyn/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/20/15559334/30a4c2873dd338ea41a7314a4a48643b_2633027389779156752.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3366,7 +3314,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3931,7 +3879,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3940,8 +3888,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：五星客服热线\n进入战场时，琉音初始拥有60点[好评]，初始暴击率超过50%时，每超过1%，冲击力提升1.4点，最多提升100点；\n发动[强化特殊技：石头]后，下一次发动的[强化特殊技]变为[强化特殊技：剪刀]，持续8秒；\n发动[强化特殊技：剪刀]后，下一次发动的[强化特殊技]变为[强化特殊技：布！]，持续8秒；\n[强化特殊技：布！]命中敌人时，敌人获得[恶意投诉]效果，[恶意投诉]效果下敌人进入失衡状态后的失衡持续时间提升2秒，失衡易伤倍率提升15%，从失衡状态恢复前[恶意投诉]效果对同一目标最多触发一次，失衡持续时间提升效果与同类效果不可叠加，拥有[恶意投诉]效果的敌人失衡结束时[恶意投诉]效果结束；\n处于接战状态下，琉音每秒积攒0.6点[好评]，发动[强化特殊技：石头]、[强化特殊技：剪刀]、[强化特殊技：布！]的重击命中敌人时将积攒7.5点[好评]，同一招式内最多积攒一次，最多积攒120点;\n当[好评]满90点且琉音利用[连携技：迎宾踏垫]、[强化特殊技：送客！]、[快速支援：呼叫转移]打开[连携技]窗口时，下一位出场的角色会将此次[连携技]强制升级为[终结技]，队友以此方式发动[终结技]时，琉音消耗60点[好评]；\n当[好评]满90点且琉音发动[强化特殊技：送客！]命中未打开[连携技]窗口的敌人时，将消耗90点[好评]强制打开[连携技]窗口，下一位出场的角色会将此次[连携技]强制升级为[终结技]；\n每当[好评]积攒至90点或发动[终结技]时，琉音获得1点[客诉]，最多拥有1点[客诉]。(此处数据为初始数据）\n\n额外能力：场外连线\n队伍中存在[强攻]角色或[命破]角色时触发：\n琉音造成的[强化特殊技]伤害的暴击伤害提升50%;\n发动[强化特殊技]或[终结技]时全队角色获得[好评如潮]效果，[好评如潮]状态下的角色造成的伤害提升40%，持续15秒，琉音在[好评如潮]状态下发动[强化特殊技]或[终结技]时，若当前[好评如潮]的剩余持续时间小于35秒，则将该状态的持续时间延长10秒；\n[强化特殊技：石头]、[强化特殊技：剪刀]、[强化特殊技：布！]重击命中时会根据队伍中琉音的上一位队友的特性造成额外伤害：\n队友为[强攻]代理人时，[强化特殊技：石头]、[强化特殊技：剪刀]，[强化特殊技：布！]额外造成等同于该[强攻]代理人320%攻击力的伤害；\n队友为[命破]代理人时，[强化特殊技：石头]、[强化特殊技：剪刀]、[强化特殊技：布！]额外造成等同于该[命破]代理人400%贯穿力的伤害，基础攻击力提升75点。",
+          "title": "核心技：五星客服热线",
+          "text": "进入战场时，琉音初始拥有60点[好评]，初始暴击率超过50%时，每超过1%，冲击力提升2点，最多提升100点；\n发动[强化特殊技：石头]后，下一次发动的[强化特殊技]变为[强化特殊技：剪刀]，持续8秒；\n发动[强化特殊技：剪刀]后，下一次发动的[强化特殊技]变为[强化特殊技：布！]，持续8秒；\n[强化特殊技：布！]命中敌人时，敌人获得[恶意投诉]效果，[恶意投诉]效果下敌人进入失衡状态后的失衡持续时间提升2秒，失衡易伤倍率提升30%，从失衡状态恢复前[恶意投诉]效果对同一目标最多触发一次，失衡持续时间提升效果与同类效果不可叠加，拥有[恶意投诉]效果的敌人失衡结束时[恶意投诉]效果结束；\n处于接战状态下，琉音每秒积攒0.6点[好评]，发动[强化特殊技：石头]、[强化特殊技：剪刀]、[强化特殊技：布！]的重击命中敌人时将积攒7.5点[好评]，同一招式内最多积攒一次，最多积攒120点;\n当[好评]满90点且琉音利用[连携技：迎宾踏垫]、[强化特殊技：送客！]、[快速支援：呼叫转移]打开[连携技]窗口时，下一位出场的角色会将此次[连携技]强制升级为[终结技]，队友以此方式发动[终结技]时，琉音消耗60点[好评]；\n当[好评]满90点且琉音发动[强化特殊技：送客！]命中未打开[连携技]窗口的敌人时，将消耗90点[好评]强制打开[连携技]窗口，下一位出场的角色会将此次[连携技]强制升级为[终结技]；\n每当[好评]积攒至90点或发动[终结技]时，琉音获得1点[客诉]，最多拥有1点[客诉]。",
           "growth": [
             {
               "level": "A",
@@ -4010,9 +3958,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：场外连线",
+          "text": "队伍中存在[强攻]角色或[命破]角色时触发：\n琉音造成的[强化特殊技]伤害的暴击伤害提升50%;\n发动[强化特殊技]或[终结技]时全队角色获得[好评如潮]效果，[好评如潮]状态下的角色造成的伤害提升40%，持续15秒，琉音在[好评如潮]状态下发动[强化特殊技]或[终结技]时，若当前[好评如潮]的剩余持续时间小于35秒，则将该状态的持续时间延长10秒；\n[强化特殊技：石头]、[强化特殊技：剪刀]、[强化特殊技：布！]重击命中时会根据队伍中琉音的上一位队友的特性造成额外伤害：\n队友为[强攻]代理人时，[强化特殊技：石头]、[强化特殊技：剪刀]，[强化特殊技：布！]额外造成等同于该[强攻]代理人320%攻击力的伤害；\n队友为[命破]代理人时，[强化特殊技：石头]、[强化特殊技：剪刀]、[强化特殊技：布！]额外造成等同于该[命破]代理人400%贯穿力的伤害。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/20/15559334/bdcacc5e93af8c4d5c22ffb41e5cd25c_8505471077092577362.png"
     }
   ],
@@ -4050,27 +4002,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/dialyn/cinema-2.png",
+      "image": "/images/strategy/dialyn/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/26/76099754/61a9ed708168d8d84cfc70618212454d_6748717059391491668.png"
     },
     "2": {
-      "image": "/images/strategy/dialyn/cinema-2.png",
+      "image": "/images/strategy/dialyn/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/26/76099754/61a9ed708168d8d84cfc70618212454d_6748717059391491668.png"
     },
     "3": {
-      "image": "/images/strategy/dialyn/cinema-2.png",
+      "image": "/images/strategy/dialyn/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/26/76099754/61a9ed708168d8d84cfc70618212454d_6748717059391491668.png"
     },
     "4": {
-      "image": "/images/strategy/dialyn/cinema-3.png",
+      "image": "/images/strategy/dialyn/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/26/76099754/813dec45c7967ef2c3524fc9843259e1_1194975861895640443.png"
     },
     "5": {
-      "image": "/images/strategy/dialyn/cinema-3.png",
+      "image": "/images/strategy/dialyn/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/26/76099754/813dec45c7967ef2c3524fc9843259e1_1194975861895640443.png"
     },
     "6": {
-      "image": "/images/strategy/dialyn/cinema-3.png",
+      "image": "/images/strategy/dialyn/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/11/26/76099754/813dec45c7967ef2c3524fc9843259e1_1194975861895640443.png"
     }
   }

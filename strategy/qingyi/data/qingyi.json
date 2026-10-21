@@ -4,7 +4,7 @@
     "entryPageId": 680,
     "name": "青衣",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/680/detail",
-    "scrapedAt": "2026-10-16T20:00:37+00:00"
+    "scrapedAt": "2026-10-20T11:01:21+00:00"
   },
   "profile": {
     "name": "青衣",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】泛用击破特性代理人、高额失衡易伤增益\n【角色详情】青衣是一位电属性的击破代理人。青衣的额外能力，只要有强攻或刑侦特勤组队友时，就可以触发。这一机制，让青衣的配队十分灵活，可以搭配各种强攻角色，发挥好自身特点。青衣通过普攻、强化特殊技、闪避反击等造成电属性伤害的攻击方式，积攒闪络条；闪络条达到75%之后可以长按施放蓄力普攻，造成更多的伤害和失衡。消耗闪络条打出的蓄力普攻，也能为敌方附加叠层的失衡易伤debuff，这是其主要辅助能力来源。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8250,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 683,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-680.png",
+    "avatar": "/images/agents/ep-680.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/04/141353238/77d70d7c49d4785dbb8d98438219cde7_7990459774903021190.png",
-    "tachie": "/images/strategy/qingyi/tachie.png",
+    "tachie": "/images/strategy/qingyi/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/31/141353238/9ef02e81d2d93044ae1fcd6c12a2d4c8_1386820727227039119.png"
   },
   "skills": [
@@ -933,7 +881,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1502,7 +1450,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -2249,7 +2197,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2814,7 +2762,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3379,7 +3327,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3388,8 +3336,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：千秋岁\n青衣在[普通攻击：醉花月云转]中发动终结一击命中敌人时，会对敌人施加5层[羁服]，最多叠加20层，每层[羁服]能够使目标的失衡易伤倍率提升2%；在[普通攻击：醉花月云转]中每发动一次突进攻击，终结一击将额外施加1层[羁服]，在发动终结一击时，若触发[极限闪避]，可以直接施加10层[羁服]；对普通或精英敌人施加[羁服]时，施加的层数翻倍；目标从失衡状态恢复时，对应[羁服]层数重置，基础冲击力提升18点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：阳关三叠\n队伍中存在[强攻]角色或与自身阵营相同的角色时触发：\n[普通攻击]造成的失衡值提升20%；此外，若青衣的冲击力高于120点，每超过1点冲击力会使自身的攻击力提升6点，通过这种方式最多使自身的攻击力提升600点。",
+          "title": "核心技：千秋岁",
+          "text": "青衣在[普通攻击：醉花月云转]中发动终结一击命中敌人时，会对敌人施加5层[羁服]，最多叠加20层，每层[羁服]能够使目标的失衡易伤倍率提升4%；在[普通攻击：醉花月云转]中每发动一次突进攻击，终结一击将额外施加1层[羁服]，在发动终结一击时，若触发[极限闪避]，可以直接施加10层[羁服]；对普通或精英敌人施加[羁服]时，施加的层数翻倍；目标从失衡状态恢复时，对应[羁服]层数重置。",
           "growth": [
             {
               "level": "A",
@@ -3458,9 +3406,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：阳关三叠",
+          "text": "队伍中存在[强攻]角色或与自身阵营相同的角色时触发：\n[普通攻击]造成的失衡值提升20%；此外，若青衣的冲击力高于120点，每超过1点冲击力会使自身的攻击力提升6点，通过这种方式最多使自身的攻击力提升600点。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/31/141353238/5be71eec59127493dce7bc5965788aed_109220233288374504.png"
     }
   ],
@@ -3498,27 +3450,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/qingyi/cinema-2.png",
+      "image": "/images/strategy/qingyi/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/14/76099754/c8e2f33759d2da67f0af36ac17f7d3e8_4183429027003547274.png"
     },
     "2": {
-      "image": "/images/strategy/qingyi/cinema-2.png",
+      "image": "/images/strategy/qingyi/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/14/76099754/c8e2f33759d2da67f0af36ac17f7d3e8_4183429027003547274.png"
     },
     "3": {
-      "image": "/images/strategy/qingyi/cinema-2.png",
+      "image": "/images/strategy/qingyi/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/14/76099754/c8e2f33759d2da67f0af36ac17f7d3e8_4183429027003547274.png"
     },
     "4": {
-      "image": "/images/strategy/qingyi/cinema-3.png",
+      "image": "/images/strategy/qingyi/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/14/76099754/b97564ca9f720a03826357b782b5a66d_2494225873345280470.png"
     },
     "5": {
-      "image": "/images/strategy/qingyi/cinema-3.png",
+      "image": "/images/strategy/qingyi/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/14/76099754/b97564ca9f720a03826357b782b5a66d_2494225873345280470.png"
     },
     "6": {
-      "image": "/images/strategy/qingyi/cinema-3.png",
+      "image": "/images/strategy/qingyi/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/08/14/76099754/b97564ca9f720a03826357b782b5a66d_2494225873345280470.png"
     }
   }

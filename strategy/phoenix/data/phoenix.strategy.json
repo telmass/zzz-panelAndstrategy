@@ -1,5 +1,5 @@
 {
-  "background": "/images/strategy/phoenix/background.png",
+  "background": "/images/strategy/phoenix/background.webp",
   "_meta": {
     "agentId": "ep-2216",
     "name": "菲欧妮",
@@ -12,7 +12,7 @@
     "officialGuide": "https://baike.mihoyo.com/zzz/wiki/content/2216/detail"
   },
   "cinemaPriority": {
-    "image": "/images/strategy/phoenix/film.png",
+    "image": "/images/strategy/phoenix/film.webp",
     "keyLevels": [
       1,
       6
@@ -23,7 +23,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -31,7 +31,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -39,7 +39,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +47,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +55,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -63,7 +63,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 7,
       "maxLevel": 12,
       "next": ""
@@ -76,7 +76,7 @@
         {
           "name": "涅槃初翎",
           "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
-          "icon": "/images/weapons/ep-2259.png"
+          "icon": "/images/weapons/ep-2259.webp"
         }
       ],
       "note": "专武装备者的异常精通提升90点；队伍中任意角色对敌人造成的属性异常伤害产生暴击时，装备者造成的火属性伤害提升40%，持续20秒，重复触发刷新持续时间。"
@@ -87,7 +87,7 @@
         {
           "name": "壳中之灵",
           "stats": "S 级 · 基础攻击 713 · 异常掌控 30%",
-          "icon": "/images/weapons/ep-1883.png"
+          "icon": "/images/weapons/ep-1883.webp"
         }
       ],
       "note": "相比专武，只少了40%的增伤，其他属性无差异，算最佳下位替代。\n其他异常掌控音擎不推荐，场内表现可能不如常驻下位音擎。"
@@ -98,12 +98,12 @@
         {
           "name": "双生泣星",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-212.png"
+          "icon": "/images/weapons/ep-212.webp"
         },
         {
           "name": "嵌合编译器",
           "stats": "A 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-214.png"
+          "icon": "/images/weapons/ep-214.webp"
         }
       ],
       "note": "实在没有以上选择再考虑，但不推荐抽取本体。"
@@ -117,14 +117,14 @@
         "label": "异常精通 +30",
         "effect4": "[强化特殊技]命中敌人时，根据装备者的属性类型，使目标对应属性异常积蓄抗性降低20%，持续8秒，相同属性的效果不可叠加。",
         "scene": "搭配菲欧妮的被动[灼蚀],稳定全局收益。",
-        "icon": "/images/discs/ep-191.png"
+        "icon": "/images/discs/ep-191.webp"
       },
       "set2": {
         "main": [
           {
             "name": "法厄同之歌",
             "label": "异常掌控 +8%",
-            "icon": "/images/discs/ep-1194.png"
+            "icon": "/images/discs/ep-1194.webp"
           }
         ]
       },
@@ -176,12 +176,12 @@
           "agentId": "ep-2216",
           "name": "菲欧妮",
           "role": "异常",
-          "avatar": "/images/agents/ep-2216.png",
+          "avatar": "/images/agents/ep-2216.webp",
           "note": "火属性异常主C，驻场输出，核心被动为全队施加[灼蚀]并提升异常爆伤。",
           "set4": [
             {
               "name": "自由蓝调",
-              "icon": "/images/discs/ep-191.png"
+              "icon": "/images/discs/ep-191.webp"
             }
           ]
         },
@@ -189,12 +189,12 @@
           "agentId": "ep-1960",
           "name": "维琳娜",
           "role": "异常",
-          "avatar": "/images/agents/ep-1960.png",
+          "avatar": "/images/agents/ep-1960.webp",
           "note": "风属性异常，是菲欧妮当之无愧的最佳队友。",
           "set4": [
             {
               "name": "呼啸沙龙",
-              "icon": "/images/discs/ep-2038.png"
+              "icon": "/images/discs/ep-2038.webp"
             }
           ]
         },
@@ -202,12 +202,12 @@
           "agentId": "ep-2076",
           "name": "蕾米埃尔",
           "role": "异常",
-          "avatar": "/images/agents/ep-2076.png",
+          "avatar": "/images/agents/ep-2076.webp",
           "note": "放大[灼蚀]伤害，可以让菲欧妮伤害进一步提高。",
           "set4": [
             {
               "name": "谶羽之誓",
-              "icon": "/images/discs/ep-2116.png"
+              "icon": "/images/discs/ep-2116.webp"
             }
           ]
         }
@@ -220,12 +220,12 @@
           "agentId": "ep-2216",
           "name": "菲欧妮",
           "role": "异常",
-          "avatar": "/images/agents/ep-2216.png",
+          "avatar": "/images/agents/ep-2216.webp",
           "note": "火属性异常主C，驻场输出，核心被动为全队施加[灼蚀]并提升异常爆伤。",
           "set4": [
             {
               "name": "自由蓝调",
-              "icon": "/images/discs/ep-191.png"
+              "icon": "/images/discs/ep-191.webp"
             }
           ]
         },
@@ -233,12 +233,12 @@
           "agentId": "ep-1960",
           "name": "维琳娜",
           "role": "异常",
-          "avatar": "/images/agents/ep-1960.png",
+          "avatar": "/images/agents/ep-1960.webp",
           "note": "风属性异常，是菲欧妮当之无愧的最佳队友。",
           "set4": [
             {
               "name": "呼啸沙龙",
-              "icon": "/images/discs/ep-2038.png"
+              "icon": "/images/discs/ep-2038.webp"
             }
           ]
         },
@@ -246,12 +246,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "通过柚叶染色加快火异常的附着速率，提高全队dps。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }

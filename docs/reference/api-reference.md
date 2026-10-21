@@ -12,7 +12,7 @@
 > `GET /api/presets/weapons` 在本地 uvicorn 与线上是**同一份代码、同一份响应**，
 > 只是运行时换成 Pyodide。路由分工见 `wrangler.jsonc` 的
 > `run_worker_first: ["/api/*", "/docs", "/openapi.json"]`。详见
-> [deployment.md](deployment.md) 第 5 节。
+> [deployment.md](../guides/deployment.md) 第 5 节。
 
 ## 通用约定
 
@@ -40,7 +40,7 @@
 | 方法 | 路径 | 用途 |
 | --- | --- | --- |
 | GET | `/api/health` | 探活 |
-| GET | `/api/presets/agents` | 代理人预设列表（60 条） |
+| GET | `/api/presets/agents` | 代理人预设列表（61 条） |
 | GET | `/api/presets/weapons` | 音擎预设列表（101 条） |
 | POST | `/api/panel/calc` | 面板计算 |
 
@@ -75,32 +75,34 @@
       "source": "https://baike.mihoyo.com/zzz/wiki/content/1109/detail",
       "base": { "hp": 7673, "atk": 888, "def": 612, "impact": 93, "cr": 19.4,
                 "cd": 50, "ac": 94, "am": 93, "pr": 0, "er": 1.2 },
-      "additionalBaseStats": { "penforce": 0, "energyAccumulation": 0 },
-      "unavailableBaseStats": [],
-      "unmodeledBaseStats": [],
-      "coreBonuses": [
+      "baseExtra": { "penforce": 0, "energyAccumulation": 0 },
+      "baseUnmodeled": [],
+      "core": [
         { "optionId": "cd", "optionCount": 2, "ranks": ["D", "E", "F"],
-          "label": "暴击伤害", "perRankValue": 9.6, "totalValue": 28.8, "unit": "%" }
+          "label": "暴击伤害", "perRank": 9.6, "totalValue": 28.8, "unit": "%" }
       ]
     }
   ]
 }
 ```
 
-字段级校验规则见 [data-schema.md](data-schema.md)。要点：
+字段级校验规则见 [data-schema.md](../design/data-schema.md)。要点：
 
-- `base` 的 10 个键全部 `Optional`。官方未提供的键为 `null`，**同时**必须列入
-  `unavailableBaseStats`，否则前端会把 `null` 当 0 写进面板且无任何提示。
+- `base` 的 10 个键全部 `Optional`。**官方未提供的键直接不出现在 `base` 里**——
+  缺键本身就是「官方没提供」这份事实，不再另存一个「未提供项」数组
+  （同一件事存两份，就得靠校验器去证明它们没漂移）。哪些缺失合法由后端判定：
+  `rupture` 模式可缺 `pr` / `er`（那两个位置被贯穿力 / 闪能自动累积取代），
+  其余模式十项必须齐全。
 - `base.def` 的线上键名是 `def`（Pydantic 侧字段名 `def_`，带 `alias="def"`）。
 - `attribute` 与 `grade` 必填，取值白名单见 data-schema.md 第 2.3 节；
   「特殊属性」的判定规则（人数 == 1）见第 2.4 节。
 - `response_model_exclude_none=True`：`None` 字段不出现在响应里，因此响应与
-  `data/agent-presets.json` 逐字节等价（`backend/tests/test_presets.py` 有等价性断言）。
+  `data/catalog/agents.json` 逐字节等价（`backend/tests/test_presets.py` 有等价性断言）。
 
 **503 响应体**沿用 FastAPI 标准形状：
 
 ```json
-{ "detail": "agent-presets.json 语义校验失败：ep-9999：id 重复 ['ep-9999']" }
+{ "detail": "catalog/agents.json 语义校验失败：ep-9999：id 重复 ['ep-9999']" }
 ```
 
 ---
@@ -118,9 +120,7 @@
       "grade": "S",
       "roleTag": "强攻",
       "source": "https://baike.mihoyo.com/zzz/wiki/content/1107/detail",
-      "baseKind": "atk",
-      "baseAttack": 713,
-      "baseDefense": 0,
+      "base": { "kind": "atk", "value": 713 },
       "substat": { "label": "暴击伤害", "value": 48, "kind": "pct", "to": "cd" }
     }
   ]
@@ -167,7 +167,7 @@
 
 要点：
 
-- **选项一律用稳定 id，不用数组下标。** id 取自 `data/options.json`，
+- **选项一律用稳定 id，不用数组下标。** id 取自 `data/rules/calculator-rules.json`，
   由 `backend/src/zzz_panel/core/options.py` 单向生成。
 - **未知 id 静默忽略**，不报错（`core/options.py: find_option` 返回 `None`）。
 - **副词条条数向下取整且不为负**：`count = max(0, floor(raw))`
@@ -206,7 +206,7 @@
 > （`core/modifiers.py:165` 拼接时`stat.label` 本身已含「固定」）。
 > 它**不会显示在界面上**——hp/atk/def 三行的明细由 `breakdown` 的内联片段渲染，
 > 不读 `sources`。仅 API 消费者会看到。详见
-> [requirements.md](requirements.md) 第 7 节。
+> [requirements.md](../overview/requirements.md) 第 7 节。
 
 **`totals` 的 12 个键恒定存在**，模式只影响 `modeStats` 与 `blastDmg`。
 注意键名是缩写：`imp`(冲击力)、`ac`(异常掌控)、`pv`(穿透值)、`er`(能量回复)、
@@ -296,7 +296,7 @@
 
 ## 相关文档
 
-- [data-schema.md](data-schema.md) —— 预设 JSON 与选项表的字段定义与校验规则
-- [architecture.md](architecture.md) —— 分层与依赖方向铁律
-- [calculation-rules.md](calculation-rules.md) —— 计算公式与选项 id 含义
-- [testing.md](testing.md) —— 接口等价性如何被测试守住
+- [data-schema.md](../design/data-schema.md) —— 预设 JSON 与选项表的字段定义与校验规则
+- [architecture.md](../design/architecture.md) —— 分层与依赖方向铁律
+- [calculation-rules.md](../design/calculation-rules.md) —— 计算公式与选项 id 含义
+- [testing.md](../guides/testing.md) —— 接口等价性如何被测试守住

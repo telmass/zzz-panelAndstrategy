@@ -4,7 +4,7 @@
     "entryPageId": 801,
     "name": "凯撒·金",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/801/detail",
-    "scrapedAt": "2026-10-18T11:09:55+00:00"
+    "scrapedAt": "2026-10-20T10:58:03+00:00"
   },
   "profile": {
     "name": "凯撒·金",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】防护特性代理人、具有护盾、增益、击破机制\n【角色详情】凯撒是一位物理属性的防护代理人。能够基于核心属性冲击力，为全队提供护盾值共享的，且有抗打断能力的护盾。护盾存在期间，可以提升持有者的攻击力。还能通过额外能力，使全队对附近敌人造成的伤害提升。由于主堆冲击力，以及提升自身冲击力的机制存在，凯撒为队伍贡献失衡值的能力也比较强。因此，凯撒是一位具有护盾、增益、击破机制的多面手。",
     "icons": {
-      "profession": "/images/icons/defense.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/defense.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 9526,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 636,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 753,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 105,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 87,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-801.png",
+    "avatar": "/images/agents/ep-801.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/08/76099754/45788df6a0a15baf27d33f11a93e8c04_1410824794677572273.png",
-    "tachie": "/images/strategy/caesar/tachie.png",
+    "tachie": "/images/strategy/caesar/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/12/82500917/72f098dd58529b396c21f3580cdd5a95_5221616573435155700.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2811,7 +2759,7 @@
         },
         {
           "title": "强化特殊技：超强力盾击",
-          "text": "[强化特殊技：招架反击]发动后，能量足够时，点按发动：\n使用盾牌向前方进行打击，造成大量物理伤害；\n若在招式发动初期受到敌方攻击，或通过盾牌打击触发[破招]时，将触发[精准格挡]，抵挡此次攻击伤害，并返还发动招式所消耗的能量；\n以[精准格挡]或[防御反击]的方式发动时，无法再次触发[精准格挡]；\n招式发动期间拥有无敌效果。\n\n攻防转换\n凯撒触发[精准格挡]、[防御反击]或[招架支援]时，自身冲击力提升9%，持续3秒。（此处数据为初始数据）",
+          "text": "[强化特殊技：招架反击]发动后，能量足够时，点按发动：\n使用盾牌向前方进行打击，造成大量物理伤害；\n若在招式发动初期受到敌方攻击，或通过盾牌打击触发[破招]时，将触发[精准格挡]，抵挡此次攻击伤害，并返还发动招式所消耗的能量；\n以[精准格挡]或[防御反击]的方式发动时，无法再次触发[精准格挡]；\n招式发动期间拥有无敌效果。\n\n攻防转换\n凯撒触发[精准格挡]、[防御反击]或[招架支援]时，自身冲击力提升24%，持续3秒。（此处数据为满级数据）",
           "growth": [
             {
               "level": "1",
@@ -3184,7 +3132,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3472,7 +3420,7 @@
         },
         {
           "title": "终结技：暴君猛击",
-          "text": "喧响等级达到[极]时，点按发动：\n丢出手中的盾牌对前方敌人发动强力旋转攻击，随后发动下落打击，造成大量物理伤害；\n命中持有护盾的敌人时，招式造成的失衡值提升45%；（此处数据为初始数据）\n招式发动期间拥有无敌效果。",
+          "text": "喧响等级达到[极]时，点按发动：\n丢出手中的盾牌对前方敌人发动强力旋转攻击，随后发动下落打击，造成大量物理伤害；\n命中持有护盾的敌人时，招式造成的失衡值提升120%；（此处数据为满级数据）\n招式发动期间拥有无敌效果。",
           "growth": [
             {
               "level": "1",
@@ -3845,7 +3793,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3854,8 +3802,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：坚韧之壁\n凯撒发动[强化特殊技：招架反击]、[连携技]、[终结技]或以[防御反击]的方式发动[强化特殊技：超强力盾击]时，为全队提供等同于自身300%初始冲击力+200点的护盾[荣光之盾]，持续60秒，[荣光之盾]由前场角色持有，护盾值为全队共享，单次受到的伤害不会超过护盾值；\n[荣光之盾]存在期间，持有者的抗打断等级提升；\n[荣光之盾]存在期间，持有者的攻击力提升40点，[荣光之盾]效果结束后，该增益效果仍然保留，持续5秒，基础冲击力提升18点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：战意激昂\n队伍中存在其他可发动[招架支援]的角色或与自身阵营相同的角色时触发：\n凯撒触发[精准格挡]、[防御反击]、[招架支援]或发动[普通攻击：此路不通！]时，对自身附近7米范围内的敌人施加减益效果，使全队角色对其造成的伤害提升25%，持续30秒。",
+          "title": "核心技：坚韧之壁",
+          "text": "凯撒发动[强化特殊技:招架反击]、[连携技]、[终结技]或以[防御反击]的方式发动[强化特殊技:超强力盾击]时，为全队提供等同于自身1400%初始冲击力+1400点的护盾[荣光之盾]，持续60秒，[荣光之盾]由当前操作中的角色持有，护盾值为全队共享，单次受到的伤害不会超过护盾值；\n[荣光之盾]存在期间，持有者的抗打断等级提升;\n[荣光之盾]存在期间，持有者的攻击力提升1000点，[荣光之盾]效果结束后，该增益效果仍然保留，持续5秒。",
           "growth": [
             {
               "level": "A",
@@ -3924,9 +3872,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：战意激昂",
+          "text": "队伍中存在其他可发动[招架支援]的角色或与自身阵营相同的角色时触发：\n凯撒触发[精准格挡]、[防御反击]、[招架支援]或发动[普通攻击：此路不通！]时，对自身附近7米范围内的敌人施加减益效果，使全队角色对其造成的伤害提升25%，持续30秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/18/15559334/4a4143ecc60ca031485bd73429bcc5c1_6411651681172415929.png"
     }
   ],
@@ -3964,27 +3916,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/caesar/cinema-2.png",
+      "image": "/images/strategy/caesar/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/25/76099754/ebea90450f9451b55615ca16e508757e_6142111276643121450.png"
     },
     "2": {
-      "image": "/images/strategy/caesar/cinema-2.png",
+      "image": "/images/strategy/caesar/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/25/76099754/ebea90450f9451b55615ca16e508757e_6142111276643121450.png"
     },
     "3": {
-      "image": "/images/strategy/caesar/cinema-2.png",
+      "image": "/images/strategy/caesar/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/25/76099754/ebea90450f9451b55615ca16e508757e_6142111276643121450.png"
     },
     "4": {
-      "image": "/images/strategy/caesar/cinema-3.png",
+      "image": "/images/strategy/caesar/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/25/76099754/2ac01c1a75302b2d3183150b02f7d85f_5125940504683650339.png"
     },
     "5": {
-      "image": "/images/strategy/caesar/cinema-3.png",
+      "image": "/images/strategy/caesar/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/25/76099754/2ac01c1a75302b2d3183150b02f7d85f_5125940504683650339.png"
     },
     "6": {
-      "image": "/images/strategy/caesar/cinema-3.png",
+      "image": "/images/strategy/caesar/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/09/25/76099754/2ac01c1a75302b2d3183150b02f7d85f_5125940504683650339.png"
     }
   }

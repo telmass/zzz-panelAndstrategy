@@ -1,6 +1,6 @@
 # frontend/tests — 前端测试
 
-Vitest + jsdom，共 **118 项**。
+Vitest + jsdom，共 **177 项**。
 
 ```powershell
 npm run test          # 一次性
@@ -10,17 +10,20 @@ npm run test:watch    # 监听
 > ⚠️ Vitest 配置在 `vite.config.ts` 的 `test` 块中，**没有独立的
 > `vitest.config.ts`**。找不到时别去找不存在的文件。
 
-策略、覆盖范围与设计理由见 [docs/testing.md](../../docs/testing.md)。
+策略、覆盖范围与设计理由见 [docs/guides/testing.md](../../docs/guides/testing.md)。
 
-## 五个 spec
+## 11 个 spec
 
 | 文件 | 项数 | 覆盖 |
 | --- | --- | --- |
 | `calculator-view.spec.ts` | 36 | 计算器骨架、启动页、子页返回导航、指南页、攻略选择页卡片与 `/strategy/:slug` 路由透传/守卫 |
-| `strategy-view.spec.ts` | 10 | 共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、加载/错误态、背景字段，以及全部代理人的数据渲染 |
+| `strategy-view.spec.ts` | 15 | 共享渲染器渲染、skip link/landmark、技能/驱动盘 tab ARIA 与方向键、音擎两列、驱动盘四列备注表、加载/错误态、背景字段、**2+2+2 套装组结构**，以及全部代理人的数据渲染 |
 | `panel-interactions.spec.ts` | 51 | 代理人与音擎 cascader 分组与回填、选项前缀图标与菜单文案、模式名「通用」的隐藏、副词条钳制、模式与锋御文案、代理人预设载入、后端对接 |
 | `strategy-ui.spec.ts` | 17 | 攻略同款排版：侧边目录编号与锚点、目录开关、`useScrollSpy` 可见带 / 区域容器 / 空窗保留 / 触底兜底 / 二级链接整链路、结果区复制/重置、启动页顶部导航与卡片、指南章节序号与 CTA、两页页眉无跳转按钮 |
 | `legacy-parity.spec.ts` | 4 | **三方对拍**：旧 JS ≡ Vue3 页面 ≡ Python 后端 |
+| `data-manifest.spec.ts` | 12 | 数据集登记表的漂移闸：登记项齐备、规则表里的每个 `to` 都在 `MODIFIER_KEYS` 内、反之无多余键、驱动盘套装的 `effect2` 要么是可选项 id 要么为 `null` 且带 `effect2Note` |
+| `disc-picker.spec.ts` | 7 | 二件套的**两种填法**：默认「按效果」三下拉、「按套装」三下拉、选套装后写入它的 2 件套效果、选算不出效果的套装只记套装不留效果、切换模式时效果仍在、手动改效果清掉套装记录 |
+| `build-preset.spec.ts` | 17 | **配装方案存取**：localStorage 往返、同名覆盖、删除、坏存档不让计算器崩、分享链接的紧凑编码往返、片段非法 / 版本不符被拒、导入的合法与非法路径、方案套回面板 |
 
 ## support/ — 夹具层
 
@@ -28,7 +31,7 @@ npm run test:watch    # 监听
 | --- | --- |
 | `setup.ts` | 全局 stub `RouterLink`，并补 jsdom 缺失的浏览器 API：`matchMedia`、`ResizeObserver`、`IntersectionObserver`。**刻意不打 `getBoundingClientRect` 的桩**——见下 |
 | `router.ts` | `RouterLinkStub`，把 `to` 渲染成 `href` |
-| `api.ts` | 假后端。**读真实的 `data/*.json`**，因此下拉框项数断言能发现数据漂移 |
+| `api.ts` | 假后端。**读真实的 `data/catalog/agents.json` 与 `weapons.json`**，因此下拉框项数断言能发现数据漂移 |
 | `backend.ts` | 拉起真实 uvicorn（端口 0 自动分配），仅供三方对拍使用 |
 | `flush.ts` | 等待 260 ms（越过 200 ms 防抖）+ 微任务 + 两个宏任务 |
 
@@ -61,12 +64,12 @@ npm run test:watch    # 监听
 
 ### naive-ui 的三条测试约束
 
-见 [docs/testing.md](../../docs/testing.md) 第 5 节：浮层 Teleport 到 `body`、
+见 [docs/guides/testing.md](../../docs/guides/testing.md) 第 5 节：浮层 Teleport 到 `body`、
 选项在 `n-virtual-list` 里 jsdom 渲染不出来、placeholder 是覆盖层而非
 `<input>` 的属性。
 
 ## 相关文档
 
-- [docs/testing.md](../../docs/testing.md) —— 测试策略与三方对拍
-- [docs/development.md](../../docs/development.md) —— 测试命令与常见坑
-- [docs/requirements.md](../../docs/requirements.md) —— 验收标准
+- [docs/guides/testing.md](../../docs/guides/testing.md) —— 测试策略与三方对拍
+- [docs/guides/development.md](../../docs/guides/development.md) —— 测试命令与常见坑
+- [docs/overview/requirements.md](../../docs/overview/requirements.md) —— 验收标准

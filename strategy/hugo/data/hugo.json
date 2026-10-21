@@ -4,7 +4,7 @@
     "entryPageId": 1290,
     "name": "雨果·维拉德",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1290/detail",
-    "scrapedAt": "2026-10-17T14:24:37+00:00"
+    "scrapedAt": "2026-10-20T10:59:10+00:00"
   },
   "profile": {
     "name": "雨果·维拉德",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】S级冰属性强攻代理人，爆发型速切主C，独特的失衡结算机制\n【角色详情】雨果可以根据队伍内击破代理人数量获得攻击力提升增益，当连携技命中敌人或攻击使敌人进入失衡时，自身暴击率及暴击伤害会获得提升。在敌人失衡后使用强化特殊技或终结技，可以对剩余失衡时间进行伤害结算打出高额伤害。可以通过击破敌人进入失衡，让雨果立刻上场打出强化特殊技或是终结技触发伤害结算，进入下一次循环。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ice.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ice.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7490,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 844,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 616,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1290.png",
+    "avatar": "/images/agents/ep-1290.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/12/76099754/ff0c243efc015ef866743d1b2c7a99f7_7263581171606029938.png",
-    "tachie": "/images/strategy/hugo/tachie.png",
+    "tachie": "/images/strategy/hugo/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/12/76099754/d8287f5eeb3a3b037c0c20ca039f096d_6215165967725886423.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2532,7 +2480,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3097,7 +3045,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3106,8 +3054,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：终末裁决\n[连携技：命运戏法]命中敌人或雨果的攻击使敌人失衡时，雨果获得[暗渊回响]状态，持续6秒，重复触发时刷新持续时间，该状态下雨果的暴击率提升12%，暴击伤害提升25%；\n队伍中存在其他1/2名[击破]角色时，雨果的攻击力提升27/75点；\n[强化特殊技：魂狩·惩戒]或[终结技：渎神者]的终结一击命中敌人时，若敌人处于失衡状态，会对其触发[决算]效果，使得招式的终结一击伤害倍率提升500%，此外[决算]效果会根据触发时敌人剩余的失衡时间，使得该招式伤害倍率进一步提升：敌人失衡时间小于等于5秒的部分，每剩余1秒，招式伤害倍率提升140%，5秒到15秒的部分，每剩余1秒，招式伤害倍率提升50%，总共最多可以提升1700%的招式伤害倍率；，基础攻击力提升75点。（此处数据为满级数据）\n雨果触发[决算]效果后，敌人的失衡状态会立即结束，并且根据[决算]效果触发时该敌人剩余的失衡时间立即累积一定失衡值，失衡时间每剩余1秒，则积累5%失衡值，最多累积等同于敌人失衡值上限25%的失衡值；\n[强化特殊技：魂狩·惩戒]命中敌人时，若敌人处于非失衡状态，招式累积的失衡值提升20%。\n\n额外能力：终焉序曲\n队伍中存在其他[击破]角色或与自身属性相同的角色时触发：\n[连携技：命运戏法]造成的伤害提升15%，对普通敌人造成的伤害额外提升35%；触发[决算]时，招式造成的伤害提升40%，[强化特殊技：魂狩·惩戒]对普通敌人触发[决算]效果时额外回复20点能量，能量回复效果30秒内最多触发一次。",
+          "title": "核心技：终末裁决",
+          "text": "[核心被动：终末裁决]技能等级+1\n[连携技：命运戏法]命中敌人或雨果的攻击使敌人失衡时，雨果获得[暗渊回响]状态，持续6秒，重复触发时刷新持续时间，该状态下雨果的暴击率提升12%，暴击伤害提升25%；\n队伍中存在其他1/2名[击破]角色时，雨果的攻击力提升300/900点；\n[强化特殊技：魂狩·惩戒]或[终结技：渎神者]的终结一击命中敌人时，若敌人处于失衡状态，会对其触发[决算]效果，使得招式的终结一击伤害倍率提升1000%，此外[决算]效果会根据触发时敌人剩余的失衡时间，使得该招式伤害倍率进一步提升：敌人失衡时间小于等于5秒的部分，每剩余1秒，招式伤害倍率提升280%，5秒到15秒的部分，每剩余1秒，招式伤害倍率提升100%，总共最多可以提升3400%的招式伤害倍率；\n雨果触发[决算]效果后，敌人的失衡状态会立即结束，并且根据[决算]效果触发时该敌人剩余的失衡时间立即累积一定失衡值，失衡时间每剩余1秒，则积累5%失衡值，最多累积等同于敌人失衡值上限25%的失衡值；\n[强化特殊技：魂狩·惩戒]命中敌人时，若敌人处于非失衡状态，招式累积的失衡值提升20%",
           "growth": [
             {
               "level": "A",
@@ -3176,9 +3124,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：终焉序曲",
+          "text": "队伍中存在其他[击破]角色或与自身属性相同的角色时触发：\n[连携技：命运戏法]造成的伤害提升15%，对普通敌人造成的伤害额外提升35%；触发[决算]时，招式造成的伤害提升40%，[强化特殊技：魂狩·惩戒]对普通敌人触发[决算]效果时额外回复20点能量，能量回复效果30秒内最多触发一次。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/09/233874762/f3eb64130e4e17aea46bec8a96762dff_2441614755077678348.png"
     }
   ],
@@ -3216,27 +3168,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/hugo/cinema-2.png",
+      "image": "/images/strategy/hugo/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/14/76099754/b9903bdca3d281f85053ae10ad9f2d48_1907993815182853697.png"
     },
     "2": {
-      "image": "/images/strategy/hugo/cinema-2.png",
+      "image": "/images/strategy/hugo/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/14/76099754/b9903bdca3d281f85053ae10ad9f2d48_1907993815182853697.png"
     },
     "3": {
-      "image": "/images/strategy/hugo/cinema-2.png",
+      "image": "/images/strategy/hugo/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/14/76099754/b9903bdca3d281f85053ae10ad9f2d48_1907993815182853697.png"
     },
     "4": {
-      "image": "/images/strategy/hugo/cinema-3.png",
+      "image": "/images/strategy/hugo/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/14/76099754/f89181c5e457ac5232037c5807457e3e_1850534911088241065.png"
     },
     "5": {
-      "image": "/images/strategy/hugo/cinema-3.png",
+      "image": "/images/strategy/hugo/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/14/76099754/f89181c5e457ac5232037c5807457e3e_1850534911088241065.png"
     },
     "6": {
-      "image": "/images/strategy/hugo/cinema-3.png",
+      "image": "/images/strategy/hugo/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/05/14/76099754/f89181c5e457ac5232037c5807457e3e_1850534911088241065.png"
     }
   }

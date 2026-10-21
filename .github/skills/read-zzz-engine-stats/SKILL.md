@@ -5,6 +5,9 @@ description: Read a named Zenless Zone Zero W-Engine's max-level base ATK and it
 
 # Read ZZZ W-Engine Stats
 
+> 🧭 本 skill 是 `get-agent-strategy` 的子流程，通常由它编排调用；单独使用同样有效。
+> 共享规则见 [`_shared/naming.md`](../_shared/naming.md)。
+
 Use this skill when the user gives a 音擎 (W-Engine) name and needs the two values the panel
 calculators consume:
 
@@ -16,7 +19,7 @@ fields, and record the 职业 tag that the Wiki shows for the engine, which is t
 in the preset selector. There are **seven** tags — 强攻/击破/异常/支援/防护/命破/锋御 (the full
 list is `WEAPON_ROLE_TAGS` in `frontend/src/constants/calculatorOptions.ts`) — so do not treat
 锋御 as missing: it is the one tag whose engines provide 基础防御力 instead of 基础攻击力
-(`baseKind: 'def'`).
+(`base: { kind: 'def' }`).
 
 ## Source and transport
 
@@ -138,24 +141,31 @@ Run from the repository root; the default `--out` path is repo-root relative.
 
 ```
 python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
-python tools/sync_presets.py --to-legacy
+python tools/sync_manifest.py
 python tools/bundle_worker_data.py
 ```
 
-It scans, filters weapon pages, extracts the values, and rewrites `data/weapon-presets.json`.
-As of 2026-10-01 it produces 100 presets: 47 S, 37 A, 16 B, of which 4 are 锋御. Reruns are
+It scans, filters weapon pages, extracts the values, and rewrites `data/catalog/weapons.json`.
+As of 2026-10-20 it produces 101 presets: 48 S, 37 A, 16 B, of which 4 are 锋御. Reruns are
 idempotent, so re-running must leave the file byte-identical; compare hashes to prove nothing
 drifted.
 
-`data/weapon-presets.json` is the single source of truth for the whole repository. The
-parity fixture's `frontend/tests/fixtures/legacy-calculator/data/weapon-presets.js` is
-generated from it by `sync_presets.py --to-legacy`; never write that file from this
-script. After a refresh, run that command so the fixture stays in sync, and
-`python tools/sync_presets.py --to-legacy --check` must exit 0.
+`data/catalog/weapons.json` is the single source of truth for the whole repository,
+and its path is declared once in `data/manifest.json`.
+
+`python tools/sync_manifest.py` refreshes the registry's derived fields (`count` and
+`sha256`). A refresh changes both, so **skipping it leaves the repository in a state
+that fails `sync_manifest.py --check` and turns CI red**.
+
+The parity fixture's `frontend/tests/fixtures/legacy-calculator/data/weapon-presets.js`
+is a **frozen snapshot** of the reference implementation's inputs, not a generated
+artifact; never write it from this script.
+`backend/tests/test_legacy_fixture_snapshot.py` asserts it stays semantically equal to
+the current dataset.
 
 The third command, `python tools/bundle_worker_data.py`, is the Cloudflare deploy gate
-and must be re-run after **any** change to `weapon-presets.json` or
-`agent-presets.json` (both files are compiled into the same module).
+and must be re-run after **any** change to `data/catalog/weapons.json` or
+`data/catalog/agents.json` (both files are compiled into the same module).
 `pywrangler` uploads only `.py` files, so a refreshed preset that is not recompiled
 never reaches production: the `.json` is silently dropped, `loader.py` falls back to
 the generated `zzz_panel._bundled_data` module, and the live `/api/presets/*` keeps
@@ -172,8 +182,10 @@ Parsing rules the script encodes, each of which broke an earlier hand-written re
   `基础攻击力`. A parser anchored on 基础攻击力 silently drops all four of them
   (猩红渴望 431, 血髓秘匣 356, 「月相」-弦 282, 喵运当头 356) instead of mislabeling them, so
   always confirm the total engine count after a refresh and never assume every engine is 强攻.
-  Presets carry `baseKind: 'atk' | 'def'` plus `baseAttack` and `baseDefense`, with the unused
-  one set to 0; the calculator shows 基础防御力 and feeds `wDef` only for `baseKind: 'def'`.
+  Presets carry `base: { kind: 'atk' | 'def', value: <number> }` — one object, not the old
+  `baseKind` + `baseAttack` + `baseDefense` triple (the unused one used to be 0, so the
+  disambiguation was implicit). The calculator shows 基础防御力 and feeds `wDef` only for
+  `kind: 'def'`.
 - 初始面板 and 满级面板 sit in one run of text with no separator, so the panel regex must use a
   lookahead for the next panel marker; a `[^\n]+` tail swallows the 满级 value.
 - 异常精通 substats have **no** `%` sign (`异常精通+60`), so the percent group is optional.
@@ -184,7 +196,7 @@ Parsing rules the script encodes, each of which broke an earlier hand-written re
   cross-check regex must accept both.
 - The 职业 tag comes from `[强攻]角色` style markers in the 音擎效果 text.
 
-Substat label to calculator key mapping used in `data/weapon-presets.json`:
+Substat label to calculator key mapping used in `data/catalog/weapons.json`:
 
 | Wiki label | `substat.to` | `kind` |
 |---|---|---|

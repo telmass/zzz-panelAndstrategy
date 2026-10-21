@@ -64,6 +64,24 @@ export interface SetEffects {
   set2: string;
 }
 
+/**
+ * 每组二件套选中的是哪套装（`ep-<id>`）。
+ *
+ * **不参与计算**——计算用的是 `SetEffects` 里的效果 id。这里只是辅助信息，
+ * 用来显示套装名与图标、导出配装方案时记录「穿了哪套」。
+ */
+export interface SetDiscs {
+  set0: string;
+  set1: string;
+  set2: string;
+}
+
+/** 三组二件套的槽位键。 */
+export type SetSlot = 'set0' | 'set1' | 'set2';
+
+/** 二件套的填法：`effect` 按效果选（默认，行为与旧版一致）/ `disc` 按套装选。 */
+export type SetPickMode = 'effect' | 'disc';
+
 /** 代理人预设选择。对应 legacy 的 `#agent_role` / `#agent_preset`。 */
 export interface AgentSelection {
   roleTag: string;

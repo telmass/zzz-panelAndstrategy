@@ -4,7 +4,7 @@
     "entryPageId": 840,
     "name": "柏妮思·怀特",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/840/detail",
-    "scrapedAt": "2026-10-18T05:15:32+00:00"
+    "scrapedAt": "2026-10-20T10:57:56+00:00"
   },
   "profile": {
     "name": "柏妮思·怀特",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】后台异常、紊乱、协同输出、操作灵活\n【角色介绍】柏妮思是S级火属性异常角色，其特点是可以在后台对敌人进行火属性伤害并积蓄异常值。柏妮思消耗能量后可积蓄[燃点]，积蓄满后进入[燃油特调]状态。期间柏妮思可通过多种手段给敌人挂上[灼伤]buff，柏妮思切后台后其他队友攻击有此buff的敌人时能造成额外的火属性伤害与异常积蓄。此机制可让柏妮思搭配其他属性角色快速打出紊乱效果，或者与火属性代理人搭配快速打出火属性异常效果。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7368,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 788,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 83,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 120,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-840.png",
+    "avatar": "/images/agents/ep-840.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/08/76099754/c00700f00787444df5c7de8b09d81766_3155659045192705400.png",
-    "tachie": "/images/strategy/burnice/tachie.png",
+    "tachie": "/images/strategy/burnice/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/08/15559334/9c11d49f22a23196809d6737b5cc25e2_7937286902860105145.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2810,7 +2758,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3375,7 +3323,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3384,7 +3332,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：燃油特调",
+          "title": "核心技：燃油特调",
           "text": "柏妮思消耗能量值时，会为自身累积[燃点]，最多累积100点；每消耗1点能量值，能够累积1.4点[燃点]，当[燃点]累积至50点时，柏妮思将进入[燃油特调]状态，直到[燃点]耗尽；进入战场时，柏妮思立刻累积100点[燃点]；\n[燃油特调]状态下，柏妮思发动[普通攻击：炽焰搅拌式]、[强化特殊技：灼热摇荡法]、[强化特殊技：灼热摇荡法·双份]、[连携技：燃油熔焰]或[终结技：纵享盛焰]]命中敌人时，将对目标施加[灼伤]效果，直到柏妮思退出[燃油特调]状态；队伍中其他角色攻击命中处于[灼伤]状态下的敌人时，会触发[余烬]效果，消耗8点[燃点]，对目标造成等同于柏妮思350%攻击力的火属性伤害并累积火属性异常积蓄值，1.5秒内最多触发一次；每拥有10点异常精通，[余烬]效果造成的伤害提升1%，最多提升30%；[余烬]效果造成的伤害被视为[支援攻击]伤害。",
           "growth": [
             {
@@ -3454,9 +3402,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力:星火燎原",
+          "text": "队伍中存在其他[异常]角色或与自身阵营相同的角色时触发：\n柏妮思[普通攻击：炽焰搅拌式]、[强化特殊技：灼热摇荡法]、[强化特殊技：灼热摇荡法·双份]命中敌人，或触发[余烬]效果时，招式累积的火属性异常积蓄值提升65%；队伍中任意角色对敌人施加[灼烧]效果时，该效果的持续时间提升3秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/07/15559334/4a4143ecc60ca031485bd73429bcc5c1_2932446721476987319.png"
     }
   ],
@@ -3494,27 +3446,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/burnice/cinema-2.png",
+      "image": "/images/strategy/burnice/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/9b40963f79d3ebade5e3cc78a5488b20_5777690442997912038.png"
     },
     "2": {
-      "image": "/images/strategy/burnice/cinema-2.png",
+      "image": "/images/strategy/burnice/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/9b40963f79d3ebade5e3cc78a5488b20_5777690442997912038.png"
     },
     "3": {
-      "image": "/images/strategy/burnice/cinema-2.png",
+      "image": "/images/strategy/burnice/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/9b40963f79d3ebade5e3cc78a5488b20_5777690442997912038.png"
     },
     "4": {
-      "image": "/images/strategy/burnice/cinema-3.png",
+      "image": "/images/strategy/burnice/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/16/76099754/56071426862b50025a7f44ea23ce23c2_6173449843340604773.png"
     },
     "5": {
-      "image": "/images/strategy/burnice/cinema-3.png",
+      "image": "/images/strategy/burnice/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/16/76099754/56071426862b50025a7f44ea23ce23c2_6173449843340604773.png"
     },
     "6": {
-      "image": "/images/strategy/burnice/cinema-3.png",
+      "image": "/images/strategy/burnice/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/10/16/76099754/56071426862b50025a7f44ea23ce23c2_6173449843340604773.png"
     }
   }

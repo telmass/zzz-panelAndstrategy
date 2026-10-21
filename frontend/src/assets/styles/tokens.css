@@ -1,26 +1,59 @@
 /*
- * 设计令牌：从 legacy/styles/calculator.css 提取的颜色、间距与圆角变量。
- * 第 1 步只做变量化，不改变任何取值，保证与 legacy 渲染一致。
+ * 设计令牌。
+ *
+ * 本文件是前端视觉体系的**唯一真源**：字号、字重、颜色、间距、圆角、阴影
+ * 都从这里取值，各组件样式不写死数值。两道闸门守着它：
+ *
+ * - ``python tools/check_ui_contrast.py --check``：颜色对比度（WCAG 2.1）
+ * - ``python tools/check_ui_scale.py --check``：字号 / 字重 / 间距 / 阴影是否越界
+ *
+ * 换配色、换尺度时先改这里，再跑上面两道闸门。
  */
 
 :root {
   /* ====== 字体 ====== */
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 
-  /* ====== 页面与文本 ====== */
+  /* ====== 字号：8 档阶梯 ======
+   * 每档之间至少 15% 的落差，避免出现「看不出大小差」的两档。
+   * 组件样式里**只写** var(--text-*)，不写裸 px。 */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+  /* 攻略页 hero 的展示级字号：随视口在 26–34px 之间伸缩。 */
+  --text-display: clamp(26px, 3.2vw, 34px);
+
+  /* ====== 字重：3 档 ======
+   * 层级主要靠「两档字重 + 三档文字色」表达，不靠更多字重。 */
+  --weight-normal: 400;
+  --weight-medium: 600;
+  --weight-bold: 700;
+
+  /* ====== 页面与文本 ======
+   * 文字色只有三档：深（标题与数值）、正文、浅（次要说明）。
+   * 浅色面上的次要文字必须同时在白底与页面底色上达到 4.5:1。 */
   --color-page-bg: #f0f2f5;
   --color-surface: #fff;
   --color-text: #1f2937;
   --color-text-strong: #111827;
-  --color-text-muted: #6b7280;
-  --color-text-faint: #9ca3af;
+  --color-text-muted: #5f6b7a;
+  /* 装饰性描边（卡片边框、分隔线）。**不是**控件边界。 */
   --color-border: #d1d5db;
+  /* 控件边界：表单输入框与下拉框的描边，需 ≥3:1（WCAG 1.4.11）。 */
+  --color-border-strong: #7d8794;
   --color-input-bg: #fff;
   --color-input-readonly-bg: #f9fafb;
   --color-input-readonly-text: #4b5563;
 
-  /* ====== 品牌与交互 ====== */
-  --color-accent: #6366f1;
+  /* ====== 品牌与交互 ======
+   * 交互色是唯一的「品牌色」：按钮、链接、选中态、焦点环都用它，
+   * 不与模块色、标签色混用。 */
+  --color-accent: #4f46e5;
   --color-accent-soft: #eef2ff;
   --color-accent-border: #c7d2fe;
   --color-accent-border-strong: #818cf8;
@@ -28,44 +61,49 @@
   --color-accent-active-bg: #c7d2fe;
   --color-accent-hover-text: #3730a3;
   --color-accent-text: #4338ca;
-  --color-danger: #ef4444;
-  --color-success: #059669;
+  --color-danger: #dc2626;
+  --color-success: #047857;
 
-  /* ====== 模块左侧色条（区分六大模块） ====== */
+  /* ====== 模块左侧色条（区分六大模块）======
+   * 色条是**装饰性**的分区标记——「这是第几块」由 01–06 序号徽标承载
+   * （中性深底 + 白字），不靠颜色单独表达信息。
+   * 六个色条对白底都 ≥3:1，太浅的色（琥珀、青绿、橙）已取到能看清的深档。 */
   --module-base-accent: #6366f1;
-  --module-weapon-accent: #f59e0b;
-  --module-core-accent: #10b981;
+  --module-weapon-accent: #b45309;
+  --module-core-accent: #047857;
   --module-disc-accent: #ec4899;
   --module-sub-accent: #8b5cf6;
-  --module-set-accent: #f97316;
+  --module-set-accent: #c2410c;
 
-  /* ====== 模块标题标签配色 ====== */
+  /* ====== 模块标题标签配色 ======
+   * 12.5px 粗体压浅底，字号小、对比度要求不变——七个都 ≥4.5:1。 */
   --tag-base-bg: #eef2ff;
   --tag-base-text: #4f46e5;
   --tag-weapon-bg: #fffbeb;
-  --tag-weapon-text: #d97706;
+  --tag-weapon-text: #b45309;
   --tag-core-bg: #ecfdf5;
-  --tag-core-text: #059669;
+  --tag-core-text: #047857;
   --tag-disc-bg: #fdf2f8;
-  --tag-disc-text: #db2777;
+  --tag-disc-text: #be185d;
   --tag-sub-bg: #f5f3ff;
   --tag-sub-text: #7c3aed;
---tag-set-bg: #fff7ed;
---tag-set-text: #ea580c;
---tag-armorer-bg: #ecfeff;
---tag-armorer-text: #0891b2;
+  --tag-set-bg: #fff7ed;
+  --tag-set-text: #c2410c;
+  --tag-armorer-bg: #ecfeff;
+  --tag-armorer-text: #0e7490;
 
   /* ====== 固定词条徽标 ====== */
   --color-fixed-stat-bg: #f3f4f6;
 
-  /* ====== 结果区 ====== */
+  /* ====== 结果区 ======
+   * 深色渐变上的一组浅色，六个都 ≥4.5:1（渐变亮端是最差情况）。 */
   --result-gradient-from: #1e293b;
   --result-gradient-to: #334155;
   --result-text: #f1f5f9;
   --result-label: #cbd5e1;
   --result-value: #fff;
   --result-value-main: #fbbf24;
-  --result-breakdown: #94a3b8;
+  --result-breakdown: #a8b6c8;
   --result-row-border: rgb(255 255 255 / 8%);
 
   /* ====== 圆角 ====== */
@@ -75,16 +113,21 @@
   --radius-module: 12px;
   --radius-result: 14px;
 
-  /* ====== 间距 ====== */
+  /* ====== 间距 ======
+   * 刻度：4 / 8 / 12 / 16 / 20 / 24 / 32 / 40。 */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 20px;
   --space-6: 24px;
-  --module-padding-block: 18px;
+  --space-8: 32px;
+  --space-10: 40px;
+  /* 模块的块内距与块间距。**块间距必须大于块内距**，
+   * 否则六个模块会糊成一片（这是「组外空间 ≥ 组内空间」那条规则）。 */
+  --module-padding-block: 20px;
   --module-padding-inline: 24px;
-  --module-margin-bottom: 14px;
+  --module-margin-bottom: 24px;
 
   /* ====== 布局 ======
    * 容器宽度与攻略页（strategy 下各 slug 的 styles.css）对齐取 1440px：
@@ -101,9 +144,16 @@
   --duration-base: 120ms;
   --ease-base: ease;
 
-  /* ====== 阴影 ====== */
-  --shadow-module: 0 1px 3px rgb(0 0 0 / 6%);
-  --shadow-result: 0 6px 20px rgb(0 0 0 / 15%);
+  /* ====== 阴影：5 级 elevation ======
+   * 深度只表达「这块东西浮在多高」，不表达强调程度。 */
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgb(17 19 24 / 6%);
+  --elevation-2: 0 1px 3px rgb(17 19 24 / 6%);
+  --elevation-3: 0 4px 16px rgb(16 19 24 / 12%);
+  --elevation-4: 0 18px 50px rgb(17 19 24 / 10%);
+
+  /* ====== 焦点环 ======
+   * 焦点环是**状态指示**，不是高度，因此不进 elevation 阶梯。 */
   --shadow-focus: 0 0 0 2px rgb(99 102 241 / 15%);
   --shadow-focus-strong: 0 0 0 3px rgb(99 102 241 / 25%);
 }

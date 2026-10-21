@@ -4,7 +4,7 @@
     "entryPageId": 1687,
     "name": "叶瞬光",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1687/detail",
-    "scrapedAt": "2026-10-16T19:54:09+00:00"
+    "scrapedAt": "2026-10-20T11:03:10+00:00"
   },
   "profile": {
     "name": "叶瞬光",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】凛刃属性强攻特性代理人，定位为双形态驻场输出角色，有独特的帷幕易伤机制，可无视失衡提高对敌人造成的伤害，爆发能力极其优秀。\n【角色详情】叶瞬光是凛刃属性的强攻特性代理人，她可以通过双形态机制，利用以太帷幕无视敌人的失衡状态造成更高的伤害。她的凛刃属性是更高阶的物理属性，对秽息有50%的净化效率提升，得益于基础高暴击的加成以及不俗的增伤加持，她有着很高的输出上限。若队友配置满足条件，叶瞬光还能更快地启动另一形态进行驻场作战。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/honed-edge.png",
-      "title": "/images/strategy/ye-shunguang/title.png"
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/honed-edge.webp",
+      "title": "/images/strategy/ye-shunguang/title.webp"
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 863,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 83,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 94,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1687.png",
+    "avatar": "/images/agents/ep-1687.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/25/15559334/a616a865cac5d9faad9b22aa1a4e329b_3555207546534807102.png",
-    "tachie": "/images/strategy/ye-shunguang/tachie.png",
+    "tachie": "/images/strategy/ye-shunguang/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/25/15559334/bc2d2491d3d46cd33ff691fb79234532_5743555002107902069.png"
   },
   "skills": [
@@ -2045,7 +1993,7 @@
           "text": "发动[强化特殊技：明心境·飞光]期间，每次消耗[青溟剑势]时，若拥有[观止]效果，则不消耗[青溟剑势]，改为消耗[观止]效果，该效果不可叠加，持续至该次[明心境]状态结束。"
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -2618,7 +2566,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -4199,7 +4147,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -5598,7 +5546,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -6719,7 +6667,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -6728,8 +6676,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：照破无明\n非[明心境]状态且未拥有6点[青溟剑势]时，部分攻击会缓慢积攒[青溟剑势]；任意方式获得[青溟剑势]时，每溢出1点[青溟剑势]，将转化为1层[载物]效果，至多叠加3层，在退出[明心境]状态时，会消耗所有[载物]获得对应层数的[青溟剑势]。\n进入战场时，获得[合道]效果，暴击率提升29.4%，造成的伤害提升10%，基础攻击力提升75点。（此处数据为满级数据）\n释放[终结技：逐云惊霆]或[登场技：照影]后，叶瞬光将进入[明心境]状态，并开启[以太帷幕·决裁]；[以太帷幕·决裁]与[明心境]持续时间相同，持续16秒，处于后场时，持续时间不再减少；处于[明心境]状态下，叶瞬光将使用更加强力的招式，招式造成的物理伤害均为凛刃伤害。\n[以太帷幕·决裁]持续期间，敌人进入[以太帷幕·决裁]时，将基于其此时的失衡易伤倍率为其附加帷幕易伤效果，叶瞬光对敌人造成伤害时都将不计算敌人的失衡易伤加成，转而计算帷幕易伤加成；帷幕易伤加成上限为110%，[以太帷幕·决裁]结束时移除帷幕易伤效果。\n\n额外能力：溯影惊鸿\n队伍中存在[支援]或[防护]角色时触发：\n队友开启任意[以太帷幕]时，获得3点[青溟剑势]，若自身已经处于[明心境]状态，则会转化为3层[载物]效果。",
+          "title": "核心技：照破无明",
+          "text": "非[明心境]状态且未拥有6点[青溟剑势]时，部分攻击会缓慢积攒[青溟剑势]；任意方式获得[青溟剑势]时，每溢出1点[青溟剑势]，将转化为1层[载物]效果，至多叠加3层，在退出[明心境]状态时，会消耗所有[载物]获得对应层数的[青溟剑势]。\n进入战场时，获得[合道]效果，暴击率提升30%，造成的伤害提升25%。\n释放[终结技：逐云惊霆]或[登场技：照影]后，叶瞬光将进入[明心境]状态，并开启[以太帷幕·决裁]；[以太帷幕·决裁]与[明心境]持续时间相同，持续16秒，处于后场时，持续时间不再减少；处于[明心境]状态下，叶瞬光将使用更加强力的招式，招式造成的物理伤害均为凛刃伤害。\n[以太帷幕·决裁]持续期间，敌人进入[以太帷幕·决裁]时，将基于其此时的失衡易伤倍率为其附加帷幕易伤效果，叶瞬光对敌人造成伤害时都将不计算敌人的失衡易伤加成，转而计算帷幕易伤加成；帷幕易伤加成上限为110%，[以太帷幕·决裁]结束时移除帷幕易伤效果。",
           "growth": [
             {
               "level": "A",
@@ -6798,9 +6746,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：溯影惊鸿",
+          "text": "队伍中存在[支援]或[防护]角色时触发：\n队友开启任意[以太帷幕]时，获得3点[青溟剑势]，若自身已经处于[明心境]状态，则会转化为3层[载物]效果。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/26/141353238/b7e0a2137d306d801903f464487382ed_7867977287102861618.png"
     }
   ],
@@ -6838,27 +6790,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/ye-shunguang/cinema-2.png",
+      "image": "/images/strategy/ye-shunguang/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/1bcde1021ff01fa618aafa2489f179e4_2319057735716888381.png"
     },
     "2": {
-      "image": "/images/strategy/ye-shunguang/cinema-2.png",
+      "image": "/images/strategy/ye-shunguang/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/1bcde1021ff01fa618aafa2489f179e4_2319057735716888381.png"
     },
     "3": {
-      "image": "/images/strategy/ye-shunguang/cinema-2.png",
+      "image": "/images/strategy/ye-shunguang/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/1bcde1021ff01fa618aafa2489f179e4_2319057735716888381.png"
     },
     "4": {
-      "image": "/images/strategy/ye-shunguang/cinema-3.png",
+      "image": "/images/strategy/ye-shunguang/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/a914afa2048a485b8f070935aed65935_641180353289948044.png"
     },
     "5": {
-      "image": "/images/strategy/ye-shunguang/cinema-3.png",
+      "image": "/images/strategy/ye-shunguang/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/a914afa2048a485b8f070935aed65935_641180353289948044.png"
     },
     "6": {
-      "image": "/images/strategy/ye-shunguang/cinema-3.png",
+      "image": "/images/strategy/ye-shunguang/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/12/30/76099754/a914afa2048a485b8f070935aed65935_641180353289948044.png"
     }
   }

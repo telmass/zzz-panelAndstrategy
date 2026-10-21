@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/yanagi/background.webp",
   "_meta": {
     "agentId": "ep-916",
     "name": "月城柳",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -39,7 +40,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -73,17 +74,17 @@
         {
           "name": "嵌合编译器",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-214.png"
+          "icon": "/images/weapons/ep-214.webp"
         },
         {
           "name": "淬锋钳刺",
           "stats": "S 级 · 基础攻击 713 · 异常精通 90",
-          "icon": "/images/weapons/ep-760.png"
+          "icon": "/images/weapons/ep-760.webp"
         },
         {
           "name": "灼心摇壶",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-841.png"
+          "icon": "/images/weapons/ep-841.webp"
         }
       ],
       "note": "异常音擎下位，需按 WIKI 音擎详情页补全特效文本。"
@@ -94,17 +95,17 @@
         {
           "name": "时流贤者",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-915.png"
+          "icon": "/images/weapons/ep-915.webp"
         },
         {
           "name": "飞鸟星梦",
           "stats": "S 级 · 基础攻击 713 · 异常精通 90",
-          "icon": "/images/weapons/ep-1277.png"
+          "icon": "/images/weapons/ep-1277.webp"
         },
         {
           "name": "十方锻星",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-1503.png"
+          "icon": "/images/weapons/ep-1503.webp"
         }
       ],
       "note": "备选异常音擎，需按 WIKI 音擎详情页补全特效文本。"
@@ -117,18 +118,18 @@
         "name": "谶羽之誓",
         "label": "异常精通 +92",
         "effect4": "队伍中任意角色对敌人施加[强化特殊技]时，装备者的异常精通提升92点，持续8秒，重复触发时刷新持续时间。",
-        "icon": "/images/discs/ep-2116.png"
+        "icon": "/images/discs/ep-2116.webp"
       },
       "set2": {
         "main": {
           "name": "法厄同之歌",
           "label": "异常掌控 +8%",
-          "icon": "/images/discs/ep-1194.png"
+          "icon": "/images/discs/ep-1194.webp"
         },
         "alt": {
           "name": "混沌爵士",
           "label": "异常精通 +30",
-          "icon": "/images/discs/ep-800.png"
+          "icon": "/images/discs/ep-800.webp"
         }
       },
       "mainStats": [
@@ -179,12 +180,12 @@
           "agentId": "ep-996",
           "name": "星见 雅",
           "role": "异常",
-          "avatar": "/images/agents/ep-996.png",
+          "avatar": "/images/agents/ep-996.webp",
           "note": "烈霜异常主 C，满层[落霜]后满蓄力重击是主要爆发，月城柳的电异常与冰异常组成双异常紊乱。",
           "set4": [
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         },
@@ -192,12 +193,12 @@
           "agentId": "ep-1852",
           "name": "南宫羽",
           "role": "击破",
-          "avatar": "/images/agents/ep-1852.png",
+          "avatar": "/images/agents/ep-1852.webp",
           "note": "以太击破副 C，优质以太异常给紊乱基底，三段蓄力精准起手。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -205,12 +206,12 @@
           "agentId": "ep-916",
           "name": "月城柳",
           "role": "异常",
-          "avatar": "/images/agents/ep-916.png",
+          "avatar": "/images/agents/ep-916.webp",
           "note": "电异常后台耀变引擎，[漂流]持续异常积蓄与[归零]异放；谶羽之誓 4 件 + 法厄同之歌 2 件。",
           "set4": [
             {
               "name": "谶羽之誓",
-              "icon": "/images/discs/ep-2116.png"
+              "icon": "/images/discs/ep-2116.webp"
             }
           ]
         }
@@ -223,16 +224,16 @@
           "agentId": "ep-1385",
           "name": "爱丽丝",
           "role": "异常",
-          "avatar": "/images/agents/ep-1385.png",
+          "avatar": "/images/agents/ep-1385.webp",
           "note": "物理异常主 C，极性强击自紊乱；月城柳的电异常与物理异常互相结算紊乱。",
           "set4": [
             {
               "name": "獠牙重金属",
-              "icon": "/images/discs/ep-104.png"
+              "icon": "/images/discs/ep-104.webp"
             },
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -240,12 +241,12 @@
           "agentId": "ep-1386",
           "name": "柚叶",
           "role": "支援",
-          "avatar": "/images/agents/ep-1386.png",
+          "avatar": "/images/agents/ep-1386.webp",
           "note": "彩糖花火染以太，加速以太积蓄，满足月城柳额外能力的队内异常条件。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -253,12 +254,12 @@
           "agentId": "ep-916",
           "name": "月城柳",
           "role": "异常",
-          "avatar": "/images/agents/ep-916.png",
+          "avatar": "/images/agents/ep-916.webp",
           "note": "电异常后台耀变引擎，与爱丽丝的物理异常互相结算紊乱。",
           "set4": [
             {
               "name": "谶羽之誓",
-              "icon": "/images/discs/ep-2116.png"
+              "icon": "/images/discs/ep-2116.webp"
             }
           ]
         }

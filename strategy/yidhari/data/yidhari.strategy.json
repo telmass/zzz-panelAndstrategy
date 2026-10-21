@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/yidhari/background.webp",
   "_meta": {
     "agentId": "ep-1538",
     "name": "伊德海莉·墨菲",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -31,7 +32,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -39,7 +40,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "海妖摇篮",
           "stats": "S 级 · 基础攻击 713 · 生命值 30%",
-          "icon": "/images/weapons/ep-1664.png"
+          "icon": "/images/weapons/ep-1664.webp"
         }
       ],
       "note": "专武（WIKI 推荐表仅列伊德海莉）：生命值降低时冰属性贯穿伤害 +6%（满阶 10%，最多 3 层、常驻），生命值降到最大值 50% 以下时暴击率 +20%（满阶 32%）——贯穿力增伤是独立乘区，配合她的烧血机制等于全程生效。"
@@ -79,7 +80,7 @@
         {
           "name": "青溟笼舍",
           "stats": "S 级 · 基础攻击 743 · 生命值 30%",
-          "icon": "/images/weapons/ep-1342.png"
+          "icon": "/images/weapons/ep-1342.webp"
         }
       ],
       "note": "仪玄的专武，给暴击率 +20%~32% 与生命加成，特效的以太伤害/以太贯穿增伤对冰伤的她不生效，但 743 的高白值经 0.3 换算反哺贯穿力，综合约为专武的 86%~90%。"
@@ -90,12 +91,12 @@
         {
           "name": "电波漫步",
           "stats": "A 级 · 基础攻击 594 · 生命值 25%",
-          "icon": "/images/weapons/ep-1340.png"
+          "icon": "/images/weapons/ep-1340.webp"
         },
         {
           "name": "燔火胧夜",
           "stats": "A 级 · 基础攻击 624 · 生命值 25%",
-          "icon": "/images/weapons/ep-1612.png"
+          "icon": "/images/weapons/ep-1612.webp"
         }
       ],
       "note": "电波漫步发动连携/终结直接加贯穿力（每层最多 128 点、3 层），是命破最通用的特效；燔火胧夜的火伤加成对她无效，但生命降低时的暴击率仍然有用。"
@@ -106,7 +107,7 @@
         {
           "name": "幻变魔方",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-1343.png"
+          "icon": "/images/weapons/ep-1343.webp"
         }
       ],
       "note": "玩具店免费音擎：发动强化特殊技加暴击伤害、目标半血以下时强化特殊技伤害再提升；副词条是攻击力（经 0.3 换算成贯穿力），高精炼时约为专武的 80%。"
@@ -119,18 +120,18 @@
         "name": "云岿如我",
         "label": "生命值 +10%",
         "effect4": "发动[强化特殊技]、[连携技]、[终结技]时，暴击率提升4%，最多叠加3层，持续15秒，重复触发时刷新持续时间，拥有3层效果时，造成的贯穿伤害提升10%。",
-        "icon": "/images/discs/ep-1347.png"
+        "icon": "/images/discs/ep-1347.webp"
       },
       "set2": {
         "main": {
           "name": "折枝剑歌",
           "label": "暴击伤害 +16%",
-          "icon": "/images/discs/ep-1000.png"
+          "icon": "/images/discs/ep-1000.webp"
         },
         "alt": {
           "name": "啄木鸟电音",
           "label": "暴击率 +8%",
-          "icon": "/images/discs/ep-232.png"
+          "icon": "/images/discs/ep-232.webp"
         }
       },
       "mainStats": [
@@ -181,12 +182,12 @@
           "agentId": "ep-65",
           "name": "莱卡恩",
           "role": "击破",
-          "avatar": "/images/agents/ep-65.png",
+          "avatar": "/images/agents/ep-65.webp",
           "note": "常驻 S 级击破，速切破韧不占用站场时间，减冰抗并提升失衡易伤，让她的下砸伤害更高。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -194,16 +195,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "支援",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "以太帷幕给全队生命上限、贯穿力、增伤与暴伤（最高约 1300 点贯穿力），是她最核心的辅助。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -211,16 +212,16 @@
           "agentId": "ep-1538",
           "name": "伊德海莉·墨菲",
           "role": "命破",
-          "avatar": "/images/agents/ep-1538.png",
+          "avatar": "/images/agents/ep-1538.webp",
           "note": "冰属性命破站场主C，烧血蓄力打贯穿伤害；击破身份的莱卡恩触发她的额外能力，帷幕内三蓄/极寒重碾召唤寒冰触手追加伤害。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             },
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         }
@@ -233,12 +234,12 @@
           "agentId": "ep-1301",
           "name": "橘福福",
           "role": "击破",
-          "avatar": "/images/agents/ep-1301.png",
+          "avatar": "/images/agents/ep-1301.webp",
           "note": "后场击破，提升击破效率与她的终结技循环，自身 80% 暴伤加成也提高队伍输出。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -246,16 +247,16 @@
           "agentId": "ep-1533",
           "name": "卢西娅",
           "role": "支援",
-          "avatar": "/images/agents/ep-1533.png",
+          "avatar": "/images/agents/ep-1533.webp",
           "note": "以太帷幕常驻，全程提升蓄力速度，终结技后的回血区域保证她的生存。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             },
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             }
           ]
         },
@@ -263,16 +264,16 @@
           "agentId": "ep-1538",
           "name": "伊德海莉·墨菲",
           "role": "命破",
-          "avatar": "/images/agents/ep-1538.png",
+          "avatar": "/images/agents/ep-1538.webp",
           "note": "站场输出核心；橘福福的击破效率让她的以太帷幕·涌泉与终结技衔接更顺畅。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             },
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         }
@@ -285,12 +286,12 @@
           "agentId": "ep-1301",
           "name": "橘福福",
           "role": "击破",
-          "avatar": "/images/agents/ep-1301.png",
+          "avatar": "/images/agents/ep-1301.webp",
           "note": "负责破韧与暴伤/增伤，站场顺序排在她之前。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -298,12 +299,12 @@
           "agentId": "ep-1300",
           "name": "潘引壶",
           "role": "防护",
-          "avatar": "/images/agents/ep-1300.png",
+          "avatar": "/images/agents/ep-1300.webp",
           "note": "A 级命破专属辅助，快速支援上切给贯穿力加成与治疗；核心增益按自身攻击力转化，需留在队尾（伊德海莉置于他之前）。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         },
@@ -311,16 +312,16 @@
           "agentId": "ep-1538",
           "name": "伊德海莉·墨菲",
           "role": "命破",
-          "avatar": "/images/agents/ep-1538.png",
+          "avatar": "/images/agents/ep-1538.webp",
           "note": "无卢西娅时的过渡核心，靠潘引壶的贯穿力与常规增伤、橘福福的失衡窗口输出。",
           "set4": [
             {
               "name": "云岿如我",
-              "icon": "/images/discs/ep-1347.png"
+              "icon": "/images/discs/ep-1347.webp"
             },
             {
               "name": "折枝剑歌",
-              "icon": "/images/discs/ep-1000.png"
+              "icon": "/images/discs/ep-1000.webp"
             }
           ]
         }

@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "datasets": {
+    "agent-index": {
+      "path": "catalog/agent-index.json",
+      "role": "source",
+      "maintained": "manual",
+      "generator": null,
+      "schema": "array<{slug, cn_short, cn_full, en}>",
+      "distribution": [
+        "tools",
+        "frontend-build"
+      ],
+      "count": 62,
+      "sha256": "285dedf914382aa14109c3ce2235f716715cbfc58908dcc1d18e298286ffe2a1"
+    },
+    "agents": {
+      "path": "catalog/agents.json",
+      "role": "source",
+      "maintained": "skill",
+      "generator": ".github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py",
+      "schema": "backend/src/zzz_panel/schemas/presets.py::AgentPreset",
+      "distribution": [
+        "backend-api",
+        "worker-embedded"
+      ],
+      "worker": true,
+      "count": 61,
+      "sha256": "857300e44277a220ccc8fff9a915680fa7043311107be899cef41bbb392e3282"
+    },
+    "calculator-rules": {
+      "path": "rules/calculator-rules.json",
+      "role": "generated",
+      "maintained": "code",
+      "generator": "tools/sync_presets.py --options",
+      "schema": "backend/src/zzz_panel/core/options.py",
+      "distribution": [
+        "frontend-build"
+      ],
+      "count": 54,
+      "sha256": "eabeebba572cd5fcb559a4143dffb7809712cd5b53858f2f8c6fd155ac32ad33"
+    },
+    "drive-discs": {
+      "path": "catalog/drive-discs.json",
+      "role": "source",
+      "maintained": "skill",
+      "generator": ".github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py",
+      "schema": "array<{id, name, source, image, setEffect2, setEffect4}>",
+      "distribution": [
+        "tools"
+      ],
+      "count": 30,
+      "sha256": "6274022358ebce4b8958f38bc3e9571a2072be0b115d129d7d5970e5feebb74c"
+    },
+    "weapons": {
+      "path": "catalog/weapons.json",
+      "role": "source",
+      "maintained": "skill",
+      "generator": ".github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py",
+      "schema": "backend/src/zzz_panel/schemas/presets.py::WeaponPreset",
+      "distribution": [
+        "backend-api",
+        "worker-embedded"
+      ],
+      "worker": true,
+      "count": 101,
+      "sha256": "a4c29a0eeeae3c1b832eceff6b6dc0f40bdca0adc9715d97f7a11a70985119d0"
+    }
+  },
+  "strategy": {
+    "root": "strategy",
+    "dataSubdir": "data",
+    "indexDataset": "agent-index"
+  }
+}

@@ -4,7 +4,7 @@
     "entryPageId": 950,
     "name": "莱特",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/950/detail",
-    "scrapedAt": "2026-10-18T05:16:28+00:00"
+    "scrapedAt": "2026-10-20T10:59:36+00:00"
   },
   "profile": {
     "name": "莱特",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】击破特性代理人，具有速切失衡能力、冰火属性辅助能力、延长失衡时间能力\n【角色详情】莱特是一位火属性的击破代理人。能够基于士气机制，在合适时机登场，短时间内贡献大量失衡值；同样，莱特还能基于士气机制，降低敌人的冰火属性伤害抗性，提升全队的冰火属性伤害；最后，莱特具有延长敌方失衡时间的机制，还拥有点按闪避和动摇杆垫步闪避，再继续衔接连段的灵活机制。综上，莱特是一位速切失衡能力优秀，冰火属性辅助能力特化，拥有延长失衡的独特机制并且身法灵活的击破角色。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8253,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 722,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 612,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 119,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 91,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-950.png",
+    "avatar": "/images/agents/ep-950.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/21/76099754/97be522aa2bce70b13167df8b42e176f_6973279715938714866.png",
-    "tachie": "/images/strategy/lighter/tachie.png",
+    "tachie": "/images/strategy/lighter/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/18/76099754/637798ed499a2f86e416b3bb2b0203f9_7665791603372082688.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2254,7 +2202,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -2819,7 +2767,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -2828,8 +2776,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：助燃剂\n莱特会随时间自动获得[士气]，每秒回复2.9点，队伍中任意角色每消耗1点能量值，额外为莱特回复0.26点[士气]，莱特最多拥有100点[士气]；[士气]回复至80点时，下一次换入前场将直接发动[快速支援]；[士气]大于等于80点后，莱特发动第五段[普通攻击]时，将进入[士气喷发]状态，提升[普通攻击]第五段中轻拳起攻、刺拳连击和终结一击的威力；威力提升后，招式命中敌人时，会持续消耗[士气]，每消耗10点[士气]，莱特的冲击力提升1%，最多提升10%，持续6秒；\n[士气喷发]状态下，莱特不再随时间自动获得[士气]，轻拳起攻或刺拳连击期间耗尽[士气]时，会自动衔接发动更加强力的终结一击；\n[士气喷发]状态下，轻拳起攻或刺拳连击命中敌人时，目标的冰属性伤害抗性和火属性伤害抗性降低15%，持续30秒；\n[士气喷发]状态下，终结一击命中敌人时，会对目标施加[溃败]效果，使其进入失衡状态后的失衡持续时间提升3秒，从失衡状态恢复前[溃败]效果对同一目标最多触发一次；\n[普通攻击]第五段中终结一击命中敌人、换回后场或[士气]耗尽时，莱特将退出[士气喷发]状态，尚未消耗的[士气]会被保留，基础冲击力提升18点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：斗志昂扬\n队伍中存在[强攻]角色或与自身阵营相同的角色时触发：\n[士气喷发]状态下，莱特第五段[普通攻击]命中敌人时，全队角色获得一层[昂扬]，最多叠加20层，持续30秒，重复触发时刷新持续时间；每拥有一层[昂扬]，代理人造成的冰属性伤害和火属性伤害提升1.25%，获得[昂扬]时，若莱特的冲击力高于170点，每超过10点冲击力会使每层[昂扬]提供的增益效果额外提升0.25%；队伍中任意角色发动[连携技]时，会刷新全队角色[昂扬]的持续时间；[昂扬]最多使代理人造成的冰属性伤害和火属性伤害提升75%。",
+          "title": "核心技：助燃剂",
+          "text": "莱特会随时间自动获得[士气]，每秒回复2.9点，队伍中任意角色每消耗1点能量值，额外为莱特回复0.26点[士气]，莱特最多拥有100点[士气]；[士气]回复至80点时，下一次换入前场将直接发动[快速支援]；[士气]大于等于80点后，莱特发动第五段[普通攻击]时，将进入[士气喷发]状态，提升[普通攻击]第五段中轻拳起攻、刺拳连击和终结一击的威力；威力提升后，招式命中敌人时，会持续消耗[士气]，每消耗10点[士气]，莱特的冲击力提升2%，最多提升20%，持续6秒；\n[士气喷发]状态下，莱特不再随时间自动获得[士气]，轻拳起攻或刺拳连击期间耗尽[士气]时，会自动衔接发动更加强力的终结一击；\n[士气喷发]状态下，轻拳起攻或刺拳连击命中敌人时，目标的冰属性伤害抗性和火属性伤害抗性降低15%，持续30秒；\n[士气喷发]状态下，终结一击命中敌人时，会对目标施加[溃败]效果，使其进入失衡状态后的失衡持续时间提升3秒，从失衡状态恢复前[溃败]效果对同一目标最多触发一次；\n[普通攻击]第五段中终结一击命中敌人、换回后场或[士气]耗尽时，莱特将退出[士气喷发]状态，尚未消耗的[士气]会被保留。",
           "growth": [
             {
               "level": "A",
@@ -2898,9 +2846,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：斗志昂扬",
+          "text": "队伍中存在[强攻]角色或与自身阵营相同的角色时触发：\n[士气喷发]状态下，莱特第五段[普通攻击]命中敌人时，全队角色获得一层[昂扬]，最多叠加20层，持续30秒，重复触发时刷新持续时间；每拥有一层[昂扬]，代理人造成的冰属性伤害和火属性伤害提升1.25%，获得[昂扬]时，若莱特的冲击力高于170点，每超过10点冲击力会使每层[昂扬]提供的增益效果额外提升0.25%；队伍中任意角色发动[连携技]时，会刷新全队角色[昂扬]的持续时间；[昂扬]最多使代理人造成的冰属性伤害和火属性伤害提升75%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/18/76099754/4a4143ecc60ca031485bd73429bcc5c1_8924577296750648440.png"
     }
   ],
@@ -2938,27 +2890,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/lighter/cinema-2.png",
+      "image": "/images/strategy/lighter/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/64db50c260779ceee98533b2c7440fd1_3307920791471270344.png"
     },
     "2": {
-      "image": "/images/strategy/lighter/cinema-2.png",
+      "image": "/images/strategy/lighter/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/64db50c260779ceee98533b2c7440fd1_3307920791471270344.png"
     },
     "3": {
-      "image": "/images/strategy/lighter/cinema-2.png",
+      "image": "/images/strategy/lighter/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/04/27/76099754/64db50c260779ceee98533b2c7440fd1_3307920791471270344.png"
     },
     "4": {
-      "image": "/images/strategy/lighter/cinema-3.png",
+      "image": "/images/strategy/lighter/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/27/76099754/df8b1b5098ae0bcd5b8f2cf128eb311d_4680771690149022055.png"
     },
     "5": {
-      "image": "/images/strategy/lighter/cinema-3.png",
+      "image": "/images/strategy/lighter/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/27/76099754/df8b1b5098ae0bcd5b8f2cf128eb311d_4680771690149022055.png"
     },
     "6": {
-      "image": "/images/strategy/lighter/cinema-3.png",
+      "image": "/images/strategy/lighter/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/11/27/76099754/df8b1b5098ae0bcd5b8f2cf128eb311d_4680771690149022055.png"
     }
   }

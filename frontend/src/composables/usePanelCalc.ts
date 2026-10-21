@@ -101,7 +101,7 @@ function buildRequest(): PanelCalcRequest {
       er: base.er,
     },
     weapon: {
-      baseKind: preset ? (preset.baseKind ?? 'atk') : 'atk',
+      baseKind: preset ? preset.base.kind : 'atk',
       baseValue: preset ? weapon.baseValue : 0,
       substat,
     },

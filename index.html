@@ -25,9 +25,10 @@
         --color-surface: #fff;
         --color-text: #1f2937;
         --color-text-strong: #111827;
-        --color-text-muted: #6b7280;
+        --color-text-muted: #5f6b7a;
         --color-border: #d1d5db;
-        --color-accent: #6366f1;
+        --color-border-strong: #7d8794;
+        --color-accent: #4f46e5;
         --color-accent-soft: #eef2ff;
         --color-accent-border: #c7d2fe;
         --color-accent-hover-bg: #e0e7ff;
@@ -39,7 +40,12 @@
         --space-4: 16px;
         --space-5: 20px;
         --space-6: 24px;
-        --shadow-module: 0 1px 3px rgb(0 0 0 / 6%);
+        --elevation-2: 0 1px 3px rgb(17 19 24 / 6%);
+        --text-sm: 13px;
+        --text-base: 14px;
+        --text-md: 15px;
+        --text-lg: 17px;
+        --text-3xl: 28px;
       }
 
       body {
@@ -48,7 +54,7 @@
         background: var(--color-page-bg);
         color: var(--color-text);
         font-family: var(--font-sans);
-        font-size: 15px;
+        font-size: var(--text-md);
         line-height: 1.7;
       }
 
@@ -60,13 +66,13 @@
       h1 {
         margin: 0 0 var(--space-2);
         color: var(--color-text-strong);
-        font-size: 26px;
+        font-size: var(--text-3xl);
       }
 
       h2 {
         margin: var(--space-6) 0 var(--space-3);
         color: var(--color-text-strong);
-        font-size: 17px;
+        font-size: var(--text-lg);
       }
 
       .lead {
@@ -78,17 +84,17 @@
         padding: var(--space-5);
         background: var(--color-surface);
         border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-module);
+        box-shadow: var(--elevation-2);
       }
 
       code {
-        padding: 1px 5px;
+        padding: 2px 8px;
         background: var(--color-accent-soft);
         border: 1px solid var(--color-accent-border);
         border-radius: var(--radius-md);
         color: var(--color-accent-text);
         font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
-        font-size: 13px;
+        font-size: var(--text-sm);
       }
 
       pre {
@@ -110,7 +116,7 @@
       .btn {
         display: inline-block;
         margin-top: var(--space-3);
-        padding: 10px 18px;
+        padding: var(--space-3) var(--space-5);
         background: var(--color-accent);
         border-radius: var(--radius-md);
         color: #fff;
@@ -125,7 +131,7 @@
 
       .muted {
         color: var(--color-text-muted);
-        font-size: 13px;
+        font-size: var(--text-sm);
       }
 
       table {
@@ -134,7 +140,7 @@
         background: var(--color-surface);
         border-radius: var(--radius-lg);
         overflow: hidden;
-        box-shadow: var(--shadow-module);
+        box-shadow: var(--elevation-2);
       }
 
       th,
@@ -148,7 +154,7 @@
       th {
         background: var(--color-accent-soft);
         color: var(--color-text-strong);
-        font-size: 14px;
+        font-size: var(--text-base);
       }
 
       tr:last-child td {
@@ -158,7 +164,7 @@
       .foot {
         margin-top: var(--space-6);
         color: var(--color-text-muted);
-        font-size: 13px;
+        font-size: var(--text-sm);
       }
     </style>
   </head>
@@ -207,18 +213,22 @@
       </table>
 
       <h2>为什么根目录不是应用本体</h2>
+    <p>
+    <strong>别在根目录跑 <code>npx vite</code>：</strong>根目录没有本地依赖，npx 会当场下载并运行<em>最新版</em>的 Vite（实测拉到 8.3.4，而项目用的是 6.4.3），它自带的 esbuild 也就跟着走样。
+    开发服务一律用 <code>pwsh tools/dev.ps1</code>（它以 <code>frontend/</code> 为工作目录启动），或先 <code>cd frontend</code>。
+    </p>
       <p>
         前端是 Vite 工程，<code>index.html</code>、<code>public/</code>、<code>dist/</code>
         与测试目录都以 <code>frontend/</code> 为 root 解析。把入口放到仓库根会让
         <code>/src/main.ts</code> 解析到不存在的路径、静态资源拷到根目录的
         <code>public/</code>、产物输出到根目录 <code>dist/</code>，Vitest 也找不到用例。
-        目录职责见 <a href="docs/directory-layout.md">docs/directory-layout.md</a>。
+        目录职责见 <a href="docs/overview/directory-layout.md">docs/directory-layout.md</a>。
       </p>
 
       <p class="foot">
         项目说明见 <a href="README.md">README.md</a> · 文档索引见
         <a href="docs/README.md">docs/README.md</a> · 部署形态见
-        <a href="docs/deployment.md">docs/deployment.md</a>
+        <a href="docs/guides/deployment.md">docs/deployment.md</a>
       </p>
     </main>
   </body>

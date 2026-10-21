@@ -6,6 +6,7 @@ import {
   WEAPON_ROLE_TAGS,
   agentTagSegments,
 } from '@/constants/calculatorOptions';
+import { DISC_BY_ID } from '@/constants/discPresets';
 import { usePresetStore } from '@/stores/presetStore';
 import type {
   AgentSelection,
@@ -13,7 +14,10 @@ import type {
   CoreSelection,
   DiscMainStats,
   PanelMode,
+  SetDiscs,
   SetEffects,
+  SetPickMode,
+  SetSlot,
   SubStatCounts,
   WeaponSelection,
 } from '@/types/panel';
@@ -128,6 +132,16 @@ export const usePanelStore = defineStore('panel', {
     discMain: { disc4: '', disc5: '', disc6: '' } as DiscMainStats,
     subStats: emptySubStats(),
     setEffects: { set0: '', set1: '', set2: '' } as SetEffects,
+    /**
+     * 每组二件套**选中的是哪套装**（仅「按套装选」时记录）。
+     *
+     * 计算用的是 ``setEffects`` 里的**效果 id**，这里只是辅助信息：
+     * 用来在页面上显示套装名与图标，以及导出配装方案时记录「穿了哪套」。
+     * 直接改 ``setEffects``（按效果选）时对应的套装会被清掉。
+     */
+    setDiscs: { set0: '', set1: '', set2: '' } as SetDiscs,
+    /** 二件套的填法：按效果（默认，行为与旧版一致）/ 按套装。 */
+    setPickMode: 'effect' as SetPickMode,
 
     /** 已成功载入的代理人预设 id，用于判断切换标签时是否需要清空。 */
     appliedAgentPresetId: '',
@@ -211,7 +225,7 @@ export const usePanelStore = defineStore('panel', {
      * 未命中预设（含用户点清除按钮）时两者一并清空，
      * 否则会出现 `roleTag` 有值而 `preset` 为空的矛盾状态。
      *
-     * 基础值标签随 baseKind 变化：锋御音擎提供基础防御力。
+     * 基础值标签随基础值种类变化：锋御音擎提供基础防御力。
      * `localize` 传入当前面板模式下的文案替换函数，
      * 使锋御模式显示「锐能自动累积」而非「能量自动回复」。
      */
@@ -224,12 +238,11 @@ export const usePanelStore = defineStore('panel', {
         this.clearWeaponStats();
         return;
       }
-      const baseKind = weapon.baseKind ?? 'atk';
       this.weapon.preset = weapon.id;
       this.weapon.roleTag = weapon.roleTag;
       this.weapon.grade = weapon.grade;
-      this.weapon.baseLabel = baseKind === 'def' ? '基础防御力' : '基础攻击力';
-      this.weapon.baseValue = baseKind === 'def' ? weapon.baseDefense : weapon.baseAttack;
+      this.weapon.baseLabel = weapon.base.kind === 'def' ? '基础防御力' : '基础攻击力';
+      this.weapon.baseValue = weapon.base.value;
       this.weapon.subType = localize(weapon.substat.label);
       this.weapon.subValue = weapon.substat.value;
     },
@@ -240,6 +253,37 @@ export const usePanelStore = defineStore('panel', {
       this.weapon.roleTag = '';
       this.weapon.preset = '';
       this.clearWeaponStats();
+    },
+
+    /* ====== 二件套：按效果选 / 按套装选 ====== */
+
+    /**
+     * 直接选一个 2 件套**效果**（不绑定套装）。
+     *
+     * 对应 legacy 的 `#setN` 直接改值。手动改效果时，清掉该组记着的套装——
+     * 否则页面会显示「选了獠牙重金属」，而实际填的是另一个效果。
+     */
+    setEffect(slot: SetSlot, effectId: string): void {
+      this.setEffects[slot] = effectId;
+      this.setDiscs[slot] = '';
+    },
+
+    /**
+     * 选一套驱动盘：把它的 2 件套效果写进对应组，并记下套装 id。
+     *
+     * 该套的 2 件套效果**算不进出口面板**时（属性伤害 / 条件触发，
+     * 见 `data/catalog/drive-discs.json` 的 `effect2Note`），效果位留空——
+     * 套装仍然记着（它确实穿在身上），只是不贡献面板数值。
+     */
+    setDisc(slot: SetSlot, discId: string): void {
+      const disc = discId ? DISC_BY_ID.get(discId) : undefined;
+      if (!disc) {
+        this.setEffects[slot] = '';
+        this.setDiscs[slot] = '';
+        return;
+      }
+      this.setDiscs[slot] = disc.id;
+      this.setEffects[slot] = disc.effect2 ?? '';
     },
 
     /* ====== 代理人标签联动 ====== */
@@ -255,6 +299,7 @@ export const usePanelStore = defineStore('panel', {
       this.base = defaultBase();
       this.core = { core1: '', core2: '' };
       this.setEffects = { set0: '', set1: '', set2: '' };
+      this.setDiscs = { set0: '', set1: '', set2: '' };
       this.appliedAgentPresetId = '';
     },
 

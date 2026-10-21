@@ -4,7 +4,7 @@
     "entryPageId": 80,
     "name": "妮可·德玛拉",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/80/detail",
-    "scrapedAt": "2026-10-16T11:30:57+00:00"
+    "scrapedAt": "2026-10-20T11:00:33+00:00"
   },
   "profile": {
     "name": "妮可·德玛拉",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】快速支援、减防、聚怪\n【角色详情】妮可是一名优秀的以太支援代理人，其核心被动中的减防机制使得她在各流派都较为泛用。战斗时，妮可主要通过强化特殊技与连携技快速触发被动，提升强攻代理人的输出伤害。",
     "icons": {
-      "profession": "/images/icons/support.png",
-      "grade": "/images/grades/a.png",
-      "attribute": "/images/attributes/ether.png",
+      "profession": "/images/icons/support.webp",
+      "grade": "/images/grades/a.webp",
+      "attribute": "/images/attributes/ether.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8145,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 574,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 622,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 88,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-80.png",
+    "avatar": "/images/agents/ep-80.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/25/76099754/1cb64706be3eca5400e7cc02b8a82e60_3042993825218318926.png",
-    "tachie": "/images/strategy/nicole/tachie.png",
+    "tachie": "/images/strategy/nicole/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/25/76099754/29698b5fe55ca772b121ee7ffa28c379_7416759043283841449.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/05/284550490/e180f078d7badf3e8c104556f2ce3397_8232698934788266745.png"
     },
     {
@@ -2532,7 +2480,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3097,7 +3045,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3106,8 +3054,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：机关箱\n妮可在[特殊技]、[强化特殊技]、[连携技]、[终结技]等招式中，上弹并强化[普通攻击]与[冲刺攻击]；强化子弹或能量场命中敌人时，目标的防御力降低20%，持续3.5秒，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：狡兔三窟\n队伍中存在与自身属性或阵营相同的角色时触发：\n妮可通过[核心被动：机关箱]对敌人施加减益效果时，所有单位对目标造成的以太伤害额外提升25%，持续3.5秒。",
+          "title": "核心技：机关箱",
+          "text": "妮可在[特殊技]、[强化特殊技]、[连携技]、[终结技]等招式中，上弹并强化[普通攻击]与[冲刺攻击]；强化子弹或能量场命中敌人时，目标的防御力降低40%，持续3.5秒。",
           "growth": [
             {
               "level": "A",
@@ -3176,9 +3124,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：狡兔三窟",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发：\n妮可通过[核心被动：机关箱]对敌人施加减益效果时，所有单位对目标造成的以太伤害额外提升25%，持续3.5秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/06/82232455/c4098ecfba97a70f17f288f4e451df0a_1392102112503355105.png"
     }
   ],
@@ -3216,27 +3168,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/nicole/cinema-2.png",
+      "image": "/images/strategy/nicole/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/15559334/9139070dc505bc48f475146b71ee24b7_4670777927751048268.png"
     },
     "2": {
-      "image": "/images/strategy/nicole/cinema-2.png",
+      "image": "/images/strategy/nicole/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/15559334/9139070dc505bc48f475146b71ee24b7_4670777927751048268.png"
     },
     "3": {
-      "image": "/images/strategy/nicole/cinema-2.png",
+      "image": "/images/strategy/nicole/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/15559334/9139070dc505bc48f475146b71ee24b7_4670777927751048268.png"
     },
     "4": {
-      "image": "/images/strategy/nicole/cinema-3.png",
+      "image": "/images/strategy/nicole/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/15559334/215fb5090ba85e039ddd87fac2aae22d_8425932520024716177.png"
     },
     "5": {
-      "image": "/images/strategy/nicole/cinema-3.png",
+      "image": "/images/strategy/nicole/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/15559334/215fb5090ba85e039ddd87fac2aae22d_8425932520024716177.png"
     },
     "6": {
-      "image": "/images/strategy/nicole/cinema-3.png",
+      "image": "/images/strategy/nicole/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/15559334/215fb5090ba85e039ddd87fac2aae22d_8425932520024716177.png"
     }
   }

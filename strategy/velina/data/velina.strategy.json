@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/velina/background.webp",
   "_meta": {
     "agentId": "ep-1960",
     "name": "维琳娜·艾嘉德",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -30,7 +31,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -38,7 +39,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 7,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "琳琅鎏心",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-2030.png"
+          "icon": "/images/weapons/ep-2030.webp"
         }
       ],
       "note": "专武：能量自动回复 +60% 直接抬高[风华盈袖]的局内转化；异常精通 +110，发动强化特殊技后[乱流]与[风化]伤害最多再 +22%，叠满 2 层还为全队提供异常精通 +96。"
@@ -78,12 +79,12 @@
         {
           "name": "灼心摇壶",
           "stats": "S 级 · 基础攻击 713 · 攻击力 30%",
-          "icon": "/images/weapons/ep-841.png"
+          "icon": "/images/weapons/ep-841.webp"
         },
         {
           "name": "双生泣星",
           "stats": "A 级 · 基础攻击 594 · 攻击力 25%",
-          "icon": "/images/weapons/ep-212.png"
+          "icon": "/images/weapons/ep-212.webp"
         }
       ],
       "note": "灼心摇壶位于后场时能量自动回复 +1.2 点/秒，[强化特殊技]命中叠伤害且后场叠层翻倍，为她后场放[风暴眼]量身定做；双生泣星在队友施加属性异常时叠精通，常驻卡池可稳定获取。"
@@ -94,7 +95,7 @@
         {
           "name": "触电唇彩",
           "stats": "A 级 · 基础攻击 594 · 异常精通 75",
-          "icon": "/images/weapons/ep-210.png"
+          "icon": "/images/weapons/ep-210.webp"
         }
       ],
       "note": "自带精通副属性，场上存在处于属性异常状态下的敌人时还有攻击与增伤；大月卡兑换，仅在其他音擎都被占用时考虑。"
@@ -109,14 +110,14 @@
           "label": "风属性伤害 +10%",
           "effect4": "装备者发动[强化特殊技]时，装备者异常精通提升25点，最多叠加2层，持续40秒，重复触发时刷新持续时间；装备者触发[风化]效果后，装备者造成的伤害提升18%，持续40秒，重复触发时刷新持续时间。",
           "scene": "首选：强化特殊技叠精通、触发[风化]后增伤，气旋直伤与乱流双修",
-          "icon": "/images/discs/ep-2038.png"
+          "icon": "/images/discs/ep-2038.webp"
         },
         {
           "name": "静听嘉音",
           "label": "攻击力 +10%",
           "effect4": "队伍中任意角色通过[快速支援]入场时，全队角色获得1层[嘉音]，最多叠加3层，持续15秒，重复触发时刷新持续时间，每拥有1层[嘉音]，通过[快速支援]入场的角色造成的伤害提升8%，该效果全队唯一。",
           "scene": "备选：[风暴眼]与[终结技]都会触发上一位角色的[快速支援]，快速支援频繁时靠[嘉音]层数抬伤害",
-          "icon": "/images/discs/ep-1001.png"
+          "icon": "/images/discs/ep-1001.webp"
         }
       ],
       "set2": {
@@ -124,12 +125,12 @@
           {
             "name": "摇摆爵士",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-231.png"
+            "icon": "/images/discs/ep-231.webp"
           },
           {
             "name": "月光骑士颂",
             "label": "能量自动回复 +20%",
-            "icon": "/images/discs/ep-1551.png"
+            "icon": "/images/discs/ep-1551.webp"
           }
         ]
       },
@@ -181,12 +182,12 @@
           "agentId": "ep-2076",
           "name": "蕾米埃尔",
           "role": "异常",
-          "avatar": "/images/agents/ep-2076.png",
+          "avatar": "/images/agents/ep-2076.webp",
           "note": "流明异常，[相变时流]后场积攒[虚曜]，切前场以强化普攻触发[耀变]；按异常角色数量为全队加攻。",
           "set4": [
             {
               "name": "谶羽之誓",
-              "icon": "/images/discs/ep-2116.png"
+              "icon": "/images/discs/ep-2116.webp"
             }
           ]
         },
@@ -194,12 +195,12 @@
           "agentId": "ep-1960",
           "name": "维琳娜",
           "role": "异常",
-          "avatar": "/images/agents/ep-1960.png",
+          "avatar": "/images/agents/ep-1960.webp",
           "note": "本页主角：后场召唤[广域气旋]持续挂[风化]、聚怪并降低风属性与染色属性的异常积蓄抗性，是蕾米埃尔攒[虚曜]的地基。",
           "set4": [
             {
               "name": "呼啸沙龙",
-              "icon": "/images/discs/ep-2038.png"
+              "icon": "/images/discs/ep-2038.webp"
             }
           ]
         },
@@ -207,12 +208,12 @@
           "agentId": "ep-840",
           "name": "柏妮思",
           "role": "异常",
-          "avatar": "/images/agents/ep-840.png",
+          "avatar": "/images/agents/ep-840.webp",
           "note": "火异常，在火弱环境能快速打满灼烧，与蕾米埃尔的流变火属性互相成就。",
           "set4": [
             {
               "name": "自由蓝调",
-              "icon": "/images/discs/ep-191.png"
+              "icon": "/images/discs/ep-191.webp"
             }
           ]
         }

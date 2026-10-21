@@ -34,10 +34,13 @@ export interface WeaponPreset {
   roleTag: string;
   /** 米游社官方 WIKI 出处。 */
   source: string;
-  /** 缺省视为 `atk`。 */
-  baseKind?: WeaponBaseKind;
-  baseAttack: number;
-  baseDefense: number;
+  /**
+   * 基础攻击或基础防御。
+   *
+   * 原先是三个字段（`baseKind` + `baseAttack` + `baseDefense`），其中恒有
+   * 一个是 0，消歧要靠 `baseKind`；二元组没有冗余。
+   */
+  base: { kind: WeaponBaseKind; value: number };
   substat: WeaponSubstat;
 }
 

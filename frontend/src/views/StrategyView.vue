@@ -4,6 +4,8 @@ import { nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { BackToLauncher } from '@/components/layout';
 import { fetchStrategyContent, fetchStrategyData } from '@/api/strategy';
 import { renderStrategy } from '@/strategy/renderStrategy';
+import { basePanelFromPreset } from '@/strategy/basePanel';
+import { usePresetStore } from '@/stores/presetStore';
 import '@/strategy/strategy.css';
 
 /**
@@ -13,6 +15,9 @@ import '@/strategy/strategy.css';
  * 但页面不再由 59 份静态 `index.html/app.js/styles.css` 渲染：
  * 主应用直接挂载共享渲染器 `@/strategy/renderStrategy`，样式收窄在
  * `.strategy-detail` 下，因此没有 iframe、也没有每页模板副本。
+ *
+ * **基础面板不在攻略 JSON 里**——它由代理人预设派生（`@/strategy/basePanel`），
+ * 避免同一批数字在 61 份攻略 JSON 与预设数据各存一份、彼此漂移。
  *
  * 网络访问经 `src/api/strategy.ts`，组件内不直接 `fetch`。
  * 新增代理人只需放数据；渲染器与样式自动复用。
@@ -47,10 +52,14 @@ async function load(slug: string): Promise<void> {
     if (current !== requestId || !host.value) {
       return;
     }
+    // 基础面板来自代理人预设（唯一真实源），不是攻略 JSON 自带的副本。
+    const agentId = (guide.meta as { agentId?: string } | undefined)?.agentId ?? '';
+    const preset = usePresetStore().agentById.get(agentId);
     cleanup = renderStrategy({
       root: host.value,
       guide,
       slug,
+      basePanel: preset ? basePanelFromPreset(preset) : [],
       onTitle: (title) => {
         document.title = title;
       },

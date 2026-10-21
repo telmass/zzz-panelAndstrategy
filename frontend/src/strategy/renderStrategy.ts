@@ -15,7 +15,7 @@
  */
 
 import { strategyGuides } from '@/constants/strategyGuides';
-import { saveStrategyCard } from './strategyCard';
+import { copyStrategyCard, saveStrategyCard } from './strategyCard';
 import { formatPanelTitle, formatSubStats } from './substats';
 
 /** 导航栏品牌名使用登记表的中文缩写；hero 与 document.title 仍用全名。 */
@@ -27,17 +27,22 @@ export interface RenderStrategyOptions {
   root: HTMLElement;
   guide: Record<string, unknown>;
   slug: string;
+  /**
+   * 基础面板的行。**由调用方从代理人预设派生**（见 `@/strategy/basePanel`）——
+   * 攻略 JSON 不再自带 ``basePanel``，基础面板的唯一真实源是预设数据。
+   */
+  basePanel?: Array<{ label: string; value: number; unit: string }>;
   onTitle?: (title: string) => void;
 }
 
 let app: HTMLElement;
 let cleanups: Array<() => void> = [];
 
-export function renderStrategy({ root, guide, slug, onTitle }: RenderStrategyOptions): () => void {
+export function renderStrategy({ root, guide, slug, basePanel, onTitle }: RenderStrategyOptions): () => void {
   cleanups.forEach((fn) => fn());
   cleanups = [];
   app = root;
-  render(guide, slug);
+  render(guide, slug, basePanel);
   const name = (guide.profile && guide.profile.name) || '';
   onTitle?.(name ? `代理人攻略 · ${name}` : '代理人攻略');
   return () => {
@@ -71,29 +76,11 @@ function asset(assets, key) {
   return assets[key] || assets[`${key}Remote`] || '';
 }
 
-/* ---------------------------------------------------------------- 截图与下载（保存攻略 / 保存一图流） */
+/* ---------------------------------------------------------------- 提示与下载 */
 
-/** 加载 html2canvas（CDN，仅首次请求，后续缓存实例）。 */
-let html2canvasPromise = null;
-function loadHtml2canvas() {
-  if (window.html2canvas) return Promise.resolve(window.html2canvas);
-  if (html2canvasPromise) return html2canvasPromise;
-  html2canvasPromise = new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js';
-    script.onload = () => resolve(window.html2canvas);
-    script.onerror = () => reject(new Error('加载 html2canvas 失败'));
-    document.head.appendChild(script);
-  });
-  return html2canvasPromise;
-}
-
-/** 等待字体就绪（最多 5 秒），再截图；图片加载交由 html2canvas 内部处理，避免某张图永不就绪导致截图挂起。 */
-async function waitImagesReady() {
-  const timeout = new Promise((resolve) => setTimeout(resolve, 5000, 'timeout'));
-  await Promise.race([timeout, 'fonts' in document ? document.fonts.ready : Promise.resolve()]);
-}
-
+/**
+ * 页面顶部临时提示一条消息，便于用户感知成功/失败。
+ */
 /** 在页面顶部临时提示一条消息，便于用户感知成功/失败。 */
 function showTip(message) {
   const tip = document.createElement('div');
@@ -131,30 +118,6 @@ function downloadBlob(blob, filename) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-/** 截取目标元素并下载为图片。 */
-async function captureAndDownload(targetEl, filename) {
-  if (!targetEl) throw new Error('未找到截图目标区域');
-  const html2canvas = await loadHtml2canvas();
-  await waitImagesReady();
-  const canvas = await html2canvas(targetEl, {
-    scale: 1,
-    useCORS: false,
-    scrollX: 0,
-    scrollY: 0,
-    windowWidth: targetEl.scrollWidth,
-    windowHeight: targetEl.scrollHeight,
-    logging: false,
-  });
-  if (!canvas) throw new Error('html2canvas 未返回画布');
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (!blob) return reject(new Error('生成图片失败'));
-      downloadBlob(blob, filename);
-      resolve();
-    }, 'image/png');
-  });
 }
 
 /** 攻略页中文名，用于下载文件名。 */
@@ -308,7 +271,7 @@ function heroIconsHtml(profile) {
     ? `<img class="hero-icon hero-icon--image" src="${escapeHtml(icons.attribute)}" alt="属性图标" title="属性 · ${escapeHtml(attribute)}" onerror="this.style.display='none'" />`
     : `<span class="hero-icon hero-icon--attribute" title="属性 · ${escapeHtml(attribute)}">${escapeHtml(attribute)}</span>`;
   const roleTag = profile ? profile.roleTag : '';
-  const professionIcon = icons.profession || (ROLE_ICON_MAP[roleTag] ? `/images/icons/${ROLE_ICON_MAP[roleTag]}.png` : '');
+  const professionIcon = icons.profession || (ROLE_ICON_MAP[roleTag] ? `/images/icons/${ROLE_ICON_MAP[roleTag]}.webp` : '');
   return `<p class="hero__icons">
     ${attributeIcon}
     ${professionIcon ? `<img class="hero-icon" src="${escapeHtml(professionIcon)}" alt="特性图标" title="特性 · ${escapeHtml(roleTag)}" onerror="this.style.display='none'" />` : ''}
@@ -415,7 +378,7 @@ function sidebarHtml(guide, slug) {
     </nav>
     <div class="sidebar__actions">
       <button class="sidebar__btn" type="button" data-action="save-guide">保存攻略</button>
-      <button class="sidebar__btn" type="button" data-action="save-full">保存一图流</button>
+      <button class="sidebar__btn" type="button" data-action="copy-guide">复制攻略</button>
     </div>
   </aside>`;
 }
@@ -431,13 +394,8 @@ function sectionHeadHtml(index, title, sub, id) {
   </header>`;
 }
 
-/* 锋御固有属性「锐暴伤害」是局内恒定值（不随等级/突破/配装变化），
-   不属于 60 级基础面板的展示范围，基础面板模块过滤掉它。 */
-const BASE_PANEL_HIDDEN_LABELS = ['锐暴伤害'];
-
-function basePanelHtml(guide) {
-  const fields = (guide.basePanel || [])
-    .filter((field) => !BASE_PANEL_HIDDEN_LABELS.includes(field.label))
+function basePanelHtml(fields) {
+  const rows = (fields || [])
     .map((field) => {
       const value = Number(field.value).toLocaleString('zh-CN');
       return `<div class="base-field">
@@ -449,7 +407,7 @@ function basePanelHtml(guide) {
   return `<section id="base" class="section reveal" aria-labelledby="base-title">
     ${sectionHeadHtml('02', '基础面板', '60 级 · 0 突破 · 不含核心技与配装加成', 'base')}
     <p class="section__hint">该面板为晋升需求滑块的初始行与满级行合并结果，与游戏内 60 级（0 突破）基础数据一致。</p>
-    <div class="base-panel">${fields || '<p class="para">暂无基础面板数据</p>'}</div>
+    <div class="base-panel">${rows || '<p class="para">暂无基础面板数据</p>'}</div>
   </section>`;
 }
 
@@ -686,9 +644,9 @@ function bindToTop() {
 }
 
 /**
- * 绑定「保存攻略」/「保存一图流」按钮。
+ * 绑定「保存攻略」/「复制攻略」按钮。
  * 「保存攻略」不再截取页面，而是把 strategy JSON 渲染成一张紧凑的攻略卡片；
- * 「保存一图流」仍保留整页截图。
+ * 「复制攻略」把攻略卡复制到系统剪贴板（不可用时退回下载）。
  */
 function bindSaveButtons(guide) {
   const actions = app.querySelector('.sidebar__actions');
@@ -713,19 +671,15 @@ function bindSaveButtons(guide) {
       return;
     }
 
-    if (action !== 'save-full') return;
-    const target = app.querySelector('.content');
-    const filename = agentFileName(guide, '一图流');
-    if (!target) {
-      showTip('截图目标不存在，请刷新页面后重试');
-      return;
-    }
+    if (action !== 'copy-guide') return;
+    const filename = agentFileName(guide, '攻略');
     btn.disabled = true;
     try {
-      await captureAndDownload(target, filename);
-      showTip('已下载：' + filename);
+      // 复制到剪贴板：拿到图就能直接粘贴，不用先下载再上传。
+      const copied = await copyStrategyCard(guide, filename);
+      showTip(copied ? '已复制攻略图，可直接粘贴' : '剪贴板不可用，已改为下载：' + filename);
     } catch (error) {
-      showTip('截图下载失败：' + (error && error.message ? error.message : String(error)));
+      showTip('生成攻略图失败：' + (error && error.message ? error.message : String(error)));
     } finally {
       btn.disabled = false;
     }
@@ -954,11 +908,35 @@ function driveSet2RowsHtml(sets, tag) {
     .join('');
 }
 
+/**
+ * 2 件套**组**，按槽位收集。
+ *
+ * **组**与**候选**是两个维度，不能混：
+ *
+ * - **组**（这一层）：第 1/2/3 组 2 件套，**并列，都要装**。2+2+2 就是三组。
+ *   字段是 ``set2`` / ``set2b`` / ``set2c``。
+ * - **候选**（组内一层）：``main`` / ``alt``——同一组里的首选 / 备选套装，
+ *   二选一。``main`` / ``alt`` 各自还可以是数组，表示「多套同效果的候选」
+ *   （如「物理伤害 +10%」有獠牙重金属与沧浪行歌两套）。
+ *
+ * 6 个槽位最多同时生效**三组** 2 件套（2+2+2），也最多生效**一个** 4 件套——
+ * 4 件套组必然带来它自己的 2 件套效果，而 4+4 装不下（8 片 > 6 槽）。
+ *
+ * ``set4`` 是**另一条轴**：它是 4 件套的**候选**列表（三选一，各带 scene），
+ * 不是「同时生效多个 4 件套」——见 ``strategy/README.md``。
+ */
+function driveSet2Groups(build) {
+  return ['set2', 'set2b', 'set2c']
+    .map((key) => build[key])
+    .filter((group) => group && typeof group === 'object')
+    .map((group) => (Array.isArray(group) ? group[0] : group));
+}
+
 /** 方案名缺省时用套装组合自动生成，追加方案不强制命名。 */
-function driveBuildName(build, set4, set2) {
+function driveBuildName(build, set4, set2Groups) {
   if (build.name) return build.name;
-  const set2Main = asList(set2.main);
   const set4List = asList(set4);
+  const set2Main = set2Groups.flatMap((group) => asList(group.main));
   const fallback = [
     set4List.length ? `${set4List.map((set) => (typeof set === 'string' ? set : set.name)).filter(Boolean).join(' / ')} 4 件套` : '',
     set2Main.length ? `${set2Main.map((set) => (typeof set === 'string' ? set : set.name)).filter(Boolean).join(' / ')} 2 件套` : '',
@@ -969,7 +947,9 @@ function driveBuildName(build, set4, set2) {
 /** 单个驱动盘推荐方案：套装/副词条两栏 + 全宽四列主词条表。 */
 function driveBuildHtml(build) {
   const set4 = build.set4;
-  const set2 = build.set2 && typeof build.set2 === 'object' ? build.set2 : {};
+  const set2Groups = driveSet2Groups(build);
+  // 2+2+2 没有 4 件套组——那一栏整栏不渲染，而不是留一个「暂无数据」。
+  const hasSet4 = asList(set4).length > 0;
 
   const mains = (Array.isArray(build.mainStats) ? build.mainStats : [])
     .map(
@@ -990,21 +970,28 @@ function driveBuildHtml(build) {
     })
     .join('');
 
+  // 多个 2 件套组时逐组编号（①②③），单组时沿用「2 件套」不带编号。
+  const set2Sections = set2Groups
+    .map((group, index) => {
+      const title = set2Groups.length > 1 ? `2 件套 ${'①②③④'[index] || index + 1}` : '2 件套';
+      const rows = driveSet2RowsHtml(group.main, '首选') + driveSet2RowsHtml(group.alt, '备选');
+      return `<section class="drive-spec__set2${set2Groups.length > 1 ? ' drive-spec__set2--group' : ''}" aria-label="${escapeHtml(title)}推荐">
+          <h5 class="guide-block__subtitle">${escapeHtml(title)}</h5>
+          <div class="drive-set-list">${rows || '<p class="para">暂无数据</p>'}</div>
+        </section>`;
+    })
+    .join('');
+
   return `<div class="drive-group">
-    <h4 class="drive-group__title">${escapeHtml(driveBuildName(build, set4, set2))}</h4>
+    <h4 class="drive-group__title">${escapeHtml(driveBuildName(build, set4, set2Groups))}</h4>
     ${build.note ? `<p class="drive-group__note">${noteHtml(build.note)}</p>` : ''}
     <div class="drive-spec">
       <div class="drive-spec__sets">
-        <section class="drive-spec__set4" aria-label="4 件套推荐">
+        ${hasSet4 ? `<section class="drive-spec__set4" aria-label="4 件套推荐">
           <h5 class="guide-block__subtitle">4 件套</h5>
-          <div class="drive-set-list">${driveSet4RowsHtml(set4) || '<p class="para">暂无数据</p>'}</div>
-        </section>
-        <section class="drive-spec__set2" aria-label="2 件套推荐">
-          <h5 class="guide-block__subtitle">2 件套</h5>
-          <div class="drive-set-list">${
-            driveSet2RowsHtml(set2.main, '首选') + driveSet2RowsHtml(set2.alt, '备选') || '<p class="para">暂无数据</p>'
-          }</div>
-        </section>
+          <div class="drive-set-list">${driveSet4RowsHtml(set4)}</div>
+        </section>` : ''}
+        ${set2Sections || '<section class="drive-spec__set2" aria-label="2 件套推荐"><h5 class="guide-block__subtitle">2 件套</h5><div class="drive-set-list"><p class="para">暂无数据</p></div></section>'}
       </div>
       <section class="drive-spec__mains" aria-label="主词条推荐">
         <h5 class="guide-block__subtitle">主词条推荐</h5>
@@ -1043,8 +1030,7 @@ function drivesHtml(strategy) {
   }
   const tabs = builds
     .map((build, index) => {
-      const set2 = build.set2 && typeof build.set2 === 'object' ? build.set2 : {};
-      const name = driveBuildName(build, build.set4, set2);
+      const name = driveBuildName(build, build.set4, driveSet2Groups(build));
       return `<button class="drive-tab${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="drive-tab-${index}" aria-selected="${index === 0}" aria-controls="drive-panel-${index}" tabindex="${index === 0 ? 0 : -1}" title="${escapeHtml(name)}">${escapeHtml(name)}</button>`;
     })
     .join('');
@@ -1092,10 +1078,14 @@ const BUILD_ICON_FIELDS = {
   set2: (strategy, name) => findDiscIcon(strategy, name),
 };
 
-/** 在驱动盘推荐（4 件套单值或数组、2 件套 main/alt）里按套装名找图标。 */
+/** 在驱动盘推荐（4 件套单值或数组、2 件套组的对象或数组）里按套装名找图标。 */
 function findDiscIcon(strategy, name) {
   for (const build of strategy.driveBuilds || []) {
-    for (const set of [...asList(build.set4), ...asList((build.set2 || {}).main), ...asList((build.set2 || {}).alt)]) {
+    const set2Sets = driveSet2Groups(build).flatMap((group) => [
+      ...asList(group.main),
+      ...asList(group.alt),
+    ]);
+    for (const set of [...asList(build.set4), ...set2Sets]) {
       if (set && set.name === name && set.icon) return set.icon;
     }
   }
@@ -1113,19 +1103,28 @@ function graduationPanelHtml(strategy, panel) {
     .join('');
   const build = Object.entries(panel.build || {})
     .filter(([key]) => !['agent', 'weapon', 'core'].includes(key))
+    // 空的条目不渲染——2+2+2 没有 4 件套组时，``build.set4`` 是 null，
+    // 留一行空的「4 件套」比不显示更让人困惑。
+    .filter(([, value]) => value !== null && value !== undefined && value !== '')
     .map(([key, value]) => {
       const lookup = BUILD_ICON_FIELDS[key];
-      const icon = lookup ? lookup(strategy, String(value)) : '';
       // 图标加载失败就退化成纯文字，不影响这一行的信息
-      const iconHtml = icon
-        ? `<img class="build-row__icon" src="${escapeHtml(icon)}" alt="" loading="lazy" onerror="this.style.display='none'" />`
-        : '';
+      const iconHtml = (name) => {
+        const icon = lookup ? lookup(strategy, String(name)) : '';
+        return icon
+          ? `<img class="build-row__icon" src="${escapeHtml(icon)}" alt="" loading="lazy" onerror="this.style.display='none'" />`
+          : '';
+      };
       // 计算仍用完整词条；这里只把「副词条」行换成「大词条 + 小词条」的展示口径。
       const displayValue =
         key === 'subStats' ? formatSubStats(value)?.display || value : value;
-      return `<div class="build-row"><dt>${escapeHtml(BUILD_LABELS[key] || key)}</dt><dd>${iconHtml}${escapeHtml(
-        displayValue,
-      )}</dd></div>`;
+      // 值可能是数组（2+2+2 的多组 2 件套）：逐个渲染「图标 + 名称」。
+      const content = Array.isArray(value)
+        ? value
+            .map((item) => `${iconHtml(item)}${escapeHtml(String(item))}`)
+            .join(' + ')
+        : `${iconHtml(value)}${escapeHtml(displayValue)}`;
+      return `<div class="build-row"><dt>${escapeHtml(BUILD_LABELS[key] || key)}</dt><dd>${content}</dd></div>`;
     })
     .join('');
   return `<div class="base-panel base-panel--graduation">${totals}</div>
@@ -1263,7 +1262,7 @@ function contrastText(hex) {
   return blackContrast >= whiteContrast ? '#101318' : '#ffffff';
 }
 
-function render(guide, slug) {
+function render(guide, slug, basePanel) {
   app.dataset.state = 'ready';
   const background =
     (guide.strategy && guide.strategy.background) ||
@@ -1281,7 +1280,7 @@ function render(guide, slug) {
         ${heroHtml(guide)}
         <main class="page" id="strategy-main" tabindex="-1">
           ${strategyHtml(guide, slug)}
-          ${basePanelHtml(guide)}
+          ${basePanelHtml(basePanel)}
           ${skillsHtml(guide)}
           ${cinemaHtml(guide)}
         </main>

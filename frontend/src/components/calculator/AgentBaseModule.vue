@@ -35,7 +35,7 @@ const cascaderValue = computed<string | null>(() => panel.agent.presetId || null
 
 /** 头像路径。`public/` 原样拷贝到 `dist/` 根，故按 URL 取而非 import。 */
 const avatarSrc = computed(() =>
-  panel.selectedAgent ? `/images/agents/${panel.selectedAgent.id}.png` : '',
+  panel.selectedAgent ? `/images/agents/${panel.selectedAgent.id}.webp` : '',
 );
 
 /**
@@ -162,13 +162,15 @@ function numberModel(key: (typeof NUMERIC_FIELDS)[number]['key']) {
       </div>
     </div>
 
-    <p class="note note--lead" :style="panel.agentNote.tone === 'error' ? 'color: #dc2626' : ''">
-      {{ panel.agentNote.text }}<a
+    <p class="note note--lead note--agent" :style="panel.agentNote.tone === 'error' ? 'color: #dc2626' : ''">
+      {{ panel.agentNote.text }}<span
         v-if="panel.agentNote.source"
-        :href="panel.agentNote.source"
-        target="_blank"
-        rel="noopener noreferrer"
-        >米游社官方WIKI</a
+        class="note__source"
+        >数据来源：<a
+          :href="panel.agentNote.source"
+          target="_blank"
+          rel="noopener noreferrer"
+          >米游社官方WIKI</a></span
       >
     </p>
 

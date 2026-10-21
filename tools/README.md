@@ -5,19 +5,31 @@
 | 文件 | 用途 |
 | --- | --- |
 | `dev.ps1` | 一键启停本地开发服务（uvicorn :8000 + vite :5173） |
-| `sync_presets.py` | 预设 `data/*.json` ↔ 对拍夹具 `data/*.js`；规则表 `core/*.py` → `data/options.json` |
-| `bundle_worker_data.py` | 预设 `data/*.json` → `backend/src/zzz_panel/_bundled_data.py`，供 Cloudflare Worker 使用 |
+| `agent_deploy.py` | 代理人攻略一站式编排：身份解析 → 预设 → 抓取 → 图片 → 编辑骨架 → 毕业面板 → 登记表 → 闸门 → **同步收尾** |
+| `agent_audit.py` | 攻略页体检：slug/图标/引用/额外能力/占位残留/生成物新鲜度，输出分级问题清单 |
+| `archive_changelog.py` | changelog 归档：`docs/changelog.md` 只留最近 12 条，更早的按月归档到 `docs/changelog/<YYYY-MM>-archive.md` |
+| `check_docs.py` | 文档一致性：相对链接、SKILL 里的反引号路径、失效引用，以及**数量类事实**（代理人数/音擎数/驱动盘数/规则表条目/命名映射/攻略页数/图片数与格式/前后端测试数）是否与数据源一致 |
+| `fetch_agent_backgrounds.py` | 从 Gachabase 抓立绘背景到 `images/strategy/<slug>/background.webp` |
+| `fetch_agent_films.py` | 从 Nanoka 抓角色框头像到 `images/strategy/<slug>/film.webp` |
+| `images_to_webp.py` | 批量把 `frontend/public/images` 下的 PNG 转成 webp，并改写全仓引用 |
+| `sync_manifest.py` | 刷新 / 校验 `data/manifest.json` 的派生字段（`count` / `sha256`），并查孤儿文件 |
+| `sync_presets.py` | 规则表 `core/*.py` → `data/rules/calculator-rules.json`（单向） |
+| `link_disc_effects.py` | 驱动盘套装 `2 件套效果 → 规则表 setOptions id` 的映射（`effect2` / `effect2Note`） |
+| `bundle_worker_data.py` | 预设 `data/catalog/*.json` → `backend/src/zzz_panel/_bundled_data.py`，供 Cloudflare Worker 使用 |
+| `check_ui_contrast.py` | 对比度闸门：令牌两两之间的实际对比度（WCAG 2.1） |
+| `check_ui_scale.py` | 尺度闸门：字号 / 字重 / 间距 / 阴影是否都来自 `tokens.css` |
 | `normalize_strategy.py` | 攻略页目录 / 数据文件名 / 图片引用归一，校验并可选重新抓取坏 JSON |
 | `gen_strategy_guides.py` | 从 mapping + 攻略数据生成 `frontend/src/constants/strategyGuides.ts`（`--check` 供 CI） |
 | `seed_main_stat_notes.py` | 为 `driveBuilds[].mainStats[]` 预留 `note: ""` 备注字段（`--check` 供 CI） |
 | `dump_backend_responses.py` | 把 `legacy_cases.json` 的每条用例 POST 给后端并落盘，用于排查对拍差异 |
 
-前端另有两个独立 Node 诊断脚本，不参与构建，也不在任何 npm script 中：
+前端另有三个独立 Node 脚本，不参与构建，也不在任何 npm script 中：
 
 | 文件 | 用途 |
 | --- | --- |
 | `frontend/tools/dump_legacy_cases.mjs` | 在 jsdom 里跑夹具，导出 `backend/tests/legacy_cases.json` 的期望值 |
 | `frontend/tools/diff_breakdown.mjs` | 把落盘的后端响应与夹具实算明细逐行 diff，按 DOM 层级归类 |
+| `frontend/tools/screenshot.mjs` | **CDP 驱动本机 Chrome** 拍 UI 验收图（任意视口宽度 + 整页 + 指定元素滚动/点击）。见 `docs/design/ui-system.md`「截图」 |
 
 ## 一键启停
 
@@ -61,7 +73,7 @@ PowerShell 变量大小写不敏感：`Start-Service` 里 `foreach ($file in ...
 ## 攻略数据归一
 
 `normalize_strategy.py` 把历史攻略页的旧拼音 / 旧 slug 数据文件、图片引用与 `app.js`
-数据 URL 统一到 `data/agent-name-mapping.json` 的规范 slug：
+数据 URL 统一到 `data/catalog/agent-index.json` 的规范 slug：
 
 ```powershell
 python tools/normalize_strategy.py --check                 # 只报告，有漂移退出码 1
@@ -71,11 +83,11 @@ python tools/normalize_strategy.py --remove-legacy         # 删除不在 mappin
 
 日常只需 `--check`；它会检查目录名、数据文件名、JSON 内的图片路径与 Skill 文档里的
 `strategy/<slug>/` 示例。修复流程见
-[docs/structure-review.md](../docs/structure-review.md) P0-1 / P0-2。
+[docs/completeds/structure-review.md](../docs/completeds/structure-review.md) P0-1 / P0-2。
 
 ## 攻略登记表生成
 
-`gen_strategy_guides.py` 从 `data/agent-name-mapping.json` 与
+`gen_strategy_guides.py` 从 `data/catalog/agent-index.json` 与
 `strategy/<slug>/data/<slug>.json` 生成 `frontend/src/constants/strategyGuides.ts`：
 
 ```powershell
@@ -97,28 +109,38 @@ python tools/seed_main_stat_notes.py --check  # 缺字段时退出码 1
 
 已有非空备注不会被覆盖；主词条表的第四列「备注」由该字段驱动。
 
-## 双向同步脚本
+## 数据同步脚本
 
 | 文件 | 用途 |
 | --- | --- |
-| `sync_presets.py` | 预设 `data/*.json` ↔ `frontend/tests/fixtures/legacy-calculator/data/*.js`；规则表 `core/*.py` → `data/options.json` |
+| `sync_manifest.py` | 刷新 / 校验 `data/manifest.json` 的派生字段（`count` / `sha256`），并查孤儿文件 |
+| `sync_presets.py` | 规则表 `core/*.py` → `data/rules/calculator-rules.json`（单向） |
+| `link_disc_effects.py` | 驱动盘套装 `2 件套效果 → 规则表 setOptions id` 的映射（`effect2` / `effect2Note`） |
+| `bundle_worker_data.py` | 预设 `data/catalog/*.json` → `backend/src/zzz_panel/_bundled_data.py`（Worker 产物） |
 
 ```powershell
-python tools/sync_presets.py --from-legacy          # 夹具 JS → JSON（一次性引导）
-python tools/sync_presets.py --to-legacy            # 预设 JSON → 夹具 JS（长期方向）
-python tools/sync_presets.py --options              # 规则表 core/*.py → data/options.json
-python tools/sync_presets.py --to-legacy --check    # 只报漂移，退出码 1 = 不同步
+python tools/sync_manifest.py                       # 刷新登记表的 count / sha256
+python tools/sync_manifest.py --check               # 只校验，退出码 1 = 漂移或有孤儿文件
+python tools/sync_presets.py --options              # 规则表 core/*.py → data/rules/calculator-rules.json
 python tools/sync_presets.py --options --check      # 规则表是否已重新生成
+python tools/bundle_worker_data.py                  # 生成/刷新 Worker 编译产物
+python tools/bundle_worker_data.py --check          # 产物是否已过期
 ```
 
-预设的两个方向都先把数据规范化到脚本内定义的键序再写出，因此重复执行不产生 diff，
-且 `夹具 → JSON → 夹具` 字节一致（已验证，可作无损性回归检查）。
+**抓取之后必跑 `sync_manifest.py`。** 抓取脚本会改变数据集的条目数与内容摘要，
+不刷新登记表的派生字段，`sync_manifest.py --check` 就会红——这不是误报，正是它
+在提醒「数据变了，登记没跟上」。抓取脚本自己也会打印
+`next: python tools/sync_manifest.py`。
 
-脚本中的「legacy」特指只读参照实现夹具
-`frontend/tests/fixtures/legacy-calculator/`——旧的原生页面已删除，
-但三方对拍仍在读那份 `data/*.js`。
+**对拍夹具不再同步。** `frontend/tests/fixtures/legacy-calculator/data/*.js` 是三方
+对拍的参照实现，它的输入必须是一个**不动点**——参照实现的价值在于它是过去某个
+确定时刻的正确实现；若输入跟着当前数据一起漂移，就再也说明不了「旧实现算得对」。
+因此它已冻结为快照，不再由脚本生成；原先的 `--to-legacy` / `--from-legacy` 模式
+随之移除。等价性改由 `backend/tests/test_legacy_fixture_snapshot.py` 断言：夹具里
+用到的代理人与音擎必须与当前数据集在**语义上等值**（基础面板逐项、核心加成的
+选项与每级数值、面板模式）。
 
-规则表只有一个方向：`data/options.json` 是派生产物，前端不再持有副本。
+规则表只有一个方向：`data/rules/calculator-rules.json` 是派生产物，前端不再持有副本。
 `core` 层零第三方依赖，脚本用 `sys.path` 加 `backend/src` 直接 import，
 因此**纯 stdlib 的 `python` 即可运行**，不必 `uv run`。
 `backend/tests/test_options_json.py` 断言该 JSON 与 Python 当前值一致。
@@ -126,15 +148,8 @@ python tools/sync_presets.py --options --check      # 规则表是否已重新�
 三个抓取脚本（两个 `refresh_*_presets.py` 加驱动盘的 `refresh_disc_presets.py`）
 也**复用本模块的序列化**（`load_sync_presets()`），不各写一套——否则重新抓取后
 `--check` 会一直报漂移且原因极难定位。`backend/tests/test_presets.py` 断言
-`data/*.json` 已是规范形式，且两个预设脚本的 `render()` 喂入已提交数据后能原样
-重现该文件。驱动盘脚本复用同一序列化，但产物不在 `--to-legacy` 覆盖范围内。
-
-脚本内置一个 JS 字面量解析器，只支持抓取脚本产出的子集：单引号字符串、
-**无转义序列**、键名不引号。遇到反斜杠会显式报错而非猜测。两个易踩的点：
-
-- 剥注释必须字符串优先，否则 URL 里的 `//` 会被当行注释，把 `source` 整条截断。
-- 抓取脚本对**对象键**也输出尾随逗号，对「值全为标量的扁平对象数组」
-  （`unmodeledBaseStats`）则整元素单行渲染。这两条规则不还原就无法字节一致。
+`data/catalog/*.json` 已是规范形式，且两个预设脚本的 `render()` 喂入已提交数据后
+能原样重现该文件。驱动盘脚本复用同一序列化。
 
 ## Worker 编译产物（部署硬闸）
 
@@ -146,7 +161,7 @@ python tools/bundle_worker_data.py --data-dir <目录> --dest <目标.py>   # �
 
 `pywrangler` 部署时**只上传 `.py` 文件**，入口目录下的 `.json` / `.html` 会被
 **静默**丢弃——部署不报错，线上却读不到。预设数据因此必须以 Python 模块的形式
-跟着上线：`data/agent-presets.json` 与 `weapon-presets.json` 的原文按
+跟着上线：`data/catalog/agents.json` 与 `data/catalog/weapons.json` 的原文按
 「每行一个相邻字符串字面量」编译成
 `backend/src/zzz_panel/_bundled_data.py` 的 `AGENTS_JSON` / `WEAPONS_JSON`。
 放在 `backend/src/` 之下才会被附加，pywrangler 只附加 Worker 入口
@@ -157,7 +172,7 @@ python tools/bundle_worker_data.py --data-dir <目录> --dest <目标.py>   # �
 - **生成物，不提交**（`.gitignore` 已列），唯一真实源永远是仓库根的 `data/`。
 - 与源文件**逐字节**一致，因此 `--check` 能可靠判定漂移；不依赖虚拟文件系统的
   任何行为，也不需要 `importlib.resources`。
-- 只收这两个预设 JSON。`options.json` **不收**——它由前端在**构建期**经 Vite
+- 只收这两个预设 JSON。`data/rules/calculator-rules.json` **不收**——它由前端在**构建期**经 Vite
   别名 `@data` 读真实源，根本不经过后端。
 - 内容已是最新时报「已是最新」且**不写盘**，重复执行无 diff；源文件缺失时报错
   并返回 1。
@@ -166,7 +181,7 @@ python tools/bundle_worker_data.py --data-dir <目录> --dest <目标.py>   # �
 `backend/tests/test_worker_bundle.py` 的 15 项覆盖逐字节还原、幂等、check 模式，
 以及 `loader.py` 的编译产物回退分支（含校验同样生效、报错文案、两侧模块名对得上）。
 
-> ⚠️ **刷新 `data/*.json` 后必须重跑**，否则线上 `/api/presets/*` 会继续供旧数据；
+> ⚠️ **刷新 `data/catalog/*.json` 后必须重跑**，否则线上 `/api/presets/*` 会继续供旧数据；
 > 干净 clone 上从未生成过则没有编译产物，路由捕获 `PresetLoadError` 返回 **503**。
 
 ## 第 3 步新增的诊断脚本
@@ -199,6 +214,7 @@ python .github/skills/read-zzz-engine-stats/scripts/refresh_weapon_presets.py
 python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
 ```
 
-驱动盘脚本与另两个的区别：抓完**不需要**再跑 `sync_presets.py --to-legacy`，
+驱动盘脚本与另两个的区别：抓完**不需要**再跑 `bundle_worker_data.py`（不进 Worker 产物），
+但**仍要**跑 `sync_manifest.py`（它同样登记在 `data/manifest.json` 里）；
 也不进 `_bundled_data.py`——计算器不消费它（当前消费者是攻略页按
 `/images/discs/…` 取图，见 data/README.md）。

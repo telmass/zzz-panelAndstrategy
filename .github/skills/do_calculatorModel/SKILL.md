@@ -5,6 +5,9 @@ description: Read an agent's official level-60 stats and core bonuses, then add 
 
 # Add an Agent Preset to the Unified Panel Calculator
 
+> 🧭 本 skill 是 `get-agent-strategy` 的子流程，通常由它编排调用；单独使用同样有效。
+> 共享规则见 [`_shared/naming.md`](../_shared/naming.md)。
+
 Use this skill when the user provides:
 
 1. An agent name.
@@ -22,7 +25,7 @@ If the official source is unavailable, the agent match is ambiguous, or any requ
 
 Use the unified calculator and its external preset data rather than guessing filenames:
 
-Inspect `data/agent-presets.json` (the single source of truth), `backend/src/zzz_panel/presets/` for how it is loaded and validated, `backend/src/zzz_panel/core/modes.py` for the calculation-mode handling, and `frontend/src/components/calculator/AgentBaseModule.vue` for the UI that consumes presets (the picker plus the success note; the base-panel numeric fields below it are hand-edited and never written by a preset alone). Preset data belongs in its own JSON data file, not embedded as a large object in a component.
+Inspect `data/catalog/agents.json` (the single source of truth), `backend/src/zzz_panel/presets/` for how it is loaded and validated, `backend/src/zzz_panel/core/modes.py` for the calculation-mode handling, and `frontend/src/components/calculator/AgentBaseModule.vue` for the UI that consumes presets (the picker plus the success note; the base-panel numeric fields below it are hand-edited and never written by a preset alone). Preset data belongs in its own JSON data file, not embedded as a large object in a component.
 
 The Vue3 migration is complete: the calculator lives in `frontend/src/`, the calculation rules live in `backend/src/zzz_panel/core/`, and presets are served by `GET /api/presets/agents` (plural). The pre-Vue3 native implementation has been deleted, except for a **read-only reference fixture** at `frontend/tests/fixtures/legacy-calculator/` that the parity tests compare against. Never edit anything under `tests/fixtures/` — changing the baseline makes the comparison compare the implementation with itself.
 
@@ -35,9 +38,9 @@ Store for each agent:
 - `panelMode`: `standard`, `rupture`, or `fengyu`, corresponding to the user-requested calculator mode. Profession/tag and calculation mode are distinct fields; do not infer 命破/锋御 mode solely from the agent's profession.
 - Official Wiki detail URL.
 - Level-60 base stats excluding core: HP, ATK, DEF, impact, CR, CD, anomaly control, anomaly proficiency, PEN ratio, and energy regen, where available.
-- Any agent-specific base attributes shown by the Wiki (for example, a 命破 agent's base 贯穿力 or special energy accumulation) must be stored as additional base stats when the calculator has corresponding fields. Mark standard stats absent from the Wiki explicitly as unavailable rather than silently substituting another attribute or guessing.
+- Any agent-specific base attributes shown by the Wiki (for example, a 命破 agent's base 贯穿力 or special energy accumulation) must be stored as additional base stats when the calculator has corresponding fields (`baseExtra`). **A standard stat absent from the Wiki is simply left out of `base`** — absence *is* the fact; do not silently substitute another attribute or guess a value. Which omissions are legal is decided by the backend (`rupture` mode may omit `pr` / `er`; every other mode must have all ten).
 - In 锋御 mode, the calculator's energy-regen field represents 锐能自动累积; use the official 锐能自动累积 base value there and show the 锋御-specific label throughout the calculator.
-- If a displayed base attribute has no corresponding calculator input, record it in `unmodeledBaseStats` and show the user that it is not included in calculations; do not map it to a different attribute. Exception: `锐暴伤害` is already modeled as a fixed 150% intrinsic stat shown only in the 锋御 final panel. Do not give it a calculator input and never report it as unmodeled.
+- If a displayed base attribute has no corresponding calculator input, record it in `baseUnmodeled` and show the user that it is not included in calculations; do not map it to a different attribute. Exception: `锐暴伤害` is already modeled as a fixed 150% intrinsic stat shown only in the 锋御 final panel. Do not give it a calculator input and never report it as unmodeled.
 - Core ranks A–F mapped to their verified effect, distinguishing flat base-stat additions from percentages.
 - Aggregate bonuses in the exact shape the target calculator can apply.
 
@@ -45,7 +48,7 @@ Use a clear mapping between Wiki attributes and the calculator's existing field/
 
 Before implementation, verify that the target calculator can represent the agent's complete A–F total exactly. If it cannot, extend the calculator's core-preset handling in a type-safe, minimally invasive way so the preset still applies accurately; do not silently approximate, discard an effect, or force an incorrect option. Keep manual core selection working.
 
-Each `roleTag` must be the agent's specific official profession label. Do not use calculation-mode labels such as `通用` as role tags. The calculator groups every preset by `roleTag` into the first level of its cascader selector, keeping the group order fixed by `AGENT_ROLE_TAGS` and the in-group order identical to `data/agent-presets.json`. Validate that every preset has a unique ID, name, and recognized, non-empty role tag so no agent is omitted or hidden inside an empty group.
+Each `roleTag` must be the agent's specific official profession label. Do not use calculation-mode labels such as `通用` as role tags. The calculator groups every preset by `roleTag` into the first level of its cascader selector, keeping the group order fixed by `AGENT_ROLE_TAGS` and the in-group order identical to `data/catalog/agents.json`. Validate that every preset has a unique ID, name, and recognized, non-empty role tag so no agent is omitted or hidden inside an empty group.
 
 ## Preset selection behavior
 
@@ -90,21 +93,25 @@ Use the browser or an equivalent DOM test to verify in the requested calculator 
 - All two-piece set selectors reset to “请选择” when switching presets, and “无” remains selectable.
 - The empty initial state retains the blank defaults and the set option “无”.
 - Manual core selection still works.
-- The agent's PNG exists at `frontend/public/images/agents/<id>.png`; a missing file must degrade to text only, never a broken-image box.
+- The agent's image exists at `frontend/public/images/agents/<id>.webp`; a missing file must degrade to text only, never a broken-image box.
 
 Two testing traps apply to this picker: jsdom renders no cascader options at all (they live in an `n-virtual-list` with zero measured height), so assert through `findComponent(NCascader).props('renderPrefix')` / `props('renderLabel')` or against the `panelStore` getters, never against `.n-cascader-option` DOM. And the page now has **two** cascaders (agent and W-Engine), so locate them by `.agent-picker-input` / `.weapon-picker-input` — a bare `findComponent(NCascader)` returns whichever rendered first.
 
 Run the preset-schema tests (`uv run pytest backend/tests/test_presets.py`) and the frontend suite (`npm run test` in `frontend/`) after changing preset data, plus `git diff --check`. `npm run test` includes a three-way parity test that compares the Vue3 page, the Python backend, and the read-only legacy fixture; it must stay green, which means the preset must be added through the normal JSON pipeline rather than by editing anything else. Note that the parity spec drives the Vue side through `selectAgentRole` + `applyAgentPreset` rather than the UI, so option-label changes never reach it.
 
-Because editing `data/agent-presets.json` changes a deployed input, also refresh the downstream generated artifacts before shipping:
+Because editing `data/catalog/agents.json` changes a deployed input, also refresh the downstream generated artifacts before shipping:
 
 ```
-python tools/sync_presets.py --to-legacy        # 对拍夹具的 JS 包装
-python tools/bundle_worker_data.py              # Worker 编译产物，Cloudflare 部署硬闸
-python tools/bundle_worker_data.py --check      # 漂移闸，退出码非 0 = 产物已过期
+python tools/sync_manifest.py                  # 数据集登记表（count / sha256）
+python tools/bundle_worker_data.py             # Worker 编译产物，Cloudflare 部署硬闸
+python tools/bundle_worker_data.py --check     # 漂移闸，退出码非 0 = 产物已过期
 ```
 
-`bundle_worker_data.py` recompiles `data/agent-presets.json` and `data/weapon-presets.json` into `backend/src/zzz_panel/_bundled_data.py`. `pywrangler` uploads only `.py` files, so without it a newly added agent is silently absent in production: the live `/api/presets/*` still serves the previous data (or returns 503 when no generated module exists at all). The module is a build artifact and is gitignored, so nothing else catches the omission.
+`sync_manifest.py` refreshes the registry's derived fields (`count` / `sha256`) in
+`data/manifest.json`; skipping it leaves the repository failing
+`sync_manifest.py --check` and turns CI red.
+
+`bundle_worker_data.py` recompiles `data/catalog/agents.json` and `data/catalog/weapons.json` into `backend/src/zzz_panel/_bundled_data.py`. `pywrangler` uploads only `.py` files, so without it a newly added agent is silently absent in production: the live `/api/presets/*` still serves the previous data (or returns 503 when no generated module exists at all). The module is a build artifact and is gitignored, so nothing else catches the omission.
 
 Report the files changed, the Wiki source, the verified base/core values, and validation results.
 
@@ -118,10 +125,10 @@ Expected behavior: reread/verify 叶瞬光 and its profession/tag using `read-zz
 
 | File | Role |
 | --- | --- |
-| `data/agent-presets.json` | **the only file to edit** for a new agent |
+| `data/catalog/agents.json` | **the only file to edit** for a new agent |
 | `frontend/src/components/calculator/AgentBaseModule.vue` | picker + success note; reads presets, never hardcodes them |
 | `frontend/src/stores/panelStore.ts` | `agentPresetGroups` (cascader options), `selectedAgent` (avatar card), `agentOptionLabel` (label text) |
 | `frontend/src/composables/useAgentPreset.ts` | `applyAgentPreset` validation + load, `agentTagLabel` (note/card text) |
 | `frontend/src/constants/calculatorOptions.ts` | `AGENT_ROLE_TAGS`, `PANEL_MODE_LABELS`, `HIDE_STANDARD_MODE_LABEL` |
 | `frontend/src/composables/useCascaderIcons.ts` | shared `renderPrefix` / `renderLabel`; `ROLE_ICON` roletag→PNG slug map |
-| `frontend/public/images/agents/` | one `<id>.png` per agent |
+| `frontend/public/images/agents/` | one `<id>.webp` per agent |

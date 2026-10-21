@@ -48,6 +48,24 @@ function mountCalculator(): VueWrapper {
   return mount(CalculatorView, { global: { plugins: [pinia] } });
 }
 
+/**
+ * 按 URL 参数挂载计算器。
+ *
+ * `?agent=` 与 `?mode=` 都是**在 onMounted 里读的**（`window.location.search`），
+ * 因此测试要先把地址换掉再挂载。
+ */
+async function mountCalculatorWithQuery(query: string): Promise<VueWrapper> {
+  const previous = window.location.search;
+  window.history.replaceState({}, '', `/calculator${query}`);
+  try {
+    const wrapper = mountCalculator();
+    await nextTick();
+    return wrapper;
+  } finally {
+    window.history.replaceState({}, '', `/calculator${previous}`);
+  }
+}
+
 /** 指南页不需要 pinia，放这里便于各 describe 复用。 */
 function mountGuide(): VueWrapper {
   return mount(GuideView);
@@ -290,6 +308,55 @@ describe('CalculatorView 静态骨架', () => {
   });
 });
 
+/**
+ * `?agent=` 直载代理人预设。
+ *
+ * 一条链接能复现某位代理人的整套面板——既是**分享**需求，也是 UI 验收清单
+ * 里「状态由 URL 决定」那条要求的前提（否则 S1/S2/S3 三张截图长得一模一样）。
+ */
+describe('计算器的 ?agent= 直载', () => {
+  it('按 slug 载入代理人的基础面板与核心加成', async () => {
+    const wrapper = await mountCalculatorWithQuery('?agent=ye-shunguang');
+    const panel = usePanelStore();
+
+    expect(panel.agent.presetId).toBe('ep-1687');
+    expect(panel.base.hp).toBe(7673);
+    expect(panel.base.atk).toBe(863);
+    expect(panel.core.core1).toBeTruthy();
+    expect(panel.core.core2).toBeTruthy();
+    // 结果区状态行应显示已载入谁
+    expect(wrapper.find('.result-status').text()).toContain('叶瞬光');
+  });
+
+  it('按预设 id 载入等价于按 slug', async () => {
+    await mountCalculatorWithQuery('?agent=ep-1687');
+    const panel = usePanelStore();
+    expect(panel.agent.presetId).toBe('ep-1687');
+    expect(panel.base.hp).toBe(7673);
+  });
+
+  it('载入命破代理人时面板模式随之切到命破', async () => {
+    await mountCalculatorWithQuery('?agent=yixuan');
+    const panel = usePanelStore();
+    expect(panel.panelMode).toBe('rupture');
+    expect(panel.agent.presetId).toBe('ep-1299');
+  });
+
+  it('找不到的代理人给出红色提示且不改动已有字段', async () => {
+    const wrapper = await mountCalculatorWithQuery('?agent=not-an-agent');
+    const panel = usePanelStore();
+    expect(panel.agent.presetId).toBe('');
+    expect(panel.agentNote.tone).toBe('error');
+    expect(wrapper.find('.note--agent').text()).toContain('找不到');
+  });
+
+  it('不带 ?agent= 时不载入任何预设', async () => {
+    await mountCalculatorWithQuery('');
+    const panel = usePanelStore();
+    expect(panel.agent.presetId).toBe('');
+  });
+});
+
 describe('LauncherView 静态骨架', () => {
   function mountLauncher() {
     return mount(LauncherView);
@@ -334,7 +401,7 @@ describe('LauncherView 静态骨架', () => {
     // 每张卡走 tachie 背景格式：背景取 guide.tachie（优先）或 agents/<agentId>.png 约定路径，底部有名字胶囊
     for (const [index, guide] of strategyGuides.entries()) {
       const bg = cards[index].find('.strategy-card__tachie').attributes('style');
-      expect(bg).toContain(guide.tachie ?? `/images/agents/${guide.agentId}.png`);
+      expect(bg).toContain(guide.tachie ?? `/images/agents/${guide.agentId}.webp`);
       expect(cards[index].find('.strategy-card__name-wrap').exists()).toBe(true);
     }
   });

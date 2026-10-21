@@ -4,7 +4,7 @@
     "entryPageId": 634,
     "name": "朱鸢",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/634/detail",
-    "scrapedAt": "2026-10-16T20:00:55+00:00"
+    "scrapedAt": "2026-10-20T11:03:48+00:00"
   },
   "profile": {
     "name": "朱鸢",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】中远程攻击、爆发输出、短时上场\n【角色详情】朱鸢是一位以太属性的强攻代理人。与其他站场输出角色不同，朱鸢偏向一个速切输出角色。在其他代理人将敌人攻击至失衡状态后，切换朱鸢上场，通过强化特殊技、终结技等方式积攒[强化霰弹]的数量，然后长按普攻消耗掉所积攒的[强化霰弹]，并在其核心被动增益的加持下短时间内对敌人造成大量的以太伤害。在朱鸢长按普攻进入[压制模式]后，其可通过拖曳摇杆调整身位，以此更好的进行输出或规避敌人的攻击。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ether.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ether.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7482,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 844,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 92,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-634.png",
+    "avatar": "/images/agents/ep-634.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/1c64debafd7d934f8361b36026426940_897366969958613262.png",
-    "tachie": "/images/strategy/zhu-yuan/tachie.png",
+    "tachie": "/images/strategy/zhu-yuan/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/a5b9690b0854a2d307bfd4b68901e7d0_927064676233291440.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1498,7 +1446,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -2067,7 +2015,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2632,7 +2580,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -3197,7 +3145,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -3206,8 +3154,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：特种弹药\n朱鸢在[压制模式]下，消耗[强化霰弹]进行攻击时，招式造成的伤害提升20%，攻击处于失衡状态下的敌人时，该增益效果额外提升20%；进入战场时，朱鸢立刻获得6枚[强化霰弹]，暴击伤害提升28.8%，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：武装协同\n队伍中存在[支援]角色或与自身阵营相同的角色时触发：\n朱鸢发动[强化特殊技]、[连携技]或[终结技]时，自身暴击率提升30%，持续10秒。",
+          "title": "核心技：特种弹药",
+          "text": "朱鸢在[压制模式]下，消耗[强化霰弹]进行攻击时，招式造成的伤害提升40%，攻击处于失衡状态下的敌人时，该增益效果额外提升40%；进入战场时，朱鸢立刻获得6枚[强化霰弹]。",
           "growth": [
             {
               "level": "A",
@@ -3276,9 +3224,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：武装协同",
+          "text": "队伍中存在[支援]角色或与自身阵营相同的角色时触发：\n朱鸢发动[强化特殊技]、[连携技]或[终结技]时，自身暴击率提升30%，持续10秒。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/24/76099754/5be71eec59127493dce7bc5965788aed_3694518527126168355.png"
     }
   ],
@@ -3316,27 +3268,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/zhu-yuan/cinema-2.png",
+      "image": "/images/strategy/zhu-yuan/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/7cf8e729994037b39c5103de7ab27ff0_8712688716888505257.png"
     },
     "2": {
-      "image": "/images/strategy/zhu-yuan/cinema-2.png",
+      "image": "/images/strategy/zhu-yuan/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/7cf8e729994037b39c5103de7ab27ff0_8712688716888505257.png"
     },
     "3": {
-      "image": "/images/strategy/zhu-yuan/cinema-2.png",
+      "image": "/images/strategy/zhu-yuan/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/7cf8e729994037b39c5103de7ab27ff0_8712688716888505257.png"
     },
     "4": {
-      "image": "/images/strategy/zhu-yuan/cinema-3.png",
+      "image": "/images/strategy/zhu-yuan/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/d80b3e28053a2ab49808910373abd2bf_6618978954799731201.png"
     },
     "5": {
-      "image": "/images/strategy/zhu-yuan/cinema-3.png",
+      "image": "/images/strategy/zhu-yuan/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/d80b3e28053a2ab49808910373abd2bf_6618978954799731201.png"
     },
     "6": {
-      "image": "/images/strategy/zhu-yuan/cinema-3.png",
+      "image": "/images/strategy/zhu-yuan/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/06/15559334/d80b3e28053a2ab49808910373abd2bf_6618978954799731201.png"
     }
   }

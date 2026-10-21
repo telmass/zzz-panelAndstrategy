@@ -4,7 +4,7 @@
     "entryPageId": 1962,
     "name": "诺姆·霍洛维尔",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1962/detail",
-    "scrapedAt": "2026-10-16T20:00:36+00:00"
+    "scrapedAt": "2026-10-20T11:00:39+00:00"
   },
   "profile": {
     "name": "诺姆·霍洛维尔",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】后台输出、主动连携、失衡延长。\n【角色详情】诺姆是S级火属性失衡代理人，她可在场上放置炮台持续攻击敌人，即使切至后场炮台依然存在。诺姆还可以增加敌人的失衡易伤与失衡时间，并提供全队增伤，此外诺姆还可主动触发队友的连携技，是兼顾击破与辅助、同时伤害也不俗的多面手角色。在实战中，诺姆放置炮台后即可切至后场，或释放强化特殊技补充积蓄条。待【预热膛温】积蓄满后切入前场释放特殊普攻触发队友连携技，以此形成操作循环。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7799,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 687,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 582,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 106,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 99,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 98,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1962.png",
+    "avatar": "/images/agents/ep-1962.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/20/82500917/88ab6fa91dc0e69c0d22780cb86b4db0_3734734092895620952.png",
-    "tachie": "/images/strategy/norma/tachie.png",
+    "tachie": "/images/strategy/norma/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/09/439466880/21029a6c84f83062b33e3ae575e964bb_2320242284884305532.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3088,7 +3036,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3653,7 +3601,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3662,8 +3610,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：精准制导\n初始暴击率超过50%时，每超过1%，暴击伤害提升0.86%，最多额外提升43%；\n初始暴击率超过50%时，每超过1%，[强化特殊技]、[特殊技]、[终结技]攻击命中敌人时，造成的失衡值提升0.44%，最多额外提升22%；，基础攻击力提升75点。（此处数据为满级数据）\n诺姆会根据自身贯穿力额外提升攻击力，每1点贯穿力将提升1.25点攻击力，最多提升1200点攻击力；\n进入战场时，诺姆立刻获得60%[预热膛温]，在勘域模式中此效果180秒内最多触发一次；\n[预热膛温]大于等于80%后，下次发动的[普通攻击：帽子把戏]将无视冷却时间限制触发[快速支援]，并消耗80%[预热瞠温]将其替换为[连携技]。\n\n额外能力：集群优势\n队伍中存在[强攻]、[命破]角色或与自身阵营相同的角色时触发：\n诺姆及其造物、战斗邦布攻击命中敌人时，对敌人施加1层[技术鸿沟]，每层[技术鸿沟]能够使目标的失衡易伤倍率提升3%，最多叠加10层，每0.5秒最多叠加1层；\n持有任意层数[技术鸿沟]的敌人进入失衡状态后的失衡持续时间提升2秒，失衡持续时间提升效果与同类效果不可叠加，拥有[技术鸿沟]效果的敌人失衡结束时[技术鸿沟]效果结束；\n[嗯呢弹幕]期间，诺姆的攻击力提升44点，该效果随角色等级提升，每级增加14点，最多提升870点；\n[嗯呢弹幕]期间，全队代理人造成的伤害提升20%。",
+          "title": "核心技：精准制导",
+          "text": "初始暴击率超过50%时，每超过1%，暴击伤害提升1.7%，最多额外提升85%；\n初始暴击率超过50%时，每超过1%，[强化特殊技]、[特殊技]、[终结技]攻击命中敌人时，造成的失衡值提升0.8%，最多额外提升40%；\n诺姆会根据自身贯穿力额外提升攻击力，每1点贯穿力将提升1.25点攻击力，最多提升1200点攻击力；\n进入战场时，诺姆立刻获得60%[预热膛温]，在勘域模式中此效果180秒内最多触发一次；\n[预热膛温]大于等于80%后，下次发动的[普通攻击：帽子把戏]将无视冷却时间限制触发[快速支援]，并消耗80%[预热瞠温]将其替换为[连携技]。",
           "growth": [
             {
               "level": "A",
@@ -3732,9 +3680,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：集群优势",
+          "text": "队伍中存在[强攻]、[命破]角色或与自身阵营相同的角色时触发：\n诺姆及其造物、战斗邦布攻击命中敌人时，对敌人施加1层[技术鸿沟]，每层[技术鸿沟]能够使目标的失衡易伤倍率提升3%，最多叠加10层，每0.5秒最多叠加1层；\n持有任意层数[技术鸿沟]的敌人进入失衡状态后的失衡持续时间提升2秒，失衡持续时间提升效果与同类效果不可叠加，拥有[技术鸿沟]效果的敌人失衡结束时[技术鸿沟]效果结束；\n[嗯呢弹幕]期间，诺姆的攻击力提升44点，该效果随角色等级提升，每级增加14点，最多提升870点；\n[嗯呢弹幕]期间，全队代理人造成的伤害提升20%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/06/27/82500917/3e94a4928fde8dd7cbd625be0df66c27_6273249325310981654.png"
     }
   ],
@@ -3772,27 +3724,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/norma/cinema-2.png",
+      "image": "/images/strategy/norma/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/08/71319299/447cf7570085391e97cc1a2863ffc679_3552839231286101005.png"
     },
     "2": {
-      "image": "/images/strategy/norma/cinema-2.png",
+      "image": "/images/strategy/norma/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/08/71319299/447cf7570085391e97cc1a2863ffc679_3552839231286101005.png"
     },
     "3": {
-      "image": "/images/strategy/norma/cinema-2.png",
+      "image": "/images/strategy/norma/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/08/71319299/447cf7570085391e97cc1a2863ffc679_3552839231286101005.png"
     },
     "4": {
-      "image": "/images/strategy/norma/cinema-3.png",
+      "image": "/images/strategy/norma/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/08/71319299/415cb1189a8414909f803d536917db3b_7013655072926584251.png"
     },
     "5": {
-      "image": "/images/strategy/norma/cinema-3.png",
+      "image": "/images/strategy/norma/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/08/71319299/415cb1189a8414909f803d536917db3b_7013655072926584251.png"
     },
     "6": {
-      "image": "/images/strategy/norma/cinema-3.png",
+      "image": "/images/strategy/norma/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/08/71319299/415cb1189a8414909f803d536917db3b_7013655072926584251.png"
     }
   }

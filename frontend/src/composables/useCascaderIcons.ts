@@ -60,9 +60,9 @@ function optionIconSrc(option: CascaderOption, leafIconDir: string): string {
   }
   if (option.children?.length) {
     const slug = ROLE_ICON[value as RoleTag];
-    return slug ? `/images/icons/${slug}.png` : '';
+    return slug ? `/images/icons/${slug}.webp` : '';
   }
-  return `${leafIconDir}/${value}.png`;
+  return `${leafIconDir}/${value}.webp`;
 }
 
 /**

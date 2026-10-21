@@ -4,7 +4,7 @@
 > `frontend/legacy/` 与仓库根目录 6 个中文重定向页已于 2026-10-03 全部删除。
 >
 > 想了解夹具现在的样子，请看
-> [directory-layout.md](../directory-layout.md) 第 4 节。
+> [directory-layout.md](../overview/directory-layout.md) 第 4 节。
 >
 > **本文仍有价值的部分**：「迁移期已知特性」一节至今生效——
 > `scripts/calculator-config.js` 是数据抓取脚本的正则解析源，

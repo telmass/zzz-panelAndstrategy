@@ -4,7 +4,7 @@
     "entryPageId": 316,
     "name": "亚历山德丽娜·莎芭丝缇安",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/316/detail",
-    "scrapedAt": "2026-10-16T13:23:04+00:00"
+    "scrapedAt": "2026-10-20T11:05:42+00:00"
   },
   "profile": {
     "name": "亚历山德丽娜·莎芭丝缇安",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】辅助支援、穿透增益\n【角色详情】丽娜作为一位远程支援类型的电属性代理人，由于自身核心被动带来的增益效果，其可以为队伍带来不俗的穿透增益。此外丽娜还具有多种电属性攻击手段，异常积蓄能力也较为出色，因此具有广泛的适用性。在实战中，速切丽娜释放强化特殊技激活的“受击支援”可以使队伍中主要输出角色触发丽娜核心被动带来的穿透增益效果，大幅提高全队的爆发能力。在敌方处于失衡额外易伤倍率时该效果会获得最大化的伤害收益。",
     "icons": {
-      "profession": "/images/icons/support.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/electric.png",
+      "profession": "/images/icons/support.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/electric.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8609,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 642,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 600,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 83,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 92,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-316.png",
+    "avatar": "/images/agents/ep-316.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/141353238/9a978a559ee6822481b7d4143170affe_464856154643405893.png",
-    "tachie": "/images/strategy/rina/tachie.png",
+    "tachie": "/images/strategy/rina/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/10/76099754/c47f14bacdce20754f3cd42a6e7acb87_4956173882472889807.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -1789,7 +1737,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/76099754/e180f078d7badf3e8c104556f2ce3397_6916674502613204216.png"
     },
     {
@@ -2354,7 +2302,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -2919,7 +2867,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -2928,8 +2876,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：迷你毁灭拍档\n指派杜苏拉或安娜塔莎进行攻击时，队伍中其他角色的穿透率随丽娜自身的穿透率提升，提升效果等同于丽娜自身穿透率的25%+6%，最高不超过30%，杜苏拉和安娜塔莎均返回丽娜身边后，对应增益效果结束，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：完美舞会\n队伍中存在与自身属性或阵营相同的角色时触发：\n队伍中任意角色对敌人施加[感电]效果时，持续时间提升3秒；场上存在处于[感电]状态下的敌人时，全队角色造成的电属性伤害提升10%。",
+          "title": "核心技：迷你毁灭拍档",
+          "text": "指派杜苏拉或安娜塔莎进行攻击时，队伍中其他角色的穿透率随丽娜自身的穿透率提升，提升效果等同于丽娜自身穿透率的25%+12%，最高不超过30%，杜苏拉和安娜塔莎均返回丽娜身边后，对应增益效果结束。",
           "growth": [
             {
               "level": "A",
@@ -2998,9 +2946,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：完美舞会",
+          "text": "队伍中存在与自身属性或阵营相同的角色时触发：\n队伍中任意角色对敌人施加[感电]效果时，持续时间提升3秒；场上存在处于[感电]状态下的敌人时，全队角色造成的电属性伤害提升10%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/29/141353238/9d05677658ff150b2a0dcfe50bd81c61_339379352245492647.png"
     }
   ],
@@ -3038,27 +2990,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/rina/cinema-2.png",
+      "image": "/images/strategy/rina/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/02/141353238/ef55c20f9be8aebbc96f43950f1300ee_1341500775911553634.png"
     },
     "2": {
-      "image": "/images/strategy/rina/cinema-2.png",
+      "image": "/images/strategy/rina/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/02/141353238/ef55c20f9be8aebbc96f43950f1300ee_1341500775911553634.png"
     },
     "3": {
-      "image": "/images/strategy/rina/cinema-2.png",
+      "image": "/images/strategy/rina/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/02/141353238/ef55c20f9be8aebbc96f43950f1300ee_1341500775911553634.png"
     },
     "4": {
-      "image": "/images/strategy/rina/cinema-3.png",
+      "image": "/images/strategy/rina/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/02/141353238/0c2231d5cb3e7ac805aead9164581ae2_5975115841692770163.png"
     },
     "5": {
-      "image": "/images/strategy/rina/cinema-3.png",
+      "image": "/images/strategy/rina/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/02/141353238/0c2231d5cb3e7ac805aead9164581ae2_5975115841692770163.png"
     },
     "6": {
-      "image": "/images/strategy/rina/cinema-3.png",
+      "image": "/images/strategy/rina/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/02/141353238/0c2231d5cb3e7ac805aead9164581ae2_5975115841692770163.png"
     }
   }

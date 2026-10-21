@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/sunna/background.webp",
   "_meta": {
     "agentId": "ep-1791",
     "name": "千夏",
@@ -15,7 +16,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": ">"
@@ -23,7 +24,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -31,7 +32,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -39,7 +40,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -47,7 +48,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -55,7 +56,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 7,
       "maxLevel": 12,
       "next": ""
@@ -68,7 +69,7 @@
         {
           "name": "思络成歌",
           "stats": "S 级 · 基础攻击 713 · 能量自动回复 60%",
-          "icon": "/images/weapons/ep-1826.png"
+          "icon": "/images/weapons/ep-1826.webp"
         }
       ],
       "note": "专武（WIKI 推荐代理人表同时列千夏与浮波柚叶）：后场时每 0.96 点/秒回能，发动强化特殊技造成物理伤害时全队增伤 +20%（最多叠 2 层）、叠满 2 层时全队攻击力再 +16%——强化特殊技两段都能叠层，覆盖率接近全程；713 的高攻击白值也让 3500 阈值更容易达标。"
@@ -79,7 +80,7 @@
         {
           "name": "好斗的阿炮",
           "stats": "A 级 · 基础攻击 624 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-486.png"
+          "icon": "/images/weapons/ep-486.webp"
         }
       ],
       "note": "无专武时最优：队伍中任意友方单位攻击命中敌人，全队攻击力 +4%（最多 4 层、每名友方单位 1 层）——千夏的泡泡算友方单位，也能叠层。攻击白值比专武低 89 条攻击词条，达标 3500 需要更多副词条。"
@@ -90,7 +91,7 @@
         {
           "name": "啜泣摇篮",
           "stats": "S 级 · 基础攻击 684 · 穿透率 24%",
-          "icon": "/images/weapons/ep-218.png"
+          "icon": "/images/weapons/ep-218.webp"
         }
       ],
       "note": "S 级音擎，位于后场时每 1.2 点/秒回能、命中敌人后全队对该目标伤害随时间增长，但副词条是穿透率、不提供千夏需要的攻击与回能，仅作过渡。"
@@ -101,12 +102,12 @@
         {
           "name": "聚宝箱",
           "stats": "A 级 · 基础攻击 624 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-217.png"
+          "icon": "/images/weapons/ep-217.webp"
         },
         {
           "name": "逍遥游球",
           "stats": "A 级 · 基础攻击 594 · 能量自动回复 50%",
-          "icon": "/images/weapons/ep-213.png"
+          "icon": "/images/weapons/ep-213.webp"
         }
       ],
       "note": "只能吃到副词条的回能：聚宝箱的特效需要以太伤害才能触发（千夏是物理属性），逍遥游球需要攻击命中触发属性克制、且只加全队暴击率，均不稳定。"
@@ -119,18 +120,18 @@
         "name": "月光骑士颂",
         "label": "能量自动回复 +20%",
         "effect4": "装备者为[支援]角色时，发动[强化特殊技]或[终结技]会使全队角色造成的伤害提升18%，持续25秒，重复触发时刷新持续时间，同名被动效果之间不可叠加。",
-        "icon": "/images/discs/ep-1551.png",
+        "icon": "/images/discs/ep-1551.webp",
         "alt4": {
           "name": "静听嘉音",
           "label": "攻击力 +10%",
-          "icon": "/images/discs/ep-1001.png"
+          "icon": "/images/discs/ep-1001.webp"
         }
       },
       "set2": {
         "main": {
           "name": "摇摆爵士",
           "label": "能量自动回复 +20%",
-          "icon": "/images/discs/ep-231.png"
+          "icon": "/images/discs/ep-231.webp"
         }
       },
       "mainStats": [
@@ -173,12 +174,12 @@
           "agentId": "ep-1687",
           "name": "叶瞬光",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1687.png",
+          "avatar": "/images/agents/ep-1687.webp",
           "note": "双形态主C；千夏反复开关以太帷幕，每次开关都为她回复[青溟剑势]，加快进入白发形态。",
           "set4": [
             {
               "name": "沧浪行歌",
-              "icon": "/images/discs/ep-1754.png"
+              "icon": "/images/discs/ep-1754.webp"
             }
           ]
         },
@@ -186,12 +187,12 @@
           "agentId": "ep-1624",
           "name": "琉音",
           "role": "击破",
-          "avatar": "/images/agents/ep-1624.png",
+          "avatar": "/images/agents/ep-1624.webp",
           "note": "物理击破，快速积累失衡、削韧破防，为叶瞬光创造输出窗口；失衡期触发[猫的凝视]的次数大幅减少，与千夏互相成就。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         },
@@ -199,12 +200,12 @@
           "agentId": "ep-1791",
           "name": "千夏",
           "role": "支援",
-          "avatar": "/images/agents/ep-1791.png",
+          "avatar": "/images/agents/ep-1791.webp",
           "note": "全队加攻 + 失衡易伤 + [猫的凝视]额外伤害；强攻身份的叶瞬光触发凝视为 300% 攻击力的凛刃伤害。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -217,12 +218,12 @@
           "agentId": "ep-1687",
           "name": "叶瞬光",
           "role": "强攻",
-          "avatar": "/images/agents/ep-1687.png",
+          "avatar": "/images/agents/ep-1687.webp",
           "note": "双形态主C；照与千夏两个以太帷幕轮流开关，剑势回复与循环舒适度拉满。",
           "set4": [
             {
               "name": "沧浪行歌",
-              "icon": "/images/discs/ep-1754.png"
+              "icon": "/images/discs/ep-1754.webp"
             }
           ]
         },
@@ -230,16 +231,16 @@
           "agentId": "ep-1686",
           "name": "照",
           "role": "防护",
-          "avatar": "/images/agents/ep-1686.png",
+          "avatar": "/images/agents/ep-1686.webp",
           "note": "冰属性防护，[以太帷幕·涌泉]为叶瞬光回复[青溟剑势]并触发她的额外能力；千夏的帷幕先关后开，能反复刷新判定。",
           "set4": [
             {
               "name": "雪兔梦游仙境",
-              "icon": "/images/discs/ep-1907.png"
+              "icon": "/images/discs/ep-1907.webp"
             },
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         },
@@ -247,12 +248,12 @@
           "agentId": "ep-1791",
           "name": "千夏",
           "role": "支援",
-          "avatar": "/images/agents/ep-1791.png",
+          "avatar": "/images/agents/ep-1791.webp",
           "note": "强攻身份的叶瞬光满足额外能力条件；帷幕内角色命中后敌人失衡易伤 +30%。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         }
@@ -265,12 +266,12 @@
           "agentId": "ep-1791",
           "name": "千夏",
           "role": "支援",
-          "avatar": "/images/agents/ep-1791.png",
+          "avatar": "/images/agents/ep-1791.webp",
           "note": "同阵营的爱芮与南宫羽满足额外能力[白日梦对位法]，三人同时凑满妄想天使组合技。",
           "set4": [
             {
               "name": "月光骑士颂",
-              "icon": "/images/discs/ep-1551.png"
+              "icon": "/images/discs/ep-1551.webp"
             }
           ]
         },
@@ -278,12 +279,12 @@
           "agentId": "ep-1793",
           "name": "爱芮",
           "role": "异常",
-          "avatar": "/images/agents/ep-1793.png",
+          "avatar": "/images/agents/ep-1793.webp",
           "note": "以太异常主C，第三段蓄力命中异常目标打异放；异常身份触发[猫的凝视]为 480% 且必定暴击、暴击伤害 +150%。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         },
@@ -291,12 +292,12 @@
           "agentId": "ep-1852",
           "name": "南宫羽",
           "role": "击破",
-          "avatar": "/images/agents/ep-1852.png",
+          "avatar": "/images/agents/ep-1852.webp",
           "note": "以太击破速切失衡手，[踉跄]延长失衡 3 秒并给 30% 失衡易伤，为爱芮的异放与千夏的凝视触发开失衡窗口。",
           "set4": [
             {
               "name": "法厄同之歌",
-              "icon": "/images/discs/ep-1194.png"
+              "icon": "/images/discs/ep-1194.webp"
             }
           ]
         }

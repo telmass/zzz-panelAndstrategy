@@ -4,7 +4,7 @@
     "entryPageId": 2079,
     "name": "希格莉德·德拉叙尔",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2079/detail",
-    "scrapedAt": "2026-10-16T20:00:54+00:00"
+    "scrapedAt": "2026-10-20T11:02:02+00:00"
   },
   "profile": {
     "name": "希格莉德·德拉叙尔",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】S级冰属性强攻代理人，驻场主C，高额自增益，简单易上手。\n【角色详情】希格莉德是冰属性的强攻特性代理人，她可以通过特定的招式来发动［出枪式］，从而进入［巡空枪势］获得大量的暴击率和失衡易伤增益，以便通过长按普通攻击键打出［敛枪式］，对敌人造成高额的冰属性伤害。\n若队友满足条件，不仅能使希格莉德的攻击力获得大幅提升，还能提升对处在［浸染］状态下敌人造成的伤害。",
     "icons": {
-      "profession": "/images/icons/attack.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ice.png",
+      "profession": "/images/icons/attack.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ice.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7788,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 863,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 93,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 92,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 90,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-2079.png",
+    "avatar": "/images/agents/ep-2079.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/14/76099754/57ecf63587c311c0ecf598b45ae8042b_3711762622299384122.png",
-    "tachie": "/images/strategy/sigrid/tachie.png",
+    "tachie": "/images/strategy/sigrid/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/07/30/428571341/d9d42eb829af4a8bdbb66deffabba39c_6615214919093587621.png"
   },
   "skills": [
@@ -655,7 +603,7 @@
           "text": "普通攻击：敛枪式(格挡)"
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1224,7 +1172,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1971,7 +1919,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2814,7 +2762,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3379,7 +3327,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3388,7 +3336,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：天空骑士",
+          "title": "核心技：天空骑士",
           "text": "[普通攻击：凛冽枪尖]第四段、[强化特殊技：乱琼]、[强化特殊技：碎玉]、[支援突击：冰饕]、[连携技：冰凌卷地]、[终结技：霜天]与[闪避反击：回马枪]视为[出枪式]；\n希格莉德的任意[出枪式]命中敌人时，若当前未处于[巡空枪势]状态，则进入[巡空枪势]状态，获得1次[普通攻击：敛枪式]发动机会，最多储存1次；\n处于[巡空枪势]状态下，希格莉德发动任意[出枪式]命中敌人时，可刷新[巡空枪势]状态，并获得1次[普通攻击：敛枪式]发动机会，最多储存1次；\n触发或刷新[巡空枪势]时，其持续时间随[普通攻击：敛枪式]段数提升而缩短：一/二/三段时，持续时间分别为8/7/6秒；\n[巡空枪势]状态结束时，[普通攻击：敛枪式]段数降低一段，最低降至一段；\n激活或刷新[巡空枪势]状态时，希格莉德的暴击率提升66%，持续8秒；重复触发时持续时间延长8秒，最多不超过40秒；（此处数据为F级数据）\n处于[巡空枪势]状态下，希格莉德攻击命中处于失衡状态下的敌人时，对目标造成伤害的失衡易伤倍率提升20%。",
           "growth": [
             {
@@ -3458,9 +3406,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：天际联军",
+          "text": "队伍中存在[支援]或[击破]角色时触发：\n希格莉德的攻击力提升120点，该效果随角色等级提升，每级增加12点，最多提升840点；\n攻击命中处于[浸染]状态下的敌人时，自身造成的伤害提升15%。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/14/82232455/a473ae377f133ed027786e08faefe0ff_6612097732197509894.png"
     }
   ],
@@ -3498,27 +3450,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/sigrid/cinema-2.png",
+      "image": "/images/strategy/sigrid/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/19/71319299/70b139c343049f2f3e81c40c5f50f63e_6977907828601381270.png"
     },
     "2": {
-      "image": "/images/strategy/sigrid/cinema-2.png",
+      "image": "/images/strategy/sigrid/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/19/71319299/70b139c343049f2f3e81c40c5f50f63e_6977907828601381270.png"
     },
     "3": {
-      "image": "/images/strategy/sigrid/cinema-2.png",
+      "image": "/images/strategy/sigrid/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/19/71319299/70b139c343049f2f3e81c40c5f50f63e_6977907828601381270.png"
     },
     "4": {
-      "image": "/images/strategy/sigrid/cinema-3.png",
+      "image": "/images/strategy/sigrid/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/19/71319299/35dc332a51cd3ab519372dd6530956ba_7383302679747030702.png"
     },
     "5": {
-      "image": "/images/strategy/sigrid/cinema-3.png",
+      "image": "/images/strategy/sigrid/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/19/71319299/35dc332a51cd3ab519372dd6530956ba_7383302679747030702.png"
     },
     "6": {
-      "image": "/images/strategy/sigrid/cinema-3.png",
+      "image": "/images/strategy/sigrid/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/08/19/71319299/35dc332a51cd3ab519372dd6530956ba_7383302679747030702.png"
     }
   }

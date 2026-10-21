@@ -12,6 +12,9 @@ import {
 } from '@/components/calculator';
 import { BackToLauncher, BackToTop } from '@/components/layout';
 import { useAgentPreset, validateAgentPresetData } from '@/composables/useAgentPreset';
+import { applyBuild } from '@/composables/useBuildPanel';
+import { readBuildFromHash } from '@/composables/useBuildIO';
+import { usePanelStore } from '@/stores/panelStore';
 
 /**
  * 统一计算器页。DOM 结构对应 legacy/pages/calculator.html 的
@@ -23,14 +26,27 @@ import { useAgentPreset, validateAgentPresetData } from '@/composables/useAgentP
  *
  * 模块序号徽标（01–06）保留，与攻略页一级板块的编号方块同形，纯作视觉分区。
  *
- * 挂载时按 URL 的 `?mode=` 参数设定初始面板模式，
- * 并一次性校验预设数据完整性——任一条不通过即视为数据源损坏。
+ * 挂载时按 URL 的 `?mode=` 参数设定初始面板模式，按 `?agent=` 载入代理人预设
+ * （slug 或预设 id 皆可），并一次性校验预设数据完整性——任一条不通过即视为
+ * 数据源损坏。有了 `?agent=`，一条链接就能复现某位代理人的整套面板。
  */
 const { initFromQueryParam } = useAgentPreset();
+const panel = usePanelStore();
 
 onMounted(() => {
   validateAgentPresetData();
-  initFromQueryParam(new URLSearchParams(window.location.search).get('mode'));
+  const params = new URLSearchParams(window.location.search);
+  initFromQueryParam(params.get('mode'), params.get('agent'));
+
+  // 分享链接：``#build=…`` 里是一套配装（本地编码，不落服务端）。
+  // 读不到就当没有——访客点开一条失效的链接应该看到正常的页面。
+  const shared = readBuildFromHash();
+  if (shared) {
+    const outcome = applyBuild(shared);
+    if (!outcome.ok) {
+      panel.setAgentNote({ text: outcome.message, tone: 'error' });
+    }
+  }
 });
 </script>
 

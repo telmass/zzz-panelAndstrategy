@@ -1,4 +1,4 @@
-"""把 ``data/*.json`` 编译进一个 Python 模块，供 Cloudflare Worker 部署。
+"""把 ``data/`` 下的预设数据编译进一个 Python 模块，供 Cloudflare Worker 部署。
 
     python tools/bundle_worker_data.py            # 生成/刷新
     python tools/bundle_worker_data.py --check     # 只比对，有漂移则退出码 1
@@ -20,9 +20,14 @@
 - 不依赖虚拟文件系统的任何行为，也不需要 ``importlib.resources``
 - 生成物不提交，唯一真实源永远是仓库根的 ``data/``
 
-只收 ``agent-presets.json`` 与 ``weapon-presets.json``——这两个是后端
-``presets/loader.py`` 运行时读的。``options.json`` 不收：它由前端在
-**构建期**经 Vite 别名 ``@data`` 读真实源，根本不经过后端。
+收哪些数据集由 ``data/manifest.json`` 的 ``worker`` 字段决定（目前是代理人
+与音擎预设——这两个是后端 ``presets/loader.py`` 运行时读的）。规则表
+``calculator-rules`` 不收：它由前端在**构建期**经 Vite 别名 ``@data`` 读真实源，
+根本不经过后端。
+
+常量名由数据集 id 推导（``agents`` → ``AGENTS_JSON``），打包脚本与后端
+loader 用同一条规则；两侧是否一致由 ``backend/tests/test_worker_bundle.py``
+断言，改名漏改一侧会在 CI 就失败，而不是上线后才 503。
 """
 
 from __future__ import annotations
@@ -30,26 +35,44 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = REPO_ROOT / "data"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from data_paths import dataset_path, load_manifest, worker_constant  # noqa: E402
 
 #: 生成目标。**必须是 .py**——只有 .py 会被上传（见模块 docstring）。
 #: 放在 ``backend/src/`` 之下才会被 pywrangler 附加：它只附加 Worker 入口
 #: ``backend/src/worker.py`` 所在目录的整棵树。
 BUNDLED_MODULE = REPO_ROOT / "backend" / "src" / "zzz_panel" / "_bundled_data.py"
 
-#: 源文件名 -> 生成模块里的常量名。
-SOURCES = {
-    "agent-presets.json": "AGENTS_JSON",
-    "weapon-presets.json": "WEAPONS_JSON",
-}
+
+def _worker_sources() -> dict[str, str]:
+    """真实源相对路径 -> 生成模块里的常量名。取自 ``data/manifest.json``。"""
+    manifest = load_manifest()
+    sources: dict[str, str] = {}
+    for name, entry in manifest["datasets"].items():
+        if entry.get("worker"):
+            sources[entry["path"]] = worker_constant(name)
+    return sources
+
+
+#: 源文件相对路径 -> 生成模块里的常量名。
+SOURCES = _worker_sources()
 
 _HEADER_LINES = (
     '"""预设数据的 Worker 编译产物，**生成物，勿手工编辑**。',
     "",
-    "由 ``python tools/bundle_worker_data.py`` 从仓库根 ``data/*.json`` 生成。",
+    "由 ``python tools/bundle_worker_data.py`` 从仓库根 ``data/`` 生成。",
     "唯一真实源是 ``data/``；本文件不提交（见 ``.gitignore``）。",
     "",
     "原文按「每行一个相邻字符串字面量」保存，因此与源文件逐字节一致，",

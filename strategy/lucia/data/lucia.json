@@ -4,7 +4,7 @@
     "entryPageId": 1533,
     "name": "卢西娅·艾洛温",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1533/detail",
-    "scrapedAt": "2026-10-15T15:05:32+00:00"
+    "scrapedAt": "2026-10-20T10:59:44+00:00"
   },
   "profile": {
     "name": "卢西娅·艾洛温",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】以太属性支援特性代理人，命破体系专辅、提供贯穿增伤和暴伤、提高队友生命上限\n【角色详情】卢西娅是侧重于命破体系伤害提升的支援代理人，可提供全队贯穿力加成、增伤和暴击伤害提升。一般来说，通过强化特殊技衔接普通攻击，就能让卢西娅的三类buff快速启动，从而将主C切到前场持续输出。同时，卢西娅还能在后台释放追加攻击，配合队友快速清杂。她的终结技开启后，还会为当前操作中的角色，提供基于她自身最大生命值一定比例的生命回复效果。",
     "icons": {
-      "profession": "/images/icons/support.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/ether.png",
+      "profession": "/images/icons/support.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/ether.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8477,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 683,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 594,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 83,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 96,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 95,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1533.png",
+    "avatar": "/images/agents/ep-1533.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/10/76099754/59a4a2aca9680e8ddf9ebf8c2985007e_9204633087739368852.png",
-    "tachie": "/images/strategy/lucia/tachie.png",
+    "tachie": "/images/strategy/lucia/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/09/82500917/389888ec465e9e869a9e0d37685172ec_369114252561046982.jpg"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1689,7 +1637,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2254,7 +2202,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -2819,7 +2767,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -2828,8 +2776,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：迷途夜颂\n进入战场时，卢西娅立刻获得60点[梦境值]，若在发动[随想]或[合唱]时，卢西娅的[梦境值]达到100点，会进入[梦境]状态；\n进入[梦境]状态时，将触发[快速支援]，并同时开启[以太帷幕·涌泉]，[以太帷幕·涌泉]生效期间，全队角色最大生命值提升5%，持续40秒，重复触发延长持续时间，最多延长至300秒；\n当卢西娅处于[梦境]状态中，发动任意[随想]时，会消耗25点[梦境值]将[随想]升级为[合唱]；其他操作中的角色攻击命中敌人时，会消耗25点[梦境值]发动[追加攻击]，[追加攻击]为[合唱]，卢西娅在发动招式升级或[追加攻击]后，8秒内不会触发[追加攻击]；\n卢西娅发动招式升级或[追加攻击]时，会为全队角色施加[巡梦童谣]状态，[巡梦童谣]状态下，角色造成的伤害提升10%，持续12秒，重复触发时刷新持续时间；\n[梦境值]不足或离开[以太帷幕]时，卢西娅退出[梦境]状态，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：长夜诗篇\n队伍中存在[命破]角色或[击破]角色时触发：\n施加[破暗]状态时，额外附加暴击伤害提升30%效果。",
+          "title": "核心技：迷途夜颂",
+          "text": "进入战场时，卢西娅立刻获得60点[梦境值]，若在发动[随想]或[合唱]时，卢西娅的[梦境值]达到100点，会进入[梦境]状态；\n进入[梦境]状态时，将触发[快速支援]，并同时开启[以太帷幕·涌泉]，[以太帷幕·涌泉]生效期间，全队角色最大生命值提升5%，持续40秒，重复触发延长持续时间，最多延长至300秒；\n当卢西娅处于[梦境]状态中，发动任意[随想]时，会消耗25点[梦境值]将[随想]升级为[合唱]；其他操作中的角色攻击命中敌人时，会消耗25点[梦境值]发动[追加攻击]，[追加攻击]为[合唱]，卢西娅在发动招式升级或[追加攻击]后，8秒内不会触发[追加攻击]；\n卢西娅发动招式升级或[追加攻击]时，会为全队角色施加[巡梦童谣]状态，[巡梦童谣]状态下，角色造成的伤害提升20%，持续12秒，重复触发时刷新持续时间；\n[梦境值]不足或离开[以太帷幕]时，卢西娅退出[梦境]状态。",
           "growth": [
             {
               "level": "A",
@@ -2898,9 +2846,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：长夜诗篇",
+          "text": "队伍中存在[命破]角色或[击破]角色时触发：\n施加[破暗]状态时，额外附加暴击伤害提升30%效果。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/08/82500917/06ae05c447f1ed34b8c8fd744bb74921_1079684483140542696.png"
     }
   ],
@@ -2938,27 +2890,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/lucia/cinema-2.png",
+      "image": "/images/strategy/lucia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/7fdbf3f7ebbf191dd5dd38dec28b7a63_965249551743477841.png"
     },
     "2": {
-      "image": "/images/strategy/lucia/cinema-2.png",
+      "image": "/images/strategy/lucia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/7fdbf3f7ebbf191dd5dd38dec28b7a63_965249551743477841.png"
     },
     "3": {
-      "image": "/images/strategy/lucia/cinema-2.png",
+      "image": "/images/strategy/lucia/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/7fdbf3f7ebbf191dd5dd38dec28b7a63_965249551743477841.png"
     },
     "4": {
-      "image": "/images/strategy/lucia/cinema-3.png",
+      "image": "/images/strategy/lucia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/eab509938dce31ee959078a856b3be57_2530606985717724390.png"
     },
     "5": {
-      "image": "/images/strategy/lucia/cinema-3.png",
+      "image": "/images/strategy/lucia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/eab509938dce31ee959078a856b3be57_2530606985717724390.png"
     },
     "6": {
-      "image": "/images/strategy/lucia/cinema-3.png",
+      "image": "/images/strategy/lucia/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/10/15/76099754/eab509938dce31ee959078a856b3be57_2530606985717724390.png"
     }
   }

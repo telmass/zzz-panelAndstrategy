@@ -5,9 +5,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/211/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击伤害",
       "value": 48,
@@ -21,9 +22,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/214/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 684,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 684
+    },
     "substat": {
       "label": "穿透率",
       "value": 24,
@@ -37,9 +39,10 @@
     "grade": "S",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/218/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 684,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 684
+    },
     "substat": {
       "label": "穿透率",
       "value": 24,
@@ -53,9 +56,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/219/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 684,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 684
+    },
     "substat": {
       "label": "冲击力",
       "value": 18,
@@ -69,9 +73,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/220/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 684,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 684
+    },
     "substat": {
       "label": "冲击力",
       "value": 18,
@@ -85,9 +90,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/223/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 684,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 684
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -101,9 +107,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/224/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 684,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 684
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -117,9 +124,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/225/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -133,9 +141,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/678/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "冲击力",
       "value": 18,
@@ -149,9 +158,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/760/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "异常精通",
       "value": 90,
@@ -165,9 +175,10 @@
     "grade": "S",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/799/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "冲击力",
       "value": 18,
@@ -181,9 +192,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/841/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -197,9 +209,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/915/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -213,9 +226,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/951/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "冲击力",
       "value": 18,
@@ -229,9 +243,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/991/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击伤害",
       "value": 48,
@@ -245,9 +260,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/992/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 743,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 743
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -261,9 +277,10 @@
     "grade": "S",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1107/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -277,9 +294,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1159/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -293,9 +311,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1197/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击伤害",
       "value": 48,
@@ -309,9 +328,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1243/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -325,9 +345,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1277/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "异常精通",
       "value": 90,
@@ -341,9 +362,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1305/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -357,9 +379,10 @@
     "grade": "S",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1342/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 743,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 743
+    },
     "substat": {
       "label": "生命值",
       "value": 30,
@@ -373,9 +396,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1427/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -389,9 +413,10 @@
     "grade": "S",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1463/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 60,
@@ -405,9 +430,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1503/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -421,9 +447,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1553/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -437,9 +464,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1586/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 60,
@@ -453,9 +481,10 @@
     "grade": "S",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1611/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "生命值",
       "value": 30,
@@ -469,9 +498,10 @@
     "grade": "S",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1664/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "生命值",
       "value": 30,
@@ -485,9 +515,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1689/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -501,9 +532,10 @@
     "grade": "S",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1721/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "生命值",
       "value": 30,
@@ -517,9 +549,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1751/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 743,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 743
+    },
     "substat": {
       "label": "暴击伤害",
       "value": 48,
@@ -533,9 +566,10 @@
     "grade": "S",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1753/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "生命值",
       "value": 30,
@@ -549,9 +583,10 @@
     "grade": "S",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1826/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 60,
@@ -565,9 +600,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1883/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "异常掌控",
       "value": 30,
@@ -581,9 +617,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1908/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "异常掌控",
       "value": 30,
@@ -597,9 +634,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1941/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 60,
@@ -613,9 +651,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1964/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "异常掌控",
       "value": 30,
@@ -629,9 +668,10 @@
     "grade": "S",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2002/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "生命值",
       "value": 30,
@@ -645,9 +685,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2030/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 60,
@@ -661,9 +702,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2031/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "攻击力",
       "value": 30,
@@ -677,9 +719,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2088/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击率",
       "value": 24,
@@ -693,9 +736,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2109/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 743,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 743
+    },
     "substat": {
       "label": "攻击力",
       "value": 36,
@@ -709,9 +753,10 @@
     "grade": "S",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2162/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "暴击伤害",
       "value": 48,
@@ -725,9 +770,10 @@
     "grade": "S",
     "roleTag": "锋御",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2188/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "def",
-    "baseAttack": 0,
-    "baseDefense": 431,
+    "base": {
+      "kind": "def",
+      "value": 431
+    },
     "substat": {
       "label": "防御力",
       "value": 48,
@@ -741,9 +787,10 @@
     "grade": "S",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2234/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 60,
@@ -757,9 +804,10 @@
     "grade": "S",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2259/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 713,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 713
+    },
     "substat": {
       "label": "异常掌控",
       "value": 30,
@@ -773,9 +821,10 @@
     "grade": "A",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/98/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "冲击力",
       "value": 15,
@@ -789,9 +838,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/139/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "生命值",
       "value": 25,
@@ -805,9 +855,10 @@
     "grade": "A",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/141/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "冲击力",
       "value": 15,
@@ -821,9 +872,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/142/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -837,9 +889,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/143/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "防御力",
       "value": 40,
@@ -853,9 +906,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/146/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "防御力",
       "value": 40,
@@ -869,9 +923,10 @@
     "grade": "A",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/154/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "异常精通",
       "value": 75,
@@ -885,9 +940,10 @@
     "grade": "A",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/155/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "冲击力",
       "value": 15,
@@ -901,9 +957,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/156/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -917,9 +974,10 @@
     "grade": "A",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/157/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 50,
@@ -933,9 +991,10 @@
     "grade": "A",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/210/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "异常精通",
       "value": 75,
@@ -949,9 +1008,10 @@
     "grade": "A",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/212/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -965,9 +1025,10 @@
     "grade": "A",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/213/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 50,
@@ -981,9 +1042,10 @@
     "grade": "A",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/215/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -997,9 +1059,10 @@
     "grade": "A",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/216/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "穿透率",
       "value": 20,
@@ -1013,9 +1076,10 @@
     "grade": "A",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/217/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 50,
@@ -1029,9 +1093,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/221/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "暴击率",
       "value": 20,
@@ -1045,9 +1110,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/222/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1061,9 +1127,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/263/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1077,9 +1144,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/264/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1093,9 +1161,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/265/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 50,
@@ -1109,9 +1178,10 @@
     "grade": "A",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/486/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 50,
@@ -1125,9 +1195,10 @@
     "grade": "A",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/494/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1141,9 +1212,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/744/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1157,9 +1229,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/761/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1173,9 +1246,10 @@
     "grade": "A",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/995/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "暴击率",
       "value": 20,
@@ -1189,9 +1263,10 @@
     "grade": "A",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1198/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "冲击力",
       "value": 15,
@@ -1205,9 +1280,10 @@
     "grade": "A",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1340/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "生命值",
       "value": 25,
@@ -1221,9 +1297,10 @@
     "grade": "A",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1343/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1237,9 +1314,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1344/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "冲击力",
       "value": 15,
@@ -1253,9 +1331,10 @@
     "grade": "A",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1345/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "攻击力",
       "value": 25,
@@ -1269,9 +1348,10 @@
     "grade": "A",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1612/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 624,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 624
+    },
     "substat": {
       "label": "生命值",
       "value": 25,
@@ -1285,9 +1365,10 @@
     "grade": "A",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1774/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "生命值",
       "value": 25,
@@ -1301,9 +1382,10 @@
     "grade": "A",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1922/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "冲击力",
       "value": 15,
@@ -1317,9 +1399,10 @@
     "grade": "A",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2087/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 594,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 594
+    },
     "substat": {
       "label": "异常精通",
       "value": 75,
@@ -1333,9 +1416,10 @@
     "grade": "A",
     "roleTag": "锋御",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2189/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "def",
-    "baseAttack": 0,
-    "baseDefense": 356,
+    "base": {
+      "kind": "def",
+      "value": 356
+    },
     "substat": {
       "label": "暴击率",
       "value": 20,
@@ -1349,9 +1433,10 @@
     "grade": "A",
     "roleTag": "锋御",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2200/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "def",
-    "baseAttack": 0,
-    "baseDefense": 356,
+    "base": {
+      "kind": "def",
+      "value": 356
+    },
     "substat": {
       "label": "防御力",
       "value": 40,
@@ -1365,9 +1450,10 @@
     "grade": "B",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/93/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "生命值",
       "value": 20,
@@ -1381,9 +1467,10 @@
     "grade": "B",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/114/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "攻击力",
       "value": 20,
@@ -1397,9 +1484,10 @@
     "grade": "B",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/116/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "攻击力",
       "value": 20,
@@ -1413,9 +1501,10 @@
     "grade": "B",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/117/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "暴击率",
       "value": 15.9,
@@ -1429,9 +1518,10 @@
     "grade": "B",
     "roleTag": "强攻",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/118/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "攻击力",
       "value": 20,
@@ -1445,9 +1535,10 @@
     "grade": "B",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/119/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "冲击力",
       "value": 12,
@@ -1461,9 +1552,10 @@
     "grade": "B",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/126/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "防御力",
       "value": 32,
@@ -1477,9 +1569,10 @@
     "grade": "B",
     "roleTag": "防护",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/127/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "防御力",
       "value": 32,
@@ -1493,9 +1586,10 @@
     "grade": "B",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/128/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "攻击力",
       "value": 20,
@@ -1509,9 +1603,10 @@
     "grade": "B",
     "roleTag": "支援",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/129/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 40,
@@ -1525,9 +1620,10 @@
     "grade": "B",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/130/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "穿透率",
       "value": 16,
@@ -1541,9 +1637,10 @@
     "grade": "B",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/131/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "异常精通",
       "value": 60,
@@ -1557,9 +1654,10 @@
     "grade": "B",
     "roleTag": "异常",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/132/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "攻击力",
       "value": 20,
@@ -1573,9 +1671,10 @@
     "grade": "B",
     "roleTag": "击破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/133/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "能量自动回复",
       "value": 40,
@@ -1589,9 +1688,10 @@
     "grade": "B",
     "roleTag": "命破",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1341/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "atk",
-    "baseAttack": 475,
-    "baseDefense": 0,
+    "base": {
+      "kind": "atk",
+      "value": 475
+    },
     "substat": {
       "label": "生命值",
       "value": 20,
@@ -1605,9 +1705,10 @@
     "grade": "B",
     "roleTag": "锋御",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2190/detail?mhy_presentation_style=fullscreen",
-    "baseKind": "def",
-    "baseAttack": 0,
-    "baseDefense": 282,
+    "base": {
+      "kind": "def",
+      "value": 282
+    },
     "substat": {
       "label": "防御力",
       "value": 32,

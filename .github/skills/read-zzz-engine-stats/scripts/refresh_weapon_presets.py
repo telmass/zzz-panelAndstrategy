@@ -1,13 +1,11 @@
-"""Refresh data/weapon-presets.json from the official HoYoLAB ZZZ Wiki.
+"""Refresh data/catalog/weapons.json from the official HoYoLAB ZZZ Wiki.
 
 Scans the wiki entry_page_id space through the public content API, keeps every
 page whose 晋升需求 table uses the weapon-specific 突破前基础 / 突破后基础 keys,
 and extracts the level-60 (0 突破) base ATK plus the fixed high-level substat.
 
-``data/weapon-presets.json`` 是全仓库唯一真实源；参照实现夹具所需的
-``frontend/tests/fixtures/legacy-calculator/data/weapon-presets.js`` 由
-``tools/sync_presets.py --to-legacy`` 从本文件反向生成，不要直接写它。
-序列化复用 sync_presets 的规范化实现。
+``data/catalog/weapons.json`` 是全仓库唯一真实源，路径登记在
+``data/manifest.json``。序列化复用 sync_presets 的规范化实现。
 
 Default paths are relative to the repository root; run from there:
 
@@ -20,6 +18,13 @@ import argparse
 import json
 import re
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -31,9 +36,8 @@ HEADERS = {
     "Referer": "https://baike.mihoyo.com/",
     "x-rpc-wiki_app": "zzz",
 }
-#: 默认输出。仓库根 ``data/`` 是唯一真实源；legacy 的 JS 包装由
-#: ``tools/sync_presets.py --to-legacy`` 反向生成，不在本脚本的职责内。
-OUTPUT = "data/weapon-presets.json"
+#: 默认输出。仓库根 ``data/`` 是唯一真实源，路径登记在 ``data/manifest.json``。
+OUTPUT = "data/catalog/weapons.json"
 
 #: 仓库根。本脚本从 ``.github/skills/<skill>/scripts/`` 上溯四层到达。
 def _find_repo_root() -> Path:
@@ -50,8 +54,8 @@ def load_sync_presets():
     """导入 ``tools/sync_presets.py`` 以复用其规范化与 JSON 序列化。
 
     刻意不复制一份序列化逻辑：预设 JSON 的键序与缩进由该脚本单一定义，
-    ``sync_presets.py --to-legacy --check`` 依赖两侧字节一致。这里若各写一套，
-    重新抓取后 ``--check`` 就会一直报漂移，而漂移原因极难定位。
+    重新抓取产出的文件与已提交文件逐字节一致。这里若各写一套，
+    重新抓取后就会一直报漂移，而漂移原因极难定位。
     """
     if str(REPO_ROOT / "tools") not in sys.path:
         sys.path.insert(0, str(REPO_ROOT / "tools"))
@@ -205,7 +209,7 @@ def render(records):
     """序列化为规范化的预设 JSON。
 
     键序与缩进由 ``tools/sync_presets.py`` 单一定义，因此重新抓取后
-    ``sync_presets.py --to-legacy --check`` 仍能通过。
+    产出的文件与已提交文件逐字节一致。
     """
     sync_presets = load_sync_presets()
     skipped = []
@@ -217,17 +221,22 @@ def render(records):
             skipped.append((item["id"], item["name"], item["substatLabel"]))
             continue
         to, kind = mapped
+        base_kind = item.get("baseKind", "atk")
+        base_value = item["baseAttack"] if base_kind == "atk" else item["baseDefense"]
         presets.append({
             "id": "ep-{}".format(item["id"]),
             "name": item["name"],
             "grade": item["grade"],
             "roleTag": item["roleTags"][0] if item["roleTags"] else "",
             "source": "https://baike.mihoyo.com/zzz/wiki/content/{}/detail?mhy_presentation_style=fullscreen".format(item["id"]),
-            "baseKind": item.get("baseKind", "atk"),
-            # 整值收敛成 int：JSON 里整值就该是整数，否则与既有
-            # data/*.json 的字面量不一致，--check 会一直报漂移。
-            "baseAttack": int(item["baseAttack"]),
-            "baseDefense": int(item["baseDefense"]),
+            # 基础攻击与基础防御合并为二元组：原先是三个字段，其中恒有一个是 0，
+            # 消歧要靠 baseKind。
+            "base": {
+                "kind": base_kind,
+                # 整值收敛成 int：JSON 里整值就该是整数，否则与既有
+                # data/*.json 的字面量不一致，--check 会一直报漂移。
+                "value": int(base_value),
+            },
             "substat": {
                 "label": item["substatLabel"],
                 "value": int(item["substatValue"]) if float(item["substatValue"]).is_integer() else item["substatValue"],
@@ -254,7 +263,7 @@ def main():
     out.write_text(content, encoding="utf-8", newline="\n")
     print("engines found: {}".format(len(records)))
     print("presets written: {} -> {}".format(written, args.out))
-    print("next: python tools/sync_presets.py --to-legacy")
+    print("next: python tools/sync_manifest.py")
     for entry in skipped:
         print("SKIPPED (unmapped substat):", entry)
 

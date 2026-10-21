@@ -4,7 +4,7 @@
     "entryPageId": 1385,
     "name": "爱丽丝·泰姆菲尔德",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/1385/detail",
-    "scrapedAt": "2026-10-17T13:46:13+00:00"
+    "scrapedAt": "2026-10-20T11:04:57+00:00"
   },
   "profile": {
     "name": "爱丽丝·泰姆菲尔德",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】：异常爆发主C、三段蓄力、物理异常、快速紊乱、物理持续伤害\n【角色详情】：爱丽丝是S级物理异常代理人，她可通过多种攻击方式或造成属性异常效果来累计[剑仪]，当[剑仪]累计三格时可释放三段蓄力并触发[极性强击]效果，该效果可与包括物理异常在内的任何异常效果结算[紊乱]。此外当爱丽丝所在队伍内任意角色造成物理异常后，还可对敌人施加一种“持续物理伤害”状态，此效果会随时间提升[紊乱]伤害的倍率。综上，爱丽丝适合与其他异常类代理人配合，快速多次触发属性异常与释放[极性强击]，从而形成输出循环。",
     "icons": {
-      "profession": "/images/icons/anomaly.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/physical.png",
+      "profession": "/images/icons/anomaly.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/physical.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 7673,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 805,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 606,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 86,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 106,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 118,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-1385.png",
+    "avatar": "/images/agents/ep-1385.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/07/31/15559334/9de81fb0768d528204ba87a600ba6c5e_4639668304344154125.png",
-    "tachie": "/images/strategy/alice/tachie.png",
+    "tachie": "/images/strategy/alice/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/07/29/15559334/ad81b165d9ef9482b21ad0dc1f1a9c8f_1459059076884909012.png"
   },
   "skills": [
@@ -651,7 +599,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1220,7 +1168,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -2810,7 +2758,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3375,7 +3323,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3384,8 +3332,8 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心技",
-          "text": "核心被动：剑心双虹\n队伍中任意角色对敌人施加物理异常状态后，在异常状态的持续期间，爱丽丝每0.95秒对其额外造成基于该物理异常伤害比例2.5%的伤害，并使物理异常状态下的敌人被触发[紊乱]效果时，每有1秒物理异常状态剩余时间，[紊乱]效果的伤害倍率提升18%，最多提升180%；\n爱丽丝攻击命中敌人时，累积[剑仪]，爱丽丝通过属性异常积蓄触发[强击]时，回复10点[剑仪]，[剑仪]的上限为300点，每100点为1格；\n三段蓄力的[普通攻击：星芒圆舞曲]的终结一击命中敌人时，触发特殊的[强击]效果[极性强击]，无视属性积蓄进度造成一次原本[强击]效果100%的伤害，并可以与包括物理异常效果在内的其他属性异常效果互相结算[紊乱]；\n爱丽丝触发[强击]时，物理异常积蓄效率提升12.5%，持续30秒，异常掌控提升36点，基础攻击力提升75点。（此处数据为满级数据）\n\n额外能力：寻奇猎幽\n队伍中存在另一名[异常]或[支援]角色时触发：\n队伍中任意角色触发[紊乱]效果时，爱丽丝回复30点[剑仪]；\n若爱丽丝的异常掌控大于140点，每超过1点异常掌控会提升1.6点异常精通；\n进入战场时，爱丽丝获得300点[剑仪]，在勘域模式中此效果180秒内最多触发一次。",
+          "title": "核心技：剑心双虹",
+          "text": "队伍中任意角色对敌人施加物理异常状态后，在异常状态的持续期间，爱丽丝每0.95秒对其额外造成基于该物理异常伤害比例2.5%的伤害，并使物理异常状态下的敌人被触发[紊乱]效果时，每有1秒物理异常状态剩余时间，[紊乱]效果的伤害倍率提升18%，最多提升180%；\n爱丽丝攻击命中敌人时，累积[剑仪]，爱丽丝通过属性异常积蓄触发[强击]时，回复10点[剑仪]，[剑仪]的上限为300点，每100点为1格；\n三段蓄力的[普通攻击：星芒圆舞曲]的终结一击命中敌人时，触发特殊的[强击]效果[极性强击]，无视属性积蓄进度造成一次原本[强击]效果100%的伤害，并可以与包括物理异常效果在内的其他属性异常效果互相结算[紊乱]；\n爱丽丝触发[强击]时，物理异常积蓄效率提升25%，持续30秒。",
           "growth": [
             {
               "level": "A",
@@ -3454,9 +3402,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：寻奇猎幽",
+          "text": "队伍中存在另一名[异常]或[支援]角色时触发：\n队伍中任意角色触发[紊乱]效果时，爱丽丝回复30点[剑仪]；\n若爱丽丝的异常掌控大于140点，每超过1点异常掌控会提升1.6点异常精通；\n进入战场时，爱丽丝获得300点[剑仪]，在勘域模式中此效果180秒内最多触发一次。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/07/29/15559334/1f335d44ed63de069e2d1bfeea946259_6113110909282530556.png"
     }
   ],
@@ -3494,27 +3446,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/alice/cinema-2.png",
+      "image": "/images/strategy/alice/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/06/76099754/048dc857059a490eeb05984237ad5200_3810511497106719772.png"
     },
     "2": {
-      "image": "/images/strategy/alice/cinema-2.png",
+      "image": "/images/strategy/alice/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/06/76099754/048dc857059a490eeb05984237ad5200_3810511497106719772.png"
     },
     "3": {
-      "image": "/images/strategy/alice/cinema-2.png",
+      "image": "/images/strategy/alice/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/06/76099754/048dc857059a490eeb05984237ad5200_3810511497106719772.png"
     },
     "4": {
-      "image": "/images/strategy/alice/cinema-3.png",
+      "image": "/images/strategy/alice/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/06/76099754/c741a0d05c34cca1c87e787fcb17c297_3332936742395284807.png"
     },
     "5": {
-      "image": "/images/strategy/alice/cinema-3.png",
+      "image": "/images/strategy/alice/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/06/76099754/c741a0d05c34cca1c87e787fcb17c297_3332936742395284807.png"
     },
     "6": {
-      "image": "/images/strategy/alice/cinema-3.png",
+      "image": "/images/strategy/alice/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2025/08/06/76099754/c741a0d05c34cca1c87e787fcb17c297_3332936742395284807.png"
     }
   }

@@ -4,7 +4,7 @@
     "entryPageId": 318,
     "name": "珂蕾妲·贝洛伯格",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/318/detail",
-    "scrapedAt": "2026-10-18T05:16:21+00:00"
+    "scrapedAt": "2026-10-20T10:59:30+00:00"
   },
   "profile": {
     "name": "珂蕾妲·贝洛伯格",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】快速失衡，协同攻击\n【角色详情】珂蕾妲是一名火属性击破类代理人，拥有非常优秀的失衡倍率。珂蕾妲主要的失衡手段为通过四段普攻加特殊技形成循环，其前三段有较快的攻速，第四段有优秀的跳跃抗打断机制。珂蕾妲通过强化特殊技、支援突击、终结技等等多种招式可获得“熔炉升温”效果，拥有该效果时珂蕾妲可以打出强化三四段普攻，造成更高的失衡值。并且如果和本·比格同时出战，强化第四段将拥有无敌效果，大大提升了她的生存能力。并且提高了第四段伤害倍率和失衡倍率。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/fire.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/fire.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8127,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 660,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 594,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 116,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 97,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 96,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-318.png",
+    "avatar": "/images/agents/ep-318.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/27/82232455/e49ffec1188f11ac70f2fd7e500fbd2c_5771997888796504931.png",
-    "tachie": "/images/strategy/koleda/tachie.png",
+    "tachie": "/images/strategy/koleda/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/06/25/76099754/1f5232cabbb26b8ab35e9e3b82451983_2887264728262933365.png"
   },
   "skills": [
@@ -929,7 +877,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -1498,7 +1446,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/a4c2642a2832f032265ce0a1388d9da5_4074371148715577143.png"
     },
     {
@@ -2245,7 +2193,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/31/82232455/e180f078d7badf3e8c104556f2ce3397_891902369069122791.png"
     },
     {
@@ -3922,7 +3870,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/ccda88f89dcab5594ca9187fe5d5ec44_2889547638410026572.png"
     },
     {
@@ -4765,7 +4713,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/d57262d03c8eb8087e72f2100c77f10e_1259707818278973843.png"
     },
     {
@@ -4774,7 +4722,7 @@
       "wikiTab": "核心技",
       "moves": [
         {
-          "title": "核心被动：爆破锤",
+          "title": "核心技：爆破锤",
           "text": "珂蕾妲发动[强化特殊技]，或消耗[熔炉升温]发动强化[普通攻击]时，招式造成的失衡值提升60%。",
           "growth": [
             {
@@ -4844,9 +4792,13 @@
               ]
             }
           ]
+        },
+        {
+          "title": "额外能力：白祇管理学",
+          "text": "队伍中存在与自身属性或阵营相同的角色或[命破]角色时触发：\n珂蕾妲发动[强化特殊技]引发爆炸命中敌人时，对目标施加减益效果；当目标陷入失衡状态后，[连携技]对其造成的伤害提升35%，最多叠加2层，失衡状态结束时该效果重置。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/28/82232455/9d05677658ff150b2a0dcfe50bd81c61_1466831448557741465.png"
     }
   ],
@@ -4884,27 +4836,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/koleda/cinema-2.png",
+      "image": "/images/strategy/koleda/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/5e5e3c59a90c721064e15c3b7c3df9c7_58881264341001253.png"
     },
     "2": {
-      "image": "/images/strategy/koleda/cinema-2.png",
+      "image": "/images/strategy/koleda/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/5e5e3c59a90c721064e15c3b7c3df9c7_58881264341001253.png"
     },
     "3": {
-      "image": "/images/strategy/koleda/cinema-2.png",
+      "image": "/images/strategy/koleda/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/5e5e3c59a90c721064e15c3b7c3df9c7_58881264341001253.png"
     },
     "4": {
-      "image": "/images/strategy/koleda/cinema-3.png",
+      "image": "/images/strategy/koleda/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/2fbb331d2db73713acaf971bd8b80546_3554107707630856136.png"
     },
     "5": {
-      "image": "/images/strategy/koleda/cinema-3.png",
+      "image": "/images/strategy/koleda/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/2fbb331d2db73713acaf971bd8b80546_3554107707630856136.png"
     },
     "6": {
-      "image": "/images/strategy/koleda/cinema-3.png",
+      "image": "/images/strategy/koleda/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/07/01/222203892/2fbb331d2db73713acaf971bd8b80546_3554107707630856136.png"
     }
   }

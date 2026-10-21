@@ -1,4 +1,4 @@
-"""Refresh data/drive-disc-presets.json from the official HoYoLAB ZZZ Wiki.
+"""Refresh data/catalog/drive-discs.json from the official HoYoLAB ZZZ Wiki.
 
 Scans the wiki entry_page_id space through the public content API, keeps every
 page that carries a ``driver_disk`` component (驱动盘 page signature), and
@@ -25,7 +25,7 @@ already use; the JSON ``image`` field records the served URL
 - 效果文本保持 Wiki 原文，不做任何数值化。Wiki 自身的全角「＋」
   （混沌爵士的「异常精通＋30点。」）也照抄——数据源不做静默改写。
 
-``data/drive-disc-presets.json`` 是驱动盘套装效果的唯一真实源，由本脚本
+``data/catalog/drive-discs.json`` 是驱动盘套装效果的唯一真实源，由本脚本
 整体覆盖生成，不要手工编辑。默认路径相对仓库根，请从仓库根运行：
 
     python .github/skills/read-zzz-drive-disc/scripts/refresh_disc_presets.py
@@ -36,6 +36,13 @@ import argparse
 import json
 import re
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -48,7 +55,7 @@ HEADERS = {
     "x-rpc-wiki_app": "zzz",
 }
 #: 默认输出。仓库根 ``data/`` 是唯一真实源。
-OUTPUT = "data/drive-disc-presets.json"
+OUTPUT = "data/catalog/drive-discs.json"
 #: 套装图标落地目录，与 ``images/agents`` ``images/weapons`` 平级。
 IMAGES_DIR = "frontend/public/images/discs"
 
@@ -157,7 +164,7 @@ def parse(page):
         "source": "https://baike.mihoyo.com/zzz/wiki/content/{}/detail?mhy_presentation_style=fullscreen".format(entry_id),
         "setEffect2": effects[0],
         "setEffect4": effects[1],
-        "image": "/images/discs/ep-{}.png".format(entry_id),
+        "image": "/images/discs/ep-{}.webp".format(entry_id),
         "_image_path": "{}/ep-{}.png".format(IMAGES_DIR, entry_id),
         "_image_url": set_image(page, comps),
     }

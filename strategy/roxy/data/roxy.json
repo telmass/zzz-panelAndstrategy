@@ -4,7 +4,7 @@
     "entryPageId": 2152,
     "name": "洛克茜·伊芙莉塔·普莱斯",
     "source": "https://baike.mihoyo.com/zzz/wiki/content/2152/detail",
-    "scrapedAt": "2026-10-16T20:00:38+00:00"
+    "scrapedAt": "2026-10-20T11:01:41+00:00"
   },
   "profile": {
     "name": "洛克茜·伊芙莉塔·普莱斯",
@@ -24,68 +24,16 @@
     ],
     "intro": "【角色TAG】风属性击破、速切击破、净化、浸染增伤\n【角色详情】洛克茜是S级风属性击破代理人。洛克茜具有独特的“净化”机制，在敌人处于风化状态时，洛克茜的特殊技命中后可触发净化效果，敌人的浸染状态会被重置，同时为队友提供风属性爆伤加成。通过洛克茜的净化效果，可以反复重置敌人的浸染状态，从而高频触发浸染效果。战斗中，洛克茜在能量足够后切换上场释放强化特殊技，释放完成后切回后场，等待下一个循环。值得注意的是，释放强化特殊技时要注意能量消耗，要攒满三个“风能”。",
     "icons": {
-      "profession": "/images/icons/stun.png",
-      "grade": "/images/grades/s.png",
-      "attribute": "/images/attributes/wind.png",
+      "profession": "/images/icons/stun.webp",
+      "grade": "/images/grades/s.webp",
+      "attribute": "/images/attributes/wind.webp",
       "title": ""
     }
   },
-  "basePanel": [
-    {
-      "label": "生命值",
-      "value": 8418,
-      "unit": ""
-    },
-    {
-      "label": "攻击力",
-      "value": 666,
-      "unit": ""
-    },
-    {
-      "label": "防御力",
-      "value": 641,
-      "unit": ""
-    },
-    {
-      "label": "冲击力",
-      "value": 100,
-      "unit": ""
-    },
-    {
-      "label": "暴击率",
-      "value": 5,
-      "unit": "%"
-    },
-    {
-      "label": "暴击伤害",
-      "value": 50,
-      "unit": "%"
-    },
-    {
-      "label": "异常掌控",
-      "value": 110,
-      "unit": ""
-    },
-    {
-      "label": "异常精通",
-      "value": 63,
-      "unit": ""
-    },
-    {
-      "label": "穿透率",
-      "value": 0,
-      "unit": "%"
-    },
-    {
-      "label": "能量自动回复",
-      "value": 1.2,
-      "unit": ""
-    }
-  ],
   "assets": {
-    "avatar": "/images/agents/ep-2152.png",
+    "avatar": "/images/agents/ep-2152.webp",
     "avatarRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/09/76099754/2fceac681717e64b0202b587b3eda1f8_509711787058331678.png",
-    "tachie": "/images/strategy/roxy/tachie.png",
+    "tachie": "/images/strategy/roxy/tachie.webp",
     "tachieRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/24/15559334/a1809f245a53f741bf96270ffb7865c4_6820740326375317849.png"
   },
   "skills": [
@@ -373,7 +321,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/05/14/76099754/0f8213e7c208c37c8ee6cd23b7fc9e8f_1742040576576524620.png"
     },
     {
@@ -942,7 +890,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/a4c2642a2832f032265ce0a1388d9da5_8346224414633052965.png"
     },
     {
@@ -1967,7 +1915,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/e180f078d7badf3e8c104556f2ce3397_1470875660936723651.png"
     },
     {
@@ -3366,7 +3314,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/ccda88f89dcab5594ca9187fe5d5ec44_6333944477630310618.png"
     },
     {
@@ -3931,7 +3879,7 @@
           ]
         }
       ],
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2024/12/03/34600917/d57262d03c8eb8087e72f2100c77f10e_2201992828177833822.png"
     },
     {
@@ -3941,7 +3889,7 @@
       "moves": [
         {
           "title": "核心技：热夜初拥",
-          "text": "每消耗25点能量，获得1点[风能]，[风能]上限为3点；\n\n洛克茜的初始能量自动回复大于1.2时，超过部分每超过0.01，攻击力提升5点，最多提升960点，冲击力提升0.4点，最多提升76.8点；\n\n[特殊技：恕不远送]命中处于[风化]状态中的敌人后，会触发[净化]，[浸染]状态被还原；\n\n队伍中任意队友触发[浸染]或[净化]效果时，洛克茜将根据[浸染]或[净化]的属性为全队角色提供增益效果：洛克茜每拥有1%暴击率，非[锋御]角色造成对应属性以及风属性伤害时，暴击伤害提升0.4%，最多提升40%；[锋御]角色造成对应属性以及风属性伤害时，锐暴伤害提升0.2%，最多提升20%；每个属性增益效果分别持续50秒，重复触发时刷新持续时间；\n\n对已经处于[风化]状态下的敌人再次施加[风化]时，根据被覆盖的[风化]状态下的[浸染]属性及风属性，全队角色同样可以获得该增益效果。",
+          "text": "每消耗25点能量，获得1点[风能]，[风能]上限为3点；\n洛克茜的初始能量自动回复大于1.2时，超过部分每超过0.01，攻击力提升5点，最多提升960点，冲击力提升0.4点，最多提升76.8点；\n[特殊技：恕不远送]命中处于[风化]状态中的敌人后，会触发[净化]，[浸染]状态被还原；\n队伍中任意队友触发[浸染]或[净化]效果时，洛克茜将根据[浸染]或[净化]的属性为全队角色提供增益效果：洛克茜每拥有1%暴击率，非[锋御]角色造成对应属性以及风属性伤害时，暴击伤害提升0.4%，最多提升40%；[锋御]角色造成对应属性以及风属性伤害时，锐暴伤害提升0.2%，最多提升20%；每个属性增益效果分别持续50秒，重复触发时刷新持续时间；\n对已经处于[风化]状态下的敌人再次施加[风化]时，根据被覆盖的[风化]状态下的[浸染]属性及风属性，全队角色同样可以获得该增益效果。",
           "growth": [
             {
               "level": "A",
@@ -4013,10 +3961,10 @@
         },
         {
           "title": "额外能力：辉金心脏",
-          "text": "队伍中存在[强攻]角色或[命破]角色或[锋御]角色时触发：\n\n洛克茜造成的伤害提升8%，该效果随角色等级提升，每级增加1.2%，最多提升80%；\n\n队伍中角色攻击命中敌人时，使其失衡易伤倍率提升30%，敌人进入失衡状态时，使其失衡时间延长2秒，失衡持续时间提升效果与同类效果不可叠加，失衡结束时移除该效果；\n\n敌人处于队伍中角色造成的[风化]状态下时，敌人受到的风属性直接攻击伤害和触发[浸染]属性的直接攻击伤害额外提升8%；\n\n进入战场时，自身回复40点能量，在勘域模式中此效果180秒内最多触发一次；全队角色施加的[风化]效果延长20秒；\n\n释放[强化特殊技]时，自身异常积蓄效率提升30%，持续50秒，重复触发时刷新持续时间。"
+          "text": "队伍中存在[强攻]角色或[命破]角色或[锋御]角色时触发：\n洛克茜造成的伤害提升8%，该效果随角色等级提升，每级增加1.2%，最多提升80%；\n队伍中角色攻击命中敌人时，使其失衡易伤倍率提升30%，敌人进入失衡状态时，使其失衡时间延长2秒，失衡持续时间提升效果与同类效果不可叠加，失衡结束时移除该效果；\n敌人处于队伍中角色造成的[风化]状态下时，敌人受到的风属性直接攻击伤害和触发[浸染]属性的直接攻击伤害额外提升8%；\n进入战场时，自身回复40点能量，在勘域模式中此效果180秒内最多触发一次；全队角色施加的[风化]效果延长20秒；\n释放[强化特殊技]时，自身异常积蓄效率提升30%，持续50秒，重复触发时刷新持续时间。"
         }
       ],
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "iconRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/24/15559334/c1d3ac5c6a6ba167c1eda26fe13d3683_6620818176617307050.png"
     }
   ],
@@ -4054,27 +4002,27 @@
   ],
   "cinemaBackdrops": {
     "1": {
-      "image": "/images/strategy/roxy/cinema-2.png",
+      "image": "/images/strategy/roxy/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/30/71319299/5095026a5902b392cd1985ceb606cdf5_498489188017419982.png"
     },
     "2": {
-      "image": "/images/strategy/roxy/cinema-2.png",
+      "image": "/images/strategy/roxy/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/30/71319299/5095026a5902b392cd1985ceb606cdf5_498489188017419982.png"
     },
     "3": {
-      "image": "/images/strategy/roxy/cinema-2.png",
+      "image": "/images/strategy/roxy/cinema-2.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/30/71319299/5095026a5902b392cd1985ceb606cdf5_498489188017419982.png"
     },
     "4": {
-      "image": "/images/strategy/roxy/cinema-3.png",
+      "image": "/images/strategy/roxy/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/30/71319299/c568547e400494f6d890214f10cf346e_669050665629702905.png"
     },
     "5": {
-      "image": "/images/strategy/roxy/cinema-3.png",
+      "image": "/images/strategy/roxy/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/30/71319299/c568547e400494f6d890214f10cf346e_669050665629702905.png"
     },
     "6": {
-      "image": "/images/strategy/roxy/cinema-3.png",
+      "image": "/images/strategy/roxy/cinema-3.webp",
       "imageRemote": "https://act-upload.mihoyo.com/nap-obc-indep/2026/09/30/71319299/c568547e400494f6d890214f10cf346e_669050665629702905.png"
     }
   }

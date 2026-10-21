@@ -47,11 +47,25 @@ import html
 import json
 import re
 import sys
+
+# 管道输出固定 UTF-8：Windows 上管道默认用系统代码页（本机 GBK），
+# 父工具按 UTF-8 读会抛 UnicodeDecodeError 或读出乱码。控制台输出保持
+# 系统代码页，否则用户在自己的终端里会看到乱码。
+if hasattr(sys.stdout, "reconfigure") and not sys.stdout.isatty():
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 import time
 from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+
+#: 仓库根 ``tools/`` 在 sys.path 上，才能 import ``data_paths``（数据集路径的
+#: 唯一真源是 ``data/manifest.json``）。本脚本从
+#: ``.github/skills/agent-strategy/scripts/`` 上溯到仓库根。
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(_REPO_ROOT / "tools") not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT / "tools"))
 
 API = "https://act-api-takumi.mihoyo.com/hoyowiki/zzz/wapi/entry_page_v2?entry_page_id={}"
 #: 与仓库既有抓取脚本（.github/skills/read-zzz-agent-stats/scripts/refresh_agent_presets.py）
@@ -117,7 +131,7 @@ IMAGES_ROOT = REPO_ROOT / "frontend" / "public" / "images"
 DEFAULT_SLUG = "ye-shunguang"
 DEFAULT_OUTPUT = REPO_ROOT / "strategy" / DEFAULT_SLUG / "data" / f"{DEFAULT_SLUG}.json"
 
-#: WIKI 职业 slug -> 仓库共享图标文件名（小写 ASCII slug，如 strike -> attack.png）
+#: WIKI 职业 slug -> 仓库共享图标文件名（小写 ASCII slug，如 strike -> attack.webp）
 PROFESSION_ICON_MAP = {
     "strike": "attack",
     "pierce": "stun",
@@ -128,7 +142,7 @@ PROFESSION_ICON_MAP = {
     "armero": "armorer",
 }
 
-#: WIKI 属性 slug -> 仓库共享图标文件名（小写 ASCII slug，如 physical -> physical.png）
+#: WIKI 属性 slug -> 仓库共享图标文件名（小写 ASCII slug，如 physical -> physical.webp）
 ATTRIBUTE_ICON_MAP = {
     "electric": "electric",
     "ether": "ether",
@@ -338,21 +352,8 @@ def core_detail_from_growth(growth: object) -> tuple[str, str]:
 
     返回 ``(title, text)``；取不到时两者均为空串，调用方按原逻辑跳过。
     """
-    if not isinstance(growth, list) or not growth:
-        return "", ""
-    rows_html: list[str] = []
-    for level in growth:
-        if not isinstance(level, dict):
-            continue
-        for group in level.get("children") or []:
-            if not isinstance(group, dict):
-                continue
-            for row in group.get("row") or []:
-                if isinstance(row, list):
-                    rows_html.extend(cell for cell in row if isinstance(cell, str))
-    text = ""
-    title = ""
-    for cell_html in rows_html:
+    title, text = "", ""
+    for cell_html in _growth_cells(growth):
         match = re.search(r'data-name="([^"]*)"', cell_html)
         if not match:
             continue
@@ -362,6 +363,130 @@ def core_detail_from_growth(growth: object) -> tuple[str, str]:
             name = re.search(r"核心被动：([^\]\[，。；\s]+)", html_to_text(cell_html))
             title = f"核心被动：{name.group(1)}" if name else title
     return title, text
+
+
+# ---------------------------------------------------------------- 技能文本口径
+
+#: 成长行里的「标签：数值」（如「失衡值提升：120%」）。
+_GROWTH_VALUE_RE = re.compile(r"^([^：:]+)[：:]\s*([\d.]+%?)$")
+
+#: 核心技正文首行的标题（「核心被动：致命私酿」/「核心技：热夜初拥」）。
+_CORE_TITLE_RE = re.compile(r"^(核心技|核心被动)\s*[:：]\s*(.+)$")
+
+#: 额外能力 / 额外被动段的开头。
+_EXTRA_ABILITY_RE = re.compile(r"^(额外能力|额外被动)\s*[:：]")
+
+
+def _growth_cells(growth: object) -> list[str]:
+    """展开成长表所有行里的 HTML 单元格。"""
+    cells: list[str] = []
+    if not isinstance(growth, list):
+        return cells
+    for level in growth:
+        if not isinstance(level, dict):
+            continue
+        for group in level.get("children") or []:
+            if not isinstance(group, dict):
+                continue
+            for row in group.get("row") or []:
+                if isinstance(row, list):
+                    cells.extend(cell for cell in row if isinstance(cell, str))
+    return cells
+
+
+def growth_detail_text(growth: object) -> str:
+    """取成长表**最后一级**的「详情」span 文本 = 该招式的**满级**描述。
+
+    WIKI 的 ``desc`` 固定展示初始数值（核心技 A 级、其余 1 级），完整描述挂在每一
+    rank 行内的 ``<span data-type="详情" data-name="…">`` 上；取最后一段即满级正文
+    （洛克茜：攻击力最多 960 点 / 暴伤 40%；希希芙：无视防御 6% 而非初始的 3%）。
+    """
+    text = ""
+    for cell_html in _growth_cells(growth):
+        match = re.search(r'data-name="([^"]*)"', cell_html)
+        if not match:
+            continue
+        plain = html_to_text(html.unescape(match.group(1)))
+        if plain:
+            text = plain  # 后写覆盖先写 → 最后一段（满级）
+    return text
+
+
+def growth_last_values(growth: object) -> dict[str, str]:
+    """成长表**最后一级**各行的「标签 → 数值」（如 失衡值提升 → 120%）。
+
+    非核心技的描述标注「（此处数据为初始数据）」，其满级数值就在同招式成长表最后
+    一级的同名行里。核心技的成长行是核心加成（「暴击率提升4.8%」这类），格式不同，
+    不走这条路（核心技用「详情」span）。
+    """
+    values: dict[str, str] = {}
+    for cell_html in _growth_cells(growth):
+        plain = html_to_text(cell_html)
+        match = _GROWTH_VALUE_RE.match(plain)
+        if match:
+            values[match.group(1).strip()] = match.group(2)
+    return values
+
+
+def split_extra_ability(text: str) -> tuple[str, str, str]:
+    """把「额外能力：」「额外被动：」段从正文里切出来。
+
+    WIKI 的核心技 desc 里，核心被动正文与额外能力段是同一段富文本，段间空行分隔。
+    返回 ``(主体正文, 额外能力标题, 额外能力正文)``；没有额外能力段时后两者为空串。
+    """
+    lines = text.split("\n")
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if _EXTRA_ABILITY_RE.match(stripped):
+            body = "\n".join(lines[:index]).rstrip()
+            rest = "\n".join(lines[index + 1:]).strip()
+            return body, stripped, rest
+    return text, "", ""
+
+
+def strip_core_title_line(text: str) -> str:
+    """去掉正文首行的「核心被动：XXX」/「核心技：XXX」标题行（已单独进 title）。"""
+    lines = text.split("\n")
+    if lines and _CORE_TITLE_RE.match(lines[0].strip()):
+        lines = lines[1:]
+        while lines and not lines[0].strip():
+            lines = lines[1:]
+    return "\n".join(lines)
+
+
+def normalize_core_title(child_title: str, desc_text: str, detail_text: str) -> str:
+    """核心技标题统一成「核心技：<名称>」（与 roxy 页排版一致）。"""
+    for source in (desc_text, detail_text):
+        first = source.split("\n", 1)[0].strip() if source else ""
+        match = _CORE_TITLE_RE.match(first)
+        if match:
+            return f"核心技：{match.group(2).strip()}"
+    if child_title and child_title.strip() not in ("核心技", "核心被动"):
+        return child_title.strip()
+    return "核心技"
+
+
+def rewrite_level_values(text: str, values: dict[str, str]) -> tuple[str, bool]:
+    """把「（此处数据为初始数据）」句里的数值换成成长表最后一级的满级值。
+
+    只改写显式标注了初始数据的那一句；句外的数值一概不动。数值换不到时原样返回
+    （宁可保留 WIKI 的初始标注，也不产出无依据的数字）。
+    """
+    if "此处数据为初始数据" not in text or not values:
+        return text, False
+    head, sep, tail = text.partition("（此处数据为初始数据）")
+    changed = False
+    for label, value in values.items():
+        pattern = re.compile(rf"({re.escape(label)}\s*)(\d+(?:\.\d+)?%)")
+
+        def repl(match: re.Match, value: str = value) -> str:
+            return match.group(1) + value
+
+        head, count = pattern.subn(repl, head)
+        changed = changed or count > 0
+    if not changed:
+        return text, False
+    return f"{head}{sep.replace('初始数据', '满级数据')}{tail}", True
 
 
 def parse_skills(page: dict) -> list[dict]:
@@ -397,26 +522,49 @@ def parse_skills(page: dict) -> list[dict]:
         is_core = tab == "核心技"
         for child in item.get("children") or []:
             title = (child.get("title") or "").strip()
-            text = html_to_text(child.get("desc") or "")
-            if not title or not text:
-                # 变体条目：只有标题、无描述与成长，是页面内跳转锚点（照旧跳过）。
-                # 核心技的另一种结构：子项只有成长表，描述在成长首行的「详情」属性里
-                # （如克拉蕾），此时用成长表反推出招式。
-                if is_core:
-                    detail_title, detail_text = core_detail_from_growth(child.get("growth"))
-                    if detail_text:
-                        title = title or detail_title or name
-                        text = detail_text
-                if not title or not text:
+            desc_text = html_to_text(child.get("desc") or "")
+            growth = child.get("growth") or []
+
+            if is_core:
+                # 核心技正文取「详情」span（满级）；额外能力从 desc 切出单独成条。
+                detail_text = growth_detail_text(growth)
+                body = detail_text or desc_text
+                if not body:
+                    # 变体条目：只有标题、无描述与成长，是页面内跳转锚点（照旧跳过）。
                     skipped += 1
                     continue
+                body, extra_title, extra_text = split_extra_ability(body)
+                if not extra_title:
+                    _, extra_title, extra_text = split_extra_ability(desc_text)
+                body = strip_core_title_line(body)
+                if detail_text:
+                    # 详情就是满级文本，WIKI 自带的「初始数据」标记按满级口径翻正。
+                    body = body.replace("（此处数据为初始数据）", "（此处数据为满级数据）")
+                else:
+                    # 降级路径：desc 只有初始数值，用成长增量改写成满级。
+                    body = core_max_text(body, parse_growth(growth))
+                move = {
+                    "title": normalize_core_title(title, desc_text, detail_text),
+                    "text": body,
+                }
+                parsed_growth = parse_growth(growth)
+                if parsed_growth:
+                    move["growth"] = parsed_growth
+                moves.append(move)
+                if extra_title:
+                    moves.append({"title": extra_title, "text": extra_text})
+                continue
+
+            if not title or not desc_text:
+                # 变体条目：只有标题、无描述与成长（照旧跳过）。
+                skipped += 1
+                continue
+            # 非核心技：desc 即全部信息；把标注为初始数据的句子换成满级数值。
+            text, _ = rewrite_level_values(desc_text, growth_last_values(growth))
             move = {"title": title, "text": text}
-            growth = parse_growth(child.get("growth"))
-            if growth:
-                move["growth"] = growth
-                if is_core:
-                    # 核心技 desc 展示的是初始（A 级）数值，按用户口径改写为满级
-                    move["text"] = core_max_text(move["text"], growth)
+            parsed_growth = parse_growth(growth)
+            if parsed_growth:
+                move["growth"] = parsed_growth
             moves.append(move)
         skills.append(
             {
@@ -478,7 +626,7 @@ def cinema_backdrops(page: dict, cinemas: list[dict], args) -> dict:
     """按命数下载影画展示图作卡片背景：1-3 命用「影画展示2」，4-6 命用「影画展示3」。
 
     每代理人独有的背景图落 ``--assets-dir``，写
-    ``/images/strategy/<slug>/cinema-N.png``。返回 ``{level: {image, imageRemote}}``；
+    ``/images/strategy/<slug>/cinema-N.webp``。返回 ``{level: {image, imageRemote}}``；
     下载失败的等级只保留远程 URL。
     """
     if not cinemas or args.no_images:
@@ -487,12 +635,12 @@ def cinema_backdrops(page: dict, cinemas: list[dict], args) -> dict:
     backdrops: dict[str, dict] = {}
     for cinema in cinemas:
         level = cinema.get("level")
-        # 展示图按「影画展示N」的末位数字命名：cinema-2.png / cinema-3.png
+        # 展示图按「影画展示N」的末位数字命名：cinema-2.webp / cinema-3.webp
         tab = "影画展示2" if level <= 3 else "影画展示3"
         url = showcases.get(tab)
         if not url:
             continue
-        local_name = f"cinema-{tab[-1]}.png"
+        local_name = f"cinema-{tab[-1]}.webp"
         entry = {"image": "", "imageRemote": url}
         if download_image(url, args.assets_dir / local_name, args.timeout):
             entry["image"] = f"{args.strategy_url}/{local_name}"
@@ -542,7 +690,7 @@ def parse_base_panel(page: dict) -> list[dict]:
 
     WIKI 把基础数据放在 role_talent（晋升需求）的滑块里：初始行给全量字段，
     满级行只给随晋升变化的生命 / 攻击 / 防御，逐字段用满级覆盖初始即为 60 级
-    面板——与仓库 ``data/agent-presets.json`` 的 ``base`` 同源同值。
+    面板——与仓库 ``data/catalog/agents.json`` 的 ``base`` 同源同值。
     满级行的短字段名先经 ``BASE_PANEL_ALIASES`` 归一，否则覆盖不生效。
     输出 ``[{label, value, unit}]``，``unit`` 为 "%" 或空串。
     """
@@ -574,6 +722,69 @@ def parse_base_panel(page: dict) -> list[dict]:
     ordered = [stats[label] for label in BASE_PANEL_FIELDS if label in stats]
     ordered += [item for label, item in stats.items() if label not in BASE_PANEL_FIELDS]
     return ordered
+
+
+#: 基础面板的字段名 -> 代理人预设 ``base`` 的键。用于把抓到的面板与预设对照。
+_PANEL_LABEL_TO_BASE_KEY = {
+    "生命值": "hp",
+    "攻击力": "atk",
+    "防御力": "def",
+    "冲击力": "impact",
+    "暴击率": "cr",
+    "暴击伤害": "cd",
+    "异常掌控": "ac",
+    "异常精通": "am",
+    "穿透率": "pr",
+    "能量自动回复": "er",
+    "锐能自动累积": "er",
+}
+
+
+def check_base_panel_against_preset(panel: list[dict], agent_id: str) -> None:
+    """把抓到的面板与代理人预设对照，不一致就告警。
+
+    基础面板的**唯一真实源是预设**（``data/catalog/agents.json``），攻略 JSON
+    不再存这份数据。但抓取脚本仍然解析滑块——它是独立的数据来源，两边对不上
+    就说明 Wiki 变了而预设没跟上（或反过来）。此时告警而不是失败：预设可能
+    已经是人工核对过的正确值。
+    """
+    preset = _find_agent_preset(agent_id)
+    if preset is None:
+        return
+    base = preset.get("base") or {}
+    extra = preset.get("baseExtra") or {}
+    for field in panel:
+        label = field["label"]
+        key = _PANEL_LABEL_TO_BASE_KEY.get(label)
+        if key is not None:
+            expected = base.get(key)
+        elif label == "贯穿力":
+            expected = extra.get("penforce")
+        elif label == "闪能自动累积":
+            expected = extra.get("energyAccumulation")
+        else:
+            continue
+        if expected is None or float(expected) != float(field["value"]):
+            print(
+                f"  ! 基础面板与预设不一致：{label} 抓到 {field['value']}，"
+                f"预设 {expected}（{agent_id}）"
+            )
+
+
+def _find_agent_preset(agent_id: str) -> dict | None:
+    """按 id 找代理人预设。找不到就返回 None（不阻断抓取）。"""
+    try:
+        from data_paths import dataset_path
+    except ImportError:
+        return None
+    try:
+        presets = json.loads(dataset_path("agents").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    for preset in presets:
+        if preset.get("id") == agent_id:
+            return preset
+    return None
 
 
 def parse_profile(page: dict) -> dict:
@@ -613,11 +824,34 @@ def parse_profile(page: dict) -> dict:
 # ---------------------------------------------------------------- assets
 
 
+def to_webp(payload: bytes) -> bytes:
+    """把 PNG/JPEG 载荷转成 webp 字节。
+
+    仓库图片统一 webp（见 ``tools/images_to_webp.py``）。没装 Pillow 时原样透传，
+    浏览器会按内容嗅探渲染，只是体积不省。
+    """
+    try:
+        from PIL import Image
+    except ImportError:
+        return payload
+    import io
+
+    image = Image.open(io.BytesIO(payload))
+    image.load()
+    if image.mode not in ("RGBA", "RGB"):
+        image = image.convert("RGBA")
+    buffer = io.BytesIO()
+    image.save(buffer, "WEBP", quality=90, method=6)
+    return buffer.getvalue()
+
+
 def download_image(url: str, destination: Path, timeout: float, skip_if_exists: bool = False) -> bool:
     """下载单张图片；失败返回 False（调用方保留远程 URL 兜底）。
 
     ``skip_if_exists=True`` 用于全代理人共享的图标（技能 / 等级）：磁盘上已有
     同路径文件即视为就绪，不再重复请求 CDN。
+
+    目标是 ``.webp`` 时会把下载到的 PNG/JPEG 转码成 webp，保持仓库图片格式统一。
     """
     if not url:
         return False
@@ -627,7 +861,10 @@ def download_image(url: str, destination: Path, timeout: float, skip_if_exists: 
         response = requests.get(url, headers=HEADERS, timeout=timeout)
         response.raise_for_status()
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_bytes(response.content)
+        payload = response.content
+        if destination.suffix.lower() == ".webp":
+            payload = to_webp(payload)
+        destination.write_bytes(payload)
         return True
     except Exception as error:  # noqa: BLE001 - 单张图片失败不阻断整体
         print(f"  ! 图片下载失败，将保留远程 URL：{url}（{error}）", file=sys.stderr)
@@ -637,11 +874,11 @@ def download_image(url: str, destination: Path, timeout: float, skip_if_exists: 
 def local_assets(profile: dict, skills: list[dict], page: dict, args) -> dict:
     """下载立绘与技能图标，返回本地 URL 与远程兜底 URL。
 
-    - 头像：不再单独下载——仓库 ``images/agents/<agentId>.png`` 已存在（与主应用
+    - 头像：不再单独下载——仓库 ``images/agents/<agentId>.webp`` 已存在（与主应用
       计算器 cascader 同源），存在才写该 URL；
     - 立绘：每名代理人独有，落 ``--assets-dir``，写
-      ``/images/strategy/<slug>/tachie.png``；
-    - 六张技能图标是全代理人共享资产，落 ``images/skills/<key>.png``，
+      ``/images/strategy/<slug>/tachie.webp``；
+    - 六张技能图标是全代理人共享资产，落 ``images/skills/<key>.webp``，
       已存在则跳过下载。
     本地文件缺失时对应字段留空、保留 ``*Remote`` 远程兜底，行为不变。
     """
@@ -655,20 +892,20 @@ def local_assets(profile: dict, skills: list[dict], page: dict, args) -> dict:
         assets["avatarRemote"] = avatar_url
         assets["tachieRemote"] = tachie_url
     else:
-        avatar_file = IMAGES_ROOT / "agents" / f"{agent_id}.png"
+        avatar_file = IMAGES_ROOT / "agents" / f"{agent_id}.webp"
         if avatar_file.is_file():
-            assets["avatar"] = f"/images/agents/{agent_id}.png"
+            assets["avatar"] = f"/images/agents/{agent_id}.webp"
         assets["avatarRemote"] = avatar_url
-        if download_image(tachie_url, args.assets_dir / "tachie.png", args.timeout):
-            assets["tachie"] = f"{args.strategy_url}/tachie.png"
+        if download_image(tachie_url, args.assets_dir / "tachie.webp", args.timeout):
+            assets["tachie"] = f"{args.strategy_url}/tachie.webp"
         assets["tachieRemote"] = tachie_url
 
     for skill in skills:
         if args.no_images:
             continue
         icon_url = skill.pop("icon")
-        local = f"/images/skills/{skill['key']}.png"
-        if download_image(icon_url, IMAGES_ROOT / "skills" / f"{skill['key']}.png", args.timeout, skip_if_exists=True):
+        local = f"/images/skills/{skill['key']}.webp"
+        if download_image(icon_url, IMAGES_ROOT / "skills" / f"{skill['key']}.webp", args.timeout, skip_if_exists=True):
             skill["icon"] = local
         skill["iconRemote"] = icon_url
     for skill in skills:
@@ -680,14 +917,14 @@ def profile_icons(profile: dict, page: dict, args) -> dict:
     """生成姓名后的几枚小图标：属性、职业、等级、称号（虚狩专属）。
 
     - 职业图标：全代理人共享，直接引用仓库职业图标集
-      ``images/icons/<role_profession>.png``，不再逐代理人复制；
+      ``images/icons/<role_profession>.webp``，不再逐代理人复制；
     - 等级图标：WIKI 代理人页 bundle 的 vp 映射（fastcdn 静态资源），按 grade 下载到
-      ``images/grades/<grade>.png``（已存在则跳过）；
+      ``images/grades/<grade>.webp``（已存在则跳过）；
     - 称号图标（虚狩专属）：role_base_info.addition_img 直接下发，每代理人独有，
-      落 ``--assets-dir``，写 ``/images/strategy/<slug>/title.png``；没有称号的
+      落 ``--assets-dir``，写 ``/images/strategy/<slug>/title.webp``；没有称号的
       代理人该字段为空，自动跳过。
     - 属性图标：WIKI 不下发，检测人工放置的
-      ``images/attributes/<slug>.png``（如 honed-edge），存在才写该
+      ``images/attributes/<slug>.webp``（如 honed-edge），存在才写该
       URL，否则前端以色牌降级。
     """
     base_info = find_components(page, "role_base_info")[0]
@@ -699,32 +936,53 @@ def profile_icons(profile: dict, page: dict, args) -> dict:
     if not args.no_images:
         # 职业图标：全代理人共享，直接引用仓库图标集（始终写入正确路径）
         if profession_slug and profession_slug in PROFESSION_ICON_MAP:
-            icons["profession"] = f"/images/icons/{PROFESSION_ICON_MAP[profession_slug]}.png"
+            icons["profession"] = f"/images/icons/{PROFESSION_ICON_MAP[profession_slug]}.webp"
         # 等级图标：从 WIKI bundle vp 映射下载，已存在则跳过；下载失败留空，由 fix-agent 兜底
-        grade_dest = IMAGES_ROOT / "grades" / f"{grade}.png"
+        grade_dest = IMAGES_ROOT / "grades" / f"{grade}.webp"
         grade_url = GRADE_ICON_URLS.get(grade)
         if grade_url and download_image(grade_url, grade_dest, args.timeout, skip_if_exists=True):
-            icons["grade"] = f"/images/grades/{grade}.png"
+            icons["grade"] = f"/images/grades/{grade}.webp"
         # 称号图标（虚狩专属）：role_base_info.addition_img 直接下发
         title_img_url = base_info.get("addition_img") or ""
-        if title_img_url and download_image(title_img_url, args.assets_dir / "title.png", args.timeout):
-            icons["title"] = f"{args.strategy_url}/title.png"
+        if title_img_url and download_image(title_img_url, args.assets_dir / "title.webp", args.timeout):
+            icons["title"] = f"{args.strategy_url}/title.webp"
         # 属性图标：WIKI 不下发，直接引用仓库图标集（始终写入正确路径）
         if attribute_slug and attribute_slug in ATTRIBUTE_ICON_MAP:
-            icons["attribute"] = f"/images/attributes/{ATTRIBUTE_ICON_MAP[attribute_slug]}.png"
+            icons["attribute"] = f"/images/attributes/{ATTRIBUTE_ICON_MAP[attribute_slug]}.webp"
     return icons
 
 
 # ---------------------------------------------------------------- main
 
 
+def keep_existing_title(profile: dict, output: Path) -> None:
+    """WIKI 偶尔会清空称号字段（菲欧妮 2026-10 起 `addition_text` 为空，
+    「坎卜斯黑枝」改成了阵营名）。此时保留旧产物里的称号，避免把已有信息抹掉。"""
+    if profile.get("factionTitle") or not output.exists():
+        return
+    try:
+        previous = json.loads(output.read_text(encoding="utf-8"))
+        title = (previous.get("profile", {}).get("factionTitle") or "").strip()
+    except (OSError, ValueError):
+        return
+    if title:
+        profile["factionTitle"] = title
+        print(f"  ! WIKI 未提供称号，保留旧值：{title}")
+
+
 def build_guide(page: dict, entry_page_id: int, args) -> dict:
     profile = parse_profile(page)
-    base_panel = parse_base_panel(page)
     skills = parse_skills(page)
     cinemas = parse_cinemas(page)
     assets = local_assets(profile, skills, page, args)
     profile["icons"] = profile_icons(profile, page, args)
+    keep_existing_title(profile, args.output)
+
+    # 基础面板**不写进攻略 JSON**：唯一真实源是代理人预设
+    # （``data/catalog/agents.json``），攻略页从预设派生——同一批数字不必在
+    # 61 份攻略 JSON 里各存一份。抓取时仍然解析滑块并与预设对照，两边对不上
+    # 就告警（Wiki 变了而预设没跟上，或反过来）。
+    check_base_panel_against_preset(parse_base_panel(page), f"ep-{entry_page_id}")
 
     guide = {
         "meta": {
@@ -735,7 +993,6 @@ def build_guide(page: dict, entry_page_id: int, args) -> dict:
             "scrapedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
         },
         "profile": profile,
-        "basePanel": base_panel,
         "assets": assets,
         "skills": skills,
         "cinemas": cinemas,
@@ -780,7 +1037,7 @@ def main() -> int:
     size_kib = args.output.stat().st_size / 1024
     print(f"已生成 {args.output}（{size_kib:.1f} KiB）")
     print(f"  {guide['profile']['name']}：{guide['profile']['attribute']} / {guide['profile']['roleTag']} / {guide['profile']['grade']} 级")
-    print(f"  基础面板 {len(guide['basePanel'])} 项 · 技能 {len(guide['skills'])} 类 · 招式 {move_count} 条 · 影画 {len(guide['cinemas'])} 层")
+    print(f"  技能 {len(guide['skills'])} 类 · 招式 {move_count} 条 · 影画 {len(guide['cinemas'])} 层")
     backdrops = guide.get("cinemaBackdrops") or {}
     print(f"  影画背景图 {len(backdrops)} 层（1-3 命影画展示2，4-6 命影画展示3）")
     for skill in guide["skills"]:

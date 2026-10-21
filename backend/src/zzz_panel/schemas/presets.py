@@ -1,32 +1,46 @@
-"""预设数据的 HTTP 契约。
+"""代理人 / 音擎预设的 HTTP 契约。
 
-字段与仓库根 ``data/*.json`` 一一对应（该目录是唯一真实源），
-因此这里的模型同时承担两个职责：
+线格式与 ``data/catalog/`` 下的数据文件**逐条等价**——后端不改写、不丢字段，
+也不加运行时派生字段。响应因此就是源数据，前端不必再留一份副本。
 
-1. **结构校验**：类型、必填项、枚举在 Pydantic 层拦下，报错带字段路径；
-2. **线格式**：响应按 camelCase 序列化，前端直接复用同一套类型定义。
+形状的来龙去脉见 ``docs/design/data-schema.md``。相对早期版本的两处变化：
 
-跨字段的语义校验（id 唯一、核心加成能否由选项表示、能否填满两个核心槽位）
-不在本层，由 ``zzz_panel.presets.validate`` 负责——那些规则需要查
-``core.options``，与传输层无关。
+1. **``unavailableBaseStats`` 已删除**。「官方没给哪几项基础属性」原本存了两
+   份：``base`` 里缺键 + 一个数组。数组是多余的——缺键本身就是那份事实。
+   「缺哪些键是合法的」由 ``presets/validate.py`` 按规则判定：**命破模式**
+   的代理人缺 ``pr`` 与 ``er``（这两个位置被贯穿力 / 闪能自动累积取代），
+   其余模式十项必须齐全。
+2. **音擎的基础攻击 / 基础防御合并为 ``base: {kind, value}``**。原先是三个
+   字段（``baseKind`` + ``baseAttack`` + ``baseDefense``），其中恒有一个是 0，
+   消歧要靠 ``baseKind``；二元组没有冗余。
 """
 
 from __future__ import annotations
 
-from typing import List, Literal, Optional
+from typing import Dict, List, Literal, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import ConfigDict, Field
 
 from .base import CamelModel
-from .panel import PanelMode
 
 
-class AgentBaseStats(CamelModel):
-    """60 级基础面板（不含核心）。
+class PresetModel(CamelModel):
+    """预设模型的公共配置。
 
-    全部键可选：``unavailableBaseStats`` 列出的项在官方面板中本就缺失，
-    例如部分命破代理人不提供穿透率与能量自动回复。
+    ``exclude_none``：源数据里**没写的键就是没有**，响应里也不该冒出来一个
+    ``null``。开着它，接口响应与源 JSON 才逐条等价——``base`` 缺 ``pr`` 的
+    命破代理人不会被补出 ``"pr": null``，``optionCount`` 同理。
     """
+
+    model_config = ConfigDict(
+        alias_generator=CamelModel.model_config["alias_generator"],
+        populate_by_name=True,
+        exclude_none=True,
+    )
+
+
+class AgentBaseStats(PresetModel):
+    """60 级基础面板。缺失的键表示官方未提供该属性。"""
 
     hp: Optional[float] = None
     atk: Optional[float] = None
@@ -40,60 +54,61 @@ class AgentBaseStats(CamelModel):
     er: Optional[float] = None
 
 
-class AgentAdditionalBaseStats(CamelModel):
-    """命破模式专属的基础面板字段。"""
-
-    penforce: Optional[float] = None
-    energy_accumulation: Optional[float] = None
-
-
-class UnmodeledBaseStat(CamelModel):
-    """官方 WIKI 列出、但当前计算器尚未建模的基础属性。"""
+class UnmodeledBaseStat(PresetModel):
+    """官方列了、但当前计算器未建模的基础属性。"""
 
     label: str
     value: float
     unit: str
 
 
-class AgentCoreBonus(CamelModel):
-    """单条核心加成。
+class AgentCoreBonus(PresetModel):
+    """一条核心加成。
 
-    ``ranks`` 为核心技位次；``option_count`` 表示该条被计入几个核心选项，
-    等于 1 时在 JSON 里省略。
+    ``optionCount`` 缺省为 1（占用一个核心槽位）；``totalValue`` 与 ``unit``
+    是规则表可推出的量，保留在数据里是为了让接口响应与源数据逐条等价，
+    其一致性由 ``presets/validate.py`` 逐条核对。
     """
 
     option_id: str
+    option_count: Optional[int] = None
     ranks: List[str]
     label: str
-    per_rank_value: float
+    per_rank: float
     total_value: float
     unit: str = ""
-    option_count: Optional[int] = None
 
     @property
     def count(self) -> int:
+        """该条占用的核心槽位数。"""
         return self.option_count or 1
 
 
-class AgentPreset(CamelModel):
+class AgentPreset(PresetModel):
+    """一名代理人的完整预设。"""
+
     id: str
     name: str
-    #: 官方属性类型，如「火」「烈霜」。取值校验见 ``presets.attributes``。
     attribute: str
-    #: 官方评级，代理人口前只有 S / A。
     grade: str
     role_tag: str
-    panel_mode: PanelMode
+    panel_mode: str
     source: str
     base: AgentBaseStats
-    core_bonuses: List[AgentCoreBonus]
-    additional_base_stats: Optional[AgentAdditionalBaseStats] = None
-    unavailable_base_stats: Optional[List[str]] = None
-    unmodeled_base_stats: Optional[List[UnmodeledBaseStat]] = None
+    base_extra: Optional[Dict[str, float]] = None
+    base_unmodeled: Optional[List[UnmodeledBaseStat]] = None
+    core: List[AgentCoreBonus]
 
 
-class WeaponSubstat(CamelModel):
-    """音擎固定副词条。``to`` 对应累加器键名。"""
+class WeaponBase(PresetModel):
+    """音擎的基础攻击或基础防御。"""
+
+    kind: Literal["atk", "def"]
+    value: float
+
+
+class WeaponSubstat(PresetModel):
+    """音擎自带的固定副词条。"""
 
     label: str
     value: float
@@ -101,33 +116,33 @@ class WeaponSubstat(CamelModel):
     to: str
 
 
-class WeaponPreset(CamelModel):
+class WeaponPreset(PresetModel):
+    """一件音擎的完整预设。"""
+
     id: str
     name: str
     grade: str
     role_tag: str
     source: str
-    base_kind: Literal["atk", "def"]
-    base_attack: float = 0.0
-    base_defense: float = 0.0
+    base: WeaponBase
     substat: WeaponSubstat
 
 
-class AgentPresetList(BaseModel):
+class AgentPresetList(CamelModel):
     items: List[AgentPreset]
 
 
-class WeaponPresetList(BaseModel):
+class WeaponPresetList(CamelModel):
     items: List[WeaponPreset]
 
 
 __all__ = [
-    "AgentAdditionalBaseStats",
     "AgentBaseStats",
     "AgentCoreBonus",
     "AgentPreset",
     "AgentPresetList",
     "UnmodeledBaseStat",
+    "WeaponBase",
     "WeaponPreset",
     "WeaponPresetList",
     "WeaponSubstat",

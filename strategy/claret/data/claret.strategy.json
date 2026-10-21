@@ -1,4 +1,5 @@
 {
+  "background": "/images/strategy/claret/background.webp",
   "_meta": {
     "agentId": "ep-2145",
     "name": "克拉蕾·弗林特",
@@ -14,7 +15,7 @@
     {
       "key": "core",
       "label": "核心技",
-      "icon": "/images/skills/core.png",
+      "icon": "/images/skills/core.webp",
       "level": 7,
       "maxLevel": 7,
       "next": "="
@@ -22,7 +23,7 @@
     {
       "key": "special",
       "label": "特殊技",
-      "icon": "/images/skills/special.png",
+      "icon": "/images/skills/special.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -30,7 +31,7 @@
     {
       "key": "basic",
       "label": "普通攻击",
-      "icon": "/images/skills/basic.png",
+      "icon": "/images/skills/basic.webp",
       "level": 12,
       "maxLevel": 12,
       "next": "="
@@ -38,7 +39,7 @@
     {
       "key": "chain",
       "label": "连携技",
-      "icon": "/images/skills/chain.png",
+      "icon": "/images/skills/chain.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -46,7 +47,7 @@
     {
       "key": "assist",
       "label": "支援技",
-      "icon": "/images/skills/assist.png",
+      "icon": "/images/skills/assist.webp",
       "level": 12,
       "maxLevel": 12,
       "next": ">"
@@ -54,7 +55,7 @@
     {
       "key": "dodge",
       "label": "闪避",
-      "icon": "/images/skills/dodge.png",
+      "icon": "/images/skills/dodge.webp",
       "level": 11,
       "maxLevel": 12,
       "next": ""
@@ -67,7 +68,7 @@
         {
           "name": "猩红渴望",
           "stats": "S 级 · 基础防御 431 · 防御力 48%",
-          "icon": "/images/weapons/ep-2188.png"
+          "icon": "/images/weapons/ep-2188.webp"
         }
       ],
       "note": "专武：高基础防御与防御力词条，另有暴击率、电属性与锐化伤害加成，大幅降低堆暴击率的压力，是锋御体系里唯一的 S 级。"
@@ -78,12 +79,12 @@
         {
           "name": "血髓秘匣",
           "stats": "A 级 · 基础防御 356 · 暴击率 20%",
-          "icon": "/images/weapons/ep-2189.png"
+          "icon": "/images/weapons/ep-2189.webp"
         },
         {
           "name": "喵运当头",
           "stats": "A 级 · 基础防御 356 · 防御力 40%",
-          "icon": "/images/weapons/ep-2200.png"
+          "icon": "/images/weapons/ep-2200.webp"
         }
       ],
       "note": "锋御音擎的基础属性是防御力，下位只能在锋御音擎里选：血髓秘匣补暴击率（成长计划），喵运当头补防御（玩具店兑换）。"
@@ -94,7 +95,7 @@
         {
           "name": "「月相」-弦",
           "stats": "B 级 · 基础防御 282 · 防御力 32%",
-          "icon": "/images/weapons/ep-2190.png"
+          "icon": "/images/weapons/ep-2190.webp"
         }
       ],
       "note": "B 级锋御音擎，抽卡副产物或玩具店购买，仅供前期过渡、不建议强化过 40 级。注意锋御不能用其他职业音擎替代——基础属性不是攻击力。"
@@ -107,18 +108,18 @@
         "name": "荆棘玫瑰",
         "label": "防御力 +16%",
         "effect4": "装备者造成的伤害提升15%，装备者初始防御力大于等于1000/1800点时，暴击率提升8/16%",
-        "icon": "/images/discs/ep-2121.png"
+        "icon": "/images/discs/ep-2121.webp"
       },
       "set2": {
         "main": {
           "name": "河豚电音",
           "label": "穿透率 +8%",
-          "icon": "/images/discs/ep-193.png"
+          "icon": "/images/discs/ep-193.webp"
         },
         "alt": {
           "name": "啄木鸟电音",
           "label": "暴击率 +8%",
-          "icon": "/images/discs/ep-232.png"
+          "icon": "/images/discs/ep-232.webp"
         }
       },
       "mainStats": [
@@ -173,12 +174,12 @@
           "agentId": "ep-2145",
           "name": "克拉蕾",
           "role": "锋御",
-          "avatar": "/images/agents/ep-2145.png",
+          "avatar": "/images/agents/ep-2145.webp",
           "note": "电属性锋御驻场主C，以防御力为招式倍率，围绕[猩红铭刻]打残痕与毁伤。",
           "set4": [
             {
               "name": "荆棘玫瑰",
-              "icon": "/images/discs/ep-2121.png"
+              "icon": "/images/discs/ep-2121.webp"
             }
           ]
         },
@@ -186,12 +187,12 @@
           "agentId": "ep-316",
           "name": "丽娜",
           "role": "支援",
-          "avatar": "/images/agents/ep-316.png",
+          "avatar": "/images/agents/ep-316.webp",
           "note": "防御向支援，提供穿透与防御增益，把克拉蕾的锐暴与毁伤进一步放大。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         },
@@ -199,12 +200,12 @@
           "agentId": "ep-2152",
           "name": "洛克茜",
           "role": "击破",
-          "avatar": "/images/agents/ep-2152.png",
+          "avatar": "/images/agents/ep-2152.webp",
           "note": "风属性击破，快速打进失衡并提供锋御联动与锐暴伤害加成，与克拉蕾高度适配。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         }
@@ -217,12 +218,12 @@
           "agentId": "ep-2145",
           "name": "克拉蕾",
           "role": "锋御",
-          "avatar": "/images/agents/ep-2145.png",
+          "avatar": "/images/agents/ep-2145.webp",
           "note": "电属性锋御驻场主C，以防御力为招式倍率，围绕[猩红铭刻]打残痕与毁伤。",
           "set4": [
             {
               "name": "荆棘玫瑰",
-              "icon": "/images/discs/ep-2121.png"
+              "icon": "/images/discs/ep-2121.webp"
             }
           ]
         },
@@ -230,12 +231,12 @@
           "agentId": "ep-316",
           "name": "丽娜",
           "role": "支援",
-          "avatar": "/images/agents/ep-316.png",
+          "avatar": "/images/agents/ep-316.webp",
           "note": "防御向支援，提供穿透与防御增益，弥补过渡队缺少锋御联动的缺口。",
           "set4": [
             {
               "name": "静听嘉音",
-              "icon": "/images/discs/ep-1001.png"
+              "icon": "/images/discs/ep-1001.webp"
             }
           ]
         },
@@ -243,12 +244,12 @@
           "agentId": "ep-318",
           "name": "珂蕾妲",
           "role": "击破",
-          "avatar": "/images/agents/ep-318.png",
+          "avatar": "/images/agents/ep-318.webp",
           "note": "A 级击破，快速打迸失衡，让克拉蕾把残痕与毁伤集中塞进爆发窗口。",
           "set4": [
             {
               "name": "山大王",
-              "icon": "/images/discs/ep-1346.png"
+              "icon": "/images/discs/ep-1346.webp"
             }
           ]
         }
