@@ -702,8 +702,8 @@
   margin: 0 0 var(--space-2);
   overflow-wrap: anywhere;
   /* 正文行长上限 40em（约 40 个汉字）。内容列在 1440px 视口下有 1180px 宽，
-     不限行长的话一段话能拉到 80 多个字一行，很难扫读。 */
-  max-width: 40em;
+     不限行长的便于阅读。 */
+  max-width: none;
 }
 
 .strategy-detail .para:last-child {
