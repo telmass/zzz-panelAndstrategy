@@ -43,7 +43,7 @@
 | F8 | 长文学习指南页（`/guide`） | `views/GuideView.vue` |
 | F9 | 预设数据更新流程可重复执行且字节幂等 | `tools/sync_presets.py --check` |
 | F12 | 计算器页支持**配装方案的存取**：`保存方案` 存到本机 `localStorage`（键 `zzz.builds.v1`）、`导出` 下载 `.json`、`导入` 读队友发来的 `.json`、`复制链接` 把配装编码进 URL 片段（`#build=…`）。**全部本地**——不落服务端（见 C7）；方案里不存基础面板（它随代理人预设走） | `frontend/src/types/build.ts`、`stores/buildStore.ts`、`composables/useBuildIO.ts`、`composables/useBuildPanel.ts` |
-| F11 | 计算器页支持 **URL 直载**：`?mode=rupture` / `?mode=fengyu` 决定面板模式，`?agent=<slug 或预设 id>` 直接载入该代理人的基础面板与核心加成并切到它的模式。一条链接即可复现某位代理人的整套面板（分享需求，也是 UI 验收清单「状态由 URL 决定」的前提） | `views/CalculatorView.vue`、`composables/useAgentPreset.ts` |
+| F11 | 计算器页支持 **URL 直载**：`?mode=rupture` / `?mode=armorer` 决定面板模式，`?agent=<slug 或预设 id>` 直接载入该代理人的基础面板与核心加成并切到它的模式。一条链接即可复现某位代理人的整套面板（分享需求，也是 UI 验收清单「状态由 URL 决定」的前提） | `views/CalculatorView.vue`、`composables/useAgentPreset.ts` |
 | F10 | 启动页「代理人攻略」入口卡 → `/strategy` 代理人选择页（封面卡网格）→ `/strategy/<slug>` 攻略单页（Vue 路由 + 共享渲染器读取 `strategy/<slug>/data/`）。当前 61 个攻略数据目录、61 条登记 | `views/LauncherView.vue`、`views/StrategyPickerView.vue`、`views/StrategyView.vue`、`frontend/src/strategy/renderStrategy.ts`、`constants/strategyGuides.ts`、`vite.config.ts` |
 
 ### 3.2 明确不做

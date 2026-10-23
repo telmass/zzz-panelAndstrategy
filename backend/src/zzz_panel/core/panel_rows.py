@@ -37,7 +37,7 @@ class PanelRow:
     """面板结果的一行。
 
     ``percent`` 决定展示时是否带 % 后缀；``main`` 决定它是不是「主属性行」
-    （计算器主界面与毕业面板的主区块）；``rupture_only`` / ``fengyu_only``
+    （计算器主界面与毕业面板的主区块）；``rupture_only`` / ``armorer_only``
     决定该行只在命破 / 锋御面板模式下出现；``energy_label`` 标记能量行
     （标签随模式切换成「能量回复」或「闪能」）。
     """
@@ -47,7 +47,7 @@ class PanelRow:
     percent: bool = False
     main: bool = False
     rupture_only: bool = False
-    fengyu_only: bool = False
+    armorer_only: bool = False
     energy_label: bool = False
 
 
@@ -59,8 +59,8 @@ PANEL_ROWS: tuple[PanelRow, ...] = (
     PanelRow("hp", "生命值", main=True),
     PanelRow("atk", "攻击力", main=True),
     PanelRow("penforce", "贯穿力", main=True, rupture_only=True),
-    PanelRow("actual_cr", "实际暴击率", percent=True, main=True, fengyu_only=True),
-    PanelRow("blast_dmg", "锐暴伤害", percent=True, main=True, fengyu_only=True),
+    PanelRow("actual_cr", "实际暴击率", percent=True, main=True, armorer_only=True),
+    PanelRow("blast_dmg", "锐暴伤害", percent=True, main=True, armorer_only=True),
     PanelRow("def", "防御力", main=True),
     PanelRow("cr", "暴击率", percent=True),
     PanelRow("cd", "暴击伤害", percent=True),

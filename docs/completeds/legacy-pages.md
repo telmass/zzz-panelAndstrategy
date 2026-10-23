@@ -30,7 +30,7 @@
 | `pages/guide.html` | 已删除 → `src/views/GuideView.vue` |
 | `pages/example-template.html` | 已删除 → **不吸收**，计算逻辑与统一计算器重复 |
 | `pages/redirect-rupture.html` | 已删除 → 路由 query `?mode=rupture` |
-| `pages/redirect-fengyu.html` | 已删除 → 路由 query `?mode=fengyu` |
+| `pages/redirect-armorer.html` | 已删除 → 路由 query `?mode=armorer` |
 | 根目录 6 个中文页 | 已删除（纯 `meta refresh` 桩，无内容损失） |
 | `public/images/{agents,weapons}/*.png` | 保留（现由 Vue3 页面使用） |
 
@@ -67,7 +67,7 @@
 
 - [x] `npm run build` 产物可独立运行
 - [x] 新实现的计算结果与 legacy 抽样用例全等（`test_legacy_parity.py` 逐条比对）
-- [x] `?mode=rupture` / `?mode=fengyu` 直达链接在新实现中可用
+- [x] `?mode=rupture` / `?mode=armorer` 直达链接在新实现中可用
 - [x] `guide.html` 的内容已被 `GuideView` 覆盖
 - [x] `example-template.html` 不再需要保留：其计算逻辑与统一计算器重复，迁移计划决定不吸收，删除无信息损失
 - [x] 三方对拍与格式化对拍的基准已迁移到 `tests/fixtures/legacy-calculator/`，两道护栏仍然有效

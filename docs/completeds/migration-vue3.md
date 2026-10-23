@@ -102,7 +102,7 @@ src/
 已验证：`vue-tsc --noEmit` 通过；`npm run build` 成功；`tests/calculator-view.spec.ts`
 13 项渲染断言全绿（模块顺序与色条变体、12 个基础字段与命破专属字段默认隐藏、
 音擎三级下拉的 disabled 链、副词条 10 项步进器与初始禁用态、
-结果区在 standard/rupture/fengyu 三种模式下的 12/13/14 行显隐）。
+结果区在 standard/rupture/armorer 三种模式下的 12/13/14 行显隐）。
 
 ## 第 2 步 · 交互逻辑（仍在前端算）
 
@@ -336,7 +336,7 @@ data/
     - 前端构建产物不含任何手写的选项常量。
     - `src/constants/calculatorOptions.ts` 保留 `RuleOption` / `ModifierKey` /
       `ModifierKind` 类型与 `AGENT_ROLE_TAGS`、`PANEL_MODE_LABELS`、
-      `MODELED_BASE_STAT_LABELS`、`FENGYU_BLAST_DMG` 四组纯枚举。
+      `MODELED_BASE_STAT_LABELS`、`armorer_BLAST_DMG` 四组纯枚举。
 
 ## 第 5 步 · 收尾（已完成 2026-10-03）
 
@@ -361,7 +361,7 @@ data/
     子目录结构，因 `calculator.html` 用相对路径引用），并新增该目录的 README
     写明「禁止修改」——改了基准，对拍就变成自己和自己比。
     删除 `pageps/index.html`、`guide.html`、`example-template.html`、
-    `redirect-rupture.html`、`redirect-fengyu.html`（无吸收价值或已被
+    `redirect-rupture.html`、`redirect-armorer.html`（无吸收价值或已被
     `?mode=` query 取代）、`frontend/legacy/README.md`，以及仓库根目录 6 个
     纯 `meta refresh` 中文桩。
     改路径的消费者：`tests/legacy-parity.spec.ts`、

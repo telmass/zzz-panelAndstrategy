@@ -54,7 +54,7 @@ PROFESSION_TAGS = {
     "support": ("支援", "standard"),
     "guard": ("防护", "standard"),
     "rupture": ("命破", "rupture"),
-    "armero": ("锋御", "fengyu"),
+    "armero": ("锋御", "armorer"),
 }
 
 #: ``role_base_info.role_attribute`` 的 slug -> 页面实际显示的中文属性名。

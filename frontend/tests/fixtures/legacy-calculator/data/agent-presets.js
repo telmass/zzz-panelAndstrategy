@@ -1187,7 +1187,7 @@ window.AGENT_PRESETS = [
     attribute: '电',
     grade: 'S',
     roleTag: '锋御',
-    panelMode: 'fengyu',
+    panelMode: 'armorer',
     source: 'https://baike.mihoyo.com/zzz/wiki/content/2145/detail?mhy_presentation_style=fullscreen',
     base: {
       hp: 5651,

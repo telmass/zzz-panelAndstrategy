@@ -147,7 +147,7 @@ src-layout，包名 `zzz_panel`。
 | `panel.py` | 两个入口：`calculate_panel`（CLI 契约，输出 12 键）与 `calculate_selection`（API 契约，输出 9 个结构化字段）。`_apply_totals` 是基础公式的实现处 |
 | `modes.py` | 三种模式的专属公式 |
 | `options.py` | 6 张选项表 + `find_option`。**规则表的权威源之一** |
-| `constants.py` | `DISC_FIXED_STATS`（1/2/3 号固定词条）。规则表权威源之二。锋御的 `FENGYU_BLAST_DMG` 属模式公式，在 `modes.py` |
+| `constants.py` | `DISC_FIXED_STATS`（1/2/3 号固定词条）。规则表权威源之二。锋御的 `armorer_BLAST_DMG` 属模式公式，在 `modes.py` |
 | `modifiers.py` | 选择项 → 加成累加 + 来源记录。含累加器与副词条钳制 |
 | `breakdown.py` | 逐行计算明细，输出结构化片段而非 HTML |
 | `models.py` | `PanelInputs` dataclass（CLI 用的输入模型，约 50 个标量字段） |

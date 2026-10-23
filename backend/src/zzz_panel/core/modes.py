@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-FENGYU_BLAST_DMG = 150.0
-_PANEL_MODES = frozenset({"standard", "rupture", "fengyu"})
+armorer_BLAST_DMG = 150.0
+_PANEL_MODES = frozenset({"standard", "rupture", "armorer"})
 
 
 def calculate_mode_stats(
@@ -20,9 +20,9 @@ def calculate_mode_stats(
 
     if mode == "rupture":
         return {"penforce": 0.3 * total_atk + 0.1 * total_hp}
-    if mode == "fengyu":
+    if mode == "armorer":
         return {
             "actual_cr": total_cd * 0.35 + total_cr,
-            "fengyu_blast_dmg": FENGYU_BLAST_DMG,
+            "armorer_blast_dmg": armorer_BLAST_DMG,
         }
     return {}

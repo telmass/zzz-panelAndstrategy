@@ -70,7 +70,7 @@
 
 | 选项 | 内容 | 代价 |
 | --- | --- | --- |
-| ① **进代理人预设**（推荐） | `agents.json` 增 `fengyuBlastDamage` / `fengyuCritFromCd`；`core/modes.py` 读预设，不再硬编码 | 要改预设 schema + 校验 + 61 份预设（多数填默认值） |
+| ① **进代理人预设**（推荐） | `agents.json` 增 `armorerBlastDamage` / `armorerCritFromCd`；`core/modes.py` 读预设，不再硬编码 | 要改预设 schema + 校验 + 61 份预设（多数填默认值） |
 | ② 进规则表 | 当作「全体锋御共用」的一条规则 | 与官方「逐代理人而定」冲突，未来要推翻 |
 | ③ 继续硬编码 | 不动 | 与官方口径冲突，且永远补不上加成来源 |
 
@@ -126,12 +126,12 @@
 | --- | --- | --- |
 | **Phase 0** 裁决 D-2~D-5 | ✅ 已裁决 | 见上方「裁决结果」 |
 | **A1** 锐化增伤区（独立乘区） | ✅ 已落地 | `core/damage/zones.py::sharpen_damage_bonus_zone`；契约 **C33** |
-| **A2** 锋御路径（防御力基础 + 平方项暴击区 + 锐化增伤区） | ✅ 已落地（引擎侧） | `core/damage/engine.py` 的 `fengyu` 分支；契约 **C34** / **C36**。**锐暴伤害的逐代理人化（B1）属裁决项，留到后续计划** |
+| **A2** 锋御路径（防御力基础 + 平方项暴击区 + 锐化增伤区） | ✅ 已落地（引擎侧） | `core/damage/engine.py` 的 `armorer` 分支；契约 **C34** / **C36**。**锐暴伤害的逐代理人化（B1）属裁决项，留到后续计划** |
 | **A3** 撕裂暴击只登记 | ✅ 已登记 | 规格 §3.12 写明第三种暴击模式缺失 |
 | **A4** 命破：贯穿力基础属性 + 防御区恒 1 | ✅ 已落地 | `core/damage/engine.py` 的 `piercing` 分支；契约 **C24**（语义更新）/ **C35** |
 | **B1 / B2** 锐暴伤害与转模比例进预设 | ⬜ **留到后续计划** | 裁决 D-3 已定方向（进预设），但**落地**需新建数据集管线 + 改面板接口（面板接口当前不接受代理人身份） |
 | **Phase 3** 目标函数按 `panelMode` + 定位选路径 | ✅ 已落地 | `services/damage_service.py::path_for_agent`（面板模式优先于定位：命破 / 锋御的**直伤**换口径，异常伤害仍用攻击力）；`score_build` 新增 `agent` 参数，用预设决定路径与锐暴伤害；各路径从面板取对应行（贯穿取 `penforce`、锋御取 `def` 与 **actual_cr**）；工具层（`build_compare.py` / `substat_benefit.py`）按 `buildSpec.agentId` 查预设并传入 |
-| **Phase 4** 朴素对照 / fuzz 扩到锋御路径 | ✅ 已完成 | `backend/tests/naive_reference.py` 增 `naive_fengyu_damage()`——**照官方口径独立重写**锋御路径（防御力作基础属性、锐暴伤害的**平方项**暴击区、独立的锐化增伤区）；`test_damage_naive.py` 增 D1 对照 + D2 fuzz（120 组随机用例，随机范围仍**刻意越过有效范围边界**）。贯穿路径也已跟上新口径（`sheer_force`、防御区恒 1） |
+| **Phase 4** 朴素对照 / fuzz 扩到锋御路径 | ✅ 已完成 | `backend/tests/naive_reference.py` 增 `naive_armorer_damage()`——**照官方口径独立重写**锋御路径（防御力作基础属性、锐暴伤害的**平方项**暴击区、独立的锐化增伤区）；`test_damage_naive.py` 增 D1 对照 + D2 fuzz（120 组随机用例，随机范围仍**刻意越过有效范围边界**）。贯穿路径也已跟上新口径（`sheer_force`、防御区恒 1） |
 | **C1 / C2** 乱流 / 耀变 | ⬜ 留到后续计划 | 裁决 D-5 |
 | **Phase 5-A** 敌方参数数据集扩展 | ✅ 已完成 | `core/damage/targets.py` 增三档基准目标（首领 / 精英 / 普通 / 杜拉罕，含官方 1 级基础防御区间与失衡易伤倍率档位），随规则表生成到 `targets` 表（58 条）；目标的失衡易伤**倍率**接进 `score_build`（首领 100% / 精英与普通 50%） |
 | **Phase 5-B** 技能倍率数据集 | ⬜ **留到后续计划** | 来源是参考实现的 `zzz_calculator:data/agent_skills.json`——**别人的数据**，且要先核清它给的是「伤害倍率」还是「失衡倍率」；在口径核清前不引入，避免把错口径的数当成真值 |
@@ -146,7 +146,7 @@
 **动作**：
 
 1. `core/damage/zones.py` 新增 `sharpen_damage_bonus_zone(total)` = `1 + Σ`（有效范围待定，官方只给了量级）。
-2. `core/damage/engine.py` 的 fengyu 分支接入该乘区。
+2. `core/damage/engine.py` 的 armorer 分支接入该乘区。
 3. 契约：与常规增伤区**互不稀释**（同 C6 的写法）。
 
 **缺什么**：锐化增伤的**来源**（驱动盘 4 件套 / 音擎 / 影画 / 额外能力）——本项目没有这些数据集。
@@ -164,12 +164,12 @@
 
 **动作**：
 
-1. `core/damage/engine.py` 的 `DamagePath` 增 `"fengyu"`：
+1. `core/damage/engine.py` 的 `DamagePath` 增 `"armorer"`：
    - 基础伤害区 = 倍率 × **防御力**（取面板 `def`）
-   - 暴击区 = `fengyu_crit_zone(面板 actual_cr, 锐暴伤害)`（函数已实现，见上一期契约 C32）
+   - 暴击区 = `armorer_crit_zone(面板 actual_cr, 锐暴伤害)`（函数已实现，见上一期契约 C32）
    - 增伤区之后接 **锐化增伤区**（A1）
 2. `services/damage_service.py` 的 `score_build` 按代理人的 `panelMode` 选路径：
-   `standard`→常规、`rupture`→贯穿、`fengyu`→锐化、异常定位→异常伤害。
+   `standard`→常规、`rupture`→贯穿、`armorer`→锐化、异常定位→异常伤害。
 3. 面板的 `actual_cr` 已经是「暴击率 + 初始暴伤 × 转模比例」的结果（`core/modes.py`），
    引擎**直接用面板值**当暴击率即可，**不要在引擎里再转一次模**。
 
@@ -179,7 +179,7 @@
 ### A3〔P1〕撕裂暴击——只登记（见 D-4）
 
 规格已补：锋御有 `nonCrit` / `sharpCrit` / `lacerationCrit` 三种模式，本项目只建模前两者。
-**动作**：在 `core/damage/engine.py` 的 fengyu 分支留注释指向该缺口；不实现。
+**动作**：在 `core/damage/engine.py` 的 armorer 分支留注释指向该缺口；不实现。
 
 ### A4〔P1〕命破：贯穿力口径接入
 
@@ -209,21 +209,21 @@
 
 ### B1〔P1〕锐暴伤害进代理人预设
 
-**现状**：`core/modes.py` 硬编码 `FENGYU_BLAST_DMG = 150.0`（基础值）。
+**现状**：`core/modes.py` 硬编码 `armorer_BLAST_DMG = 150.0`（基础值）。
 **官方口径**：基础 150%，但**可被角色额外能力 / 影画 / 套装 / Boss 加成抬升**
 （官方举例：克拉蕾的额外能力 +25%、珂蕾妲 +12%）。
 
 **动作**：
-1. `agents.json` 增 `fengyuBlastDamage`（默认 150）与 `fengyuBlastBonus`（加成来源，默认 0）。
+1. `agents.json` 增 `armorerBlastDamage`（默认 150）与 `armorerBlastBonus`（加成来源，默认 0）。
 2. `core/modes.py` 从预设读；**加成来源**本项目没有数据集 → 字段先留空，标注「未建模」。
 3. 预设 schema + 校验 + 61 份预设同步。
 
 ### B2〔P1〕转模比例进代理人预设
 
-**现状**：硬编码 `FENGYU_CRIT_FROM_CD = 0.35`。
+**现状**：硬编码 `armorer_CRIT_FROM_CD = 0.35`。
 **官方口径**：官方说「大多也应该是 0.35，**除非有什么特殊需要**」——逐代理人而定。
 
-**动作**：`agents.json` 增 `fengyuCritFromCd`（默认 0.35）；`core/modes.py` 读预设。
+**动作**：`agents.json` 增 `armorerCritFromCd`（默认 0.35）；`core/modes.py` 读预设。
 
 ### B3〔P2〕技能倍率数据集
 
@@ -278,13 +278,13 @@
 
 ### D2〔P1〕fuzz 扩到新路径
 
-**动作**：随机用例覆盖 fengyu / rupture 路径；断言乘区不越界、
+**动作**：随机用例覆盖 armorer / rupture 路径；断言乘区不越界、
 输出有限、与朴素实现在同输入上一致。
 
 ### D3〔P1〕契约扩充
 
 - 新增 **C33** 锐化增伤区与常规增伤区互不稀释
-- 新增 **C34** 锋御暴击区在目标函数里被真正使用（`score_build` 走 fengyu 路径）
+- 新增 **C34** 锋御暴击区在目标函数里被真正使用（`score_build` 走 armorer 路径）
 - 新增 **C35** 命破贯穿路径的防御区乘数恒为 1
 - 新增 **C36** 锋御路径的基础伤害区用**防御力**而非攻击力
 
@@ -338,10 +338,10 @@ Phase 6  文档〔P2〕
 | 层 | 文件 | 改动 |
 | --- | --- | --- |
 | 规则源 | `backend/src/zzz_panel/core/damage/zones.py` | 新增 `sharpen_damage_bonus_zone` |
-| 规则源 | `backend/src/zzz_panel/core/damage/engine.py` | `DamagePath` 增 fengyu；三条职业路径的基础属性与乘区 |
+| 规则源 | `backend/src/zzz_panel/core/damage/engine.py` | `DamagePath` 增 armorer；三条职业路径的基础属性与乘区 |
 | 规则源 | `backend/src/zzz_panel/core/damage/targets.py` | 目标增档位与逐属性抗性（B4） |
 | 规则源 | `backend/src/zzz_panel/core/modes.py` | 锐暴伤害与转模比例改为**从预设读**（去硬编码） |
-| 预设 | `backend/src/zzz_panel/schemas/presets.py` | `AgentPreset` 增 `fengyuBlastDamage` / `fengyuCritFromCd`（可选，带默认） |
+| 预设 | `backend/src/zzz_panel/schemas/presets.py` | `AgentPreset` 增 `armorerBlastDamage` / `armorerCritFromCd`（可选，带默认） |
 | 预设 | `data/catalog/agents.json` | 61 份同步新增字段 |
 | 数据集 | `data/catalog/skill-multipliers*.json`（新） | 技能倍率表；登记 `data/manifest.json` |
 | 服务 | `backend/src/zzz_panel/services/damage_service.py` | 按 `panelMode` 选路径；支持 `skill_id` / `level` |

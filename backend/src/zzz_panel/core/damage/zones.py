@@ -109,7 +109,7 @@ def anomaly_crit_zone(anomaly_crit_rate: float, anomaly_crit_damage: float, mode
     return 1.0 + rate * damage
 
 
-def fengyu_crit_zone(crit_rate: float, blast_damage: float) -> float:
+def armorer_crit_zone(crit_rate: float, blast_damage: float) -> float:
     """锋御（锐化伤害）的暴击区——**平方项**结构（规格 §3.12，契约 C32）。
 
     锋御的暴击**不用暴击伤害结算，而用「锐暴伤害」**；并且暴击率**可以超过
@@ -371,7 +371,7 @@ __all__ = [
     "anomaly_mastery_zone",
     "attack_level_coefficient",
     "crit_zone",
-    "fengyu_crit_zone",
+    "armorer_crit_zone",
     "damage_bonus_zone",
     "damage_level_zone",
     "defense_zone",

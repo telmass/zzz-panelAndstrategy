@@ -20,7 +20,7 @@ export function isPanelMode(value: string | null | undefined): value is PanelMod
  * 否则会被「能量自动回复」的规则先吃掉。
  */
 export function displayEnergyAttributeLabel(label: string, mode: PanelMode = 'standard'): string {
-  if (mode !== 'fengyu') {
+  if (mode !== 'armorer') {
     return label;
   }
   return label
@@ -40,7 +40,7 @@ export function usePanelMode() {
   /** 结果区命破专属行（贯穿力）的显隐。 */
   const showRuptureResult = computed(() => mode.value === 'rupture');
   /** 结果区锋御专属行（实际暴击率、锐暴伤害）的显隐。 */
-  const showFengyuResult = computed(() => mode.value === 'fengyu');
+  const showarmorerResult = computed(() => mode.value === 'armorer');
 
   /** 基础面板中穿透率字段的显隐：命破模式改用贯穿力，故隐藏。 */
   const showPenetrationInput = computed(() => mode.value !== 'rupture');
@@ -57,11 +57,11 @@ export function usePanelMode() {
    * 对应 legacy 的 `updateEnergyAttributeLabels`。
    */
   const energyInputLabel = computed(() =>
-    mode.value === 'fengyu' ? '锐能自动累积' : '能量自动回复',
+    mode.value === 'armorer' ? '锐能自动累积' : '能量自动回复',
   );
 
   /** 结果区能量行的标签。对应 legacy 中 `能量回复` / `锐能自动累积` 的切换。 */
-  const energyResultLabel = computed(() => (mode.value === 'fengyu' ? '锐能自动累积' : '能量回复'));
+  const energyResultLabel = computed(() => (mode.value === 'armorer' ? '锐能自动累积' : '能量回复'));
 
   /** 按当前模式替换文案，用于核心、驱动盘与二件套的选项标签。 */
   function localize(label: string): string {
@@ -70,7 +70,7 @@ export function usePanelMode() {
 
   return {
     showRuptureResult,
-    showFengyuResult,
+    showarmorerResult,
     showPenetrationInput,
     showEnergyReplyInput,
     showPenforceInput,

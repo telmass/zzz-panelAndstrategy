@@ -64,7 +64,7 @@ function fillSelect(id, opts, noneLabel) {
     const panelModeLabels = {
       standard: '通用',
       rupture: '命破',
-      fengyu: '锋御',
+      armorer: '锋御',
     };
     const weaponGradeSelect = document.getElementById('weapon_grade');
     const weaponRoleSelect = document.getElementById('weapon_role');
@@ -150,8 +150,8 @@ function fillSelect(id, opts, noneLabel) {
     function updatePanelMode(mode) {
       activePanelMode = mode;
       document.getElementById('rupture_result').hidden = mode !== 'rupture';
-      document.getElementById('fengyu_result').hidden = mode !== 'fengyu';
-      document.getElementById('fengyu_blast_result').hidden = mode !== 'fengyu';
+      document.getElementById('armorer_result').hidden = mode !== 'armorer';
+      document.getElementById('armorer_blast_result').hidden = mode !== 'armorer';
       document.getElementById('base_pr_field').hidden = mode === 'rupture';
       document.getElementById('base_er_field').hidden = mode === 'rupture';
       document.getElementById('base_penforce_field').hidden = mode !== 'rupture';
@@ -160,7 +160,7 @@ function fillSelect(id, opts, noneLabel) {
     }
 
     function displayEnergyAttributeLabel(label, mode = activePanelMode) {
-      if (mode !== 'fengyu') return label;
+      if (mode !== 'armorer') return label;
       return label
         .replaceAll('基础能量自动回复', '基础锐能自动累积')
         .replaceAll('能量自动回复', '锐能自动累积')
@@ -168,10 +168,10 @@ function fillSelect(id, opts, noneLabel) {
     }
 
     function updateEnergyAttributeLabels(mode) {
-      const label = mode === 'fengyu' ? '锐能自动累积' : '能量自动回复';
+      const label = mode === 'armorer' ? '锐能自动累积' : '能量自动回复';
       document.querySelector('#base_er_field label').textContent = label;
       document.querySelector('#r_er').closest('.r-row').querySelector('.r-label').textContent =
-        mode === 'fengyu' ? '锐能自动累积' : '能量回复';
+        mode === 'armorer' ? '锐能自动累积' : '能量回复';
 
       document.querySelectorAll('#core1, #core2, #disc4, #disc5, #disc6, #set0, #set1, #set2')
         .forEach(select => {
@@ -399,7 +399,7 @@ function fillSelect(id, opts, noneLabel) {
 
     /* ====== 固有属性（不随任何词条、音擎或套装变化） ====== */
     // 锋御代理人「锐暴伤害」为固有属性，恒定 150%，不参与任何加成与修正计算。
-    const FENGYU_BLAST_DMG = 150;
+    const armorer_BLAST_DMG = 150;
     // 官方 WIKI 基础面板中与上述固有属性同名的条目。已在最终面板中固定展示，
     // 因此不再计入「尚未建模的属性」提示。预设数据重新生成并将其移入建模字段后，
     // 可从本集合移除。
@@ -564,7 +564,7 @@ function fillSelect(id, opts, noneLabel) {
       const totalCr = baseCr + S.cr;
       const totalCd = baseCd + S.cd;
       const actualCr = totalCd * 0.35 + totalCr;
-      const blastDmg = activePanelMode === 'fengyu' ? FENGYU_BLAST_DMG : null;
+      const blastDmg = activePanelMode === 'armorer' ? armorer_BLAST_DMG : null;
       const totalDmg = S.dmg;
       const totalPr = basePr + S.pr;
       const totalPv = S.pen_val;

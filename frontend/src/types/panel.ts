@@ -5,8 +5,8 @@
  * 键名与面板行 id，保证第 2 步迁移计算逻辑时无需二次改名。
  */
 
-/** 面板模式：standard 通用 / rupture 命破 / fengyu 锋御。 */
-export type PanelMode = 'standard' | 'rupture' | 'fengyu';
+/** 面板模式：standard 通用 / rupture 命破 / armorer 锋御。 */
+export type PanelMode = 'standard' | 'rupture' | 'armorer';
 
 /** 角色纯基础面板（不含核心）。对应 legacy 的 `#base_*`。 */
 export interface BaseStats {
@@ -96,8 +96,8 @@ export interface ResultRow {
   main?: boolean;
   /** 命破专属行，对应 `#rupture_result`。 */
   ruptureOnly?: boolean;
-  /** 锋御专属行，对应 `#fengyu_result` / `#fengyu_blast_result`。 */
-  fengyuOnly?: boolean;
+  /** 锋御专属行，对应 `#armorer_result` / `#armorer_blast_result`。 */
+  armorerOnly?: boolean;
   /** 数值后缀，如 '%'。 */
   unit?: string;
 }
@@ -202,7 +202,7 @@ export interface PanelApiResponse {
   mode: PanelMode;
   /** 12 行通用结果，键为 `hp/atk/def/cr/cd/dmg/pr/pv/am/ac/imp/er`。 */
   totals: Record<string, number>;
-  /** 命破 `penforce` 或锋御 `actual_cr` / `fengyu_blast_dmg`。 */
+  /** 命破 `penforce` 或锋御 `actual_cr` / `armorer_blast_dmg`。 */
   modeStats: Record<string, number>;
   /** 锋御固有属性「锐暴伤害」，非锋御模式为 null。 */
   blastDmg: number | null;

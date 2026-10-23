@@ -64,6 +64,6 @@
 
 ## 面板模式 ≠ 职业
 
-`panelMode` 有 `standard`（通用）/ `rupture`（命破）/ `fengyu`（锋御），与 `roleTag` 是**两个字段**，
+`panelMode` 有 `standard`（通用）/ `rupture`（命破）/ `armorer`（锋御），与 `roleTag` 是**两个字段**，
 不可由职业推断：命破/锋御代理人的 `roleTag` 恰好等于模式名，通用代理人的 `roleTag` 仍是职业名。
 「通用」二字在面向用户的文案里被隐藏（`HIDE_STANDARD_MODE_LABEL`），但 `panelMode` 仍写 `'standard'`。

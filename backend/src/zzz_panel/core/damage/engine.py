@@ -27,7 +27,7 @@ from .zones import (
     damage_level_zone,
     defense_zone,
     effective_defense,
-    fengyu_crit_zone,
+    armorer_crit_zone,
     penetrating_damage_bonus_zone,
     resistance_zone,
     sharpen_damage_bonus_zone,
@@ -37,7 +37,7 @@ from .zones import (
     vulnerability_zone,
 )
 
-DamagePath = Literal["normal", "piercing", "anomaly", "fengyu", "turbulence"]
+DamagePath = Literal["normal", "piercing", "anomaly", "armorer", "turbulence"]
 CritMode = Literal["crit", "non_crit", "expected"]
 
 
@@ -179,7 +179,7 @@ def compute_damage(request: DamageInput) -> DamageResult:
         base = request.multiplier * request.anomaly_multiplier * snapshot.attack
     elif request.path == "piercing":
         base = request.multiplier * snapshot.sheer_force
-    elif request.path == "fengyu":
+    elif request.path == "armorer":
         base = request.multiplier * snapshot.defense
     elif request.path == "turbulence":
         base = request.multiplier * snapshot.attack
@@ -215,11 +215,11 @@ def compute_damage(request: DamageInput) -> DamageResult:
                 penetration_value=snapshot.penetration_value,
             ),
         )
-    elif request.path == "fengyu":
+    elif request.path == "armorer":
         # 锋御的直伤统称「**锐化伤害**」：基础属性换成**防御力**（规格 §3.12）。
         # 暴击不用暴击伤害结算，而用**锐暴伤害**；暴击率可超 100%，超出部分
-        # 再判一次锐暴——于是锐暴伤害在公式里是**平方项**（fengyu_crit_zone）。
-        zones["暴击区"] = fengyu_crit_zone(request.crit_rate, request.blast_damage)
+        # 再判一次锐暴——于是锐暴伤害在公式里是**平方项**（armorer_crit_zone）。
+        zones["暴击区"] = armorer_crit_zone(request.crit_rate, request.blast_damage)
         zones["锐化增伤区"] = sharpen_damage_bonus_zone(request.sharpen_damage_bonus)
         defense = target_defense(
             _scaled_base_defense(target, level_coefficient),

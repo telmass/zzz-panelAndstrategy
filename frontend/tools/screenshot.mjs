@@ -56,7 +56,7 @@ const NODES = [
   { name: 'calculator-empty', url: '/calculator', widths: WIDTHS },
   { name: 'calculator-agent', url: '/calculator?agent=ye-shunguang', widths: WIDTHS },
   { name: 'calculator-rupture', url: '/calculator?agent=yixuan', widths: [1280, 560, 375] },
-  { name: 'calculator-fengyu', url: '/calculator?agent=claret', widths: [1280, 560, 375] },
+  { name: 'calculator-armorer', url: '/calculator?agent=claret', widths: [1280, 560, 375] },
   { name: 'guide', url: '/guide', widths: WIDTHS },
   { name: 'strategy-picker', url: '/strategy', widths: WIDTHS },
   { name: 'strategy-detail', url: '/strategy/ye-shunguang', widths: WIDTHS },

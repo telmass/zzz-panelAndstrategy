@@ -76,7 +76,7 @@
 
 ### 路由与直达链接
 
-`?mode=standard|rupture|fengyu` 由 `CalculatorView.vue` 手动读取
+`?mode=standard|rupture|armorer` 由 `CalculatorView.vue` 手动读取
 （`new URLSearchParams(...)`），经 `useAgentPreset.initFromQueryParam` 校验，
 非法值回落 `standard`。目前唯一的路由守卫在 `/strategy/:slug`：
 `strategyGuides.ts` 未登记的 slug 会被重定向回 `/`，避免请求不存在的攻略数据。

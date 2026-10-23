@@ -363,14 +363,14 @@ describe('面板模式与锋御文案', () => {
   });
 
   it('锋御模式把能量类文案替换为锐能', () => {
-    expect(displayEnergyAttributeLabel('基础能量自动回复 +0.36', 'fengyu')).toBe('基础锐能自动累积 +0.36');
-    expect(displayEnergyAttributeLabel('能量回复 60%', 'fengyu')).toBe('锐能自动累积 60%');
+    expect(displayEnergyAttributeLabel('基础能量自动回复 +0.36', 'armorer')).toBe('基础锐能自动累积 +0.36');
+    expect(displayEnergyAttributeLabel('能量回复 60%', 'armorer')).toBe('锐能自动累积 60%');
     expect(displayEnergyAttributeLabel('能量自动回复', 'standard')).toBe('能量自动回复');
   });
 
   it('锋御模式的能量标签同时作用于输入区与结果区', () => {
     const panel = usePanelStore();
-    panel.setPanelMode('fengyu');
+    panel.setPanelMode('armorer');
     const { energyInputLabel, energyResultLabel } = usePanelMode();
     expect(energyInputLabel.value).toBe('锐能自动累积');
     expect(energyResultLabel.value).toBe('锐能自动累积');
@@ -624,7 +624,7 @@ describe('代理人 cascader 分组与载入', () => {
     const panel = usePanelStore();
     const agents = usePresetStore().agents;
 
-    for (const mode of ['standard', 'rupture', 'fengyu'] as const) {
+    for (const mode of ['standard', 'rupture', 'armorer'] as const) {
       const agent = agents.find((item) => item.panelMode === mode);
       if (!agent) {
         continue;
@@ -661,12 +661,12 @@ describe('代理人 cascader 分组与载入', () => {
     expect(note.text).toContain('已载入');
   });
 
-  it('载入锋御预设后面板模式为 fengyu 且不含未建模属性提示', () => {
+  it('载入锋御预设后面板模式为 armorer 且不含未建模属性提示', () => {
     const panel = usePanelStore();
     panel.selectAgentRole('锋御');
     const note = useAgentPreset().applyAgentPreset('ep-2145');
 
-    expect(panel.panelMode).toBe('fengyu');
+    expect(panel.panelMode).toBe('armorer');
     // 锐暴伤害已建模，不应出现在「尚未建模」提示里
     expect(note.text).not.toContain('锐暴伤害');
   });
@@ -723,8 +723,8 @@ describe('代理人 cascader 分组与载入', () => {
   });
 
   it('URL 的 mode 参数合法时采用该模式', () => {
-    useAgentPreset().initFromQueryParam('fengyu');
-    expect(usePanelStore().panelMode).toBe('fengyu');
+    useAgentPreset().initFromQueryParam('armorer');
+    expect(usePanelStore().panelMode).toBe('armorer');
   });
 });
 

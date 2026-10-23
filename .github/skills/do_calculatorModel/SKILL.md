@@ -35,7 +35,7 @@ Store for each agent:
 
 - Stable ID and display name.
 - The verified in-game profession/tag shown on the official Wiki (for example, `强攻` or `异常`), used in the preset selector.
-- `panelMode`: `standard`, `rupture`, or `fengyu`, corresponding to the user-requested calculator mode. Profession/tag and calculation mode are distinct fields; do not infer 命破/锋御 mode solely from the agent's profession.
+- `panelMode`: `standard`, `rupture`, or `armorer`, corresponding to the user-requested calculator mode. Profession/tag and calculation mode are distinct fields; do not infer 命破/锋御 mode solely from the agent's profession.
 - Official Wiki detail URL.
 - Level-60 base stats excluding core: HP, ATK, DEF, impact, CR, CD, anomaly control, anomaly proficiency, PEN ratio, and energy regen, where available.
 - Any agent-specific base attributes shown by the Wiki (for example, a 命破 agent's base 贯穿力 or special energy accumulation) must be stored as additional base stats when the calculator has corresponding fields (`baseExtra`). **A standard stat absent from the Wiki is simply left out of `base`** — absence *is* the fact; do not silently substitute another attribute or guess a value. Which omissions are legal is decided by the backend (`rupture` mode may omit `pr` / `er`; every other mode must have all ten).

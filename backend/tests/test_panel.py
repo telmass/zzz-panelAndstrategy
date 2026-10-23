@@ -122,9 +122,9 @@ def test_rupture_mode_calculates_penetration_force_from_final_hp_and_atk() -> No
     assert result["penforce"] == pytest.approx(0.3 * result["atk"] + 0.1 * result["hp"])
 
 
-def test_fengyu_mode_calculates_actual_crit_and_fixed_blast_damage() -> None:
+def test_armorer_mode_calculates_actual_crit_and_fixed_blast_damage() -> None:
     inputs = PanelInputs(
-        mode="fengyu",
+        mode="armorer",
         base_cr=20.0,
         base_cd=50.0,
         set_cr=8.0,
@@ -136,9 +136,9 @@ def test_fengyu_mode_calculates_actual_crit_and_fixed_blast_damage() -> None:
     result = calculate_panel(inputs)
 
     assert result["actual_cr"] == pytest.approx(result["cd"] * 0.35 + result["cr"])
-    assert result["fengyu_blast_dmg"] == pytest.approx(150.0)
+    assert result["armorer_blast_dmg"] == pytest.approx(150.0)
     assert result["dmg"] == pytest.approx(37.0)
-    assert "fengyu_blast_dmg" not in calculate_panel(PanelInputs())
+    assert "armorer_blast_dmg" not in calculate_panel(PanelInputs())
 
 
 def test_unknown_panel_mode_fails_explicitly() -> None:

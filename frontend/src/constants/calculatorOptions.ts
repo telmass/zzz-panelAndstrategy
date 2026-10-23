@@ -250,7 +250,7 @@ export const WEAPON_ROLE_TAGS = ['强攻', '击破', '异常', '支援', '防护
 export const PANEL_MODE_LABELS: Record<string, string> = {
   standard: '通用',
   rupture: '命破',
-  fengyu: '锋御',
+  armorer: '锋御',
 };
 
 /**

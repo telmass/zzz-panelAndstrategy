@@ -64,8 +64,8 @@ def test_rupture_mode_adds_penetration_force() -> None:
     assert data["blastDmg"] is None
 
 
-def test_fengyu_mode_adds_actual_crit_and_blast_damage() -> None:
-    resp = client.post("/api/panel/calc", json={**MINIMAL, "mode": "fengyu"})
+def test_armorer_mode_adds_actual_crit_and_blast_damage() -> None:
+    resp = client.post("/api/panel/calc", json={**MINIMAL, "mode": "armorer"})
     data = resp.json()
     assert data["blastDmg"] == pytest.approx(150.0)
     assert data["modeStats"]

@@ -24,7 +24,7 @@ sys.path.insert(0, str(REPO_ROOT / "backend" / "tests"))
 
 from naive_reference import (  # noqa: E402
     naive_anomaly_damage,
-    naive_fengyu_damage,
+    naive_armorer_damage,
     naive_normal_damage,
     naive_piercing_damage,
     naive_turbulence_damage,
@@ -351,13 +351,13 @@ def test_D2_fuzz_piercing_matches_naive() -> None:
         assert math.isfinite(engine), f"#{index} 贯穿路径输出非有限数"
         assert engine == pytest.approx(naive, rel=1e-12), f"#{index} 贯穿路径不一致"
 
-def test_D1_fengyu_path_matches_naive() -> None:
+def test_D1_armorer_path_matches_naive() -> None:
     """D1：锋御路径——引擎与朴素重写逐值相等。
 
     锋御的三处不同都在这里：基础属性是**防御力**、暴击区是**平方项**（锐暴伤害
     结算）、多一个**锐化增伤区**。
     """
-    naive = naive_fengyu_damage(
+    naive = naive_armorer_damage(
         defense=441.0,
         multiplier=1.0,
         damage_bonus=0.30,
@@ -371,7 +371,7 @@ def test_D1_fengyu_path_matches_naive() -> None:
         resistance=-0.2,
     )
     engine = _engine(
-        path="fengyu",
+        path="armorer",
         snapshot=SnapshotReadings(
             attack=1000.0, defense=441.0, level=60, damage_bonus=0.30
         ),
@@ -383,13 +383,13 @@ def test_D1_fengyu_path_matches_naive() -> None:
     assert engine == pytest.approx(naive, rel=1e-12)
 
 
-def test_D2_fuzz_fengyu_matches_naive() -> None:
+def test_D2_fuzz_armorer_matches_naive() -> None:
     """D2：锋御路径的随机用例——输出有限、乘区不越界、与朴素实现一致。"""
     rng = random.Random(20261024)
     for index in range(120):
         case = _random_case(rng)
         engine = _engine(
-            path="fengyu",
+            path="armorer",
             multiplier=case["multiplier"],
             snapshot=SnapshotReadings(
                 attack=case["attack"],
@@ -419,7 +419,7 @@ def test_D2_fuzz_fengyu_matches_naive() -> None:
             sharpen_damage_bonus=case["sharpen_damage_bonus"],
             stunned=case["stunned"],
         )
-        naive = naive_fengyu_damage(
+        naive = naive_armorer_damage(
             defense=case["defense"],
             multiplier=case["multiplier"],
             damage_bonus=case["damage_bonus"],

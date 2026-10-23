@@ -23,7 +23,7 @@ import type { AgentAdditionalBaseStats, AgentBaseStats } from '@/types/agentPres
 export interface LocalAgentPreset {
   /** `ep-<entry_page_id>`，与 Wiki 详情页一一对应。 */
   id: string;
-  /** 面板模式（standard / rupture / fengyu）。 */
+  /** 面板模式（standard / rupture / armorer）。 */
   panelMode?: string;
   /** 60 级基础面板。 */
   base?: AgentBaseStats;

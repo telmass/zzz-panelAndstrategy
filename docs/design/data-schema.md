@@ -53,7 +53,7 @@ HTTP 接口的请求/响应结构见 **[api-reference.md](../reference/api-refer
   "attribute": "火",               // 10 个合法值之一，见 2.3
   "grade": "S",                    // S | A
   "roleTag": "强攻",               // 7 个合法值之一
-  "panelMode": "standard",         // standard | rupture | fengyu
+  "panelMode": "standard",         // standard | rupture | armorer
   "source": "https://baike.mihoyo.com/zzz/wiki/content/1109/detail",
 
   "base": {                        // 60 级基础面板，不含核心加成

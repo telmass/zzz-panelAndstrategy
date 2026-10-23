@@ -379,7 +379,7 @@ def build_request(
                 f"在 data/catalog/drive-discs.json 中找不到套装 {group['id']}"
             )
     base = agent["base"]
-    # 模式按预设的 panelMode 推导（standard / rupture / fengyu），般岳是命破 → rupture，
+    # 模式按预设的 panelMode 推导（standard / rupture / armorer），般岳是命破 → rupture，
     # 贯穿力由命破模式专属公式给出；也可用 --mode 覆盖。
     mode = args.mode or agent.get("panelMode") or "standard"
     request = PanelRequest(
@@ -596,7 +596,7 @@ def main() -> int:
     parser.add_argument(
         "--mode",
         default="",
-        help="面板模式（standard/rupture/fengyu），默认取预设的 panelMode；般岳=rupture 才会算贯穿力",
+        help="面板模式（standard/rupture/armorer），默认取预设的 panelMode；般岳=rupture 才会算贯穿力",
     )
     parser.add_argument(
         "--rows",

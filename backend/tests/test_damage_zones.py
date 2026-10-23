@@ -418,22 +418,22 @@ def test_C31_stun_vulnerability_zone_takes_the_multiplier() -> None:
     assert stun_vulnerability_zone(False, unstunned_vulnerability=-5.0) == pytest.approx(1.0)
 
 
-def test_C32_fengyu_crit_zone_is_a_square_term() -> None:
+def test_C32_armorer_crit_zone_is_a_square_term() -> None:
     """C32：锋御暴击区是**平方项**——锐暴伤害 150% 时一次 2.5、两次 6.25。
 
     官方口径（底层机制第十一期）：锋御的暴击不用暴击伤害结算，而用「锐暴伤害」；
     暴击率超过 100% 的部分会**再判定一次锐暴**，于是锐暴伤害在公式里成了平方项。
     """
-    from zzz_panel.core.damage import fengyu_crit_zone
+    from zzz_panel.core.damage import armorer_crit_zone
 
     # 暴击率 100%：一次锐暴 = k
-    assert fengyu_crit_zone(1.0, 1.5) == pytest.approx(2.5)
+    assert armorer_crit_zone(1.0, 1.5) == pytest.approx(2.5)
     # 暴击率 145.5%：一次必中 + 45.5% 概率两次
-    assert fengyu_crit_zone(1.455, 1.5) == pytest.approx(2.5 + 0.455 * (2.5 ** 2))
+    assert armorer_crit_zone(1.455, 1.5) == pytest.approx(2.5 + 0.455 * (2.5 ** 2))
     # 官方口径的等价写法：k × [1 + (c − 1) × k]
-    assert fengyu_crit_zone(1.455, 1.5) == pytest.approx(2.5 * (1 + 0.455 * 2.5))
+    assert armorer_crit_zone(1.455, 1.5) == pytest.approx(2.5 * (1 + 0.455 * 2.5))
     # 暴击率 ≤ 100% 时与常规同构，只是把暴击伤害换成锐暴伤害
-    assert fengyu_crit_zone(0.5, 1.5) == pytest.approx(0.5 * 2.5)
+    assert armorer_crit_zone(0.5, 1.5) == pytest.approx(0.5 * 2.5)
 
 def test_C33_sharpen_damage_bonus_is_independent() -> None:
     """C33：锐化增伤区是**独立乘区**——与常规增伤区互不稀释。
@@ -460,14 +460,14 @@ def test_C35_piercing_uses_sheer_force_as_basis() -> None:
     assert result.zones["基础伤害区"] == pytest.approx(300.0)
 
 
-def test_C34_fengyu_uses_the_square_crit_zone() -> None:
+def test_C34_armorer_uses_the_square_crit_zone() -> None:
     """C34：锋御路径的暴击区是**平方项**结构（锐暴伤害结算）。
 
     官方口径：锐暴伤害 150% 时，暴击一次 ×2.5；暴击率 145.5% 时期望
     `2.5 + 0.455 × 2.5²`。
     """
     result = _normal(
-        path="fengyu",
+        path="armorer",
         snapshot=SnapshotReadings(attack=1000.0, defense=441.0, level=60),
         crit_rate=1.455,
         blast_damage=1.5,
@@ -475,10 +475,10 @@ def test_C34_fengyu_uses_the_square_crit_zone() -> None:
     assert result.zones["暴击区"] == pytest.approx(2.5 + 0.455 * (2.5 ** 2))
 
 
-def test_C36_fengyu_uses_defense_as_basis() -> None:
+def test_C36_armorer_uses_defense_as_basis() -> None:
     """C36：锋御路径的基础属性是**防御力**，不是攻击力。"""
     result = _normal(
-        path="fengyu",
+        path="armorer",
         snapshot=SnapshotReadings(attack=1000.0, defense=441.0, level=60),
     )
     assert result.zones["基础伤害区"] == pytest.approx(441.0)

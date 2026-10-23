@@ -1553,7 +1553,7 @@ changelog 里三条**历史条目**（第 190、601 行等）保留原词：它�
 
 **后端**：`core/fmt.py::fmt_pct`、`core/panel.py::_sum_values`、
 `core/breakdown.py` 的 `_BASE_KEY` 与 `Segment` 别名、`core/constants.py` 里
-与 `core/modes.py` 重复的 `FENGYU_BLAST_DMG` 及无人调用的 `disc_fixed_stat()`、
+与 `core/modes.py` 重复的 `armorer_BLAST_DMG` 及无人调用的 `disc_fixed_stat()`、
 `presets/validate.py::EXTRA_BASE_KEYS`、`core/__init__.py` 与
 `presets/__init__.py` 的再导出（各 `__init__.py` 保留职责说明，调用方一律直接
 import 子模块）。计算与接口行为不变，121 项测试全绿。
@@ -1563,7 +1563,7 @@ import 子模块）。计算与接口行为不变，121 项测试全绿。
 `stores/presetStore.ts` 的 `status` / `error` / `ready`（三者都只写不读；
 `loadAll()` 失败改为打控制台日志）、`usePanelMode()` 返回的 `mode` 与
 `setPanelMode`、`useSubStatLimit()` 的 `reset`、`calculatorOptions.ts` 里无人导入的
-`FENGYU_BLAST_DMG`，以及 `SelectField` 的 `disabled` / `hidden` 与
+`armorer_BLAST_DMG`，以及 `SelectField` 的 `disabled` / `hidden` 与
 `TextField` 的 `hidden` 与整套 `update:modelValue` 事件（唯一使用处恒为只读）。
 `clamp`、`DiscFixedStat`、`panelModeTagLabel`、`HIDE_STANDARD_MODE_LABEL`、
 `CALC_DEBOUNCE_MS`、`renderBreakdown`、`buildRequest`、`RoleTag` 由 `export`

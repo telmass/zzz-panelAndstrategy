@@ -61,7 +61,7 @@ def naive_anomaly_damage(attack, multiplier, anomaly_multiplier, damage_bonus, a
         stun_zone = _clamp(1.0 + unstunned_vulnerability, 1.0, 3.0)
     return base * bonus * mastery * defense_zone * resist_zone * vulnerability * stun_zone * level_zone * anomaly_bonus * anomaly_crit * distance_falloff
 
-def naive_fengyu_damage(defense, multiplier, damage_bonus, sharpen_damage_bonus, crit_rate, blast_damage, level_coefficient, target_defense, penetration_rate, penetration_value, resistance, resistance_reduce=0.0, ignore_resistance=0.0, defense_bonus=0.0, defense_reduce=0.0, ignore_defense=0.0, easy_damage=0.0, damage_reduction=0.0, stun_vulnerability=1.0, unstunned_vulnerability=1.0, stunned=False, distance_falloff=1.0):
+def naive_armorer_damage(defense, multiplier, damage_bonus, sharpen_damage_bonus, crit_rate, blast_damage, level_coefficient, target_defense, penetration_rate, penetration_value, resistance, resistance_reduce=0.0, ignore_resistance=0.0, defense_bonus=0.0, defense_reduce=0.0, ignore_defense=0.0, easy_damage=0.0, damage_reduction=0.0, stun_vulnerability=1.0, unstunned_vulnerability=1.0, stunned=False, distance_falloff=1.0):
     base = multiplier * defense
     bonus = _clamp(1.0 + damage_bonus, 0.0, 6.0)
     sharpen = _clamp(1.0 + sharpen_damage_bonus, 0.0, 10.0)
@@ -105,4 +105,4 @@ def naive_turbulence_damage(attack, multiplier, turbulence_base, remaining_secon
         stun_zone = _clamp(1.0 + unstunned_vulnerability, 1.0, 3.0)
     return base * bonus * mastery * defense_zone * resist_zone * vulnerability * stun_zone * level_zone * anomaly_bonus * anomaly_crit * distance_falloff
 
-__all__ = ["naive_normal_damage", "naive_piercing_damage", "naive_anomaly_damage", "naive_fengyu_damage", "naive_turbulence_damage"]
+__all__ = ["naive_normal_damage", "naive_piercing_damage", "naive_anomaly_damage", "naive_armorer_damage", "naive_turbulence_damage"]

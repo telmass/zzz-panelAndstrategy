@@ -193,4 +193,4 @@ The renderer displays a 56px image on the left and six numbered slots (01–06) 
 
 - 叶瞬光: `strategy/ye-shunguang/` (standard mode, attack-focused)
 - 般岳: `strategy/banyue/` (rupture mode, HP-focused)
-- 克拉蕾: `strategy/claret/` (fengyu mode, defense-based)
+- 克拉蕾: `strategy/claret/` (armorer mode, defense-based)

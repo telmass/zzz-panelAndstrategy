@@ -126,7 +126,7 @@ def path_for_role(role_tag: str, panel_mode: str = "") -> str:
 
     口径真源在 :func:`damage_service.path_for_agent`（本函数是它的薄包装）：
 
-    - 面板模式 ``rupture`` → **贯穿路径**；``fengyu`` → **锐化路径**；
+    - 面板模式 ``rupture`` → **贯穿路径**；``armorer`` → **锐化路径**；
     - 定位「异常」→ **异常路径**（否则异常精通不进任何乘区，它的边际收益恒为 0，
       优先级链会被误判——实测 alice / aria / burnice 都踩过）；
     - 其余 → 常规路径。

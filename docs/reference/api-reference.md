@@ -140,7 +140,7 @@
 
 ```jsonc
 {
-  "mode": "standard",              // standard | rupture | fengyu
+  "mode": "standard",              // standard | rupture | armorer
   "base": {                        // 12 个数值键，全部可选
     "hp": 8000, "atk": 1000, "def": 600,
     "impact": 90, "cr": 5, "cd": 50,
@@ -191,7 +191,7 @@
     "am": 100, "ac": 100, "imp": 90, "er": 1.2
   },
   "modeStats": {},                 // 见下方「模式专属字段」
-  "blastDmg": null,                // fengyu_blast_dmg 的顶层别名，否则 null
+  "blastDmg": null,                // armorer_blast_dmg 的顶层别名，否则 null
   "sums":    { "hp_flat": 2200, "atk_flat": 316, "def_flat": 184 },
   "sources": { "hp_flat": ["1号固定固定生命+2,200"],
                "atk_flat": ["2号固定固定攻击+316"],
@@ -221,13 +221,13 @@
 | --- | --- | --- | --- |
 | `standard` | `{}` | `null` | 12 |
 | `rupture` | `{ "penforce": 1414.8 }` | `null` | 13（+贯穿力） |
-| `fengyu` | `{ "actual_cr": 22.5, "fengyu_blast_dmg": 150 }` | `150` | 14（+实际暴击率、锐暴伤害） |
+| `armorer` | `{ "actual_cr": 22.5, "armorer_blast_dmg": 150 }` | `150` | 14（+实际暴击率、锐暴伤害） |
 
 - 贯穿力 `= 0.3 × 最终攻击力 + 0.1 × 最终生命值` = `0.3×1316 + 0.1×10200` = **1414.8**
 - 实际暴击率 `= 最终暴击伤害 × 35% + 原最终暴击率` = `50×0.35 + 5` = **22.5**
 - 锐暴伤害 `= 150`（固定常量，不受任何输入影响）
 
-`blastDmg` 与 `modeStats.fengyu_blast_dmg` 是同一个值的两个出口：前端结果面板读
+`blastDmg` 与 `modeStats.armorer_blast_dmg` 是同一个值的两个出口：前端结果面板读
 顶层 `blastDmg`，明细生成读 `modeStats` 内的键。**合并两者会重复计数。**
 
 ### `breakdown` 结构

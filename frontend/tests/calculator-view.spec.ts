@@ -298,7 +298,7 @@ describe('CalculatorView 静态骨架', () => {
 
   it('锋御模式追加实际暴击率与锐暴伤害行', () => {
     const panel = usePanelStore();
-    panel.panelMode = 'fengyu';
+    panel.panelMode = 'armorer';
     const wrapper = mountCalculator();
     const labels = wrapper.findAll('.r-label').map((node) => node.text());
     expect(labels).toContain('实际暴击率');

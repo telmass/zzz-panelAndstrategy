@@ -39,7 +39,7 @@ def path_for_agent(panel_mode: str, role_tag: str) -> str:
     | 面板模式 / 定位 | 路径 | 基础属性 |
     | --- | --- | --- |
     | 面板模式 ``rupture``（命破） | ``piercing`` | **贯穿力** |
-    | 面板模式 ``fengyu``（锋御） | ``fengyu`` | **防御力** |
+    | 面板模式 ``armorer``（锋御） | ``armorer`` | **防御力** |
     | 定位「异常」 | ``anomaly`` | 攻击力 |
     | 其余 | ``normal`` | 攻击力 |
 
@@ -50,8 +50,8 @@ def path_for_agent(panel_mode: str, role_tag: str) -> str:
     """
     if panel_mode == "rupture":
         return "piercing"
-    if panel_mode == "fengyu":
-        return "fengyu"
+    if panel_mode == "armorer":
+        return "armorer"
     if role_tag == "异常":
         return "anomaly"
     return "normal"
@@ -108,7 +108,7 @@ def score_build(
     # 锋御的暴击率用面板的 **actual_cr**——它已经是「面板暴击率 + 初始暴伤 ×
     # 转模比例」的结果（core/modes.py）；**不要在引擎里再转一次模**。
     crit_rate = (
-        _total(totals, "actual_cr") / 100.0 if path == "fengyu" else _total(totals, "cr") / 100.0
+        _total(totals, "actual_cr") / 100.0 if path == "armorer" else _total(totals, "cr") / 100.0
     )
     snapshot = SnapshotReadings(
         attack=_total(totals, "atk"),
@@ -143,7 +143,7 @@ def score_build(
         stunned=stunned,
         # 锐暴伤害：官方基础值 150%（可被额外能力 / 影画 / 套装 / Boss 抬升，
         # 那些来源尚未建模）→ 逐代理人化属二期后续项 B1。
-        blast_damage=_get(agent, "fengyu_blast_damage") or 150.0,
+        blast_damage=_get(agent, "armorer_blast_damage") or 150.0,
     )
     return compute_damage(damage_input)
 

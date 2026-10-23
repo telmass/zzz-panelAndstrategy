@@ -111,7 +111,7 @@ def _build(case: dict) -> tuple[PanelSelection, dict, dict]:
     if case["name"] == "ep-1299":
         mode = "rupture"
     elif case["name"] == "ep-2145":
-        mode = "fengyu"
+        mode = "armorer"
 
     core = tuple(_CORE_BY_LABEL.get(label, "") for label in case.get("core", ("", "")))
     disc_raw = case.get("discMain", {})
@@ -164,9 +164,9 @@ def _actual(result: dict) -> dict:
     """Python 结果 → 与 ``_expected`` 同形状的字典。"""
     out = dict(result["totals"])
     mode_stats = dict(result["mode_stats"])
-    # core 用 fengyu_blast_dmg 命名，legacy 行标签「锐暴伤害」映射为 blast_dmg，
+    # core 用 armorer_blast_dmg 命名，legacy 行标签「锐暴伤害」映射为 blast_dmg，
     # 这里取别名后移除原键，避免同一行被计入两次。
-    blast = mode_stats.pop("fengyu_blast_dmg", None)
+    blast = mode_stats.pop("armorer_blast_dmg", None)
     out.update(mode_stats)
     if blast is not None:
         out["blast_dmg"] = blast

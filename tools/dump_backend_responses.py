@@ -49,7 +49,7 @@ EP1299 = {
 }
 
 EP2145 = {
-    "mode": "fengyu",
+    "mode": "armorer",
     "base": {
         "hp": 5651, "atk": 626, "def": 441, "impact": 93,
         "cr": 22.5, "cd": 50, "ac": 80, "am": 79, "pr": 0, "er": 1.5,

@@ -41,4 +41,4 @@ Vue3 迁移前的原生 HTML 实现（`frontend/legacy/`）在第 5 步已整体
 | `pages/index.html` | `src/views/LauncherView.vue` |
 | `pages/guide.html` | `src/views/GuideView.vue` |
 | `pages/example-template.html` | 不吸收（计算逻辑与统一计算器重复） |
-| `pages/redirect-rupture.html`、`pages/redirect-fengyu.html` | `?mode=` 路由 query |
+| `pages/redirect-rupture.html`、`pages/redirect-armorer.html` | `?mode=` 路由 query |

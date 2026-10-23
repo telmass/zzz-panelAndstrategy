@@ -132,7 +132,7 @@ def validate_agents(agents: Sequence[AgentPreset]) -> None:
             _fail(where, "缺少 grade")
         if agent.grade not in AGENT_GRADES:
             _fail(where, f"grade“{agent.grade}”不属于 {sorted(AGENT_GRADES)}")
-        if agent.panel_mode not in ("standard", "rupture", "fengyu"):
+        if agent.panel_mode not in ("standard", "rupture", "armorer"):
             _fail(where, f"未知的面板模式 {agent.panel_mode!r}")
         if not agent.source:
             _fail(where, "缺少数据来源链接")

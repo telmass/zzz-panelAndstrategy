@@ -120,7 +120,7 @@ def build_breakdown(
 
     :param base: 角色基础面板，键为 ``hp/atk/def/cr/cd/pr/am/ac/impact/er``
     :param totals: 12 行通用最终面板数值
-    :param mode_stats: 命破 ``penforce`` 或锋御 ``actual_cr`` / ``fengyu_blast_dmg``
+    :param mode_stats: 命破 ``penforce`` 或锋御 ``actual_cr`` / ``armorer_blast_dmg``
     :param modifiers: :class:`~zzz_panel.core.modifiers.ModifierResult`
     :param weapon_base: ``{"atk": ..., "def": ...}``，音擎基础值归属
     """
@@ -187,8 +187,8 @@ def build_breakdown(
             Line([Text("= "), Num(mode_stats["actual_cr"], bold=True, unit="%")]),
         ]
 
-    if "fengyu_blast_dmg" in mode_stats:
-        blast = mode_stats["fengyu_blast_dmg"]
+    if "armorer_blast_dmg" in mode_stats:
+        blast = mode_stats["armorer_blast_dmg"]
         out["blast_dmg"] = [
             Line([Text("固有属性，不受词条、音擎与套装影响")]),
             Line([Text("= "), Num(blast, bold=True, unit="%")]),

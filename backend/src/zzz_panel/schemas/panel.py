@@ -25,7 +25,7 @@ from pydantic.alias_generators import to_camel
 
 from .base import CamelModel as _CamelModel
 
-PanelMode = Literal["standard", "rupture", "fengyu"]
+PanelMode = Literal["standard", "rupture", "armorer"]
 
 
 class BaseStatsIn(_CamelModel):
