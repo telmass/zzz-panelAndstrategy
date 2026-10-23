@@ -37,9 +37,11 @@
 | [reference/api-reference.md](reference/api-reference.md) | HTTP 接口、请求/响应结构、状态码 |
 | [design/data-schema.md](design/data-schema.md) | 预设 JSON、规则表、驱动盘套装效果的字段定义与校验 |
 | [design/calculation-rules.md](design/calculation-rules.md) | 计算公式、副词条数值、模式差异 |
+| [design/damage-mechanism-guide.md](design/damage-mechanism-guide.md) | **伤害机制读本 + 配装求解设计**：白板环境（§17）、局内效果层（§18）、代理人计算档案（§19）、理论循环（§20）、词条最优分配（§21）、驱动盘评分（§22）、影画/音擎相对值（§23）、非满配边际收益（§24） |
 | [design/ui-system.md](design/ui-system.md) | **前端视觉体系**：设计令牌、字号 / 字重 / 间距 / 阴影阶梯、颜色语义、UI 闸门与截图工具 |
 | [design/ui-review-checklist.md](design/ui-review-checklist.md) | **UI 人工验收清单**：三档分层、截图节点、验收表模板 |
 | [design/ui-review-log.md](design/ui-review-log.md) | UI 验收记录与先例表（跨轮次一致性的依据） |
+| [plans/damage-solving-engine.md](plans/damage-solving-engine.md) | **待执行**：伤害求解层落地计划（白板口径、局内效果、计算器档案、词条优化、报告与策略页；P0–P7 + 验收 + 迁移） |
 
 ## 部署与运维
 

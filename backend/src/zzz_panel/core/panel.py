@@ -257,7 +257,7 @@ def calculate_selection(
         "mode": selection.mode,
         "totals": totals,
         "mode_stats": mode_stats,
-        "blast_dmg": mode_stats.get("armorer_blast_dmg"),
+        "blast_dmg": mode_stats.get("fengyu_blast_dmg"),
         "sums": {key: value for key, value in sums.items()},
         "sources": {key: list(value) for key, value in modifiers.sources.items()},
         "sub_fixed": dict(modifiers.sub_fixed),

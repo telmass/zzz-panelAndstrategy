@@ -11,6 +11,7 @@
 | 文档 | 主题 | 状态 |
 | --- | --- | --- |
 | [damage-engine-phase2.md](damage-engine-phase2.md) | 伤害引擎二期：职业口径补全（锋御 / 命破 / 风属性）+ 参数数据集（技能倍率 / 敌方参数 / 锐暴与转模） | 未执行 |
+| [damage-solving-engine.md](damage-solving-engine.md) | 伤害求解层落地：白板口径、局内效果、代理人档案、理论循环、词条优化、驱动盘评分、相对值报告与策略页 | 待执行 |
 
 ## 与其它目录的边界
 
